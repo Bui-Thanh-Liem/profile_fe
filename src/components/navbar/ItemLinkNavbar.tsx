@@ -16,16 +16,23 @@ export default function ItemLinkNavbar(props: IPropItemLinkNavbar) {
       }
       return page === props.href;
     });
-  }, [pathname]);
+  }, [pathname, props.href]);
 
   return (
     <Link
       href={props.href}
-      className={`pb-1 border-b-2 ${
-        isActive ? "border-primary" : "border-transparent"
+      className={`inline-block p-1 relative group hover:text-primary ${
+        isActive
+          ? "border-primary text-primary -top-1.5 transition-all ease-linear duration-200"
+          : "border-transparent"
       }`}
     >
       {props.children}
+      <div
+        className={`absolute w-0 left-0 -bottom-1 h-[2px] bg-primary transition-all duration-300 ease-in-out group-hover:w-full ${
+          isActive && "w-[100%]"
+        }`}
+      ></div>
     </Link>
   );
 }

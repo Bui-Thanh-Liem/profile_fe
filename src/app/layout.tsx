@@ -36,11 +36,20 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-second-app`}
       >
-        <p className="text-primary">TEST TAILWIND</p>
-        <div className="flex bg-background">
+        <div className="fixed top-0 left-0 right-0 z-50 flex bg-background shadow-sm">
           <NavBar />
         </div>
-        <div className="w-[1200px] m-auto overflow-x-hidden">{children}</div>
+        <div className="m-auto overflow-x-hidden">
+          <div
+            className="w-[1200px] m-auto flex items-center"
+            style={{
+              marginTop: "var(--hight-navbar)",
+              height: `calc(100vh - var(--hight-navbar))`,
+            }}
+          >
+            {children}
+          </div>
+        </div>
       </body>
     </html>
   );

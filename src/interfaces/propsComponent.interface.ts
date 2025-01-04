@@ -13,5 +13,12 @@ export interface IPropItemLinkNavbar {
 
 export interface IPropButtonPrimary extends ButtonProps {
   children: string | ReactNode;
-  icon?: ReactNode;
+}
+
+export interface IPropAnimatedText {
+  children: string | ReactNode;
+}
+
+export interface IPropEnterTextAnimated {
+  texts: Array<string>;
 }

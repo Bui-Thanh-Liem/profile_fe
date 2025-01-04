@@ -1,0 +1,12 @@
+/* Bỏ hiệu ứng hover và active */
+.ant-menu-item:hover,
+.ant-menu-item-active,
+.ant-menu-item-selected {
+  background-color: transparent !important;
+  color: inherit !important;
+}
+
+/* Nếu muốn bỏ màu nền khi item được chọn */
+.no-hover-active .ant-menu-item-selected {
+  background-color: transparent !important;
+}

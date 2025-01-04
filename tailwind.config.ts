@@ -14,6 +14,7 @@ const config: Config = {
         primary: "var(--primary)",
         "gray-app": "var(--gray-app)",
         "gray-second-app": "var(--gray-second-app)",
+        "hight-navbar": "var(--hight-navbar)",
       },
     },
   },

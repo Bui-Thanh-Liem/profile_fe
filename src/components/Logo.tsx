@@ -4,9 +4,9 @@ const Logo = () => {
   return (
     <Link
       href="/"
-      className="p-2 bg-gray-app text-background rounded-tl-[15px] rounded-br-[15px] text-lg font-bold "
+      className="p-2 bg-foreground text-background rounded-tl-[15px] rounded-br-[15px] text-lg font-bold "
     >
-      .BTL
+      .LiemDev
     </Link>
   );
 };

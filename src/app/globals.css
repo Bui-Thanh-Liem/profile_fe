@@ -8,6 +8,9 @@
   --primary: #04befe;
   --gray-app: #4b5563;
   --gray-second-app: #f3f4f6;
+
+  /*  */
+  --hight-navbar: 68px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,6 +20,7 @@
     --primary: #04befe;
     --gray-app: #4b5563;
     --gray-second-app: #f3f4f6;
+    --hight-navbar: 68px;
   }
 }
 

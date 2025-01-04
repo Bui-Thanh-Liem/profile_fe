@@ -20,6 +20,7 @@ const useStyle = createStyles(({ prefixCls, css }) => ({
         opacity: 1;
         transition: all 0.3s;
         border-radius: inherit;
+        mix-blend-mode: overlay;
       }
 
       &:hover::before {
@@ -31,7 +32,6 @@ const useStyle = createStyles(({ prefixCls, css }) => ({
 
 const ButtonPrimary = ({
   children,
-  icon,
   ...restProps
 }: IPropButtonPrimary) => {
   const { styles } = useStyle();
@@ -43,7 +43,7 @@ const ButtonPrimary = ({
       }}
     >
       <Space>
-        <Button icon={icon} type="primary" {...restProps}>
+        <Button type="primary" {...restProps}>
           {children}
         </Button>
       </Space>

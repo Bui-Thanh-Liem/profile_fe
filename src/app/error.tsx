@@ -17,7 +17,6 @@ export default function ErrorPage({
 
   return (
     <Result
-      className="mt-24"
       status="500"
       title="500"
       subTitle="Sorry, something went wrong."

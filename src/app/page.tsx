@@ -4,6 +4,7 @@ import meWebp from "../../public/meWebp.webp";
 import Image from "next/image";
 import Link from "next/link";
 import { FaUserGraduate } from "react-icons/fa";
+import EnterTextAnimated from "@/components/EnterTextAnimated";
 
 export default function HomePage() {
   const classesImage =
@@ -17,7 +18,7 @@ export default function HomePage() {
           I am <HighlighText text="Bui Thanh Liem" />
         </h1>
         <h1 className="text-2xl font-bold text-foreground">
-          I am a <HighlighText text="Software engineer" />
+          I am a <EnterTextAnimated texts={["Software engineer"]} />
         </h1>
 
         <ButtonPrimary size="large" icon={<FaUserGraduate />}>

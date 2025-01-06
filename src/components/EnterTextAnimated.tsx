@@ -1,21 +1,30 @@
 "use client";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 
 //
 import { IPropEnterTextAnimated } from "@/interfaces/propsComponent.interface";
 
-export default function EnterTextAnimated({ texts }: IPropEnterTextAnimated) {
+function EnterTextAnimated({ texts }: IPropEnterTextAnimated) {
   const [index, setIndex] = useState<number>(0);
-  const [indexSlice, setIndexSlice] = useState<number>(0);
   const [text, setText] = useState<string>(texts[index] || "");
+  const [indexSlice, setIndexSlice] = useState<number>(0);
 
-  // useEffect(() => {
-  //   const id = setInterval(() => {
-  //     console.log("asdfasdfsadfsdfds");
+  const isChangeTextRef = useRef(false);
+  useEffect(() => {
+    const id = setInterval(() => {
+      setIndexSlice(() => {
+        if (indexSlice === text.length - 1) {
+          isChangeTextRef.current = true;
+          return indexSlice - 1;
+        }
+        return indexSlice + 1;
+      });
+    }, 500);
 
-  //     setIndexSlice(indexSlice + 1);
-  //   }, 500);
-  // }, []);
+    return () => {
+      clearInterval(id);
+    };
+  }, []);
 
   return (
     <span>
@@ -24,3 +33,5 @@ export default function EnterTextAnimated({ texts }: IPropEnterTextAnimated) {
     </span>
   );
 }
+
+export default memo(EnterTextAnimated);

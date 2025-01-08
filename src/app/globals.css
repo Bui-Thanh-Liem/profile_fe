@@ -13,7 +13,7 @@
   --hight-navbar: 68px;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
@@ -22,7 +22,7 @@
     --gray-second-app: #f3f4f6;
     --hight-navbar: 68px;
   }
-}
+} */
 
 body {
   color: var(--foreground);

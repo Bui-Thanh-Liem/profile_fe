@@ -27,3 +27,11 @@ export interface IPropCardSkill {
   name: string;
   iconUrl: string;
 }
+
+export interface IPropModalRequireLogin {
+  open: boolean;
+  title: string;
+  showModal: () => void;
+  handleOk: () => void;
+  handleCancel: () => void;
+}

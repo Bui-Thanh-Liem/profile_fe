@@ -17,7 +17,7 @@ export default function CardSkill({ name, iconUrl }: IPropCardSkill) {
 
   return (
     <div
-      className="h-32 w-56 border-4 bg-primary rounded-tl-3xl rounded-br-3xl flex justify-center items-center flex-col gap-2 cursor-pointer"
+      className="h-32 w-56 border-4 bg-gradient-to-tr from-primary rounded-tl-3xl rounded-br-3xl flex justify-center items-center flex-col gap-2 cursor-pointer"
       onClick={openNotification}
     >
       <Image width={50} height={50} src={iconUrl} alt={name} />

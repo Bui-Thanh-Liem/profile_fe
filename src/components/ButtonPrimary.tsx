@@ -30,10 +30,7 @@ const useStyle = createStyles(({ prefixCls, css }) => ({
   `,
 }));
 
-const ButtonPrimary = ({
-  children,
-  ...restProps
-}: IPropButtonPrimary) => {
+const ButtonPrimary = ({ children, ...restProps }: IPropButtonPrimary) => {
   const { styles } = useStyle();
 
   return (

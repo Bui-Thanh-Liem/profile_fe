@@ -7,6 +7,8 @@ import { FaUserGraduate } from "react-icons/fa";
 import EnterTextAnimated from "@/components/EnterTextAnimated";
 
 export default function HomePage() {
+  console.log("re-render");
+
   const classesImage =
     "relative col-span-3 w-[400px] p-6 rounded-tl-[80px] rounded-br-[80px] border-2 border-solid border-primary shadow-md shadow-primary";
 
@@ -15,17 +17,24 @@ export default function HomePage() {
       <div className="col-span-7 flex flex-col gap-6">
         <h1 className="text-5xl font-bold text-foreground">Hi There,</h1>
         <h1 className="text-5xl font-bold text-foreground">
-          I am <HighlighText text="Bui Thanh Liem" />
+          My name&apos;s <HighlighText text="Bui Thanh Liem" />
         </h1>
         <h1 className="text-2xl font-bold text-foreground">
-          I am a <EnterTextAnimated texts={["Software engineer"]} />
+          I&apos;m a{" "}
+          <EnterTextAnimated
+            texts={[
+              "Software engineer___",
+              "Front-end developer___",
+              "Back-end developer___",
+            ]}
+          />
         </h1>
 
-        <ButtonPrimary size="large" icon={<FaUserGraduate />}>
-          <Link href="/about" target="_blank">
+        <Link href="/about">
+          <ButtonPrimary size="large" icon={<FaUserGraduate />}>
             About me
-          </Link>
-        </ButtonPrimary>
+          </ButtonPrimary>
+        </Link>
       </div>
       <div className={classesImage}>
         <Image src={meWebp} alt="LiemDev" className={classesImage} />

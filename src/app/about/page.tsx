@@ -41,11 +41,16 @@ function AboutPage() {
           <HighlighText text="Place: " />
           Huynh Tan Phat, District 7, Ho Chi Minh City.
         </p>
-        <ButtonPrimary size="large" iconPosition="end" icon={<TbFileCv />}>
-          <a href="/CV_BuiThanhLiem.pdf" target="_blank" download={true}>
+        <a href="/CV_BuiThanhLiem.pdf" target="_blank" download={true}>
+          <ButtonPrimary
+            size="large"
+            iconPosition="end"
+            icon={<TbFileCv />}
+            className="mt-2"
+          >
             Resume
-          </a>
-        </ButtonPrimary>
+          </ButtonPrimary>
+        </a>
       </div>
       <div
         className="relative col-span-3

@@ -22,3 +22,8 @@ export interface IPropAnimatedText {
 export interface IPropEnterTextAnimated {
   texts: Array<string>;
 }
+
+export interface IPropCardSkill {
+  name: string;
+  iconUrl: string;
+}

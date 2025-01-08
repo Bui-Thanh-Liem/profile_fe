@@ -1,34 +1,62 @@
 "use client";
 import { memo, useEffect, useRef, useState } from "react";
+import programer from "../../public/icons/programer.png";
+import frontend from "../../public/icons/frontend.png";
+import backend from "../../public/icons/backend.png";
 
 //
 import { IPropEnterTextAnimated } from "@/interfaces/propsComponent.interface";
+import Image from "next/image";
 
 function EnterTextAnimated({ texts }: IPropEnterTextAnimated) {
+  const images = [programer, frontend, backend];
   const [index, setIndex] = useState<number>(0);
-  const [text, setText] = useState<string>(texts[index] || "");
   const [indexSlice, setIndexSlice] = useState<number>(0);
+  const isDirectionLetter = useRef(false);
 
-  const isChangeTextRef = useRef(false);
   useEffect(() => {
     const id = setInterval(() => {
       setIndexSlice(() => {
-        if (indexSlice === text.length - 1) {
-          isChangeTextRef.current = true;
+        //
+        if (indexSlice === texts[index].length - 1) {
+          isDirectionLetter.current = false;
+        }
+
+        //
+        if (indexSlice === 0) {
+          isDirectionLetter.current = true;
+          setIndex(() => {
+            if (index === texts.length - 1) {
+              return 0;
+            }
+            return index + 1;
+          });
+        }
+
+        //
+        if (isDirectionLetter.current) {
+          return indexSlice + 1;
+        } else {
           return indexSlice - 1;
         }
-        return indexSlice + 1;
       });
-    }, 500);
+    }, 100);
 
     return () => {
       clearInterval(id);
     };
-  }, []);
+  }, [index, indexSlice, texts]);
 
   return (
-    <span>
-      {text.slice(0, indexSlice)}
+    <span className="text-primary text-4xl inline-block">
+      <Image
+        className="inline-block"
+        src={images[index]}
+        alt={texts[index]}
+        width={50}
+        height={50}
+      />{" "}
+      {texts[index].slice(0, indexSlice)}
       <span className="inline-block w-[2px] h-4 animate-ping bg-primary"></span>
     </span>
   );

@@ -1,5 +1,7 @@
+import StorageLayout from "@/pages/StorageLayout";
+
 function KnowledgeStoragePage() {
-  return <div>Knowledge Storage Page</div>;
+  return <StorageLayout />;
 }
 
 export default KnowledgeStoragePage;

@@ -1,5 +1,5 @@
-import { ButtonProps } from "antd";
-import { ReactNode } from "react";
+import { ButtonProps, InputProps } from "antd";
+import { ChangeEvent, ReactNode } from "react";
 
 export interface IPropIconNavbar {
   src: string;
@@ -28,10 +28,13 @@ export interface IPropCardSkill {
   iconUrl: string;
 }
 
-export interface IPropModalRequireLogin {
-  open: boolean;
-  title: string;
-  showModal: () => void;
-  handleOk: () => void;
-  handleCancel: () => void;
+export interface IPropInputPrimary extends InputProps {
+  value: string;
+  onChangeInput: (event: ChangeEvent<HTMLInputElement>) => void;
+  label: string;
+}
+
+export interface IPropInputPassword {
+  value: string;
+  onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
 }

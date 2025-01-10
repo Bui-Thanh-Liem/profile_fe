@@ -12,7 +12,7 @@ import ItemLinkNavbar from "./ItemLinkNavbar";
 function NavBar() {
   return (
     <div
-      className="w-[1200px] m-auto flex justify-between items-center"
+      className="w-[1200px] m-auto flex justify-between items-center "
       style={{ height: "var(--hight-navbar)" }}
     >
       <div>

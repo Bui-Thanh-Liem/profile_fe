@@ -37,7 +37,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-second-app`}
       >
-        <div className="fixed top-0 left-0 right-0 z-50 flex bg-background shadow-sm">
+        <div className="fixed top-0 left-0 right-0 z-50 flex shadow-sm">
           <NavBar />
         </div>
         <div className="m-auto overflow-x-hidden">

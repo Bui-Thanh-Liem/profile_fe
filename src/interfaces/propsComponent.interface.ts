@@ -28,6 +28,10 @@ export interface IPropCardSkill {
   iconUrl: string;
 }
 
+export interface IPropCardStorage extends IPropCardSkill {
+  href: string;
+}
+
 export interface IPropInputPrimary extends InputProps {
   value: string;
   onChangeInput: (event: ChangeEvent<HTMLInputElement>) => void;

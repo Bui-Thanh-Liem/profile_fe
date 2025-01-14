@@ -45,17 +45,19 @@ function ListCardSkill() {
     { name: "Docker", icon: docker },
   ];
   return (
-    <div className="grid grid-cols-5 gap-5">
-      {skills.map((skill) => {
-        return (
-          <CardSkill
-            key={uuidV4()}
-            iconUrl={skill.icon.src}
-            name={skill.name}
-          />
-        );
-      })}
-    </div>
+    <main className="flex">
+      <div className="m-auto w-[1200px] min-h-screen grid grid-cols-5 gap-4 pt-28 pb-10">
+        {skills.map((skill) => {
+          return (
+            <CardSkill
+              key={uuidV4()}
+              iconUrl={skill.icon.src}
+              name={skill.name}
+            />
+          );
+        })}
+      </div>
+    </main>
   );
 }
 

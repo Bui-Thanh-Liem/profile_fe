@@ -21,6 +21,7 @@ export default function ErrorPage({
       title="500"
       subTitle="Sorry, something went wrong."
       extra={<ButtonPrimary onClick={() => reset()}>Try again</ButtonPrimary>}
+      style={{ height: `calc(100vh - var(--hight-navbar))` }}
     />
   );
 }

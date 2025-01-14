@@ -11,25 +11,22 @@ import ItemLinkNavbar from "./ItemLinkNavbar";
 //
 function NavBar() {
   return (
-    <div
-      className="w-[1200px] m-auto flex justify-between items-center "
-      style={{ height: "var(--hight-navbar)" }}
-    >
+    <div className="w-[1200px] m-auto flex justify-between items-center h-16">
       <div>
         <Logo />
       </div>
       <ul className="flex gap-8">
         <li>
-          <ItemLinkNavbar href="about">About</ItemLinkNavbar>
+          <ItemLinkNavbar href="/about">About</ItemLinkNavbar>
         </li>
         <li>
-          <ItemLinkNavbar href="skills">Skills</ItemLinkNavbar>
+          <ItemLinkNavbar href="/skills">Skills</ItemLinkNavbar>
         </li>
         <li>
-          <ItemLinkNavbar href="education">Education</ItemLinkNavbar>
+          <ItemLinkNavbar href="/education">Education</ItemLinkNavbar>
         </li>
         <li>
-          <ItemLinkNavbar href="work">Work</ItemLinkNavbar>
+          <ItemLinkNavbar href="/work">Work</ItemLinkNavbar>
         </li>
         <li>
           <ItemLinkNavbar href="experience">Experience</ItemLinkNavbar>
@@ -38,13 +35,13 @@ function NavBar() {
           <ItemLinkNavbar href="/">Home</ItemLinkNavbar>
         </li>
         <li>
-          <ItemLinkNavbar href="blogs">Blogs</ItemLinkNavbar>
+          <ItemLinkNavbar href="/blogs">Blogs</ItemLinkNavbar>
         </li>
         <li>
-          <ItemLinkNavbar href="projects">Projects</ItemLinkNavbar>
+          <ItemLinkNavbar href="/projects">Projects</ItemLinkNavbar>
         </li>
         <li>
-          <ItemLinkNavbar href="storage">Storage</ItemLinkNavbar>
+          <ItemLinkNavbar href="/storage">Storage</ItemLinkNavbar>
         </li>
       </ul>
       <ul className="flex gap-8 justify-end">

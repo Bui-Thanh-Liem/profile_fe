@@ -1,4 +1,4 @@
-import StorageLayout from "@/pages/StorageLayout";
+import StorageLayout from "@/layouts/storage/StorageLayout";
 
 function KnowledgeStoragePage() {
   return <StorageLayout />;

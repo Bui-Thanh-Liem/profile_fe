@@ -13,6 +13,7 @@ function NotFoundPage() {
           <ButtonPrimary>Back Home</ButtonPrimary>
         </Link>
       }
+      style={{ height: `calc(100vh - var(--hight-navbar))` }}
     />
   );
 }

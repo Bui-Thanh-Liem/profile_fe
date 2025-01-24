@@ -6,8 +6,8 @@ import { TbFileCv } from "react-icons/tb";
 
 function AboutPage() {
   return (
-    <main className="flex">
-      <div className="m-auto h-screen w-[1200px] flex gap-16 justify-between items-center">
+    <main className="flex h-screen">
+      <div className="m-auto w-[1200px] flex gap-16 justify-between items-center">
         <section className="flex-1 flex flex-col ">
           <h2 className="mb-4 text-lg font-bold text-foreground">Biography</h2>
           <p className="font-medium">

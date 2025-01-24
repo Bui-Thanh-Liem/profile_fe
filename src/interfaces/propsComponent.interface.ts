@@ -39,6 +39,7 @@ export interface IPropInputPrimary extends InputProps {
 }
 
 export interface IPropInputPassword {
+  label?: string;
   value: string;
   onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
 }

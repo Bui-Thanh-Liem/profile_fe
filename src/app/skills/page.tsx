@@ -22,7 +22,7 @@ import redux from "../../../public/icons/skills/redux.png";
 import ts from "../../../public/icons/skills/typescript.png";
 import zustand from "../../../public/icons/skills/zustand.png";
 
-function ListCardSkill() {
+export default function SkillPage() {
   const skills = [
     { name: "Html", icon: html },
     { name: "Css", icon: css },
@@ -40,29 +40,27 @@ function ListCardSkill() {
     { name: "Redux", icon: redux },
     { name: "Nest js", icon: nestjs },
     { name: "Github", icon: github },
-    { name: "Json wed token", icon: jwt },
+    { name: "Json web token", icon: jwt },
     { name: "Redis", icon: redis },
     { name: "Docker", icon: docker },
   ];
+
   return (
-    <main className="flex">
-      <div className="m-auto w-[1200px] min-h-screen grid grid-cols-5 gap-4 pt-28 pb-10">
-        {skills.map((skill) => {
+    <main className="flex h-screen">
+      <div className="m-auto w-[1200px] grid grid-cols-5 place-items-center gap-y-4">
+        {skills.map((skill, index) => {
+          const delay = `${index * 0.4}s`;
           return (
-            <CardSkill
+            <div
               key={uuidV4()}
-              iconUrl={skill.icon.src}
-              name={skill.name}
-            />
+              className="h-32 w-56 border-4 bg-gradient-to-tr from-primary rounded-tl-3xl rounded-br-3xl flex justify-center items-center flex-col gap-2 cursor-pointer animate-wave"
+              style={{ animationDelay: delay }}
+            >
+              <CardSkill iconUrl={skill.icon.src} name={skill.name} />
+            </div>
           );
         })}
       </div>
     </main>
   );
 }
-
-function SkillPage() {
-  return <ListCardSkill />;
-}
-
-export default SkillPage;

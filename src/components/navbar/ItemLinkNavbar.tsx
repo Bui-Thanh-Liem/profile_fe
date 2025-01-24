@@ -10,11 +10,12 @@ export default function ItemLinkNavbar(props: IPropItemLinkNavbar) {
 
   useEffect(() => {
     const page = pathname?.split("/").slice(1, 2).join("");
+
     setIsActive(() => {
       if (page === "" && props.href === "/") {
         return true;
       }
-      return page === props.href;
+      return `/${page}` === props.href;
     });
   }, [pathname, props.href]);
 

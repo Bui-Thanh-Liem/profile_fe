@@ -34,10 +34,11 @@ export default function Notification() {
   ];
 
   return (
-    <Badge count={5} className="mt-2">
+    <Badge count={2} className="mt-2">
       <Dropdown
         menu={{ items: notificationItems }}
         arrow={{ pointAtCenter: true }}
+        placement="bottomRight"
       >
         <FaRegBell size={24} />
       </Dropdown>

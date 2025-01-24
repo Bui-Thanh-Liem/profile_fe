@@ -1,7 +1,5 @@
 import StorageLayout from "@/layouts/storage/StorageLayout";
 
-function KnowledgeStoragePage() {
+export default function KnowledgeStoragePage() {
   return <StorageLayout />;
 }
-
-export default KnowledgeStoragePage;

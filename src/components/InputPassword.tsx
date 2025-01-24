@@ -2,11 +2,15 @@ import { IPropInputPassword } from "@/interfaces/propsComponent.interface";
 import { Input } from "antd";
 import { PiEyeSlashThin, PiEyeThin } from "react-icons/pi";
 
-export default function InputPassword({ value, onChangePassword }: IPropInputPassword) {
+export default function InputPassword({
+  value,
+  onChangePassword,
+  label,
+}: IPropInputPassword) {
   return (
     <div>
       <label htmlFor="password" className="text-base inline-block mb-[2px]">
-        Password
+        {label || "Password"}
       </label>
       <Input.Password
         value={value}

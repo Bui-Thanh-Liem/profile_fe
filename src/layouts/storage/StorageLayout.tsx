@@ -1,14 +1,14 @@
 // import ModalRequireLogin from "@/components/modals/ModalRequireLogin";
 import CardStorage from "@/components/cards/CardStorage";
+import ModalRequireLogin from "@/components/modals/ModalRequireLogin";
 import { IPropCardStorage } from "@/interfaces/propsComponent.interface";
 import { v4 as uuidV4 } from "uuid";
 import baseAlgorithm from "../../../public/icons/algorithm.png";
 import backend from "../../../public/icons/backend.png";
+import cmd from "../../../public/icons/cmd.png";
 import dataStructureAndAlgorithm from "../../../public/icons/data-structure.png";
 import devOps from "../../../public/icons/devOps.png";
 import frontend from "../../../public/icons/frontend.png";
-import Notification from "./Notification";
-import Profile from "./Profile";
 
 const itemsStorage: Array<IPropCardStorage> = [
   {
@@ -29,18 +29,23 @@ const itemsStorage: Array<IPropCardStorage> = [
   {
     iconUrl: baseAlgorithm.src,
     name: "Base Algorithm",
-    href: "base-algorithm",
+    href: "/base-algorithm",
   },
   {
     iconUrl: dataStructureAndAlgorithm.src,
-    name: "Data Structure And Algorithm",
-    href: "data-structure-and-algorithm",
+    name: "Advanced Algorithm",
+    href: "advanced-algorithm",
+  },
+  {
+    iconUrl: cmd.src,
+    name: "Command line",
+    href: "cmd",
   },
 ];
 
 function CardStorageList({ items }: { items: Array<IPropCardStorage> }) {
   return (
-    <div className="grid grid-cols-3">
+    <div className="flex flex-wrap gap-6">
       {items?.map((item) => (
         <CardStorage
           key={uuidV4()}
@@ -55,13 +60,9 @@ function CardStorageList({ items }: { items: Array<IPropCardStorage> }) {
 
 export default function StorageLayout() {
   return (
-    <main className="flex">
-      <div className="m-auto w-[1200px]">
-        {/* <ModalRequireLogin /> */}
-        <Notification />
-        <Profile />
-        {/* <div className="flex items-center justify-end gap-12">
-        </div> */}
+    <main className="flex justify-center items-center min-h-screen">
+      <div className="w-[1200px]">
+        <ModalRequireLogin />
         <CardStorageList items={itemsStorage} />
       </div>
     </main>

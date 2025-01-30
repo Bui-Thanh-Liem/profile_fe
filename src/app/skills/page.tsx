@@ -19,6 +19,7 @@ import nextjs from "../../../public/icons/skills/nextjs.png";
 import node from "../../../public/icons/skills/nodejs.png";
 import redis from "../../../public/icons/skills/redis.png";
 import redux from "../../../public/icons/skills/redux.png";
+import tailwind from "../../../public/icons/skills/tailwind.png";
 import ts from "../../../public/icons/skills/typescript.png";
 import zustand from "../../../public/icons/skills/zustand.png";
 
@@ -26,40 +27,32 @@ export default function SkillPage() {
   const skills = [
     { name: "Html", icon: html },
     { name: "Css", icon: css },
+    { name: "Tailwind Css", icon: tailwind },
     { name: "Javascript", icon: js },
     { name: "React js", icon: react },
-    { name: "Next js", icon: nextjs },
-    { name: "Antd design", icon: antd },
-    { name: "Material ui", icon: mui },
+    { name: "Redux", icon: redux },
     { name: "Zustand", icon: zustand },
+    { name: "Next js", icon: nextjs },
+    { name: "Ant design", icon: antd },
+    { name: "Material ui", icon: mui },
     { name: "Node js", icon: node },
     { name: "Express js", icon: express },
+    { name: "Json web token", icon: jwt },
     { name: "Mongo DB", icon: mongo },
     { name: "Mysql", icon: mysql },
     { name: "Typescript", icon: ts },
-    { name: "Redux", icon: redux },
     { name: "Nest js", icon: nestjs },
-    { name: "Github", icon: github },
-    { name: "Json web token", icon: jwt },
     { name: "Redis", icon: redis },
     { name: "Docker", icon: docker },
+    { name: "Github", icon: github },
   ];
 
   return (
-    <main className="flex h-screen">
+    <main className="flex h-screen pt-10">
       <div className="m-auto w-[1200px] grid grid-cols-5 place-items-center gap-y-4">
-        {skills.map((skill, index) => {
-          const delay = `${index * 0.4}s`;
-          return (
-            <div
-              key={uuidV4()}
-              className="h-32 w-56 border-4 bg-gradient-to-tr from-primary rounded-tl-3xl rounded-br-3xl flex justify-center items-center flex-col gap-2 cursor-pointer animate-wave"
-              style={{ animationDelay: delay }}
-            >
-              <CardSkill iconUrl={skill.icon.src} name={skill.name} />
-            </div>
-          );
-        })}
+        {skills.map((skill) => (
+          <CardSkill key={uuidV4()} icon={skill.icon.src} name={skill.name} />
+        ))}
       </div>
     </main>
   );

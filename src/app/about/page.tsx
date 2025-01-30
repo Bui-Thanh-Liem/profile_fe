@@ -45,7 +45,6 @@ function AboutPage() {
           <a href="/CV_BuiThanhLiem.pdf" target="_blank" download={true}>
             <ButtonPrimary
               size="large"
-              iconPosition="end"
               icon={<TbFileCv />}
               className="mt-2"
             >

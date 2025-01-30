@@ -25,7 +25,8 @@ export interface IPropEnterTextAnimated {
 
 export interface IPropCardSkill {
   name: string;
-  iconUrl: string;
+  icon: string;
+  link?: string;
 }
 
 export interface IPropCardStorage extends IPropCardSkill {
@@ -42,4 +43,8 @@ export interface IPropInputPassword {
   label?: string;
   value: string;
   onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
+}
+
+export interface IPropLogo {
+  size?: "small" | "medium" | "large";
 }

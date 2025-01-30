@@ -1,7 +1,10 @@
 "use client";
-import { Dropdown, Avatar, MenuProps } from "antd";
-import { RiUser2Line, RiSettings4Line } from "react-icons/ri";
+import { Avatar, Dropdown, MenuProps } from "antd";
+import { IoIosLogOut } from "react-icons/io";
+import { RiSettings4Line, RiUser2Line } from "react-icons/ri";
 import liem from "../../public/me.png";
+import useCustomerStore from "../../stores/useCustomer";
+import { useRouter } from "next/navigation";
 
 const userItems: MenuProps["items"] = [
   {
@@ -13,22 +16,37 @@ const userItems: MenuProps["items"] = [
     type: "divider",
   },
   {
-    key: "user/profile",
+    key: "customer/profile",
     label: "Profile",
     icon: <RiUser2Line />,
     extra: "Ctrl + P",
   },
   {
-    key: "user/settings",
+    key: "customer/settings",
     label: "Settings",
     icon: <RiSettings4Line />,
     extra: "Ctrl + S",
   },
+  {
+    type: "divider",
+  },
+  {
+    key: "customer/logout",
+    label: <span className="text-red-600">Logout</span>,
+    icon: <IoIosLogOut color="#dc2626" />,
+    extra: "Ctrl + O",
+  },
 ];
 
 export default function Profile() {
+  const router = useRouter();
+  const { logout } = useCustomerStore();
   const onClickItemMenu: MenuProps["onClick"] = (info) => {
     console.log("info.key:::", info.key);
+    if (info.key === "customer/logout") {
+      logout();
+      router.push("/");
+    }
   };
 
   return (

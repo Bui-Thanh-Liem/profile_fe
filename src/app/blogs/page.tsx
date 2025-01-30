@@ -1,5 +1,7 @@
+import ComingSoonPage from "@/components/ComingSoon";
+
 function BlogPage() {
-  return <div>Blog page</div>;
+  return <ComingSoonPage />;
 }
 
 export default BlogPage;

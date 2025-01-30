@@ -2,11 +2,11 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 //
-import "./globals.css";
+import ContactMe from "@/components/ContactMe";
 import Footer from "@/components/Footer";
-import Profile from "@/components/Profile";
 import NavBar from "@/components/navbar/NavBar";
-import Notification from "@/components/Notification";
+import HaveLogin from "@/layouts/HaveLogin";
+import "./globals.css";
 
 //
 const geistSans = localFont({
@@ -42,11 +42,9 @@ export default function RootLayout({
         <div className="fixed top-0 left-0 right-0 z-50 flex shadow-sm bg-background">
           <NavBar />
         </div>
-        <div className="flex flex-col justify-center items-center gap-6 fixed top-[12vh] right-[12vw]">
-          <Profile />
-          <Notification />
-        </div>
+        <HaveLogin />
         {children}
+        <ContactMe />
         <Footer />
       </body>
     </html>

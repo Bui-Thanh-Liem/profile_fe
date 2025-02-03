@@ -212,7 +212,7 @@ export default function ModalRequireLogin() {
           form={loginForm}
           name="login"
           initialValues={{ remember: true }}
-          onFinish={handleRegister}
+          onFinish={handleLogin}
           onFinishFailed={() => {}}
           autoComplete="off"
           layout="vertical"
@@ -244,11 +244,7 @@ export default function ModalRequireLogin() {
           >
             <Input.Password size="large" />
           </Form.Item>
-          <Form.Item<FieldTypeLogin>
-            name="remember"
-            valuePropName=""
-            label={null}
-          >
+          <Form.Item<FieldTypeLogin> name="remember" label={null}>
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
         </Form>

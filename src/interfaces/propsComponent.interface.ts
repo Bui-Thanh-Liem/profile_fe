@@ -27,6 +27,10 @@ export interface IPropCardSkill {
   name: string;
   icon: string;
   link?: string;
+  status?: {
+    name: string;
+    color: string;
+  };
 }
 
 export interface IPropCardStorage extends IPropCardSkill {

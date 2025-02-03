@@ -1,15 +1,9 @@
 "use client";
-import Image from "next/image";
-
-import contactMe from "../../public/icons/contactMe.png";
 import { Button, Form, Input, Modal, notification, Tooltip } from "antd";
+import Image from "next/image";
 import { useEffect, useState } from "react";
+import contactMe from "../../public/icons/contactMe.png";
 import Logo from "./Logo";
-
-type FieldTypeContact = {
-  email?: string;
-  content?: string;
-};
 
 export default function ContactMe() {
   const [open, setOpen] = useState<boolean>(false);
@@ -17,7 +11,6 @@ export default function ContactMe() {
   const [openModal, setOpenModal] = useState(false);
   const [contactForm] = Form.useForm();
 
-  //
   useEffect(() => {
     const showTooltip = () => {
       setOpen(true);
@@ -27,31 +20,34 @@ export default function ContactMe() {
     };
     showTooltip();
     const interval = setInterval(showTooltip, 15000);
-    return () => {
-      clearInterval(interval);
-    };
+    return () => clearInterval(interval);
   }, []);
 
-  //
   function handleClick() {
     setOpenModal(true);
   }
 
-  //
   const nameVisitor =
     contactForm.getFieldValue("email")?.split("@")[0] || "you";
-  async function handleOk() {
-    const formData = await contactForm.validateFields();
-    console.log("formData:::", formData);
-    contactForm.resetFields();
-    notification.info({
-      message: "Sent email",
-      description: `Hi ${nameVisitor}, I'm glad you're interested in my information. I will respond to you as soon as possible, thank you.`,
-    });
-    setOpenModal(false);
-  }
 
   //
+  async function handleOk() {
+    setLoading(true);
+    try {
+      const formData = await contactForm.validateFields();
+      console.log("formData:::", formData);
+      contactForm.resetFields();
+      notification.info({
+        message: "Sent email",
+        description: `Hi ${nameVisitor}, I'm glad you're interested in my information. I will respond to you as soon as possible, thank you.`,
+      });
+      setOpenModal(false);
+    } catch (error) {
+      console.error("Validation failed:", error);
+    }
+    setLoading(false);
+  }
+
   function handleCancel() {
     setOpenModal(false);
   }
@@ -85,7 +81,7 @@ export default function ContactMe() {
         onCancel={handleCancel}
         footer={[
           <Button key="back" onClick={handleCancel} danger>
-            close
+            Close
           </Button>,
           <Button
             key="submit"
@@ -110,7 +106,7 @@ export default function ContactMe() {
             label="Your Email"
             rules={[
               { required: true, message: "Please input your email!" },
-              { type: "email", message: "The input not a valid email!" },
+              { type: "email", message: "The input is not a valid email!" },
             ]}
           >
             <Input />

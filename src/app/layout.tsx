@@ -2,10 +2,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 
 //
-import ContactMe from "@/components/ContactMe";
-import Footer from "@/components/Footer";
-import NavBar from "@/components/navbar/NavBar";
-import HaveLogin from "@/layouts/HaveLogin";
 import "./globals.css";
 
 //
@@ -36,16 +32,8 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/logo.png" type="image/png" />
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-second-app`}
-      >
-        <div className="fixed top-0 left-0 right-0 z-50 flex shadow-sm bg-background">
-          <NavBar />
-        </div>
-        <HaveLogin />
+      <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}
-        <ContactMe />
-        <Footer />
       </body>
     </html>
   );

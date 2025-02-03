@@ -52,3 +52,7 @@ export interface IPropInputPassword {
 export interface IPropLogo {
   size?: "small" | "medium" | "large";
 }
+
+export interface IPropCaptcha {
+  handleCheck: (isCheck: boolean) => void;
+}

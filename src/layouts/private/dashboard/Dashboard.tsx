@@ -5,27 +5,29 @@ import ChartLine from "./ChartLine";
 import ChartWaterWare from "./ChartWaterWare";
 
 export default function Dashboard() {
-  const charts = [
-    <ChartColumn />,
-    <ChartLine />,
-    <ChartBar />,
-    <ChartWaterWare />,
-  ];
 
   return (
     <div style={{ padding: 20 }}>
       <Row gutter={[16, 16]}>
         <Col xs={24} md={12} lg={6}>
-          <Card>Biểu đồ 1</Card>
+          <Card>
+            <ChartColumn />
+          </Card>
         </Col>
         <Col xs={24} md={12} lg={6}>
-          <Card>Biểu đồ 2</Card>
+          <Card>
+            <ChartLine />
+          </Card>
         </Col>
         <Col xs={24} md={12} lg={6}>
-          <Card>Biểu đồ 3</Card>
+          <Card>
+            <ChartBar />
+          </Card>
         </Col>
         <Col xs={24} md={12} lg={6}>
-          <Card>Biểu đồ 4</Card>
+          <Card>
+            <ChartWaterWare />
+          </Card>
         </Col>
 
         <Col span={24}>

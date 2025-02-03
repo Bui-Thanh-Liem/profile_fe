@@ -5,14 +5,14 @@ type State = {
 };
 
 type Action = {
-  login: (firstName: State["currentCustomer"]) => void;
-  logout: () => void;
+  loginCustomer: (firstName: State["currentCustomer"]) => void;
+  logoutCustomer: () => void;
 };
 
 const useCustomerStore = create<State & Action>((set) => ({
   currentCustomer: "",
-  login: (name) => set(() => ({ currentCustomer: name })),
-  logout: () => set(() => ({ currentCustomer: "" })),
+  loginCustomer: (name) => set(() => ({ currentCustomer: name })),
+  logoutCustomer: () => set(() => ({ currentCustomer: "" })),
 }));
 
 export default useCustomerStore;

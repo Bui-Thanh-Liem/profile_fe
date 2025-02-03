@@ -41,7 +41,7 @@ type FieldTypeOTP = {
 
 export default function ModalRequireLogin() {
   const [isMounted, setIsMounted] = useState(false);
-  const { login, currentCustomer } = useCustomerStore();
+  const { loginCustomer, currentCustomer } = useCustomerStore();
 
   //
   const router = useRouter();
@@ -122,7 +122,7 @@ export default function ModalRequireLogin() {
     try {
       const dataForm = await loginForm.validateFields();
       console.log("Form values login:", dataForm);
-      login(dataForm);
+      loginCustomer(dataForm);
       setIsLogin(false);
       loginForm.resetFields();
     } catch (error) {
@@ -133,7 +133,7 @@ export default function ModalRequireLogin() {
   //
   async function handleLoginGoogle() {
     console.log("login google");
-    login("Account to google");
+    loginCustomer("Account to google");
   }
 
   //
@@ -188,7 +188,7 @@ export default function ModalRequireLogin() {
       <Modal
         open={isLogin}
         title={
-          <div className="text-center">
+          <div className="text-center pt-8">
             <Logo />
             <p className="mt-4">Please login to continue</p>
           </div>
@@ -237,14 +237,14 @@ export default function ModalRequireLogin() {
           >
             <Input size="large" className="w-full" />
           </Form.Item>
-          <Form.Item<FieldTypeRegister>
+          <Form.Item<FieldTypeLogin>
             label="Password"
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
           >
             <Input.Password size="large" />
           </Form.Item>
-          <Form.Item<FieldTypeLogin> name="remember" label={null}>
+          <Form.Item<FieldTypeLogin> name="remember" valuePropName="checked" label={null}>
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
         </Form>
@@ -254,7 +254,7 @@ export default function ModalRequireLogin() {
       <Modal
         open={isRegister}
         title={
-          <div className="text-center">
+          <div className="text-center pt-8">
             <Logo />
             <p className="mt-4">Register</p>
           </div>
@@ -335,7 +335,7 @@ export default function ModalRequireLogin() {
       <Modal
         open={isOTP}
         title={
-          <div className="text-center">
+          <div className="text-center pt-8">
             <Logo />
             <p className="mt-4">OTP</p>
           </div>

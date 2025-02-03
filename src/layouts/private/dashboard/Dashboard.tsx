@@ -1,25 +1,22 @@
+"use client";
 import { Card, Col, Row } from "antd";
 import ChartBar from "./ChartBar";
 import ChartColumn from "./ChartColumn";
 import ChartLine from "./ChartLine";
+import ChartMix from "./ChartMix";
 import ChartWaterWare from "./ChartWaterWare";
+import ChartRadar from "./ChartRadar";
 
 export default function Dashboard() {
-
   return (
-    <div style={{ padding: 20 }}>
+    <div>
       <Row gutter={[16, 16]}>
-        <Col xs={24} md={12} lg={6}>
-          <Card>
-            <ChartColumn />
-          </Card>
-        </Col>
-        <Col xs={24} md={12} lg={6}>
+        <Col xs={24} md={12} lg={9}>
           <Card>
             <ChartLine />
           </Card>
         </Col>
-        <Col xs={24} md={12} lg={6}>
+        <Col xs={24} md={12} lg={9}>
           <Card>
             <ChartBar />
           </Card>
@@ -31,25 +28,22 @@ export default function Dashboard() {
         </Col>
 
         <Col span={24}>
-          <Card>Biểu đồ to (chiếm nguyên hàng)</Card>
+          <Card>
+            <ChartMix />
+          </Card>
         </Col>
 
         <Col xs={24} md={12}>
-          <Card>Biểu đồ 5</Card>
+          <Card>
+            <ChartRadar />
+          </Card>
         </Col>
         <Col xs={24} md={12}>
-          <Card>Biểu đồ 6</Card>
+          <Card>
+            <ChartColumn />
+          </Card>
         </Col>
       </Row>
-    </div>
-  );
-
-  return (
-    <div className="flex gap-8 items-center h-64">
-      <ChartColumn />
-      <ChartLine />
-      <ChartBar />
-      <ChartWaterWare />
     </div>
   );
 }

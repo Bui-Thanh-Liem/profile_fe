@@ -95,7 +95,7 @@ const Captcha = ({ handleCheck }: IPropCaptcha) => {
           </ButtonPrimary>
         </>
       ) : (
-        <FaCheck color="green" className="m-auto" size={30} />
+        <FaCheck color="green" className="m-auto" size={32} />
       )}
     </div>
   );

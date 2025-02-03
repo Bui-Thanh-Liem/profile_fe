@@ -5,7 +5,7 @@ import {
   CustomerServiceOutlined,
   FileImageOutlined,
   FileOutlined,
-  TeamOutlined,
+  // TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
@@ -13,7 +13,7 @@ import { Layout, Menu, theme } from "antd";
 import Link from "next/link";
 import React, { ReactNode, useState } from "react";
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
 
@@ -33,16 +33,16 @@ function getItem(
 
 const items: MenuItem[] = [
   getItem(<Link href="/admin">Dashboard</Link>, "/admin", <BarChartOutlined />),
-  getItem(<Link href="/admin/user">User</Link>, "user", <UserOutlined />),
+  getItem(<Link href="/admin/users">Users</Link>, "/users", <UserOutlined />),
   getItem(
-    <Link href="/admin/customer">Customer</Link>,
-    "customer",
+    <Link href="/admin/customers">Customers</Link>,
+    "/customers",
     <CustomerServiceOutlined />
   ),
-  getItem("Team", "team", <TeamOutlined />, [
-    getItem(<Link href="/admin/team/1">Team 1</Link>, "6"),
-    getItem(<Link href="/admin/team/2">Team 2</Link>, "8"),
-  ]),
+  // getItem("Teams", "teams", <TeamOutlined />, [
+  //   getItem(<Link href="/admin/team/1">Team 1</Link>, "6"),
+  //   getItem(<Link href="/admin/team/2">Team 2</Link>, "8"),
+  // ]),
   getItem(<Link href="/admin/files">Files</Link>, "9", <FileOutlined />),
   getItem(
     <Link href="/admin/storage-images">Storage Images</Link>,
@@ -54,7 +54,7 @@ const items: MenuItem[] = [
 export default function LayoutAdmin({ children }: { children: ReactNode }) {
   const [collapsed, setCollapsed] = useState(false);
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { colorBgContainer },
   } = theme.useToken();
 
   return (
@@ -94,8 +94,9 @@ export default function LayoutAdmin({ children }: { children: ReactNode }) {
           <div
             style={{
               padding: 24,
-              minHeight: "calc(100vh - 32px)",
-              background: colorBgContainer,
+              height: "calc(100vh - 32px)",
+              overflow: "auto",
+              // background: colorBgContainer,
             }}
           >
             {children}

@@ -77,7 +77,7 @@ export default function Login() {
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
           <Captcha handleCheck={setIsCheckCaptcha} />
-          <div className="mt-4 flex justify-end">
+          <div className="mt-6 flex justify-end">
             <ButtonPrimary disabled={!isCheckCaptcha} onClick={handleLogin}>
               Submit
             </ButtonPrimary>

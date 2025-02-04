@@ -1,11 +1,13 @@
 "use client";
-import React from "react";
+import type { TableColumnsType, TableProps } from "antd";
 import { Table } from "antd";
-import type { TableColumnsType } from "antd";
 import { createStyles } from "antd-style";
+import React from "react";
+import TableAction from "./TableAction";
 
 const useStyle = createStyles(({ css, token }) => {
-  const { antCls } = token;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const { antCls } = token as any;
   return {
     customTable: css`
       ${antCls}-table {
@@ -15,6 +17,10 @@ const useStyle = createStyles(({ css, token }) => {
             scrollbar-width: thin;
             scrollbar-color: #eaeaea transparent;
             scrollbar-gutter: stable;
+          }
+          .${antCls}-table-cell-with-append {
+            display: flex;
+            align-items: center;
           }
         }
       }
@@ -31,18 +37,22 @@ interface DataType {
 
 const columns: TableColumnsType<DataType> = [
   {
+    // title: "Checkbox",
+    width: 50,
+    fixed: "left",
+    render: () => null,
+  },
+  {
     title: "Full Name",
     width: 100,
     dataIndex: "name",
     key: "name",
-    fixed: "left",
   },
   {
     title: "Age",
     width: 100,
     dataIndex: "age",
     key: "age",
-    fixed: "left",
   },
   {
     title: "Column 1",
@@ -101,10 +111,10 @@ const columns: TableColumnsType<DataType> = [
   { title: "Column 20", dataIndex: "address", key: "20" },
   {
     title: "Action",
-    key: "operation",
+    key: "action",
     fixed: "right",
     width: 100,
-    render: () => <a>action</a>,
+    render: (_, record) => <TableAction dataAction={record} />,
   },
 ];
 
@@ -115,16 +125,38 @@ const dataSource = Array.from({ length: 100 }).map<DataType>((_, i) => ({
   address: `London, Park Lane no. ${i}`,
 }));
 
-const TableCustomer: React.FC = () => {
+export default function MyTable() {
   const { styles } = useStyle();
+
+  const rowSelection: TableProps<DataType>["rowSelection"] = {
+    type: "checkbox",
+    onChange: (selectedRowKeys: React.Key[], selectedRows: DataType[]) => {
+      console.log(
+        `selectedRowKeys: ${selectedRowKeys}`,
+        "selectedRows: ",
+        selectedRows
+      );
+    },
+    getCheckboxProps: (record: DataType) => ({
+      disabled: record.name === "admin", // Column configuration not to be checked
+      name: record.name,
+    }),
+  };
+
   return (
     <Table<DataType>
-      className={styles.customTable}
       columns={columns}
       dataSource={dataSource}
+      className={styles.customTable}
       scroll={{ x: "max-content", y: 55 * 5 }}
+      rowSelection={rowSelection}
+      // pagination={{
+      //   pageSize: 20,
+      //   showSizeChanger: true,
+      //   pageSizeOptions: [20, 40, 60, 80, 100],
+      //   showTotal: (total, range) =>
+      //     `Hiển thị ${range[0]}-${range[1]} trên tổng ${total} bản ghi`,
+      // }}
     />
   );
-};
-
-export default TableCustomer;
+}

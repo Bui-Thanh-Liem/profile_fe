@@ -56,3 +56,8 @@ export interface IPropLogo {
 export interface IPropCaptcha {
   handleCheck: (isCheck: boolean) => void;
 }
+
+export interface IPropTableAction {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  dataAction: any;
+}

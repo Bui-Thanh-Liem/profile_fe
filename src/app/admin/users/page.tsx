@@ -1,5 +1,5 @@
-import TableCustomer from "@/components/Table";
+import MyTable from "@/components/table/Table";
 
 export default function UsersPage() {
-  return <TableCustomer />;
+  return <MyTable />;
 }

@@ -1,4 +1,4 @@
-import { ButtonProps, InputProps } from "antd";
+import { ButtonProps, InputProps, TableColumnsType } from "antd";
 import { ChangeEvent, ReactNode } from "react";
 
 export interface IPropIconNavbar {
@@ -57,7 +57,16 @@ export interface IPropCaptcha {
   handleCheck: (isCheck: boolean) => void;
 }
 
+export default interface IPropMyTable<T> {
+  columns: TableColumnsType<T>;
+  dataSource: Array<T>;
+}
+
 export interface IPropTableAction {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   dataAction: any;
+}
+
+export interface IPropMyTag {
+  tagName: string;
 }

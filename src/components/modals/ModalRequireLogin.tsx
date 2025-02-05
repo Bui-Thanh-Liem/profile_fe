@@ -249,8 +249,8 @@ export default function ModalRequireLogin() {
           </Form.Item>
         </Form>
       </Modal>
-      {/*  */}
 
+      {/*  */}
       <Modal
         open={isRegister}
         title={

@@ -1,5 +1,5 @@
-import MyTable from "@/components/table/Table";
+import UserLayout from "@/layouts/private/user/User";
 
 export default function UsersPage() {
-  return <MyTable />;
+  return <UserLayout />;
 }

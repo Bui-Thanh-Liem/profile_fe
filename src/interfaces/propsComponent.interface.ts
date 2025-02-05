@@ -1,5 +1,5 @@
 import { ButtonProps, InputProps, TableColumnsType } from "antd";
-import { ChangeEvent, ReactNode } from "react";
+import { ChangeEvent, ReactElement, ReactNode } from "react";
 
 export interface IPropIconNavbar {
   src: string;
@@ -60,11 +60,18 @@ export interface IPropCaptcha {
 export default interface IPropMyTable<T> {
   columns: TableColumnsType<T>;
   dataSource: Array<T>;
+  actionDataSource: ReactElement;
 }
 
 export interface IPropTableAction {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  dataAction: any;
+  onEdit: () => void;
+  onDelete: () => void;
+}
+
+export interface IPropsMyTableToolbar {
+  onClickAddItem: () => void;
+  onClickDeleteItems: () => void;
+  checkedIds: Array<string>;
 }
 
 export interface IPropMyTag {

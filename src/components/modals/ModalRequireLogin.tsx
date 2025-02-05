@@ -81,6 +81,9 @@ export default function ModalRequireLogin() {
     setIsLogin(false);
     setIsRegister(false);
     setIsOTP(false);
+    loginForm.resetFields();
+    registerForm.resetFields();
+    otpForm.resetFields();
   }
 
   //
@@ -244,7 +247,11 @@ export default function ModalRequireLogin() {
           >
             <Input.Password size="large" />
           </Form.Item>
-          <Form.Item<FieldTypeLogin> name="remember" valuePropName="checked" label={null}>
+          <Form.Item<FieldTypeLogin>
+            name="remember"
+            valuePropName="checked"
+            label={null}
+          >
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
         </Form>

@@ -1,14 +1,24 @@
 import { PlusOutlined } from "@ant-design/icons";
 import ButtonPrimary from "../ButtonPrimary";
-import { Input, Select } from "antd";
+import { Button, Input, Select } from "antd";
+import { IPropsMyTableToolbar } from "@/interfaces/propsComponent.interface";
 const { Search } = Input;
 
-export default function TableToolbar() {
+export default function MyTableToolbar({
+  checkedIds,
+  onClickAddItem,
+  onClickDeleteItems,
+}: IPropsMyTableToolbar) {
   return (
     <div className="flex justify-between items-center">
-      <ButtonPrimary>
-        <PlusOutlined />
-      </ButtonPrimary>
+      <div className="flex items-center gap-4">
+        <ButtonPrimary onClick={onClickAddItem}>
+          <PlusOutlined />
+        </ButtonPrimary>
+        {checkedIds.length > 0 && <Button type="primary" danger onClick={onClickDeleteItems}>
+          Delete checked
+        </Button>}
+      </div>
       <div className="flex items-center gap-4">
         <Select
           showSearch

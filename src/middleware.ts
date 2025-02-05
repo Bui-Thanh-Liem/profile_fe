@@ -30,8 +30,23 @@ export function middleware(request: NextRequest) {
   }
 
   // user
-  if (pathname.startsWith("/admin") && !userCookie) {
-    return NextResponse.redirect(new URL("/login", request.url));
+  if (pathname.startsWith("/admin")) {
+    if (!userCookie) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+
+    // check token
+    // return fetch("http://localhost:5000/protected", {
+    //   headers: { Authorization: `Bearer ${userCookie}` },
+    // })
+    //   .then((res) => {
+    //     if (!res.ok) {
+    //       response.cookies.set("user", "", { maxAge: 0 });
+    //       throw new Error("Token không hợp lệ");
+    //     }
+    //     return NextResponse.next();
+    //   })
+    //   .catch(() => NextResponse.redirect(new URL("/login", request.url)));
   }
   if (pathname.startsWith("/login") && userCookie) {
     return NextResponse.redirect(new URL("/admin", request.url));

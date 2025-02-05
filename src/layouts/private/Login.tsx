@@ -11,7 +11,7 @@ import developerGIF from "../../../public/web-developer.gif";
 import useUserStore from "../../../stores/useUser";
 
 type FieldTypeLogin = {
-  username_email?: string;
+  email?: string;
   password?: string;
   remember?: boolean;
 };
@@ -51,12 +51,12 @@ export default function Login() {
             <Logo />
           </div>
           <Form.Item<FieldTypeLogin>
-            label="Username or Email"
-            name="username_email"
+            label="Email"
+            name="email"
             rules={[
               {
                 required: true,
-                message: "Please input your username or email!",
+                message: "Please input your email!",
               },
             ]}
           >

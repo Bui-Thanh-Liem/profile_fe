@@ -1,23 +1,41 @@
-import { EGender, EBoolean } from "@/enums/model.enum";
+import { EAction } from "@/enums/action.enum";
+import { EBlock, EGender } from "@/enums/model.enum";
+import { EResource } from "@/enums/resource.enum";
 import { IBaseModel } from "./base.interface";
+
+export interface IRole extends IBaseModel {
+  name: string;
+  desc: string;
+  dataSource: Array<IRoleDataSource>;
+}
+
+export interface IRoleGroup extends IBaseModel {
+  name: string;
+  desc: string;
+  roles: Array<IRole>;
+}
 
 export interface IUser extends IBaseModel {
   avatar: string;
   fullName: string;
   gender: EGender;
   email: string;
+  password: string;
   phone: string;
-  role: string;
-  subAdmin: EBoolean;
-  block: EBoolean;
+  role: Array<IRole>;
+  roleGroups: Array<IRoleGroup>;
+  subAdmin: boolean;
+  isAdmin: boolean;
+  block: EBlock;
 }
 
 export interface ICustomer {
   fullName: string;
 }
 
-export interface IRole {
-  name: string;
+export interface IRoleDataSource {
+  actions: ReadonlyArray<EAction>;
+  resource: EResource;
 }
 
 export interface IFile {
@@ -26,7 +44,7 @@ export interface IFile {
   url: string;
 }
 
-export interface IStorageImage {
+export interface IImage {
   name: string;
   size: number;
   url: string;

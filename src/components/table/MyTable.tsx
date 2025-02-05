@@ -1,13 +1,13 @@
 "use client";
+import { IBaseModel } from "@/interfaces/base.interface";
+import IPropMyTable from "@/interfaces/propsComponent.interface";
+import { UserOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import { Card, Table } from "antd";
 import { createStyles } from "antd-style";
-import React from "react";
-import TableAction from "./TableAction";
-import TableToolbar from "./TabelToolbar";
-import IPropMyTable from "@/interfaces/propsComponent.interface";
-import { IUser } from "@/interfaces/model.interface";
-import { UserOutlined } from "@ant-design/icons";
+import React, { useEffect, useState } from "react";
+import MyTableAction from "./MyTableAction";
+import MyTableToolbar from "./MyTableToolbar";
 
 const useStyle = createStyles(({ css, token }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -32,22 +32,29 @@ const useStyle = createStyles(({ css, token }) => {
   };
 });
 
-interface IHasRole {
-  role: string;
-
-  //
-  createdAt: Date;
-  updatedAt: Date;
-  createdBy: IUser;
-  updatedBy: IUser;
+interface IUserBase extends IBaseModel {
+  isAdmin?: boolean;
 }
 
-export default function MyTable<T extends IHasRole>({
+export default function MyTable<T extends IUserBase>({
   columns,
   dataSource,
+  actionDataSource,
 }: IPropMyTable<T>) {
   const { styles } = useStyle();
+  const [isOpenActionDataSource, setIsOpenActionDataSource] =
+    useState<boolean>(false);
+  const [dataEdit, setDataEdit] = useState<T | null>(null);
+  const [checkedIds, setCheckedIds] = useState<Array<string> | []>([]);
 
+  //
+  useEffect(() => {
+    if (!isOpenActionDataSource) {
+      setDataEdit(null);
+    }
+  }, [isOpenActionDataSource]);
+
+  //
   const baseColumns: TableColumnsType<T> = [
     {
       // title: "Checkbox",
@@ -59,9 +66,11 @@ export default function MyTable<T extends IHasRole>({
     {
       title: "Created",
       key: "created",
-      width: 250,
+      width: 200,
       render: (_, record) => {
-        const formattedDate = new Intl.DateTimeFormat("sv-SE").format(record.createdAt);
+        const formattedDate = new Intl.DateTimeFormat("sv-SE").format(
+          record.createdAt
+        );
         const formattedTime = record.createdAt.toLocaleTimeString("en-GB");
         return (
           <>
@@ -74,9 +83,11 @@ export default function MyTable<T extends IHasRole>({
     {
       title: "Updated",
       key: "updated",
-      width: 250,
+      width: 200,
       render: (_, record) => {
-        const formattedDate = new Intl.DateTimeFormat("sv-SE").format(record.updatedAt);
+        const formattedDate = new Intl.DateTimeFormat("sv-SE").format(
+          record.updatedAt
+        );
         const formattedTime = record.updatedAt.toLocaleTimeString("en-GB");
         return (
           <>
@@ -91,32 +102,66 @@ export default function MyTable<T extends IHasRole>({
       key: "action",
       fixed: "right",
       width: 100,
-      render: (_, record) => <TableAction dataAction={record} />,
+      render: (_, record) => {
+        if (record.isAdmin) return null;
+        return (
+          <MyTableAction
+            onEdit={() => onEditItem(record)}
+            onDelete={() => onDeleteItem(record.id)}
+          />
+        );
+      },
     },
   ];
 
+  //
   const rowSelection: TableProps<T>["rowSelection"] = {
     type: "checkbox",
     onChange: (selectedRowKeys: React.Key[], selectedRows: T[]) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
+      const ids = selectedRowKeys.map((key) => key.toString());
+      setCheckedIds(ids);
+      console.log("selectedRows: ", selectedRows);
     },
     getCheckboxProps: (record: T) => ({
-      disabled: record.role === "admin",
-      name: record.role,
+      disabled: record.isAdmin,
+      // name: record.isAdmin,
     }),
   };
+
+  //
+  function onAddItem() {
+    setIsOpenActionDataSource(true);
+  }
+
+  //
+  function onEditItem(data: T) {
+    setDataEdit(data);
+    setIsOpenActionDataSource(true);
+  }
+
+  //
+  function onDeleteItem(id: string) {
+    console.log("delete item have id :::", id);
+  }
+
+  //
+  function onDeleteItems(ids: Array<string>) {
+    console.log("delete item have ids :::", ids);
+    setCheckedIds([]);
+  }
 
   return (
     <>
       <Card className="mb-4">
-        <TableToolbar />
+        <MyTableToolbar
+          checkedIds={checkedIds}
+          onClickAddItem={onAddItem}
+          onClickDeleteItems={() => onDeleteItems(checkedIds)}
+        />
       </Card>
       <Card>
         <Table<T>
+          rowKey="id"
           columns={baseColumns}
           dataSource={dataSource}
           className={styles.customTable}
@@ -131,6 +176,11 @@ export default function MyTable<T extends IHasRole>({
           // }}
         />
       </Card>
+      {React.cloneElement(actionDataSource, {
+        isOpen: isOpenActionDataSource,
+        setIsOpen: setIsOpenActionDataSource,
+        dataEdit,
+      })}
     </>
   );
 }

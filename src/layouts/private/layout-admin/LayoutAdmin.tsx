@@ -5,7 +5,7 @@ import {
   CustomerServiceOutlined,
   FileImageOutlined,
   FileOutlined,
-  // TeamOutlined,
+  TeamOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
@@ -34,20 +34,29 @@ function getItem(
 
 const items: MenuItem[] = [
   getItem(<Link href="/admin">Dashboard</Link>, "/admin", <BarChartOutlined />),
-  getItem(
-    <Link href="/admin/users">Users</Link>,
-    "/admin/users",
-    <UserOutlined />
-  ),
+
   getItem(
     <Link href="/admin/customers">Customers</Link>,
     "/admin/customers",
     <CustomerServiceOutlined />
   ),
-  // getItem("Teams", "teams", <TeamOutlined />, [
-  //   getItem(<Link href="/admin/team/1">Team 1</Link>, "6"),
-  //   getItem(<Link href="/admin/team/2">Team 2</Link>, "8"),
-  // ]),
+  getItem("Administrator", "administrator", <TeamOutlined />, [
+    getItem(
+      <Link href="/admin/users">Users</Link>,
+      "/admin/users",
+      <UserOutlined />
+    ),
+    getItem(
+      <Link href="/admin/roles">Roles</Link>,
+      "/admin/roles",
+      <UserOutlined />
+    ),
+    getItem(
+      <Link href="/admin/roleGroups">RoleGroups</Link>,
+      "/admin/roleGroups",
+      <UserOutlined />
+    ),
+  ]),
   getItem(
     <Link href="/admin/files">Files</Link>,
     "/admin/files",
@@ -62,8 +71,6 @@ const items: MenuItem[] = [
 
 export default function LayoutAdmin({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  console.log("pathname?:::", pathname);
-
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },

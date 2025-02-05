@@ -2,15 +2,15 @@ import { Button, Popconfirm } from "antd";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { IPropTableAction } from "@/interfaces/propsComponent.interface";
 
-export default function TableAction({ dataAction }: IPropTableAction) {
+export default function MyTableAction({ onEdit, onDelete }: IPropTableAction) {
   //
   function onConfirmEdit() {
-    console.log("data edit ::", dataAction);
+    onEdit()
   }
 
   //
   function onConfirmDelete() {
-    console.log("delete id ::", dataAction.id);
+    onDelete()
   }
 
   return (

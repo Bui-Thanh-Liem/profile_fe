@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 
 //
 import google from "../../../public/icons/google.png";
-import useCustomerStore from "../../../stores/useCustomer";
+import useCustomerStore from "../../stores/useCustomer";
 import Logo from "../Logo";
 import Image from "next/image";
 const { Countdown } = Statistic;

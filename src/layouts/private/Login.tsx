@@ -8,7 +8,7 @@ import Captcha from "@/components/Captcha";
 import Logo from "@/components/Logo";
 import { useState } from "react";
 import developerGIF from "../../../public/web-developer.gif";
-import useUserStore from "../../../stores/useUser";
+import useUserStore from "../../stores/useUser";
 
 type FieldTypeLogin = {
   email?: string;

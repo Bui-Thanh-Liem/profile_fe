@@ -1,6 +1,6 @@
-import ButtonPrimary from "@/components/ButtonPrimary";
+import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import EnterTextAnimated from "@/components/EnterTextAnimated";
-import HighlighText from "@/components/HighlighText";
+import HighlighText from "@/components/elements/HighlighText";
 import Image from "next/image";
 import Link from "next/link";
 import { FaUserGraduate } from "react-icons/fa";

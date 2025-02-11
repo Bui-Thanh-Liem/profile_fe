@@ -34,7 +34,7 @@ export default function UserAction({
     }
 
     fetchDataForForm();
-  }, [subAdminValue]);
+  }, [dataEdit, isEdit, subAdminValue, userActionForm]);
 
   //
   async function fetchDataForForm() {

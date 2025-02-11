@@ -1,14 +1,14 @@
-import ButtonPrimary from "@/components/ButtonPrimary";
+import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import { Result } from "antd";
 import Link from "next/link";
 
-function ComingSoonPage() {
+function ForbiddenPage() {
   return (
     <div className="h-screen flex items-center">
       <Result
-        status="info"
-        title="Coming Soon"
-        subTitle="We're working hard to bring this page to life. Stay tuned for updates!"
+        status="403"
+        title="403"
+        subTitle="Sorry, you are not authorized to access this page."
         extra={
           <Link href={"/"}>
             <ButtonPrimary>Back to Home</ButtonPrimary>
@@ -20,4 +20,4 @@ function ComingSoonPage() {
   );
 }
 
-export default ComingSoonPage;
+export default ForbiddenPage;

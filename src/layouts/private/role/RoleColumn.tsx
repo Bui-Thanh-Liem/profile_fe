@@ -31,10 +31,8 @@ export const userActionColumns: TableColumnsType<IRole> = [
       return (
         <>
           {_.map((dataSource) => (
-            <div key={v4()} className="mb-2">
-              <p className="mb-1 bg-gray-second-app inline-block">
-                {dataSource.resource}
-              </p>
+            <div key={v4()} className="mb-2 flex items-center">
+              <p className="bg-gray-second-app w-28">{dataSource.resource}</p>
               <div className="flex items-center gap-2">
                 {dataSource.actions?.map((action) => (
                   <Tag color={generatorColor[action]} key={v4()}>

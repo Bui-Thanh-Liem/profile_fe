@@ -77,3 +77,7 @@ export interface IPropsMyTableToolbar {
 export interface IPropMyTag {
   tagName: string;
 }
+
+export interface IPropMyEditor {
+  content: string;
+}

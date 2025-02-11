@@ -1,4 +1,4 @@
-import ComingSoonPage from "@/components/ComingSoon";
+import ComingSoonPage from "@/components/pages/ComingSoon";
 
 function EducationPage() {
   return <ComingSoonPage />;

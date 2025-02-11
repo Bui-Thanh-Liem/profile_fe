@@ -1,10 +1,27 @@
-import ButtonPrimary from "@/components/ButtonPrimary";
-import HighlighText from "@/components/HighlighText";
+import ButtonPrimary from "@/components/elements/ButtonPrimary";
+import HighlighText from "@/components/elements/HighlighText";
 import Image from "next/image";
 import mePng from "../../../../public/me.png";
 import { TbFileCv } from "react-icons/tb";
 
-function AboutPage() {
+// When build and again 60s
+export async function getStaticProps() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+  const data = await res.json();
+  return {
+    props: { post: data },
+    revalidate: 60,
+  };
+}
+
+// When request
+export async function getServerSideProps() {
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+  const data = await res.json();
+  return { props: { data } };
+}
+
+function AboutPage({ data }) {
   return (
     <main className="flex h-screen">
       <div className="m-auto w-[1200px] flex gap-16 justify-between items-center">

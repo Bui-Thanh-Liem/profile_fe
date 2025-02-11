@@ -1,7 +1,7 @@
 import { Input } from "antd";
 import React, { useState, useEffect } from "react";
 import { FaRotate } from "react-icons/fa6";
-import ButtonPrimary from "./ButtonPrimary";
+import ButtonPrimary from "./elements/ButtonPrimary";
 import { FaCheck } from "react-icons/fa";
 import { IPropCaptcha } from "@/interfaces/propsComponent.interface";
 
@@ -34,7 +34,7 @@ const Captcha = ({ handleCheck }: IPropCaptcha) => {
   }
 
   const renderCaptchaChar = (
-    char: any,
+    char: string,
     index: React.Key | null | undefined
   ) => {
     const noise = Array(5)

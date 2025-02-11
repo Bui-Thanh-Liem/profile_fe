@@ -34,12 +34,6 @@ function getItem(
 
 const items: MenuItem[] = [
   getItem(<Link href="/admin">Dashboard</Link>, "/admin", <BarChartOutlined />),
-
-  getItem(
-    <Link href="/admin/customers">Customers</Link>,
-    "/admin/customers",
-    <CustomerServiceOutlined />
-  ),
   getItem("Administrator", "administrator", <TeamOutlined />, [
     getItem(
       <Link href="/admin/users">Users</Link>,
@@ -58,12 +52,17 @@ const items: MenuItem[] = [
     ),
   ]),
   getItem(
-    <Link href="/admin/files">Files</Link>,
+    <Link href="/admin/customers">Customers</Link>,
+    "/admin/customers",
+    <CustomerServiceOutlined />
+  ),
+  getItem(
+    <Link href="/admin/files-storage">Files Storage</Link>,
     "/admin/files",
     <FileOutlined />
   ),
   getItem(
-    <Link href="/admin/storage-images">Storage Images</Link>,
+    <Link href="/admin/images-storage">Images Storage</Link>,
     "/admin/storage-images",
     <FileImageOutlined />
   ),

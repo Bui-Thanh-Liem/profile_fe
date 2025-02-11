@@ -60,7 +60,7 @@ export default function RoleItemResource({
         actions: valueAction || [],
       });
     }
-  }, [valueAction]);
+  }, [onChangeResource, resource, valueAction]);
 
   //
   const actionRoles: SelectProps["options"] = [

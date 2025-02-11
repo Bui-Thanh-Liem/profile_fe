@@ -1,4 +1,4 @@
-import ButtonPrimary from "@/components/ButtonPrimary";
+import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import { Result } from "antd";
 import Link from "next/link";
 

@@ -3,7 +3,7 @@ import { Checkbox, Form, Input } from "antd";
 import Image from "next/image";
 
 //
-import ButtonPrimary from "@/components/ButtonPrimary";
+import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import Captcha from "@/components/Captcha";
 import Logo from "@/components/Logo";
 import { useState } from "react";

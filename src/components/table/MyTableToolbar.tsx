@@ -1,5 +1,5 @@
 import { PlusOutlined } from "@ant-design/icons";
-import ButtonPrimary from "../ButtonPrimary";
+import ButtonPrimary from "../elements/ButtonPrimary";
 import { Button, Input, Select } from "antd";
 import { IPropsMyTableToolbar } from "@/interfaces/propsComponent.interface";
 const { Search } = Input;
@@ -15,9 +15,11 @@ export default function MyTableToolbar({
         <ButtonPrimary onClick={onClickAddItem}>
           <PlusOutlined />
         </ButtonPrimary>
-        {checkedIds.length > 0 && <Button type="primary" danger onClick={onClickDeleteItems}>
-          Delete checked
-        </Button>}
+        {checkedIds.length > 0 && (
+          <Button type="primary" danger onClick={onClickDeleteItems}>
+            Delete checked
+          </Button>
+        )}
       </div>
       <div className="flex items-center gap-4">
         <Select

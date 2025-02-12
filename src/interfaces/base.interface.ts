@@ -1,4 +1,4 @@
-import { IUser } from "./model.interface";
+import { IUser } from "./models/user.interface";
 
 export interface IBaseModel {
   id: string;

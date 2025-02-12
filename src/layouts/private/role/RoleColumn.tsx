@@ -4,6 +4,7 @@ import { TableColumnsType, Tag } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { v4 } from "uuid";
 import { generatorColor } from "./RoleItemResource";
+import { EActionUse } from "@/enums/role/action.enum";
 
 export const userActionColumns: TableColumnsType<IRole> = [
   {
@@ -32,11 +33,11 @@ export const userActionColumns: TableColumnsType<IRole> = [
         <>
           {_.map((dataSource) => (
             <div key={v4()} className="mb-2 flex items-center">
-              <p className="bg-gray-second-app w-28">{dataSource.resource}</p>
+              <p className="bg-gray-second-app w-40">{dataSource.resource}</p>
               <div className="flex items-center gap-2">
                 {dataSource.actions?.map((action) => (
                   <Tag color={generatorColor[action]} key={v4()}>
-                    {action}
+                    {EActionUse[action]}
                   </Tag>
                 ))}
               </div>

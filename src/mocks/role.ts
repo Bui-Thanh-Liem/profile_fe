@@ -1,6 +1,6 @@
-import { EAction } from "@/enums/action.enum";
+import { EAction } from "@/enums/role/action.enum";
 import { EBlock, EGender } from "@/enums/model.enum";
-import { EResource } from "@/enums/resource.enum";
+import { EResource } from "@/enums/role/resource.enum";
 import { IRole, IUser } from "@/interfaces/model.interface";
 
 const mock_admin: IUser = {

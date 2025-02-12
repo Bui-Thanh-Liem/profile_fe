@@ -1,6 +1,6 @@
-import { EAction } from "@/enums/action.enum";
+import { EAction } from "@/enums/role/action.enum";
 import { EBlock, EGender } from "@/enums/model.enum";
-import { EResource } from "@/enums/resource.enum";
+import { EResource } from "@/enums/role/resource.enum";
 import { IBaseModel } from "./base.interface";
 
 export interface IRole extends IBaseModel {

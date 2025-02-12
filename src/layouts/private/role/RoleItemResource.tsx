@@ -1,6 +1,6 @@
 "use client";
-import { EAction } from "@/enums/action.enum";
-import { EResource } from "@/enums/resource.enum";
+import { EAction, EActionUse } from "@/enums/role/action.enum";
+import { EResource } from "@/enums/role/resource.enum";
 import { IRoleDataSource } from "@/interfaces/model.interface";
 import { Select, SelectProps, Switch, Tag } from "antd";
 import { useEffect, useState } from "react";
@@ -64,10 +64,10 @@ export default function RoleItemResource({
 
   //
   const actionRoles: SelectProps["options"] = [
-    { value: EAction.GET, label: "View" },
-    { value: EAction.POST, label: "Create" },
-    { value: EAction.PATCH, label: "Update" },
-    { value: EAction.DELETE, label: "Delete" },
+    { value: EAction.GET, label: EActionUse.GET },
+    { value: EAction.POST, label: EActionUse.POST },
+    { value: EAction.PATCH, label: EActionUse.PATCH },
+    { value: EAction.DELETE, label: EActionUse.DELETE },
   ];
 
   //

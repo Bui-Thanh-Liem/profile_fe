@@ -1,5 +1,5 @@
 "use client";
-import { EResource } from "@/enums/resource.enum";
+import { EResource } from "@/enums/role/resource.enum";
 import { IRole, IRoleDataSource } from "@/interfaces/model.interface";
 import { IPropRoleAction } from "@/interfaces/propsLayoutAction";
 import { Button, Form, Input, Modal } from "antd";
@@ -26,9 +26,12 @@ export default function RoleAction({
 
   //
   function handleChangeResource(roleDataResource: IRoleDataSource) {
-    let oldResource: Array<IRoleDataSource> = roleActionForm.getFieldValue("roleDataResource") || [];
-    oldResource = oldResource?.filter(resource => resource.resource !== roleDataResource.resource);
-    
+    let oldResource: Array<IRoleDataSource> =
+      roleActionForm.getFieldValue("roleDataResource") || [];
+    oldResource = oldResource?.filter(
+      (resource) => resource.resource !== roleDataResource.resource
+    );
+
     roleActionForm.setFieldValue("roleDataResource", [
       ...oldResource,
       roleDataResource,

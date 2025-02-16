@@ -24,6 +24,10 @@ export const callApi = async <TypeResult>({
       ...options.headers,
       "Content-Type": "application/json",
       Cookie: cookies().toString(),
+
+      //
+      "x-csrf-token": cookies().get("XSRF-TOKEN")?.name || "",
+      authorization: `Bear ${localStorage.getItem("token-user")}`,
     };
   }
 

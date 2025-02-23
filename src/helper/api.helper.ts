@@ -1,4 +1,5 @@
 "use server";
+import { TResponse } from "@/interfaces/response.interface";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -7,10 +8,10 @@ interface IOptions {
   options: RequestInit;
 }
 
-export const callApi = async <TypeResult>({
+export const callApi = async <T>({
   url,
   options,
-}: IOptions): Promise<TypeResult> => {
+}: IOptions): Promise<TResponse<T>> => {
   let headers: HeadersInit;
 
   // header
@@ -27,7 +28,7 @@ export const callApi = async <TypeResult>({
 
       //
       "x-csrf-token": cookies().get("XSRF-TOKEN")?.name || "",
-      authorization: `Bear ${localStorage.getItem("token-user")}`,
+      // authorization: `Bear ${localStorage.getItem("token-user")}`,
     };
   }
 

@@ -5,23 +5,23 @@ import mePng from "../../../../public/me.png";
 import { TbFileCv } from "react-icons/tb";
 
 // When build and again 60s
-export async function getStaticProps() {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts/1");
-  const data = await res.json();
-  return {
-    props: { post: data },
-    revalidate: 60,
-  };
-}
+// export async function getStaticProps() {
+//   const res = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+//   const data = await res.json();
+//   return {
+//     props: { post: data },
+//     revalidate: 60,
+//   };
+// }
 
 // When request
-export async function getServerSideProps() {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts/1");
-  const data = await res.json();
-  return { props: { data } };
-}
+// export async function getServerSideProps() {
+//   const res = await fetch("https://jsonplaceholder.typicode.com/posts/1");
+//   const data = await res.json();
+//   return { props: { data } };
+// }
 
-function AboutPage({ data }) {
+function AboutPage() {
   return (
     <main className="flex h-screen">
       <div className="m-auto w-[1200px] flex gap-16 justify-between items-center">

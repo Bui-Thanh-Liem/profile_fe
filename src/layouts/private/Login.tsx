@@ -3,9 +3,11 @@ import { Checkbox, Form, Input } from "antd";
 import Image from "next/image";
 
 //
-import ButtonPrimary from "@/components/elements/ButtonPrimary";
+import { login } from "@/apis/auth.api";
 import Captcha from "@/components/Captcha";
+import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import Logo from "@/components/Logo";
+import { useToast } from "@/hooks/useToast";
 import { useState } from "react";
 import developerGIF from "../../../public/web-developer.gif";
 import useUserStore from "../../stores/useUser";
@@ -20,21 +22,29 @@ export default function Login() {
   const [loginForm] = Form.useForm();
   const { loginUser } = useUserStore();
   const [isCheckCaptcha, setIsCheckCaptcha] = useState(false);
+  const { showToast, contextHolder } = useToast();
 
   //
   async function handleLogin() {
-    try {
-      const dataForm = await loginForm.validateFields();
-      console.log("Form values login:", dataForm);
-      loginUser(dataForm);
-      loginForm.resetFields();
-    } catch (error) {
-      console.log("Error::", error);
+    const dataForm = await loginForm.validateFields();
+    loginUser(dataForm);
+
+    const res = await login({
+      email: dataForm.email,
+      password: dataForm.password,
+    });
+
+    if (res.statusCode !== 200) {
+      showToast(res);
+      return;
     }
+    showToast(res);
+    loginForm.resetFields();
   }
 
   return (
     <div className="h-screen flex">
+      {contextHolder}
       <div className="m-auto p-8 grid grid-cols-2 border border-primary shadow-lg shadow-primary rounded-tl-3xl rounded-br-3xl overflow-hidden">
         <Image src={developerGIF} alt="developer" width={500} height={500} />
         <Form
@@ -54,10 +64,8 @@ export default function Login() {
             label="Email"
             name="email"
             rules={[
-              {
-                required: true,
-                message: "Please input your email!",
-              },
+              { required: true, message: "Please input your email!" },
+              { type: "email", message: "Invalid email format!" },
             ]}
           >
             <Input size="large" className="w-full" />

@@ -25,16 +25,17 @@ export interface IPropEnterTextAnimated {
 
 export interface IPropCardSkill {
   name: string;
-  icon: string;
+  image: string;
+  progress: number;
   link?: string;
-  status?: {
-    name: string;
-    color: string;
-  };
 }
 
 export interface IPropCardStorage extends IPropCardSkill {
   href: string;
+  status?: {
+    name: string;
+    color: string;
+  };
 }
 
 export interface IPropInputPrimary extends InputProps {

@@ -25,33 +25,38 @@ import zustand from "../../../../public/icons/skills/zustand.png";
 
 export default function SkillPage() {
   const skills = [
-    { name: "Html", icon: html },
-    { name: "Css", icon: css },
-    { name: "Tailwind Css", icon: tailwind },
-    { name: "Javascript", icon: js },
-    { name: "React js", icon: react },
-    { name: "Redux", icon: redux },
-    { name: "Zustand", icon: zustand },
-    { name: "Next js", icon: nextjs },
-    { name: "Ant design", icon: antd },
-    { name: "Material ui", icon: mui },
-    { name: "Github", icon: github },
-    { name: "Node js", icon: node },
-    { name: "Express js", icon: express },
-    { name: "Json web token", icon: jwt },
-    { name: "Mongo DB", icon: mongo },
-    { name: "Mysql", icon: mysql },
-    { name: "Typescript", icon: ts },
-    { name: "Nest js", icon: nestjs },
-    { name: "Redis", icon: redis },
-    { name: "Docker", icon: docker },
+    { name: "Html", image: html, progress: 85 },
+    { name: "Css", image: css, progress: 90 },
+    { name: "Tailwind Css", image: tailwind, progress: 95 },
+    { name: "Javascript", image: js, progress: 90 },
+    { name: "React js", image: react, progress: 80 },
+    { name: "Redux", image: redux, progress: 85 },
+    { name: "Zustand", image: zustand, progress: 65 },
+    { name: "Next js", image: nextjs, progress: 55 },
+    { name: "Ant design", image: antd, progress: 75 },
+    { name: "Material ui", image: mui, progress: 75 },
+    { name: "Github", image: github, progress: 85 },
+    { name: "Node js", image: node, progress: 95 },
+    { name: "Express js", image: express, progress: 85 },
+    { name: "Json web token", image: jwt, progress: 85 },
+    { name: "Mongo DB", image: mongo, progress: 65 },
+    { name: "Mysql", image: mysql, progress: 85 },
+    { name: "Typescript", image: ts, progress: 65 },
+    { name: "Nest js", image: nestjs, progress: 65 },
+    { name: "Redis", image: redis, progress: 55 },
+    { name: "Docker", image: docker, progress: 35 },
   ];
 
   return (
     <main className="flex h-screen pt-10">
       <div className="m-auto w-[1200px] grid grid-cols-5 place-items-center gap-y-4">
         {skills.map((skill) => (
-          <CardSkill key={uuidV4()} icon={skill.icon.src} name={skill.name} />
+          <CardSkill
+            key={uuidV4()}
+            image={skill.image.src}
+            name={skill.name}
+            progress={skill.progress}
+          />
         ))}
       </div>
     </main>

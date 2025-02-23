@@ -29,7 +29,7 @@ function NavBar() {
           <ItemLinkNavbar href="/work">Work</ItemLinkNavbar>
         </li>
         <li>
-          <ItemLinkNavbar href="experience">Experience</ItemLinkNavbar>
+          <ItemLinkNavbar href="/experience">Experience</ItemLinkNavbar>
         </li>
         <li>
           <ItemLinkNavbar href="/">Home</ItemLinkNavbar>

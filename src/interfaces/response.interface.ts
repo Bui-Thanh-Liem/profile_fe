@@ -1,20 +1,4 @@
-export interface IResponse<T> {
-  statusCode: number;
-  message: string;
-  responseStatusCode?: string;
-  data: T;
-}
+import { Abstract, InterfaceCommon } from "liemdev-profile-lib";
 
-export interface IResponseError {
-  path: string;
-  error: string;
-  message: string;
-  statusCode: number;
-  timestamp: string;
-  track?: string;
-}
-
-export interface IGetMulti<T> {
-  total: number;
-  data: Array<T>;
-}
+export type TResponse<T> = Abstract.ResponseError &
+  Abstract.ResponseSuccess<InterfaceCommon.IResponseLogin<T>>;

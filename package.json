@@ -14,7 +14,7 @@
     "@tiptap/extension-list-item": "^2.11.5",
     "@tiptap/react": "^2.11.5",
     "@tiptap/starter-kit": "^2.11.5",
-    "antd": "^5.22.7",
+    "antd": "^5.24.1",
     "antd-style": "^3.7.1",
     "clsx": "^2.1.1",
     "liemdev-profile-lib": "^3.5.0",

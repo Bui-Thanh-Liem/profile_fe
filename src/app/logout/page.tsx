@@ -6,5 +6,9 @@ export default function LogoutPage() {
     router.push("/auth/login");
   });
 
-  return <p>Đang đăng xuất...</p>;
+  return (
+    <div className="h-screen flex items-center">
+      <p>Signing out...</p>
+    </div>
+  );
 }

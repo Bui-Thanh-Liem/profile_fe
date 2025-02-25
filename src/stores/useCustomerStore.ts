@@ -1,18 +1,33 @@
+import { IUser } from "@/interfaces/model.interface";
 import { create } from "zustand";
+import { persist, PersistOptions } from "zustand/middleware";
 
 type State = {
-  currentCustomer: string;
+  currentUser: Partial<IUser> | null;
+  isAuthenticated: boolean;
 };
 
 type Action = {
-  loginCustomer: (firstName: State["currentCustomer"]) => void;
-  logoutCustomer: () => void;
+  loginUser: (userLogin: Partial<IUser>) => void;
+  logoutUser: () => void;
 };
 
-const useCustomerStore = create<State & Action>((set) => ({
-  currentCustomer: "",
-  loginCustomer: (name) => set(() => ({ currentCustomer: name })),
-  logoutCustomer: () => set(() => ({ currentCustomer: "" })),
-}));
+const persistConfig: PersistOptions<State & Action> = {
+  name: "auth-storage",
+};
+
+export const useCustomerStore = create<State & Action>()(
+  persist(
+    (set) => ({
+      currentUser: null,
+      isAuthenticated: false,
+      loginUser: (userLogin) =>
+        set(() => ({ currentUser: userLogin, isAuthenticated: true })),
+      logoutUser: () =>
+        set(() => ({ currentUser: null, isAuthenticated: false })),
+    }),
+    persistConfig
+  )
+);
 
 export default useCustomerStore;

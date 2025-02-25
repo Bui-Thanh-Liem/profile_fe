@@ -1,4 +1,4 @@
-import { callApi } from "@/helper/api.helper";
+import { callApi } from "@/helper/api-client-bearer.helper";
 import { IUser } from "@/interfaces/model.interface";
 import { Constants } from "liemdev-profile-lib";
 

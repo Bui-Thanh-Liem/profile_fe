@@ -3,28 +3,28 @@ import { create } from "zustand";
 import { persist, PersistOptions } from "zustand/middleware";
 
 type State = {
-  currentUser: Partial<IUser> | null;
-  isAuthenticated: boolean;
+  currentCustomer: Partial<IUser> | null;
+  isLoggedCustomer: boolean;
 };
 
 type Action = {
-  loginUser: (userLogin: Partial<IUser>) => void;
-  logoutUser: () => void;
+  loginCustomer: (userLogin: Partial<IUser>) => void;
+  logoutCustomer: () => void;
 };
 
 const persistConfig: PersistOptions<State & Action> = {
-  name: "auth-storage",
+  name: "customer-storage",
 };
 
 export const useCustomerStore = create<State & Action>()(
   persist(
     (set) => ({
-      currentUser: null,
-      isAuthenticated: false,
-      loginUser: (userLogin) =>
-        set(() => ({ currentUser: userLogin, isAuthenticated: true })),
-      logoutUser: () =>
-        set(() => ({ currentUser: null, isAuthenticated: false })),
+      currentCustomer: null,
+      isLoggedCustomer: false,
+      loginCustomer: (userLogin) =>
+        set(() => ({ currentCustomer: userLogin, isLoggedCustomer: true })),
+      logoutCustomer: () =>
+        set(() => ({ currentCustomer: null, isLoggedCustomer: false })),
     }),
     persistConfig
   )

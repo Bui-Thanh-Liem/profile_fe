@@ -3,7 +3,7 @@ import { Avatar, Dropdown, MenuProps } from "antd";
 import { IoIosLogOut } from "react-icons/io";
 import { RiSettings4Line, RiUser2Line } from "react-icons/ri";
 import liem from "../../../../public/me.png";
-import useCustomerStore from "../../../stores/useCustomer";
+import useCustomerStore from "../../../stores/useCustomerStore";
 import { useRouter } from "next/navigation";
 
 const userItems: MenuProps["items"] = [

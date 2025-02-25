@@ -10,7 +10,7 @@ import Logo from "@/components/Logo";
 import { useToast } from "@/hooks/useToast";
 import { useState } from "react";
 import developerGIF from "../../../public/web-developer.gif";
-import useUserStore from "../../stores/useUser";
+import useUserStore from "../../stores/useUserStore";
 
 type FieldTypeLogin = {
   email?: string;
@@ -27,7 +27,6 @@ export default function Login() {
   //
   async function handleLogin() {
     const dataForm = await loginForm.validateFields();
-    loginUser(dataForm);
 
     const res = await login({
       email: dataForm.email,
@@ -38,6 +37,7 @@ export default function Login() {
       showToast(res);
       return;
     }
+    loginUser(res.data.user);
     showToast(res);
     loginForm.resetFields();
   }

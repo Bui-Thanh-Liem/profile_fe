@@ -4,7 +4,7 @@
 //
 import NotificationCustomer from "@/layouts/public/haveLoginCustomer/NotificationCustomer";
 import PersonalCustomer from "@/layouts/public/haveLoginCustomer/PersonalCustomer";
-import useCustomerStore from "../../../stores/useCustomer";
+import useCustomerStore from "../../../stores/useCustomerStore";
 
 //
 export default function HaveLogin() {

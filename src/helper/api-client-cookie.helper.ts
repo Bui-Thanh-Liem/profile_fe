@@ -37,7 +37,7 @@ const callApiClientCookie = async <T>({
   const response = await fetch(url, dataOptions);
   const result = await response.json();
 
-  if (response.status == 403) {
+  if (result.status == 403) {
     logoutUser();
     document.cookie = "token-user=; Max-Age=0; path=/";
     window.location.href = "/auth/login";

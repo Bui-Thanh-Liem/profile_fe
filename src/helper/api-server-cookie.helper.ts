@@ -34,11 +34,12 @@ export const callApiServerCookie = async <T>({
 
   const result: TResponse<T> = await response.json();
 
-  if (response.status === 403) {
+  if (result.statusCode === 403) {
+    // Call api logout hoặc refresh token
     redirect("/auth/login");
   }
 
-  if (response.status === 406) {
+  if (result.statusCode === 406) {
     redirect("/storage");
   }
 

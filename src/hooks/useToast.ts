@@ -11,6 +11,7 @@ export const useToast = () => {
   //   error: "error",
   // };
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const showToast = ({ statusCode, message }: TResponse<any>) => {
     const type = statusCode !== 200 ? "error" : "success";
     api[type]({

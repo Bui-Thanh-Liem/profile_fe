@@ -8,9 +8,10 @@ import Captcha from "@/components/Captcha";
 import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import Logo from "@/components/Logo";
 import { useToast } from "@/hooks/useToast";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import developerGIF from "../../../public/web-developer.gif";
 import useUserStore from "../../stores/useUserStore";
+import { useRouter } from "next/navigation";
 
 type FieldTypeLogin = {
   email?: string;
@@ -21,25 +22,32 @@ type FieldTypeLogin = {
 export default function Login() {
   const [loginForm] = Form.useForm();
   const { loginUser } = useUserStore();
+  const router = useRouter();
   const [isCheckCaptcha, setIsCheckCaptcha] = useState(false);
+  const [isPending, startTransition] = useTransition();
   const { showToast, contextHolder } = useToast();
 
   //
   async function handleLogin() {
     const dataForm = await loginForm.validateFields();
+    startTransition(async () => {
+      console.log("login nek");
+      const res = await login({
+        email: dataForm.email,
+        password: dataForm.password,
+      });
 
-    const res = await login({
-      email: dataForm.email,
-      password: dataForm.password,
-    });
+      if (res.statusCode !== 200) {
+        showToast(res);
 
-    if (res.statusCode !== 200) {
+        return;
+      }
+
+      loginUser(res.data.user);
       showToast(res);
-      return;
-    }
-    loginUser(res.data.user);
-    showToast(res);
-    loginForm.resetFields();
+      loginForm.resetFields();
+      router.replace("/admin", { scroll: true });
+    });
   }
 
   return (
@@ -86,7 +94,11 @@ export default function Login() {
           </Form.Item>
           <Captcha handleCheck={setIsCheckCaptcha} />
           <div className="mt-6 flex justify-end">
-            <ButtonPrimary disabled={!isCheckCaptcha} onClick={handleLogin}>
+            <ButtonPrimary
+              disabled={!isCheckCaptcha}
+              onClick={handleLogin}
+              loading={isPending}
+            >
               Submit
             </ButtonPrimary>
           </div>

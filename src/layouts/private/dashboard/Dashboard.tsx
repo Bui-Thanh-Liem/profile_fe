@@ -1,47 +1,19 @@
 "use client";
-import { Card, Col, Row } from "antd";
-import ChartBar from "./ChartBar";
-import ChartColumn from "./ChartColumn";
-import ChartLine from "./ChartLine";
-import ChartMix from "./ChartMix";
-import ChartWaterWare from "./ChartWaterWare";
-import ChartRadar from "./ChartRadar";
+import { CardPercentAdmin } from "@/components/cards/CardPercentAdmin";
+import { Col, Row } from "antd";
 
 export default function Dashboard() {
   return (
     <div>
-      <Row gutter={[16, 16]}>
-        <Col xs={24} md={12} lg={9}>
-          <Card>
-            <ChartLine />
-          </Card>
+      <Row>
+        <Col xs={24} md={12} lg={5}>
+          <CardPercentAdmin title="User" value={34} percent={0.5} />
         </Col>
-        <Col xs={24} md={12} lg={9}>
-          <Card>
-            <ChartBar />
-          </Card>
+        <Col xs={24} md={12} lg={5}>
+          <CardPercentAdmin title="User" value={34} percent={0.5} />
         </Col>
-        <Col xs={24} md={12} lg={6}>
-          <Card>
-            <ChartWaterWare />
-          </Card>
-        </Col>
-
-        <Col span={24}>
-          <Card>
-            <ChartMix />
-          </Card>
-        </Col>
-
-        <Col xs={24} md={12}>
-          <Card>
-            <ChartRadar />
-          </Card>
-        </Col>
-        <Col xs={24} md={12}>
-          <Card>
-            <ChartColumn />
-          </Card>
+        <Col xs={24} md={12} lg={5}>
+          <CardPercentAdmin title="User" value={34} percent={0.5} />
         </Col>
       </Row>
     </div>

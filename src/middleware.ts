@@ -1,13 +1,16 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { CONSTANT_TOKEN } from "./constants";
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   // const response = NextResponse.next();
   console.log("pathname:::", pathname);
 
-  const customerCookie = request.cookies.get("customer");
-  const userCookie = request.cookies.get("user");
+  const customerCookie = request.cookies.get(
+    CONSTANT_TOKEN.TOKEN_NAME_CUSTOMER
+  );
+  const userCookie = request.cookies.get(CONSTANT_TOKEN.TOKEN_NAME_USER);
   // const allCookies = request.cookies.getAll();
 
   // request.cookies.has("nextjs")

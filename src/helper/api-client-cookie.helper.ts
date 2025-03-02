@@ -7,7 +7,7 @@ interface IOptions {
   options: RequestInit;
 }
 
-const callApiClientCookie = async <T>({
+export const callApiClientCookie = async <T>({
   url,
   options,
 }: IOptions): Promise<TResponse<T>> => {
@@ -29,8 +29,8 @@ const callApiClientCookie = async <T>({
 
   // options
   const dataOptions: RequestInit = {
-    headers,
     ...options,
+    headers,
     credentials: "include",
   };
 

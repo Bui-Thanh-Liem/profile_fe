@@ -30,6 +30,13 @@ export interface IPropCardSkill {
   link?: string;
 }
 
+export interface IPropCardPercentAdmin {
+  value: number;
+  title: string;
+  percent: number;
+  link?: string;
+}
+
 export interface IPropCardStorage extends IPropCardSkill {
   href: string;
   status?: {

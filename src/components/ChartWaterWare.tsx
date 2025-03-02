@@ -1,9 +1,9 @@
 "use client";
 import { Liquid } from "@ant-design/plots";
 
-const ChartWaterWare = () => {
+const ChartWaterWare = ({ percent }: { percent: number }) => {
   const config = {
-    percent: 0.7,
+    percent: percent,
     style: {
       outlineBorder: 4,
       outlineDistance: 8,

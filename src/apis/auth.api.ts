@@ -15,7 +15,18 @@ export async function login(payload: Partial<IUser>) {
   return response;
 }
 
-export function refresh() {}
+export async function refresh() {
+  const response = await callApiServerCookie<IUser>({
+    url: `${Constants.CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
+      Constants.CONSTANT_ROUTE.AUTH
+    }/${"refresh"}`,
+    options: {
+      method: "POST",
+      // body: JSON.stringify(""),
+    },
+  });
+  return response;
+}
 
 export function logout() {}
 

@@ -10,7 +10,11 @@ const ChartWaterWare = ({ percent }: { percent: number }) => {
       waveLength: 128,
     },
   };
-  return <Liquid {...config} />;
+  return (
+    <div className="w-1/2">
+      <Liquid {...config} />
+    </div>
+  );
 };
 
 export default ChartWaterWare;

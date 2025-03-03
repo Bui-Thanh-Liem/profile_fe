@@ -8,6 +8,8 @@ export function CardPercentAdmin({
   percent,
   link,
 }: IPropCardPercentAdmin) {
+  console.log("link CardPercentAdmin:::", link);
+
   return (
     <Card>
       <div>

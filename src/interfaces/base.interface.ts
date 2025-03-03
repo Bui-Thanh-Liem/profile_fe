@@ -1,9 +1,9 @@
-import { IUser } from "./models/user.interface";
+// import { IUser } from "./models/user.interface";
 
-export interface IBaseModel {
-  id: string;
-  createdAt: Date;
-  createdBy: IUser;
-  updatedAt: Date;
-  updatedBy: IUser;
-}
+// export interface IBaseModel {
+//   id: string;
+//   createdAt: Date;
+//   createdBy: IUser;
+//   updatedAt: Date;
+//   updatedBy: IUser;
+// }

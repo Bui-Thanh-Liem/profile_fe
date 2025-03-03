@@ -1,9 +1,11 @@
 import { callApiServerCookie } from "@/helper/api-server-cookie.helper";
 import { IUser } from "@/interfaces/model.interface";
-import { Constants } from "liemdev-profile-lib";
+import { Constants, InterfaceCommon } from "liemdev-profile-lib";
 
 export async function login(payload: Partial<IUser>) {
-  const response = await callApiServerCookie<IUser>({
+  const response = await callApiServerCookie<
+    InterfaceCommon.IResponseLogin<IUser>
+  >({
     url: `${Constants.CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
       Constants.CONSTANT_ROUTE.AUTH
     }/${"login"}`,
@@ -16,7 +18,7 @@ export async function login(payload: Partial<IUser>) {
 }
 
 export async function refresh() {
-  const response = await callApiServerCookie<IUser>({
+  const response = await callApiServerCookie<boolean>({
     url: `${Constants.CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
       Constants.CONSTANT_ROUTE.AUTH
     }/${"refresh"}`,

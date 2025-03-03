@@ -1,14 +1,18 @@
 import MyTable from "@/components/table/MyTable";
+import { IUser } from "@/interfaces/model.interface";
+import { IPropUserLayout } from "@/interfaces/propsLayout.interface";
 import UserAction from "./UserAction";
 import { userActionColumns } from "./UserColumn";
-import { mock_admin, mock_users } from "@/mocks/user";
 
-export default function UserLayout() {
-
+export default function UserLayout({
+  items,
+  totalItems,
+}: IPropUserLayout<IUser>) {
   return (
     <MyTable
       columns={userActionColumns}
-      dataSource={[mock_admin, ...mock_users]}
+      dataSource={items || []}
+      // dataSource={[mock_admin, ...mock_users]}
       actionDataSource={<UserAction />}
     />
   );

@@ -10,7 +10,7 @@ import Logo from "@/components/Logo";
 import { useToast } from "@/hooks/useToast";
 import { useState, useTransition } from "react";
 import developerGIF from "../../../public/web-developer.gif";
-import useUserStore from "../../stores/useUserStore";
+import useAuthStore from "../../stores/useAuthStore";
 import { useRouter } from "next/navigation";
 
 type FieldTypeLogin = {
@@ -21,7 +21,7 @@ type FieldTypeLogin = {
 
 export default function Login() {
   const [loginForm] = Form.useForm();
-  const { loginUser } = useUserStore();
+  const { loginUser } = useAuthStore();
   const router = useRouter();
   const [isCheckCaptcha, setIsCheckCaptcha] = useState(false);
   const [isPending, startTransition] = useTransition();
@@ -39,7 +39,6 @@ export default function Login() {
 
       if (res.statusCode !== 200) {
         showToast(res);
-
         return;
       }
 

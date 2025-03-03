@@ -1,3 +1,3 @@
-export default function StorageImagePage() {
-  return <div>StorageImage</div>;
+export default function CustomerPage() {
+  return <div>Customer page</div>;
 }

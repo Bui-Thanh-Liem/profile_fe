@@ -1,6 +1,6 @@
 import { TResponse } from "@/interfaces/response.interface";
 import useCustomerStore from "@/stores/useCustomerStore";
-import useAuthStore from "@/stores/useUserStore";
+import useAuthStore from "@/stores/useAuthStore";
 
 interface IOptions {
   url: string;

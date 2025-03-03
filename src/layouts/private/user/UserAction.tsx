@@ -158,7 +158,7 @@ export default function UserAction({
           <Col span={3}>
             <Form.Item<IFormAction>
               label="SubAdmin"
-              name="subAdmin"
+              name="isSubAdmin"
               // rules={[{ required: true, message: "Please select subAdmin!" }]}
             >
               <Select
@@ -201,7 +201,7 @@ export default function UserAction({
           <Col span={14}>
             <Form.Item<IFormAction>
               label="Roles"
-              name="role"
+              name="roles"
               // rules={[{ required: true, message: "Please select role!" }]}
             >
               <Select

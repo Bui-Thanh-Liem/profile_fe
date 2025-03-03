@@ -1,6 +1,7 @@
 "use client";
 import Logo from "@/components/Logo";
 import {
+  AlertOutlined,
   BarChartOutlined,
   CustomerServiceOutlined,
   FileImageOutlined,
@@ -47,8 +48,8 @@ const items: MenuItem[] = [
       <UserOutlined />
     ),
     getItem(
-      <Link href="/admin/roleGroups">RoleGroups</Link>,
-      "/admin/roleGroups",
+      <Link href="/admin/role-groups">Role Groups</Link>,
+      "/admin/role-groups",
       <UserOutlined />
     ),
   ]),
@@ -58,13 +59,18 @@ const items: MenuItem[] = [
     <CustomerServiceOutlined />
   ),
   getItem(
+    <Link href="/admin/skills">Skills</Link>,
+    "/admin/skills",
+    <AlertOutlined />
+  ),
+  getItem(
     <Link href="/admin/files-storage">Files Storage</Link>,
-    "/admin/files",
+    "/admin/files-storage",
     <FileOutlined />
   ),
   getItem(
     <Link href="/admin/images-storage">Images Storage</Link>,
-    "/admin/storage-images",
+    "/admin/images-storage",
     <FileImageOutlined />
   ),
 ];

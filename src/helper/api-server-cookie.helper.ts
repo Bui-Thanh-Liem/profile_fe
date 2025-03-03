@@ -2,8 +2,8 @@
 import { refresh } from "@/apis/auth.api";
 import { CONSTANT_ENV } from "@/constants";
 import { TResponse } from "@/interfaces/response.interface";
-import { ConvertTime } from "@/utils/convertTime.util";
 import { handleStringCookie } from "@/utils/handleString.util";
+import { Utils } from "liemdev-profile-lib";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -45,13 +45,13 @@ export const callApiServerCookie = async <T>({
       httpOnly: true,
       secure: process.env.NODE_ENV === CONSTANT_ENV.NODE_ENV.PROD,
       sameSite: "lax", // Khớp với BE
-      maxAge: ConvertTime.getSecond("DAY", 3)
+      maxAge: Utils.ConvertTime.convertSecond("DAY", 3),
     });
     cookies().set(refresh[0], refresh[1], {
       httpOnly: true,
       secure: process.env.NODE_ENV === CONSTANT_ENV.NODE_ENV.PROD,
       sameSite: "lax", // Khớp với BE
-      maxAge: ConvertTime.getSecond("DAY", 7)
+      maxAge: Utils.ConvertTime.convertSecond("DAY", 7),
     });
   }
 
@@ -74,13 +74,13 @@ export const callApiServerCookie = async <T>({
         httpOnly: true,
         secure: process.env.NODE_ENV === CONSTANT_ENV.NODE_ENV.PROD,
         sameSite: "lax", // Khớp với BE
-        maxAge: ConvertTime.getSecond("DAY", 3)
+        maxAge: Utils.ConvertTime.convertSecond("DAY", 3),
       });
       cookies().set(refresh[0], refresh[1], {
         httpOnly: true,
         secure: process.env.NODE_ENV === CONSTANT_ENV.NODE_ENV.PROD,
         sameSite: "lax", // Khớp với BE
-        maxAge: ConvertTime.getSecond("DAY", 7)
+        maxAge: Utils.ConvertTime.convertSecond("DAY", 7),
       });
     }
     result = await response.json();

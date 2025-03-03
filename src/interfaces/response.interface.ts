@@ -1,4 +1,3 @@
-import { Abstract, InterfaceCommon } from "liemdev-profile-lib";
+import { Abstract } from "liemdev-profile-lib";
 
-export type TResponse<T> = Abstract.ResponseError &
-  Abstract.ResponseSuccess<InterfaceCommon.IResponseLogin<T>>;
+export type TResponse<T> = Abstract.ResponseError & Abstract.ResponseSuccess<T>;

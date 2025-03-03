@@ -1,3 +1,3 @@
-export default function FilesPage() {
-  return <div>Files</div>;
+export default function FileStoragePage() {
+  return <div>File Storage Page</div>;
 }

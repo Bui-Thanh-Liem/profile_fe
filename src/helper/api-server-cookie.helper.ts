@@ -57,34 +57,34 @@ export const callApiServerCookie = async <T>({
 
   let result: TResponse<T> = await response.json();
 
-  if (result.statusCode === 401) {
-    // Refresh token rồi gọi lại fetch 1 lần nữa
-    await refresh();
-    const response = await fetch(url, {
-      ...options,
-      headers,
-      credentials: "include",
-    });
+  // if (result.statusCode === 401) {
+  //   // Refresh token rồi gọi lại fetch 1 lần nữa
+  //   await refresh();
+  //   const response = await fetch(url, {
+  //     ...options,
+  //     headers,
+  //     credentials: "include",
+  //   });
 
-    //
-    const cookieFromServer = response.headers.get("set-cookie");
-    if (cookieFromServer) {
-      const { access, refresh } = handleStringCookie(cookieFromServer);
-      cookies().set(access[0], access[1], {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === CONSTANT_ENV.NODE_ENV.PROD,
-        sameSite: "lax", // Khớp với BE
-        maxAge: Utils.ConvertTime.convertSecond("DAY", 3),
-      });
-      cookies().set(refresh[0], refresh[1], {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === CONSTANT_ENV.NODE_ENV.PROD,
-        sameSite: "lax", // Khớp với BE
-        maxAge: Utils.ConvertTime.convertSecond("DAY", 7),
-      });
-    }
-    result = await response.json();
-  }
+  //   //
+  //   const cookieFromServer = response.headers.get("set-cookie");
+  //   if (cookieFromServer) {
+  //     const { access, refresh } = handleStringCookie(cookieFromServer);
+  //     cookies().set(access[0], access[1], {
+  //       httpOnly: true,
+  //       secure: process.env.NODE_ENV === CONSTANT_ENV.NODE_ENV.PROD,
+  //       sameSite: "lax", // Khớp với BE
+  //       maxAge: Utils.ConvertTime.convertSecond("DAY", 3),
+  //     });
+  //     cookies().set(refresh[0], refresh[1], {
+  //       httpOnly: true,
+  //       secure: process.env.NODE_ENV === CONSTANT_ENV.NODE_ENV.PROD,
+  //       sameSite: "lax", // Khớp với BE
+  //       maxAge: Utils.ConvertTime.convertSecond("DAY", 7),
+  //     });
+  //   }
+  //   result = await response.json();
+  // }
 
   if (result.statusCode === 403) {
     // Call api logout

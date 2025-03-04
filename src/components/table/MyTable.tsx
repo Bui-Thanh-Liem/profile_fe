@@ -65,13 +65,14 @@ export default function MyTable<T extends IUserBase>({
     ...columns,
     {
       title: "Created",
-      key: "created",
+      key: "createdAt",
       width: 200,
       render: (_, record) => {
+        const date = new Date(_);
         const formattedDate = new Intl.DateTimeFormat("sv-SE").format(
-          record.createdAt
+          new Date()
         );
-        const formattedTime = record.createdAt.toLocaleTimeString("en-GB");
+        const formattedTime = date.toLocaleTimeString("en-GB");
         return (
           <>
             <p>{record.createdBy.fullName || <UserOutlined />}</p>
@@ -82,13 +83,14 @@ export default function MyTable<T extends IUserBase>({
     },
     {
       title: "Updated",
-      key: "updated",
+      key: "updatedAt",
       width: 200,
       render: (_, record) => {
+        const date = new Date(_);
         const formattedDate = new Intl.DateTimeFormat("sv-SE").format(
-          record.updatedAt
+          new Date()
         );
-        const formattedTime = record.updatedAt.toLocaleTimeString("en-GB");
+        const formattedTime = date.toLocaleTimeString("en-GB");
         return (
           <>
             <p>{record.updatedBy.fullName || <UserOutlined />}</p>

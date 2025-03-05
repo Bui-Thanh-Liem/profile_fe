@@ -1,5 +1,5 @@
 "use client";
-import { IBaseModel } from "@/interfaces/base.interface";
+import { IBase, IUser } from "@/interfaces/model.interface";
 import IPropMyTable from "@/interfaces/propsComponent.interface";
 import { UserOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
@@ -32,11 +32,11 @@ const useStyle = createStyles(({ css, token }) => {
   };
 });
 
-interface IUserBase extends IBaseModel {
+interface IBaseMyTable extends IBase {
   isAdmin?: boolean;
 }
 
-export default function MyTable<T extends IUserBase>({
+export default function MyTable<T extends IBaseMyTable>({
   columns,
   dataSource,
   actionDataSource,
@@ -65,17 +65,22 @@ export default function MyTable<T extends IUserBase>({
     ...columns,
     {
       title: "Created",
-      key: "createdAt",
+      key: "created",
       width: 200,
       render: (_, record) => {
+        const creator = record.createdBy as IUser;
+        const createdAt = record.createdAt;
         const date = new Date(_);
+
         const formattedDate = new Intl.DateTimeFormat("sv-SE").format(
-          new Date()
+          new Date(createdAt)
         );
         const formattedTime = date.toLocaleTimeString("en-GB");
+
+        //
         return (
           <>
-            <p>{record.createdBy.fullName || <UserOutlined />}</p>
+            <p>{creator?.fullName || <UserOutlined />}</p>
             <p>{`${formattedDate}, ${formattedTime}`}</p>
           </>
         );
@@ -83,17 +88,23 @@ export default function MyTable<T extends IUserBase>({
     },
     {
       title: "Updated",
-      key: "updatedAt",
+      key: "updated",
       width: 200,
       render: (_, record) => {
+        const editor = record.updatedBy as IUser;
+        const updatedAt = record.updatedAt;
         const date = new Date(_);
+
+        //
         const formattedDate = new Intl.DateTimeFormat("sv-SE").format(
-          new Date()
+          new Date(updatedAt)
         );
         const formattedTime = date.toLocaleTimeString("en-GB");
+
+        //
         return (
           <>
-            <p>{record.updatedBy.fullName || <UserOutlined />}</p>
+            <p>{editor?.fullName || <UserOutlined />}</p>
             <p>{`${formattedDate}, ${formattedTime}`}</p>
           </>
         );

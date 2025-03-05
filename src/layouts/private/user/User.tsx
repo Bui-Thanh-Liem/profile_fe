@@ -11,7 +11,7 @@ export default function UserLayout({
   return (
     <MyTable
       columns={userActionColumns}
-      dataSource={items || []}
+      dataSource={items}
       // dataSource={[mock_admin, ...mock_users]}
       actionDataSource={<UserAction />}
     />

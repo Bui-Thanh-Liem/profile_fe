@@ -1,6 +1,6 @@
 import { callApiServerCookie } from "@/helper/api-server-cookie.helper";
 import { IUser } from "@/interfaces/model.interface";
-import { Constants, InterfaceCommon } from "liemdev-profile-lib";
+import { Constants, InterfaceCommon, Utils } from "liemdev-profile-lib";
 
 const tag = {
   user: "user",
@@ -17,7 +17,9 @@ export function findOneByField() {}
 
 export async function findAll(queries: InterfaceCommon.IQueries) {
   const response = await callApiServerCookie<InterfaceCommon.IGetMulti<IUser>>({
-    url: `${Constants.CONSTANT_ROUTE.V1_DOMAIN_DEV}/${Constants.CONSTANT_ROUTE.USER}`,
+    url: `${Constants.CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
+      Constants.CONSTANT_ROUTE.USER
+    }${Utils.ConvertObject.convertObjectToString(queries)}`,
     options: {
       method: "GET",
       cache: "force-cache",

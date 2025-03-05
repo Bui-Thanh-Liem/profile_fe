@@ -1,4 +1,4 @@
-import { ButtonProps, InputProps, TableColumnsType } from "antd";
+import { AvatarProps, ButtonProps, InputProps, TableColumnsType } from "antd";
 import { ChangeEvent, ReactElement, ReactNode } from "react";
 
 export interface IPropIconNavbar {
@@ -88,4 +88,10 @@ export interface IPropMyTag {
 
 export interface IPropMyEditor {
   content: string;
+}
+
+export interface IPropMyAvatar extends AvatarProps {
+  src?: string;
+  alt: string;
+  fallbackText: string;
 }

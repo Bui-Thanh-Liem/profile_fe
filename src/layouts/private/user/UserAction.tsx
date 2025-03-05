@@ -1,4 +1,5 @@
 "use client";
+import { create } from "@/apis/user.api";
 import { EBoolean, EGender } from "@/enums/model.enum";
 import { IRole, IRoleGroup, IUser } from "@/interfaces/model.interface";
 import { IPropUserAction } from "@/interfaces/propsLayoutAction";
@@ -50,6 +51,9 @@ export default function UserAction({
       if (setIsOpen) {
         setIsOpen(false);
       }
+
+      const res = await create(formData);
+      const isSuccess = handle
       userActionForm.resetFields();
     } catch (error) {
       console.log("Error::", error);

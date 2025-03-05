@@ -5,7 +5,7 @@ import UserLayout from "@/layouts/private/user/User";
 export default async function UsersPage({ searchParams }: IPropPage) {
   const { limit, page } = searchParams;
   const resUser = await findAll({ limit, page });
-  console.log("resUser:::", resUser);
+  console.log("resUser:::", resUser.data.items);
 
   return (
     <UserLayout

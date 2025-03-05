@@ -1,10 +1,9 @@
 "use client";
+import { MyAvatar } from "@/components/MyAvatar";
 import useAuthStore from "@/stores/useAuthStore";
-import { Avatar } from "antd";
 
 export function HeaderAdmin() {
   const { currentUser } = useAuthStore();
-  console.log("currentUser:::", currentUser);
 
   return (
     <>
@@ -16,10 +15,10 @@ export function HeaderAdmin() {
           </p>
           <p className="leading-none text-gray-app">{currentUser?.email}</p>
         </div>
-        <Avatar
-          size={42}
-          src="https://api.dicebear.com/7.x/miniavs/svg?seed=1"
-          alt=""
+        <MyAvatar
+          src={currentUser?.avatar || ""}
+          alt={currentUser?.fullName || ""}
+          fallbackText={currentUser?.fullName || ""}
         />
       </div>
     </>

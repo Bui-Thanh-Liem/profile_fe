@@ -67,10 +67,10 @@ export default function MyTable<T extends IBaseMyTable>({
       title: "Created",
       key: "created",
       width: 200,
-      render: (_, record) => {
+      render: (record) => {
         const creator = record.createdBy as IUser;
         const createdAt = record.createdAt;
-        const date = new Date(_);
+        const date = new Date(createdAt);
 
         const formattedDate = new Intl.DateTimeFormat("sv-SE").format(
           new Date(createdAt)
@@ -90,10 +90,10 @@ export default function MyTable<T extends IBaseMyTable>({
       title: "Updated",
       key: "updated",
       width: 200,
-      render: (_, record) => {
+      render: (record) => {
         const editor = record.updatedBy as IUser;
         const updatedAt = record.updatedAt;
-        const date = new Date(_);
+        const date = new Date(updatedAt);
 
         //
         const formattedDate = new Intl.DateTimeFormat("sv-SE").format(

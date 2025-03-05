@@ -1,8 +1,9 @@
 "use client";
+import { MyAvatar } from "@/components/MyAvatar";
 import MyTag from "@/components/MyTag";
 import { EBoolean } from "@/enums/model.enum";
-import { IRole, IUser } from "@/interfaces/model.interface";
-import { Avatar, TableColumnsType } from "antd";
+import { IRole, IRoleGroup, IUser } from "@/interfaces/model.interface";
+import { TableColumnsType } from "antd";
 import { v4 } from "uuid";
 
 export const userActionColumns: TableColumnsType<IUser> = [
@@ -11,9 +12,16 @@ export const userActionColumns: TableColumnsType<IUser> = [
     width: 150,
     dataIndex: "avatar",
     key: "avatar",
-    render: (_) => {
-      return <Avatar className="w-14 h-14" src={_} alt="avatar" />;
+    render: (_, record) => {
+      return (
+        <MyAvatar
+          src={_}
+          alt={record?.fullName}
+          fallbackText={record?.fullName}
+        />
+      );
     },
+    fixed: "left",
   },
   {
     title: "Full Name",
@@ -55,6 +63,20 @@ export const userActionColumns: TableColumnsType<IUser> = [
     },
   },
   {
+    title: "Role group",
+    width: 250,
+    dataIndex: "roleGroups",
+    key: "role",
+    render: (_) => {
+      if (!_?.length) {
+        return "-";
+      }
+      return _.map((roleGroup: IRoleGroup) => (
+        <p key={v4()}>{roleGroup.name}</p>
+      ));
+    },
+  },
+  {
     title: "Sub Admin",
     width: 150,
     dataIndex: "subAdmin",
@@ -69,7 +91,7 @@ export const userActionColumns: TableColumnsType<IUser> = [
     dataIndex: "block",
     key: "block",
     render: (_) => {
-      return <MyTag tagName={_} />;
+      return <MyTag tagName={_ ? EBoolean.YES : EBoolean.NO} />;
     },
   },
 ];

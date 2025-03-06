@@ -1,6 +1,7 @@
 "use client";
 import { create } from "@/apis/user.api";
 import { EBoolean, EGender } from "@/enums/model.enum";
+import { useToast } from "@/hooks/useToast";
 import { IRole, IRoleGroup, IUser } from "@/interfaces/model.interface";
 import { IPropUserAction } from "@/interfaces/propsLayoutAction";
 import { mock_roles } from "@/mocks/role";
@@ -23,6 +24,7 @@ export default function UserAction({
   const subAdminValue = Form.useWatch("subAdmin", userActionForm);
   const [roles, setRoles] = useState<Array<IRole>>([]);
   const [roleGroups, setRoleGroups] = useState<Array<IRoleGroup>>([]);
+  const { showToast, contextHolder } = useToast();
 
   //
   useEffect(() => {
@@ -53,7 +55,11 @@ export default function UserAction({
       }
 
       const res = await create(formData);
-      const isSuccess = handle
+      if (res.statusCode !== 200) {
+        showToast(res);
+        return;
+      }
+      showToast(res);
       userActionForm.resetFields();
     } catch (error) {
       console.log("Error::", error);
@@ -69,200 +75,206 @@ export default function UserAction({
   }
 
   return (
-    <Modal
-      open={isOpen}
-      title={
-        <div className="text-center">
-          <p className="my-4">{`${isEdit ? "Edit" : "Create"} user`}</p>
-        </div>
-      }
-      onOk={onSubmitForm}
-      onCancel={handleCancel}
-      centered
-      footer={[
-        <Button key="cancel" danger onClick={handleCancel}>
-          Cancel
-        </Button>,
-        <Button key="ok" type="primary" onClick={onSubmitForm}>
-          OK
-        </Button>,
-      ]}
-      width={800}
-    >
-      <Form
-        form={userActionForm}
-        name="user-action"
-        initialValues={{ remember: true }}
-        onFinish={onSubmitForm}
-        onFinishFailed={() => {}}
-        layout="vertical"
-        autoComplete="off"
+    <>
+      {contextHolder}
+      <Modal
+        open={isOpen}
+        title={
+          <div className="text-center">
+            <p className="my-4">{`${isEdit ? "Edit" : "Create"} user`}</p>
+          </div>
+        }
+        // onOk={onSubmitForm}
+        onCancel={handleCancel}
+        centered
+        footer={[
+          <Button key="cancel" danger onClick={handleCancel}>
+            Cancel
+          </Button>,
+          <Button key="ok" type="primary" onClick={onSubmitForm}>
+            OK
+          </Button>,
+        ]}
+        width={800}
       >
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item<IFormAction>
-              label="Fullname"
-              name="fullName"
-              rules={[
-                { required: true, message: "Please input your username!" },
-              ]}
-            >
-              <Input size="large" />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item<IFormAction>
-              label="Gender"
-              name="gender"
-              rules={[{ required: true, message: "Please select gender!" }]}
-            >
-              <Select size="large" placeholder="Select gender">
-                <Select.Option key={uuidV4()} value={EGender.MALE}>
-                  {EGender.MALE}
-                </Select.Option>
-                <Select.Option key={uuidV4()} value={EGender.FEMALE}>
-                  {EGender.FEMALE}
-                </Select.Option>
-              </Select>
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item<IFormAction>
-              label="Email"
-              name="email"
-              rules={[
-                { required: true, message: "Please input your email!" },
-                { type: "email", message: "The input is note a valid email!" },
-              ]}
-            >
-              <Input size="large" />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item<IFormAction>
-              label="Phone"
-              name="phone"
-              rules={[
-                { required: true, message: "Please input your phone!" },
-                {
-                  pattern: /^\d{10,11}$/,
-                  message: "The input is note a valid phone!",
-                },
-              ]}
-            >
-              <Input size="large" />
-            </Form.Item>
-          </Col>
-        </Row>
-
-        <Row gutter={16}>
-          <Col span={3}>
-            <Form.Item<IFormAction>
-              label="SubAdmin"
-              name="isSubAdmin"
-              // rules={[{ required: true, message: "Please select subAdmin!" }]}
-            >
-              <Select
-                size="large"
-                // placeholder="Select subAdmin"
-                defaultValue={false}
+        <Form
+          form={userActionForm}
+          name="user-action"
+          initialValues={{ remember: true }}
+          onFinish={onSubmitForm}
+          onFinishFailed={() => {}}
+          layout="vertical"
+          autoComplete="off"
+        >
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item<IFormAction>
+                label="Fullname"
+                name="fullName"
+                rules={[
+                  { required: true, message: "Please input your username!" },
+                ]}
               >
-                <Select.Option key={uuidV4()} value={false}>
-                  {EBoolean.NO}
-                </Select.Option>
-                <Select.Option key={uuidV4()} value={true}>
-                  {EBoolean.YES}
-                </Select.Option>
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col span={7}>
-            <Form.Item<IFormAction>
-              label="Role groups"
-              name="roleGroups"
-              // rules={[
-              //   { required: true, message: "Please select role groups!" },
-              // ]}
-            >
-              <Select
-                mode="multiple"
-                maxCount={1}
-                size="large"
-                placeholder="Select role groups"
-                disabled={subAdminValue}
+                <Input size="large" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item<IFormAction>
+                label="Gender"
+                name="gender"
+                rules={[{ required: true, message: "Please select gender!" }]}
               >
-                {roleGroups?.map((role) => (
-                  <Select.Option key={uuidV4()} value={role.id}>
-                    {role.name}
+                <Select size="large" placeholder="Select gender">
+                  <Select.Option key={uuidV4()} value={EGender.MALE}>
+                    {EGender.MALE}
                   </Select.Option>
-                ))}
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col span={14}>
-            <Form.Item<IFormAction>
-              label="Roles"
-              name="roles"
-              // rules={[{ required: true, message: "Please select role!" }]}
-            >
-              <Select
-                mode="multiple"
-                maxCount={3}
-                size="large"
-                placeholder="Select roles"
-                disabled={subAdminValue}
-              >
-                {roles?.map((role) => (
-                  <Select.Option key={uuidV4()} value={role.id}>
-                    {role.name}
+                  <Select.Option key={uuidV4()} value={EGender.FEMALE}>
+                    {EGender.FEMALE}
                   </Select.Option>
-                ))}
-              </Select>
-            </Form.Item>
-          </Col>
-        </Row>
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
 
-        {/*  */}
-        {!isEdit && (
-          <>
-            <Form.Item<IFormAction>
-              label="Password"
-              name="password"
-              rules={[
-                { required: true, message: "Please input your password!" },
-              ]}
-            >
-              <Input.Password size="large" />
-            </Form.Item>
-            <Form.Item<IFormAction>
-              label="Password confirm"
-              name="passwordConfirm"
-              rules={[
-                {
-                  required: true,
-                  message: "Please input your password confirm!",
-                },
-                ({ getFieldValue }) => ({
-                  validator(_, value) {
-                    if (!value || getFieldValue("password") === value) {
-                      return Promise.resolve();
-                    } else {
-                      return Promise.reject(
-                        new Error("Passwords do not match!")
-                      );
-                    }
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item<IFormAction>
+                label="Email"
+                name="email"
+                rules={[
+                  { required: true, message: "Please input your email!" },
+                  {
+                    type: "email",
+                    message: "The input is note a valid email!",
                   },
-                }),
-              ]}
-            >
-              <Input.Password size="large" />
-            </Form.Item>
-          </>
-        )}
-      </Form>
-    </Modal>
+                ]}
+              >
+                <Input size="large" />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item<IFormAction>
+                label="Phone"
+                name="phone"
+                rules={[
+                  { required: true, message: "Please input your phone!" },
+                  {
+                    pattern: /^\d{10,11}$/,
+                    message: "The input is note a valid phone!",
+                  },
+                ]}
+              >
+                <Input size="large" />
+              </Form.Item>
+            </Col>
+          </Row>
+
+          <Row gutter={16}>
+            <Col span={3}>
+              <Form.Item<IFormAction>
+                label="SubAdmin"
+                name="isSubAdmin"
+                // rules={[{ required: true, message: "Please select subAdmin!" }]}
+              >
+                <Select
+                  size="large"
+                  // placeholder="Select subAdmin"
+                  defaultValue={false}
+                >
+                  <Select.Option key={uuidV4()} value={false}>
+                    {EBoolean.NO}
+                  </Select.Option>
+                  <Select.Option key={uuidV4()} value={true}>
+                    {EBoolean.YES}
+                  </Select.Option>
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={7}>
+              <Form.Item<IFormAction>
+                label="Role groups"
+                name="roleGroups"
+                // rules={[
+                //   { required: true, message: "Please select role groups!" },
+                // ]}
+              >
+                <Select
+                  mode="multiple"
+                  maxCount={1}
+                  size="large"
+                  placeholder="Select role groups"
+                  disabled={subAdminValue}
+                >
+                  {roleGroups?.map((role) => (
+                    <Select.Option key={uuidV4()} value={role.id}>
+                      {role.name}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={14}>
+              <Form.Item<IFormAction>
+                label="Roles"
+                name="roles"
+                // rules={[{ required: true, message: "Please select role!" }]}
+              >
+                <Select
+                  mode="multiple"
+                  maxCount={3}
+                  size="large"
+                  placeholder="Select roles"
+                  disabled={subAdminValue}
+                >
+                  {roles?.map((role) => (
+                    <Select.Option key={uuidV4()} value={role.id}>
+                      {role.name}
+                    </Select.Option>
+                  ))}
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+
+          {/*  */}
+          {!isEdit && (
+            <>
+              <Form.Item<IFormAction>
+                label="Password"
+                name="password"
+                rules={[
+                  { required: true, message: "Please input your password!" },
+                ]}
+              >
+                <Input.Password size="large" />
+              </Form.Item>
+              <Form.Item<IFormAction>
+                label="Password confirm"
+                name="passwordConfirm"
+                rules={[
+                  {
+                    required: true,
+                    message: "Please input your password confirm!",
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(_, value) {
+                      if (!value || getFieldValue("password") === value) {
+                        return Promise.resolve();
+                      } else {
+                        return Promise.reject(
+                          new Error("Passwords do not match!")
+                        );
+                      }
+                    },
+                  }),
+                ]}
+              >
+                <Input.Password size="large" />
+              </Form.Item>
+            </>
+          )}
+        </Form>
+      </Modal>
+    </>
   );
 }

@@ -8,6 +8,7 @@ import { createStyles } from "antd-style";
 import React, { useEffect, useState } from "react";
 import MyTableAction from "./MyTableAction";
 import MyTableToolbar from "./MyTableToolbar";
+import { useToast } from "@/hooks/useToast";
 
 const useStyle = createStyles(({ css, token }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -37,15 +38,20 @@ interface IBaseMyTable extends IBase {
 }
 
 export default function MyTable<T extends IBaseMyTable>({
-  columns,
   dataSource,
+  totalDataSource,
+  columns,
   actionDataSource,
+  deleteApi,
 }: IPropMyTable<T>) {
   const { styles } = useStyle();
   const [isOpenActionDataSource, setIsOpenActionDataSource] =
     useState<boolean>(false);
-  const [dataEdit, setDataEdit] = useState<T | null>(null);
+  const [dataEdit, setDataEdit] = useState<Partial<T> | null>(null);
   const [checkedIds, setCheckedIds] = useState<Array<string> | []>([]);
+
+  //
+  const { showToast, contextHolder } = useToast();
 
   //
   useEffect(() => {
@@ -153,13 +159,18 @@ export default function MyTable<T extends IBaseMyTable>({
   }
 
   //
-  function onDeleteItem(id: string) {
-    console.log("delete item have id :::", id);
+  async function onDeleteItem(id: string) {
+    const res = await deleteApi([id]);
+    showToast(res);
   }
 
   //
-  function onDeleteItems(ids: Array<string>) {
-    console.log("delete item have ids :::", ids);
+  async function onDeleteItems(ids: Array<string>) {
+    const res = await deleteApi(ids);
+    if (res.statusCode !== 200) {
+      showToast(res);
+      return;
+    }
     setCheckedIds([]);
   }
 
@@ -180,14 +191,15 @@ export default function MyTable<T extends IBaseMyTable>({
           className={styles.customTable}
           scroll={{ x: "max-content", y: "calc(100vh - 360px)" }}
           rowSelection={rowSelection}
-          // pagination={{
-          //   pageSize: 20,
-          //   showSizeChanger: true,
-          //   pageSizeOptions: [20, 40, 60, 80, 100],
-          //   showTotal: (total, range) =>
-          //     `Hiển thị ${range[0]}-${range[1]} trên tổng ${total} bản ghi`,
-          // }}
+          pagination={{
+            pageSize: 20,
+            showSizeChanger: true,
+            pageSizeOptions: [20, 40, 60, 80, 100],
+            showTotal: (total, range) =>
+              `${totalDataSource} - Display ${range[0]}-${range[1]} on total record ${total}`,
+          }}
         />
+        {contextHolder}
       </Card>
       {React.cloneElement(actionDataSource, {
         isOpen: isOpenActionDataSource,

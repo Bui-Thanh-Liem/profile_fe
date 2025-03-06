@@ -1,7 +1,10 @@
-import { PlusOutlined } from "@ant-design/icons";
-import ButtonPrimary from "../elements/ButtonPrimary";
-import { Button, Input, Select } from "antd";
+import { useDebounce } from "@/hooks/useDebounce";
+import { usePushUrl } from "@/hooks/usePushUrl";
 import { IPropsMyTableToolbar } from "@/interfaces/propsComponent.interface";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, Input, Select } from "antd";
+import { useEffect, useState } from "react";
+import ButtonPrimary from "../elements/ButtonPrimary";
 const { Search } = Input;
 
 export default function MyTableToolbar({
@@ -9,6 +12,15 @@ export default function MyTableToolbar({
   onClickAddItem,
   onClickDeleteItems,
 }: IPropsMyTableToolbar) {
+  const pushUrl = usePushUrl();
+  const [searchValue, setSearchValue] = useState<string>();
+  const searchValueDebounce = useDebounce(searchValue, 1200);
+
+  //
+  useEffect(() => {
+    pushUrl({ search: searchValueDebounce });
+  }, [searchValueDebounce, pushUrl]);
+
   return (
     <div className="flex justify-between items-center">
       <div className="flex items-center gap-4">
@@ -56,7 +68,8 @@ export default function MyTableToolbar({
           enterButton
           placeholder="input search text"
           allowClear
-          onSearch={() => {}}
+          value={searchValue}
+          onChange={(e) => setSearchValue(e.target.value)}
           style={{ width: 304 }}
         />
       </div>

@@ -1,12 +1,11 @@
 "use client";
-import { create } from "@/apis/user.api";
-import { EBoolean, EGender } from "@/enums/model.enum";
+import { create, update } from "@/apis/user.api";
 import { useToast } from "@/hooks/useToast";
 import { IRole, IRoleGroup, IUser } from "@/interfaces/model.interface";
 import { IPropUserAction } from "@/interfaces/propsLayoutAction";
-import { mock_roles } from "@/mocks/role";
-import { mock_roleGroups } from "@/mocks/roleGroup";
+import { TResponse } from "@/interfaces/response.interface";
 import { Button, Col, Form, Input, Modal, Row, Select } from "antd";
+import { Enums } from "liemdev-profile-lib";
 import { useEffect, useState } from "react";
 import { v4 as uuidV4 } from "uuid";
 
@@ -19,8 +18,8 @@ export default function UserAction({
   isOpen = false,
   setIsOpen,
 }: IPropUserAction<IUser>) {
-  const isEdit = Boolean(dataEdit?.id);
-  const [userActionForm] = Form.useForm();
+  const idEdit = dataEdit?.id;
+  const [userActionForm] = Form.useForm<Partial<IUser>>();
   const subAdminValue = Form.useWatch("subAdmin", userActionForm);
   const [roles, setRoles] = useState<Array<IRole>>([]);
   const [roleGroups, setRoleGroups] = useState<Array<IRoleGroup>>([]);
@@ -28,39 +27,52 @@ export default function UserAction({
 
   //
   useEffect(() => {
-    if (isEdit) {
+    if (idEdit) {
       console.log("data edit :::", dataEdit);
     }
 
     if (subAdminValue) {
-      userActionForm.setFieldsValue({ roleGroups: [], role: [] });
+      userActionForm.setFieldsValue({
+        roleGroups: [],
+        roles: [],
+      });
     }
 
+    userActionForm.setFieldsValue({
+      fullName: dataEdit?.fullName,
+      email: dataEdit?.email,
+      phone: dataEdit?.phone,
+      gender: dataEdit?.gender,
+    });
+
     fetchDataForForm();
-  }, [dataEdit, isEdit, subAdminValue, userActionForm]);
+  }, [dataEdit, idEdit, subAdminValue, userActionForm]);
 
   //
   async function fetchDataForForm() {
-    setRoles(mock_roles);
-    setRoleGroups(mock_roleGroups);
+    setRoles([]);
+    setRoleGroups([]);
   }
 
   //
   async function onSubmitForm() {
     try {
       const formData = await userActionForm.validateFields();
-      console.log("Form values user action:", formData);
-      if (setIsOpen) {
-        setIsOpen(false);
+      let res: TResponse<IUser>;
+      if (idEdit) {
+        res = await update(idEdit, formData);
+      } else {
+        res = await create(formData);
       }
 
-      const res = await create(formData);
+      //
       if (res.statusCode !== 200) {
         showToast(res);
         return;
       }
       showToast(res);
       userActionForm.resetFields();
+      handleCancel();
     } catch (error) {
       console.log("Error::", error);
     }
@@ -81,7 +93,7 @@ export default function UserAction({
         open={isOpen}
         title={
           <div className="text-center">
-            <p className="my-4">{`${isEdit ? "Edit" : "Create"} user`}</p>
+            <p className="my-4">{`${idEdit ? "Edit" : "Create"} user`}</p>
           </div>
         }
         // onOk={onSubmitForm}
@@ -115,7 +127,7 @@ export default function UserAction({
                   { required: true, message: "Please input your username!" },
                 ]}
               >
-                <Input size="large" />
+                <Input size="large" placeholder="fullname" />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -125,11 +137,11 @@ export default function UserAction({
                 rules={[{ required: true, message: "Please select gender!" }]}
               >
                 <Select size="large" placeholder="Select gender">
-                  <Select.Option key={uuidV4()} value={EGender.MALE}>
-                    {EGender.MALE}
+                  <Select.Option key={uuidV4()} value={Enums.EGender.MALE}>
+                    {Enums.EGender.MALE}
                   </Select.Option>
-                  <Select.Option key={uuidV4()} value={EGender.FEMALE}>
-                    {EGender.FEMALE}
+                  <Select.Option key={uuidV4()} value={Enums.EGender.FEMALE}>
+                    {Enums.EGender.FEMALE}
                   </Select.Option>
                 </Select>
               </Form.Item>
@@ -149,7 +161,7 @@ export default function UserAction({
                   },
                 ]}
               >
-                <Input size="large" />
+                <Input size="large" placeholder="email" />
               </Form.Item>
             </Col>
             <Col span={12}>
@@ -164,7 +176,7 @@ export default function UserAction({
                   },
                 ]}
               >
-                <Input size="large" />
+                <Input size="large" placeholder="phone" />
               </Form.Item>
             </Col>
           </Row>
@@ -182,10 +194,10 @@ export default function UserAction({
                   defaultValue={false}
                 >
                   <Select.Option key={uuidV4()} value={false}>
-                    {EBoolean.NO}
+                    NO
                   </Select.Option>
                   <Select.Option key={uuidV4()} value={true}>
-                    {EBoolean.YES}
+                    YES
                   </Select.Option>
                 </Select>
               </Form.Item>
@@ -237,7 +249,7 @@ export default function UserAction({
           </Row>
 
           {/*  */}
-          {!isEdit && (
+          {!idEdit && (
             <>
               <Form.Item<IFormAction>
                 label="Password"
@@ -246,7 +258,7 @@ export default function UserAction({
                   { required: true, message: "Please input your password!" },
                 ]}
               >
-                <Input.Password size="large" />
+                <Input.Password size="large" placeholder="password" />
               </Form.Item>
               <Form.Item<IFormAction>
                 label="Password confirm"
@@ -269,7 +281,7 @@ export default function UserAction({
                   }),
                 ]}
               >
-                <Input.Password size="large" />
+                <Input.Password size="large" placeholder="passwordConfirm" />
               </Form.Item>
             </>
           )}

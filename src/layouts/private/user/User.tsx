@@ -3,6 +3,7 @@ import { IUser } from "@/interfaces/model.interface";
 import { IPropUserLayout } from "@/interfaces/propsLayout.interface";
 import UserAction from "./UserAction";
 import { userActionColumns } from "./UserColumn";
+import { deleteMulti } from "@/apis/user.api";
 
 export default function UserLayout({
   items,
@@ -10,10 +11,11 @@ export default function UserLayout({
 }: IPropUserLayout<IUser>) {
   return (
     <MyTable
-      columns={userActionColumns}
       dataSource={items}
-      // dataSource={[mock_admin, ...mock_users]}
+      totalDataSource={totalItems}
+      columns={userActionColumns}
       actionDataSource={<UserAction />}
+      deleteApi={deleteMulti}
     />
   );
 }

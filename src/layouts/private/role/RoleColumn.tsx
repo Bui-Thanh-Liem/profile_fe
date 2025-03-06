@@ -1,10 +1,10 @@
 "use client";
-import { IRole, IRoleDataSource } from "@/interfaces/model.interface";
+import { IRoleDataResource } from "@/interfaces/common.interface";
+import { IRole } from "@/interfaces/model.interface";
 import { TableColumnsType, Tag } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { v4 } from "uuid";
 import { generatorColor } from "./RoleItemResource";
-import { EActionUse } from "@/enums/role/action.enum";
 
 export const userActionColumns: TableColumnsType<IRole> = [
   {
@@ -28,7 +28,7 @@ export const userActionColumns: TableColumnsType<IRole> = [
     width: 250,
     dataIndex: "dataSource",
     key: "dataSource",
-    render: (_: Array<IRoleDataSource>) => {
+    render: (_: Array<IRoleDataResource>) => {
       return (
         <>
           {_.map((dataSource) => (
@@ -37,7 +37,7 @@ export const userActionColumns: TableColumnsType<IRole> = [
               <div className="flex items-center gap-2">
                 {dataSource.actions?.map((action) => (
                   <Tag color={generatorColor[action]} key={v4()}>
-                    {EActionUse[action]}
+                    {action}
                   </Tag>
                 ))}
               </div>

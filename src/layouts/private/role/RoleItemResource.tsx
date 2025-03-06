@@ -1,15 +1,14 @@
 "use client";
-import { EAction, EActionUse } from "@/enums/role/action.enum";
-import { EResource } from "@/enums/role/resource.enum";
-import { IRoleDataSource } from "@/interfaces/model.interface";
+import { IRoleDataResource } from "@/interfaces/common.interface";
 import { Select, SelectProps, Switch, Tag } from "antd";
+import { Enums } from "liemdev-profile-lib";
 import { useEffect, useState } from "react";
 
 export const generatorColor: Record<string, string> = {
-  [EAction.GET]: "green",
-  [EAction.POST]: "blue",
-  [EAction.PATCH]: "orange",
-  [EAction.DELETE]: "red",
+  [Enums.ERoleActions.VIEW]: "green",
+  [Enums.ERoleActions.CREATE]: "blue",
+  [Enums.ERoleActions.UPDATE]: "orange",
+  [Enums.ERoleActions.DELETE]: "red",
 };
 
 type TagRender = SelectProps["tagRender"];
@@ -37,17 +36,18 @@ export default function RoleItemResource({
   value,
   onChangeResource,
 }: {
-  resource: EResource;
-  value?: IRoleDataSource;
-  onChangeResource: (resource: IRoleDataSource) => void;
+  resource: Enums.ERoleResources;
+  value?: IRoleDataResource;
+  onChangeResource: (resource: IRoleDataResource) => void;
 }) {
   const [valueSwitch, setValueSwitch] = useState<boolean>(false);
-  const [valueAction, setValueAction] = useState<Array<EAction> | null>(null);
+  const [valueAction, setValueAction] =
+    useState<Array<Enums.ERoleActions> | null>(null);
 
   //
   useEffect(() => {
     if (value?.actions.length) {
-      setValueAction(value.actions as Array<EAction>);
+      setValueAction(value.actions);
     }
     setValueSwitch(value?.resource === resource);
   }, []);
@@ -64,18 +64,18 @@ export default function RoleItemResource({
 
   //
   const actionRoles: SelectProps["options"] = [
-    { value: EAction.GET, label: EActionUse.GET },
-    { value: EAction.POST, label: EActionUse.POST },
-    { value: EAction.PATCH, label: EActionUse.PATCH },
-    { value: EAction.DELETE, label: EActionUse.DELETE },
+    { value: Enums.ERoleActions.VIEW, label: Enums.ERoleActions.VIEW },
+    { value: Enums.ERoleActions.CREATE, label: Enums.ERoleActions.CREATE },
+    { value: Enums.ERoleActions.UPDATE, label: Enums.ERoleActions.UPDATE },
+    { value: Enums.ERoleActions.DELETE, label: Enums.ERoleActions.DELETE },
   ];
 
   //
   function onChangeSwitch(value: boolean) {
     setValueSwitch(value);
     if (value) {
-      const actions = Object.values(EAction).filter(
-        (action) => action !== EAction.PUT
+      const actions = Object.values(Enums.ERoleActions).filter(
+        (action) => action !== Enums.ERoleActions.UPDATE
       );
       setValueAction(actions);
     } else {
@@ -84,7 +84,7 @@ export default function RoleItemResource({
   }
 
   //
-  function onChangeAction(value: Array<EAction>) {
+  function onChangeAction(value: Array<Enums.ERoleActions>) {
     setValueAction(value);
   }
 

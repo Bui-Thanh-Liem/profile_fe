@@ -1,5 +1,6 @@
 import { AvatarProps, ButtonProps, InputProps, TableColumnsType } from "antd";
 import { ChangeEvent, ReactElement, ReactNode } from "react";
+import { TResponse } from "./response.interface";
 
 export interface IPropIconNavbar {
   src: string;
@@ -68,7 +69,10 @@ export interface IPropCaptcha {
 export default interface IPropMyTable<T> {
   columns: TableColumnsType<T>;
   dataSource: Array<T>;
+  totalDataSource: number;
   actionDataSource: ReactElement;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  deleteApi: (ids: string[]) => Promise<TResponse<any>>;
 }
 
 export interface IPropTableAction {

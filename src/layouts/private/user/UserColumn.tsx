@@ -1,7 +1,6 @@
 "use client";
 import { MyAvatar } from "@/components/MyAvatar";
 import MyTag from "@/components/MyTag";
-import { EBoolean } from "@/enums/model.enum";
 import { IRole, IRoleGroup, IUser } from "@/interfaces/model.interface";
 import { TableColumnsType } from "antd";
 import { v4 } from "uuid";
@@ -82,7 +81,7 @@ export const userActionColumns: TableColumnsType<IUser> = [
     dataIndex: "subAdmin",
     key: "subAdmin",
     render: (_) => {
-      return <MyTag tagName={_ ? EBoolean.YES : EBoolean.NO} />;
+      return <MyTag tagName={_ ? "YES" : "NO"} />;
     },
   },
   {
@@ -91,7 +90,7 @@ export const userActionColumns: TableColumnsType<IUser> = [
     dataIndex: "block",
     key: "block",
     render: (_) => {
-      return <MyTag tagName={_ ? EBoolean.YES : EBoolean.NO} />;
+      return <MyTag tagName={_ ? "YES" : "NO"} />;
     },
   },
 ];

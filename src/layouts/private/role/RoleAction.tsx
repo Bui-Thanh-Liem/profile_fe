@@ -1,12 +1,13 @@
 "use client";
-import { EResource } from "@/enums/role/resource.enum";
-import { IRole, IRoleDataSource } from "@/interfaces/model.interface";
+import { Enums } from "liemdev-profile-lib";
+import { IRole } from "@/interfaces/model.interface";
 import { IPropRoleAction } from "@/interfaces/propsLayoutAction";
 import { Button, Form, Input, Modal } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { useEffect } from "react";
 import { v4 } from "uuid";
 import RoleItemResource from "./RoleItemResource";
+import { IRoleDataResource } from "@/interfaces/common.interface";
 
 export default function RoleAction({
   dataEdit,
@@ -15,7 +16,7 @@ export default function RoleAction({
 }: IPropRoleAction<IRole>) {
   const isEdit = Boolean(dataEdit?.id);
   const [roleActionForm] = Form.useForm();
-  const resources = Object.values(EResource);
+  const resources = Object.values(Enums.ERoleResources);
 
   //
   useEffect(() => {
@@ -25,8 +26,8 @@ export default function RoleAction({
   }, [dataEdit, isEdit]);
 
   //
-  function handleChangeResource(roleDataResource: IRoleDataSource) {
-    let oldResource: Array<IRoleDataSource> =
+  function handleChangeResource(roleDataResource: IRoleDataResource) {
+    let oldResource: Array<IRoleDataResource> =
       roleActionForm.getFieldValue("roleDataResource") || [];
     oldResource = oldResource?.filter(
       (resource) => resource.resource !== roleDataResource.resource
@@ -108,7 +109,7 @@ export default function RoleAction({
 
         <Form.Item<IRole>
           label="Resource"
-          name="dataSource"
+          name="dataSources"
           rules={[{ required: true, message: "Please input resource!" }]}
         >
           {resources.map((resource) => (

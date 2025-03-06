@@ -1,0 +1,1 @@
+useDeferredValue - trì hoãn giá trị khi component cha re-render khiến con component re-render

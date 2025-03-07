@@ -1,3 +1,4 @@
+"use server";
 import { findAll } from "@/apis/user.api";
 import { IPropPage } from "@/interfaces/propsPage.interface";
 import UserLayout from "@/layouts/private/user/User";

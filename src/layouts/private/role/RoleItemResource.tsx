@@ -46,7 +46,7 @@ export default function RoleItemResource({
 
   //
   useEffect(() => {
-    if (value?.actions.length) {
+    if (value && value?.actions.length) {
       setValueAction(value.actions);
     }
     setValueSwitch(value?.resource === resource);
@@ -54,12 +54,10 @@ export default function RoleItemResource({
 
   //
   useEffect(() => {
-    if (valueAction?.length) {
-      onChangeResource({
-        resource: resource,
-        actions: valueAction || [],
-      });
-    }
+    onChangeResource({
+      resource: resource,
+      actions: valueAction || [],
+    });
   }, [onChangeResource, resource, valueAction]);
 
   //
@@ -71,12 +69,10 @@ export default function RoleItemResource({
   ];
 
   //
-  function onChangeSwitch(value: boolean) {
-    setValueSwitch(value);
-    if (value) {
-      const actions = Object.values(Enums.ERoleActions).filter(
-        (action) => action !== Enums.ERoleActions.UPDATE
-      );
+  function onChangeSwitch(val: boolean) {
+    setValueSwitch(val);
+    if (val) {
+      const actions = Object.values(Enums.ERoleActions);
       setValueAction(actions);
     } else {
       setValueAction(null);

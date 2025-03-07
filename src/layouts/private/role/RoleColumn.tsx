@@ -24,14 +24,14 @@ export const userActionColumns: TableColumnsType<IRole> = [
     },
   },
   {
-    title: "Datasource",
+    title: "DataSources",
     width: 250,
-    dataIndex: "dataSource",
-    key: "dataSource",
+    dataIndex: "dataSources",
+    key: "dataSources",
     render: (_: Array<IRoleDataResource>) => {
       return (
         <>
-          {_.map((dataSource) => (
+          {_?.map((dataSource) => (
             <div key={v4()} className="mb-2 flex items-center">
               <p className="bg-gray-second-app w-40">{dataSource.resource}</p>
               <div className="flex items-center gap-2">

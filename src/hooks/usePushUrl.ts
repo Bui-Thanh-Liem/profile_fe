@@ -17,7 +17,7 @@ export function usePushUrl() {
 
     const newUrl = `${pathname}?${searchParams.toString()}`;
     router.push(newUrl);
-    router.refresh();
+    // router.refresh();
   }
 
   return pushUrl;

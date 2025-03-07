@@ -1,4 +1,5 @@
 "use client";
+import { useToast } from "@/hooks/useToast";
 import { IBase, IUser } from "@/interfaces/model.interface";
 import IPropMyTable from "@/interfaces/propsComponent.interface";
 import { UserOutlined } from "@ant-design/icons";
@@ -8,7 +9,6 @@ import { createStyles } from "antd-style";
 import React, { useEffect, useState } from "react";
 import MyTableAction from "./MyTableAction";
 import MyTableToolbar from "./MyTableToolbar";
-import { useToast } from "@/hooks/useToast";
 
 const useStyle = createStyles(({ css, token }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -58,7 +58,7 @@ export default function MyTable<T extends IBaseMyTable>({
     if (!isOpenActionDataSource) {
       setDataEdit(null);
     }
-  }, [isOpenActionDataSource]);
+  }, []);
 
   //
   const baseColumns: TableColumnsType<T> = [
@@ -176,13 +176,11 @@ export default function MyTable<T extends IBaseMyTable>({
 
   return (
     <>
-      <Card className="mb-4">
-        <MyTableToolbar
-          checkedIds={checkedIds}
-          onClickAddItem={onAddItem}
-          onClickDeleteItems={() => onDeleteItems(checkedIds)}
-        />
-      </Card>
+      <MyTableToolbar
+        checkedIds={checkedIds}
+        onClickAddItem={onAddItem}
+        onClickDeleteItems={() => onDeleteItems(checkedIds)}
+      />
       <Card>
         <Table<T>
           rowKey="id"
@@ -205,6 +203,9 @@ export default function MyTable<T extends IBaseMyTable>({
         isOpen: isOpenActionDataSource,
         setIsOpen: setIsOpenActionDataSource,
         dataEdit,
+        onClose: () => {
+          setDataEdit(null);
+        },
       })}
     </>
   );

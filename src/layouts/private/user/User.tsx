@@ -9,6 +9,8 @@ export default function UserLayout({
   items,
   totalItems,
 }: IPropUserLayout<IUser>) {
+  console.log("items:::", items);
+
   return (
     <MyTable
       dataSource={items}

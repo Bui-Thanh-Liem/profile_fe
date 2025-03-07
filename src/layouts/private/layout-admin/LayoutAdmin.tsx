@@ -8,6 +8,7 @@ import {
   FileOutlined,
   TeamOutlined,
   UserOutlined,
+  RadiusSettingOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Layout, Menu, theme } from "antd";
@@ -45,12 +46,12 @@ const items: MenuItem[] = [
     getItem(
       <Link href="/admin/roles">Roles</Link>,
       "/admin/roles",
-      <UserOutlined />
+      <RadiusSettingOutlined />
     ),
     getItem(
       <Link href="/admin/role-groups">Role Groups</Link>,
       "/admin/role-groups",
-      <UserOutlined />
+      <RadiusSettingOutlined />
     ),
   ]),
   getItem(

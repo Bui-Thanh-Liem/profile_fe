@@ -52,8 +52,8 @@ export const userActionColumns: TableColumnsType<IUser> = [
   {
     title: "Role",
     width: 250,
-    dataIndex: "role",
-    key: "role",
+    dataIndex: "roles",
+    key: "roles",
     render: (_) => {
       if (!_?.length) {
         return "-";
@@ -65,7 +65,7 @@ export const userActionColumns: TableColumnsType<IUser> = [
     title: "Role group",
     width: 250,
     dataIndex: "roleGroups",
-    key: "role",
+    key: "roleGroups",
     render: (_) => {
       if (!_?.length) {
         return "-";

@@ -1,4 +1,5 @@
 "use client";
+import { findAll } from "@/apis/role.api";
 import { create, update } from "@/apis/user.api";
 import { useToast } from "@/hooks/useToast";
 import { IRole, IRoleGroup, IUser } from "@/interfaces/model.interface";
@@ -17,6 +18,7 @@ export default function UserAction({
   dataEdit,
   isOpen = false,
   setIsOpen,
+  onClose,
 }: IPropUserAction<IUser>) {
   const idEdit = dataEdit?.id;
   const [userActionForm] = Form.useForm<Partial<IUser>>();
@@ -27,10 +29,6 @@ export default function UserAction({
 
   //
   useEffect(() => {
-    if (idEdit) {
-      console.log("data edit :::", dataEdit);
-    }
-
     if (subAdminValue) {
       userActionForm.setFieldsValue({
         roleGroups: [],
@@ -38,19 +36,31 @@ export default function UserAction({
       });
     }
 
-    userActionForm.setFieldsValue({
-      fullName: dataEdit?.fullName,
-      email: dataEdit?.email,
-      phone: dataEdit?.phone,
-      gender: dataEdit?.gender,
-    });
+    if (idEdit) {
+      const editRoles = dataEdit?.roles as IRole[];
+      const editRoleGroups = dataEdit?.roleGroups as IRoleGroup[];
+
+      userActionForm.setFieldsValue({
+        fullName: dataEdit?.fullName,
+        email: dataEdit?.email,
+        phone: dataEdit?.phone,
+        gender: dataEdit?.gender,
+        roles: editRoles?.map((role) => role.id),
+        roleGroups: editRoleGroups?.map((role) => role.id),
+      });
+    }
 
     fetchDataForForm();
-  }, [dataEdit, idEdit, subAdminValue, userActionForm]);
+  }, [dataEdit, idEdit, subAdminValue, userActionForm, onClose]);
 
   //
   async function fetchDataForForm() {
-    setRoles([]);
+    const [resRole] = await Promise.all([findAll({ limit: "1e9", page: "1" })]);
+
+    if (resRole.statusCode === 200) {
+      setRoles(resRole.data.items);
+    }
+
     setRoleGroups([]);
   }
 
@@ -83,6 +93,9 @@ export default function UserAction({
     if (setIsOpen) {
       setIsOpen(false);
       userActionForm.resetFields();
+      if (onClose) {
+        onClose();
+      }
     }
   }
 

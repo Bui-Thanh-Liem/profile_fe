@@ -1,28 +1,34 @@
+import {
+  DeleteOutlined,
+  DownOutlined,
+  EditOutlined,
+  IssuesCloseOutlined,
+} from "@ant-design/icons";
 import { Card, Dropdown, MenuProps, Space } from "antd";
-import { DownOutlined, SettingOutlined } from "@ant-design/icons";
 
-export function RoleGroupItem() {
+export function CardRoleGroup() {
   const items: MenuProps["items"] = [
     {
       key: "Edit",
       label: "Edit",
-      icon: <SettingOutlined />,
+      icon: <EditOutlined />,
       extra: "⌘E",
+    },
+    {
+      key: "Details",
+      label: "Details",
+      icon: <IssuesCloseOutlined />,
+      extra: "⌘B",
     },
     {
       type: "divider",
     },
     {
+      danger: true,
       key: "Delete",
       label: "Delete",
-      icon: <SettingOutlined />,
+      icon: <DeleteOutlined color="red" />,
       extra: "⌘D",
-    },
-    {
-      key: "Details",
-      label: "Details",
-      icon: <SettingOutlined />,
-      extra: "⌘B",
     },
   ];
   return (

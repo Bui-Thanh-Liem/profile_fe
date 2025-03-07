@@ -1,15 +1,21 @@
+import { deleteMulti } from "@/apis/role.api";
 import MyTable from "@/components/table/MyTable";
-import { mock_roles } from "@/mocks/role";
+import { IRole } from "@/interfaces/model.interface";
+import { IPropRoleLayout } from "@/interfaces/propsLayout.interface";
 import RoleAction from "./RoleAction";
 import { userActionColumns } from "./RoleColumn";
 
-export default function RoleLayout() {
-
+export default function RoleLayout({
+  items,
+  totalItems,
+}: IPropRoleLayout<IRole>) {
   return (
     <MyTable
+      dataSource={items}
+      totalDataSource={totalItems}
       columns={userActionColumns}
-      dataSource={mock_roles}
       actionDataSource={<RoleAction />}
+      deleteApi={deleteMulti}
     />
   );
 }

@@ -5,11 +5,11 @@ import UserLayout from "@/layouts/private/user/User";
 
 export default async function UsersPage({ searchParams }: IPropPage) {
   const { limit, page, search } = searchParams;
-  const resUser = await findAll({ limit, page, search });
+  const resUsers = await findAll({ limit, page, search });
   return (
     <UserLayout
-      items={resUser?.data?.items || []}
-      totalItems={resUser?.data?.totalItems || 0}
+      items={resUsers?.data?.items || []}
+      totalItems={resUsers?.data?.totalItems || 0}
     />
   );
 }

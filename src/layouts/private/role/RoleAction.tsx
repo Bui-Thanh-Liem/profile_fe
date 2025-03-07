@@ -8,46 +8,67 @@ import { useEffect } from "react";
 import { v4 } from "uuid";
 import RoleItemResource from "./RoleItemResource";
 import { IRoleDataResource } from "@/interfaces/common.interface";
+import { useToast } from "@/hooks/useToast";
+import { TResponse } from "@/interfaces/response.interface";
+import { create, update } from "@/apis/role.api";
 
 export default function RoleAction({
   dataEdit,
   isOpen = false,
   setIsOpen,
 }: IPropRoleAction<IRole>) {
-  const isEdit = Boolean(dataEdit?.id);
-  const [roleActionForm] = Form.useForm();
+  const idEdit = dataEdit?.id;
+  const [roleActionForm] = Form.useForm<Partial<IRole>>();
   const resources = Object.values(Enums.ERoleResources);
+  const { showToast, contextHolder } = useToast();
 
   //
   useEffect(() => {
-    if (isEdit) {
+    if (idEdit) {
       console.log("data edit :::", dataEdit);
+      roleActionForm.setFieldsValue({
+        name: dataEdit?.name,
+        desc: dataEdit.desc,
+        dataSources: dataEdit.dataSources,
+      });
     }
-  }, [dataEdit, isEdit]);
+  }, [dataEdit, idEdit, roleActionForm]);
 
   //
   function handleChangeResource(roleDataResource: IRoleDataResource) {
+    //
     let oldResource: Array<IRoleDataResource> =
-      roleActionForm.getFieldValue("roleDataResource") || [];
+      roleActionForm.getFieldValue("dataSources") || [];
+
     oldResource = oldResource?.filter(
       (resource) => resource.resource !== roleDataResource.resource
     );
 
-    roleActionForm.setFieldValue("roleDataResource", [
+    roleActionForm.setFieldValue("dataSources", [
       ...oldResource,
       roleDataResource,
     ]);
-    console.log("roleDataResource:::", [...oldResource, roleDataResource]);
+    console.log("dataSources:::", [...oldResource, roleDataResource]);
   }
 
   //
   async function onSubmitForm() {
     try {
       const formData = await roleActionForm.validateFields();
-      console.log("Form values role action:", formData);
-      if (setIsOpen) {
-        setIsOpen(false);
+      let res: TResponse<IRole>;
+      if (idEdit) {
+        res = await update(idEdit, formData);
+      } else {
+        res = await create(formData);
       }
+
+      //
+      if (res.statusCode !== 200) {
+        showToast(res);
+        return;
+      }
+      showToast(res);
+      handleCancel();
       roleActionForm.resetFields();
     } catch (error) {
       console.log("Error::", error);
@@ -67,7 +88,7 @@ export default function RoleAction({
       open={isOpen}
       title={
         <div className="text-center">
-          <p className="my-4">{`${isEdit ? "Edit" : "Create"} role`}</p>
+          <p className="my-4">{`${idEdit ? "Edit" : "Create"} role`}</p>
         </div>
       }
       onOk={onSubmitForm}
@@ -83,6 +104,7 @@ export default function RoleAction({
       ]}
       width={600}
     >
+      {contextHolder}
       <Form
         form={roleActionForm}
         name="user-action"

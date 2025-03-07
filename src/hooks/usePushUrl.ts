@@ -1,6 +1,6 @@
 "use client";
 import { IQueries } from "@/interfaces/common.interface";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export function usePushUrl() {
   const router = useRouter();
@@ -17,6 +17,7 @@ export function usePushUrl() {
 
     const newUrl = `${pathname}?${searchParams.toString()}`;
     router.push(newUrl);
+    router.refresh();
   }
 
   return pushUrl;

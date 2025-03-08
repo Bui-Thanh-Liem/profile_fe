@@ -1,15 +1,9 @@
 "use client";
 import { IRoleDataResource } from "@/interfaces/common.interface";
+import { generatorColor } from "@/utils/common.util";
 import { Select, SelectProps, Switch, Tag } from "antd";
 import { Enums } from "liemdev-profile-lib";
 import { useEffect, useState } from "react";
-
-export const generatorColor: Record<string, string> = {
-  [Enums.ERoleActions.VIEW]: "green",
-  [Enums.ERoleActions.CREATE]: "blue",
-  [Enums.ERoleActions.UPDATE]: "orange",
-  [Enums.ERoleActions.DELETE]: "red",
-};
 
 type TagRender = SelectProps["tagRender"];
 const tagRender: TagRender = (props) => {

@@ -1,6 +1,7 @@
 import { AvatarProps, ButtonProps, InputProps, TableColumnsType } from "antd";
 import { ChangeEvent, ReactElement, ReactNode } from "react";
 import { TResponse } from "./response.interface";
+import { IRoleGroup } from "./model.interface";
 
 export interface IPropIconNavbar {
   src: string;
@@ -29,6 +30,10 @@ export interface IPropCardSkill {
   image: string;
   progress: number;
   link?: string;
+}
+
+export interface IPropCardRoleGroup {
+  roleGroup: IRoleGroup;
 }
 
 export interface IPropCardPercentAdmin {

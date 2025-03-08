@@ -9,6 +9,7 @@ export default function RoleLayout({
   items,
   totalItems,
 }: IPropRoleLayout<IRole>) {
+  console.log("role :::", items);
   return (
     <MyTable
       dataSource={items}

@@ -3,7 +3,7 @@ import {
   ButtonProps,
   DrawerProps,
   InputProps,
-  TableColumnsType,
+  TableColumnsType
 } from "antd";
 import { ChangeEvent, ReactElement, ReactNode } from "react";
 import { IRoleGroup } from "./model.interface";
@@ -41,6 +41,7 @@ export interface IPropCardSkill {
 export interface IPropCardRoleGroup {
   onClickEdit: (dataEdit: IRoleGroup) => void;
   roleGroup: IRoleGroup;
+  onChangeChecked: (checked: boolean, id: string) => void;
 }
 
 export interface IPropCardPercentAdmin {

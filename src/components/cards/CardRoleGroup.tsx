@@ -1,5 +1,5 @@
 import { deleteMulti } from "@/apis/role-group";
-import { showToastResponse } from "@/helper/show-toast.helper";
+import { showToast } from "@/helper/show-toast.helper";
 import { IRoleDataResource } from "@/interfaces/common.interface";
 import { IRole } from "@/interfaces/model.interface";
 import { IPropCardRoleGroup } from "@/interfaces/propsComponent.interface";
@@ -9,7 +9,16 @@ import {
   EditOutlined,
   IssuesCloseOutlined,
 } from "@ant-design/icons";
-import { Badge, Card, Dropdown, MenuProps, Modal, Space, Tag } from "antd";
+import {
+  Badge,
+  Card,
+  Checkbox,
+  Dropdown,
+  MenuProps,
+  Modal,
+  Space,
+  Tag,
+} from "antd";
 import { useState } from "react";
 import { v4 } from "uuid";
 
@@ -17,7 +26,7 @@ function RoleItem({ role }: { role: IRole }) {
   const dataSources = (role.dataSources || []) as IRoleDataResource[];
 
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between mb-2">
       <div>
         <p className="line-clamp-1">{role.name}</p>
         <p className="text-gray-app line-clamp-2">{role.desc}</p>
@@ -38,8 +47,13 @@ function RoleItem({ role }: { role: IRole }) {
   );
 }
 
-export function CardRoleGroup({ roleGroup, onClickEdit }: IPropCardRoleGroup) {
+export function CardRoleGroup({
+  roleGroup,
+  onClickEdit,
+  onChangeChecked,
+}: IPropCardRoleGroup) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [checked, setChecked] = useState<boolean>(false);
 
   //
   const roles = roleGroup?.roles as IRole[];
@@ -48,10 +62,10 @@ export function CardRoleGroup({ roleGroup, onClickEdit }: IPropCardRoleGroup) {
   async function onDelete() {
     const res = await deleteMulti([roleGroup.id]);
     if (res.statusCode !== 200) {
-      showToastResponse(res);
+      showToast(res);
       return;
     }
-    showToastResponse(res);
+    showToast(res);
   }
 
   //
@@ -102,8 +116,23 @@ export function CardRoleGroup({ roleGroup, onClickEdit }: IPropCardRoleGroup) {
         style={{ width: 300 }}
       >
         {roles?.map((role) => (
-          <Badge key={v4()} color="#04befe" text={role.name} />
+          <Badge
+            key={v4()}
+            color="#04befe"
+            text={role.name}
+            className="block"
+          />
         ))}
+        <div className="text-end">
+          <Checkbox
+            value={checked}
+            onChange={(event) => {
+              const isChecked = event.target.checked;
+              setChecked(isChecked);
+              onChangeChecked(isChecked, roleGroup.id);
+            }}
+          />
+        </div>
       </Card>
       <Modal
         title={roleGroup.name}

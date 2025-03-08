@@ -7,11 +7,11 @@ import { login } from "@/apis/auth.api";
 import Captcha from "@/components/Captcha";
 import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import Logo from "@/components/Logo";
+import { showToast } from "@/helper/show-toast.helper";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import developerGIF from "../../../public/web-developer.gif";
 import useAuthStore from "../../stores/useAuthStore";
-import { showToastResponse } from "@/helper/show-toast.helper";
 
 type FieldTypeLogin = {
   email?: string;
@@ -37,12 +37,12 @@ export default function Login() {
       });
 
       if (res.statusCode !== 200) {
-        showToastResponse(res);
+        showToast(res);
         return;
       }
 
       loginUser(res.data.user);
-      showToastResponse(res);
+      showToast(res);
       loginForm.resetFields();
       router.replace("/admin", { scroll: true });
     });

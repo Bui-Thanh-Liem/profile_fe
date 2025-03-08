@@ -5,7 +5,6 @@ import RoleGroupLayout from "@/layouts/private/role-group/RoleGroup";
 export default async function RoleGroupsPage({ searchParams }: IPropPage) {
   const { limit, page, search } = searchParams;
   const resRoleGroups = await findAll({ limit, page, search });
-  console.log("resRoleGroups:::", resRoleGroups);
 
   return (
     <RoleGroupLayout

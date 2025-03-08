@@ -1,7 +1,7 @@
 "use client";
 import { findAll } from "@/apis/role.api";
 import { create, update } from "@/apis/user.api";
-import { showToastResponse } from "@/helper/show-toast.helper";
+import { showToast } from "@/helper/show-toast.helper";
 import { IRole, IRoleGroup, IUser } from "@/interfaces/model.interface";
 import { IPropUserAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
@@ -78,10 +78,10 @@ export default function UserAction({
 
         //
         if (res.statusCode !== 200) {
-          showToastResponse(res);
+          showToast(res);
           return;
         }
-        showToastResponse(res);
+        showToast(res);
         userActionForm.resetFields();
         handleCancel();
       });

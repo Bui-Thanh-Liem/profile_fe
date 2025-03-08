@@ -1,7 +1,7 @@
 "use client";
 import { create, update } from "@/apis/role-group";
 import { findAll } from "@/apis/role.api";
-import { showToast } from "@/helper/show-toast.helper";
+import { showToastResponse } from "@/helper/show-toast.helper";
 import { IRole, IRoleGroup } from "@/interfaces/model.interface";
 import { IPropRoleAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
@@ -57,10 +57,10 @@ export default function RoleGroupAction({
 
         //
         if (res.statusCode !== 200) {
-          showToast(res);
+          showToastResponse(res);
           return;
         }
-        showToast(res);
+        showToastResponse(res);
         handleCancel();
         roleGroupActionForm.resetFields();
       });

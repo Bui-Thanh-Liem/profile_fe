@@ -187,7 +187,7 @@ export default function MyTable<T extends IBaseMyTable>({
           columns={baseColumns}
           dataSource={dataSource}
           className={styles.customTable}
-          scroll={{ x: "max-content", y: "calc(100vh - 416px)" }}
+          scroll={{ x: "max-content", y: "calc(100vh - 420px)" }}
           rowSelection={rowSelection}
           pagination={{
             pageSize: 20,

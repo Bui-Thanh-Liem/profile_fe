@@ -9,7 +9,7 @@ import {
   EditOutlined,
   IssuesCloseOutlined,
 } from "@ant-design/icons";
-import { Card, Dropdown, MenuProps, Modal, Space, Tag } from "antd";
+import { Badge, Card, Dropdown, MenuProps, Modal, Space, Tag } from "antd";
 import { useState } from "react";
 import { v4 } from "uuid";
 
@@ -102,9 +102,7 @@ export function CardRoleGroup({ roleGroup, onClickEdit }: IPropCardRoleGroup) {
         style={{ width: 300 }}
       >
         {roles?.map((role) => (
-          <p className="font-bold line-clamp-1" key={v4()}>
-            {role.name}
-          </p>
+          <Badge key={v4()} color="#04befe" text={role.name} />
         ))}
       </Card>
       <Modal

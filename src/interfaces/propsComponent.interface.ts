@@ -1,7 +1,13 @@
-import { AvatarProps, ButtonProps, InputProps, TableColumnsType } from "antd";
+import {
+  AvatarProps,
+  ButtonProps,
+  DrawerProps,
+  InputProps,
+  TableColumnsType,
+} from "antd";
 import { ChangeEvent, ReactElement, ReactNode } from "react";
-import { TResponse } from "./response.interface";
 import { IRoleGroup } from "./model.interface";
+import { TResponse } from "./response.interface";
 
 export interface IPropIconNavbar {
   src: string;
@@ -104,4 +110,11 @@ export interface IPropMyAvatar extends AvatarProps {
   src?: string;
   alt: string;
   fallbackText: string;
+}
+
+export interface IPropMyDrawer extends DrawerProps {
+  handleElement?: ReactNode;
+  title: string;
+  header: ReactNode;
+  content: ReactNode;
 }

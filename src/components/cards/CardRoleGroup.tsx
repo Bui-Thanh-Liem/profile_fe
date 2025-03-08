@@ -1,5 +1,5 @@
 import { deleteMulti } from "@/apis/role-group";
-import { useToast } from "@/hooks/useToast";
+import { showToastResponse } from "@/helper/show-toast.helper";
 import { IRoleDataResource } from "@/interfaces/common.interface";
 import { IRole } from "@/interfaces/model.interface";
 import { IPropCardRoleGroup } from "@/interfaces/propsComponent.interface";
@@ -38,24 +38,20 @@ function RoleItem({ role }: { role: IRole }) {
   );
 }
 
-export function CardRoleGroup({ roleGroup }: IPropCardRoleGroup) {
-  const { showToast, contextHolder } = useToast();
+export function CardRoleGroup({ roleGroup, onClickEdit }: IPropCardRoleGroup) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   //
   const roles = roleGroup?.roles as IRole[];
 
   //
-  async function onClickEdit() {}
-
-  //
   async function onDelete() {
     const res = await deleteMulti([roleGroup.id]);
     if (res.statusCode !== 200) {
-      showToast(res);
+      showToastResponse(res);
       return;
     }
-    showToast(res);
+    showToastResponse(res);
   }
 
   //
@@ -70,7 +66,7 @@ export function CardRoleGroup({ roleGroup }: IPropCardRoleGroup) {
       label: "Edit",
       icon: <EditOutlined />,
       extra: "⌘E",
-      onClick: onClickEdit,
+      onClick: () => onClickEdit(roleGroup),
     },
     {
       key: "Details",
@@ -95,7 +91,6 @@ export function CardRoleGroup({ roleGroup }: IPropCardRoleGroup) {
   //
   return (
     <>
-      {contextHolder}
       <Card
         hoverable
         title={roleGroup.name}

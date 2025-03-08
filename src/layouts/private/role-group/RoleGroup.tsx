@@ -12,7 +12,12 @@ export default function RoleGroupLayout({
   totalItems,
 }: IPropRoleLayout<IRoleGroup>) {
   const [open, setOpen] = useState<boolean>(false);
-  console.log("role group :::", items);
+  const [dataEdit, setDataEdit] = useState<IRoleGroup | undefined>(undefined);
+
+  function onEdit(data: IRoleGroup) {
+    setDataEdit(data);
+    setOpen(true);
+  }
 
   return (
     <>
@@ -25,11 +30,13 @@ export default function RoleGroupLayout({
         isOpen={open}
         onClose={() => {}}
         setIsOpen={setOpen}
-        // dataEdit={}
+        dataEdit={dataEdit}
       />
-      {items?.map((item) => (
-        <CardRoleGroup key={v4()} roleGroup={item} />
-      ))}
+      <div className="grid grid-cols-5 gap-8">
+        {items?.map((item) => (
+          <CardRoleGroup key={v4()} roleGroup={item} onClickEdit={onEdit} />
+        ))}
+      </div>
     </>
   );
 }

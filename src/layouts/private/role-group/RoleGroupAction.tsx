@@ -1,13 +1,13 @@
 "use client";
 import { create, update } from "@/apis/role-group";
 import { findAll } from "@/apis/role.api";
-import { useToast } from "@/hooks/useToast";
+import { showToastResponse } from "@/helper/show-toast.helper";
 import { IRole, IRoleGroup } from "@/interfaces/model.interface";
 import { IPropRoleAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
 import { Button, Form, Input, Modal, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { v4 as uuidV4 } from "uuid";
 
 export default function RoleGroupAction({
@@ -19,14 +19,16 @@ export default function RoleGroupAction({
   const idEdit = dataEdit?.id;
   const [roleGroupActionForm] = Form.useForm<Partial<IRoleGroup>>();
   const [roles, setRoles] = useState<IRole[]>();
-  const { showToast, contextHolder } = useToast();
+  const [isPending, startTransition] = useTransition();
 
   //
   useEffect(() => {
     if (idEdit) {
+      const roles = (dataEdit?.roles || []) as IRole[];
       roleGroupActionForm.setFieldsValue({
         name: dataEdit?.name,
         desc: dataEdit.desc,
+        roles: roles?.map((role) => role.id),
       });
     }
 
@@ -42,24 +44,26 @@ export default function RoleGroupAction({
   }
 
   //
-  async function onSubmitForm() {
+  function onSubmitForm() {
     try {
-      const formData = await roleGroupActionForm.validateFields();
-      let res: TResponse<IRoleGroup>;
-      if (idEdit) {
-        res = await update(idEdit, formData);
-      } else {
-        res = await create(formData);
-      }
+      startTransition(async () => {
+        const formData = await roleGroupActionForm.validateFields();
+        let res: TResponse<IRoleGroup>;
+        if (idEdit) {
+          res = await update(idEdit, formData);
+        } else {
+          res = await create(formData);
+        }
 
-      //
-      if (res.statusCode !== 200) {
-        showToast(res);
-        return;
-      }
-      showToast(res);
-      handleCancel();
-      roleGroupActionForm.resetFields();
+        //
+        if (res.statusCode !== 200) {
+          showToastResponse(res);
+          return;
+        }
+        showToastResponse(res);
+        handleCancel();
+        roleGroupActionForm.resetFields();
+      });
     } catch (error) {
       console.log("Error::", error);
     }
@@ -91,13 +95,17 @@ export default function RoleGroupAction({
         <Button key="cancel" danger onClick={handleCancel}>
           Cancel
         </Button>,
-        <Button key="ok" type="primary" onClick={onSubmitForm}>
+        <Button
+          key="ok"
+          type="primary"
+          onClick={onSubmitForm}
+          loading={isPending}
+        >
           OK
         </Button>,
       ]}
       width={600}
     >
-      {contextHolder}
       <Form
         form={roleGroupActionForm}
         name="user-action"

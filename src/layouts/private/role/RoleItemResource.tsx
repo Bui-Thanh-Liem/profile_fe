@@ -40,11 +40,9 @@ export default function RoleItemResource({
 
   //
   useEffect(() => {
-    if (value && value?.actions.length) {
-      setValueAction(value.actions);
-    }
+    setValueAction(value?.actions || []);
     setValueSwitch(value?.resource === resource);
-  }, []);
+  }, [value]);
 
   //
   useEffect(() => {
@@ -77,6 +75,8 @@ export default function RoleItemResource({
   function onChangeAction(value: Array<Enums.ERoleActions>) {
     setValueAction(value);
   }
+
+  console.log("re-render role resources ");
 
   return (
     <div className="flex items-center justify-between mb-4">

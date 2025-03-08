@@ -7,11 +7,11 @@ import { login } from "@/apis/auth.api";
 import Captcha from "@/components/Captcha";
 import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import Logo from "@/components/Logo";
-import { useToast } from "@/hooks/useToast";
+import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import developerGIF from "../../../public/web-developer.gif";
 import useAuthStore from "../../stores/useAuthStore";
-import { useRouter } from "next/navigation";
+import { showToastResponse } from "@/helper/show-toast.helper";
 
 type FieldTypeLogin = {
   email?: string;
@@ -25,7 +25,6 @@ export default function Login() {
   const router = useRouter();
   const [isCheckCaptcha, setIsCheckCaptcha] = useState(false);
   const [isPending, startTransition] = useTransition();
-  const { showToast, contextHolder } = useToast();
 
   //
   async function handleLogin() {
@@ -38,12 +37,12 @@ export default function Login() {
       });
 
       if (res.statusCode !== 200) {
-        showToast(res);
+        showToastResponse(res);
         return;
       }
 
       loginUser(res.data.user);
-      showToast(res);
+      showToastResponse(res);
       loginForm.resetFields();
       router.replace("/admin", { scroll: true });
     });
@@ -51,7 +50,6 @@ export default function Login() {
 
   return (
     <div className="h-screen flex">
-      {contextHolder}
       <div className="m-auto p-8 grid grid-cols-2 border border-primary shadow-lg shadow-primary rounded-tl-3xl rounded-br-3xl overflow-hidden">
         <Image src={developerGIF} alt="developer" width={500} height={500} />
         <Form

@@ -33,6 +33,7 @@ export interface IPropCardSkill {
 }
 
 export interface IPropCardRoleGroup {
+  onClickEdit: (dataEdit: IRoleGroup) => void;
   roleGroup: IRoleGroup;
 }
 

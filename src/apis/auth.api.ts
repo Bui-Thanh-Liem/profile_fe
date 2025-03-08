@@ -1,14 +1,13 @@
+import { CONSTANT_ROUTE } from "@/constants";
 import { callApiServerCookie } from "@/helper/api-server-cookie.helper";
 import { IUser } from "@/interfaces/model.interface";
-import { Constants, InterfaceCommon, Utils } from "liemdev-profile-lib";
+import { InterfaceCommon, Utils } from "liemdev-profile-lib";
 
 export async function login(payload: Partial<IUser>) {
   const response = await callApiServerCookie<
     InterfaceCommon.IResponseLogin<IUser>
   >({
-    url: `${Constants.CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
-      Constants.CONSTANT_ROUTE.AUTH
-    }/${"login"}`,
+    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.AUTH}/${"login"}`,
     options: {
       method: "POST",
       body: JSON.stringify(payload),
@@ -19,9 +18,7 @@ export async function login(payload: Partial<IUser>) {
 
 export async function refresh() {
   const response = await callApiServerCookie<boolean>({
-    url: `${Constants.CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
-      Constants.CONSTANT_ROUTE.AUTH
-    }/${"refresh"}`,
+    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.AUTH}/${"refresh"}`,
     options: {
       method: "POST",
       // body: JSON.stringify(""),
@@ -32,9 +29,7 @@ export async function refresh() {
 
 export async function logout() {
   const response = await callApiServerCookie<boolean>({
-    url: `${Constants.CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
-      Constants.CONSTANT_ROUTE.AUTH
-    }/${"logout"}`,
+    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.AUTH}/${"logout"}`,
     options: {
       method: "POST",
     },
@@ -44,8 +39,8 @@ export async function logout() {
 
 export async function enterEmail(payload: { email: string }) {
   const response = await callApiServerCookie<boolean>({
-    url: `${Constants.CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
-      Constants.CONSTANT_ROUTE.AUTH
+    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
+      CONSTANT_ROUTE.AUTH
     }/${"enter-email"}`,
     options: {
       method: "POST",
@@ -63,8 +58,8 @@ export async function configOtp({
   otp: string;
 }) {
   const response = await callApiServerCookie<{ token: string }>({
-    url: `${Constants.CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
-      Constants.CONSTANT_ROUTE.AUTH
+    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
+      CONSTANT_ROUTE.AUTH
     }/${"confirm-otp"}/${token}`,
     options: {
       method: "POST",
@@ -82,8 +77,8 @@ export async function resetPassword({
   password: string;
 }) {
   const response = await callApiServerCookie<boolean>({
-    url: `${Constants.CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
-      Constants.CONSTANT_ROUTE.AUTH
+    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
+      CONSTANT_ROUTE.AUTH
     }/${"reset-password"}${Utils.ConvertObject.convertObjectToString({
       token,
     })}`,
@@ -97,9 +92,7 @@ export async function resetPassword({
 
 export async function getMe() {
   const response = await callApiServerCookie<IUser>({
-    url: `${Constants.CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
-      Constants.CONSTANT_ROUTE.AUTH
-    }/${"me"}`,
+    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.AUTH}/${"me"}`,
     options: {
       method: "GET",
     },

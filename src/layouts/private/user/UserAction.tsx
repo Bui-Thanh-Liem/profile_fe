@@ -1,13 +1,13 @@
 "use client";
 import { findAll } from "@/apis/role.api";
 import { create, update } from "@/apis/user.api";
-import { useToast } from "@/hooks/useToast";
+import { showToastResponse } from "@/helper/show-toast.helper";
 import { IRole, IRoleGroup, IUser } from "@/interfaces/model.interface";
 import { IPropUserAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
 import { Button, Col, Form, Input, Modal, Row, Select } from "antd";
 import { Enums } from "liemdev-profile-lib";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { v4 as uuidV4 } from "uuid";
 
 interface IFormAction extends IUser {
@@ -25,7 +25,7 @@ export default function UserAction({
   const subAdminValue = Form.useWatch("subAdmin", userActionForm);
   const [roles, setRoles] = useState<Array<IRole>>([]);
   const [roleGroups, setRoleGroups] = useState<Array<IRoleGroup>>([]);
-  const { showToast, contextHolder } = useToast();
+  const [isPending, startTransition] = useTransition();
 
   //
   useEffect(() => {
@@ -65,24 +65,26 @@ export default function UserAction({
   }
 
   //
-  async function onSubmitForm() {
+  function onSubmitForm() {
     try {
-      const formData = await userActionForm.validateFields();
-      let res: TResponse<IUser>;
-      if (idEdit) {
-        res = await update(idEdit, formData);
-      } else {
-        res = await create(formData);
-      }
+      startTransition(async () => {
+        const formData = await userActionForm.validateFields();
+        let res: TResponse<IUser>;
+        if (idEdit) {
+          res = await update(idEdit, formData);
+        } else {
+          res = await create(formData);
+        }
 
-      //
-      if (res.statusCode !== 200) {
-        showToast(res);
-        return;
-      }
-      showToast(res);
-      userActionForm.resetFields();
-      handleCancel();
+        //
+        if (res.statusCode !== 200) {
+          showToastResponse(res);
+          return;
+        }
+        showToastResponse(res);
+        userActionForm.resetFields();
+        handleCancel();
+      });
     } catch (error) {
       console.log("Error::", error);
     }
@@ -101,7 +103,6 @@ export default function UserAction({
 
   return (
     <>
-      {contextHolder}
       <Modal
         open={isOpen}
         title={
@@ -116,7 +117,12 @@ export default function UserAction({
           <Button key="cancel" danger onClick={handleCancel}>
             Cancel
           </Button>,
-          <Button key="ok" type="primary" onClick={onSubmitForm}>
+          <Button
+            key="ok"
+            type="primary"
+            onClick={onSubmitForm}
+            loading={isPending}
+          >
             OK
           </Button>,
         ]}

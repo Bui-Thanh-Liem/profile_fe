@@ -1,6 +1,6 @@
 "use client";
 import { create, update } from "@/apis/role.api";
-import { useToast } from "@/hooks/useToast";
+import { showToastResponse } from "@/helper/show-toast.helper";
 import { IRoleDataResource } from "@/interfaces/common.interface";
 import { IRole } from "@/interfaces/model.interface";
 import { IPropRoleAction } from "@/interfaces/propsLayoutAction";
@@ -8,8 +8,7 @@ import { TResponse } from "@/interfaces/response.interface";
 import { Button, Form, Input, Modal } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { Enums } from "liemdev-profile-lib";
-import { useEffect } from "react";
-import { v4 } from "uuid";
+import { useEffect, useTransition } from "react";
 import RoleItemResource from "./RoleItemResource";
 
 export default function RoleAction({
@@ -19,10 +18,9 @@ export default function RoleAction({
   onClose,
 }: IPropRoleAction<IRole>) {
   const idEdit = dataEdit?.id;
-  const dataSources = dataEdit?.dataSources as IRoleDataResource[];
   const [roleActionForm] = Form.useForm<Partial<IRole>>();
   const resources = Object.values(Enums.ERoleResources);
-  const { showToast, contextHolder } = useToast();
+  const [isPending, startTransition] = useTransition();
 
   //
   useEffect(() => {
@@ -35,16 +33,16 @@ export default function RoleAction({
   }, [dataEdit, idEdit, roleActionForm]);
 
   //
-  function handleChangeResource(roleDataResource: IRoleDataResource) {
-    //
-    let oldResource: Array<IRoleDataResource> =
+  function handleChangeResource(newRoleDataResource: IRoleDataResource) {
+    let oldRoleDataResource: Array<IRoleDataResource> =
       roleActionForm.getFieldValue("dataSources") || [];
 
-    oldResource = oldResource?.filter(
-      (resource) => resource.resource !== roleDataResource.resource
+    oldRoleDataResource = oldRoleDataResource?.filter(
+      (resource) => resource.resource !== newRoleDataResource.resource
     );
 
-    const result = [...oldResource, roleDataResource];
+    const result = [...oldRoleDataResource, newRoleDataResource];
+
     roleActionForm.setFieldValue(
       "dataSources",
       result.filter((item) => item.actions.length)
@@ -52,24 +50,28 @@ export default function RoleAction({
   }
 
   //
-  async function onSubmitForm() {
+  function onSubmitForm() {
     try {
-      const formData = await roleActionForm.validateFields();
-      let res: TResponse<IRole>;
-      if (idEdit) {
-        res = await update(idEdit, formData);
-      } else {
-        res = await create(formData);
-      }
+      startTransition(async () => {
+        const formData = await roleActionForm.validateFields();
+        console.log("formData:::", formData);
 
-      //
-      if (res.statusCode !== 200) {
-        showToast(res);
-        return;
-      }
-      showToast(res);
-      handleCancel();
-      roleActionForm.resetFields();
+        let res: TResponse<IRole>;
+        if (idEdit) {
+          res = await update(idEdit, formData);
+        } else {
+          res = await create(formData);
+        }
+
+        //
+        if (res.statusCode !== 200) {
+          showToastResponse(res);
+          return;
+        }
+        showToastResponse(res);
+        handleCancel();
+        roleActionForm.resetFields();
+      });
     } catch (error) {
       console.log("Error::", error);
     }
@@ -86,6 +88,8 @@ export default function RoleAction({
     }
   }
 
+  console.log("re-render role action");
+
   return (
     <Modal
       open={isOpen}
@@ -101,13 +105,17 @@ export default function RoleAction({
         <Button key="cancel" danger onClick={handleCancel}>
           Cancel
         </Button>,
-        <Button key="ok" type="primary" onClick={onSubmitForm}>
+        <Button
+          key="ok"
+          type="primary"
+          onClick={onSubmitForm}
+          loading={isPending}
+        >
           OK
         </Button>,
       ]}
       width={600}
     >
-      {contextHolder}
       <Form
         form={roleActionForm}
         name="user-action"
@@ -124,6 +132,8 @@ export default function RoleAction({
         >
           <Input size="large" />
         </Form.Item>
+
+        {/*  */}
         <Form.Item<IRole>
           label="Description"
           name="desc"
@@ -132,19 +142,24 @@ export default function RoleAction({
           <TextArea rows={4} />
         </Form.Item>
 
+        {/*  */}
         <Form.Item<IRole>
           label="Resource"
           name="dataSources"
           rules={[{ required: true, message: "Please input resource!" }]}
         >
-          {resources.map((resource) => (
-            <RoleItemResource
-              key={v4()}
-              value={dataSources?.find((item) => item.resource === resource)}
-              resource={resource}
-              onChangeResource={handleChangeResource}
-            />
-          ))}
+          <span>
+            {resources.map((resource) => (
+              <RoleItemResource
+                key={resource}
+                value={(dataEdit?.dataSources as IRoleDataResource[])?.find(
+                  (item) => item.resource === resource
+                )}
+                resource={resource}
+                onChangeResource={handleChangeResource}
+              />
+            ))}
+          </span>
         </Form.Item>
       </Form>
     </Modal>

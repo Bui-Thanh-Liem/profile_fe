@@ -1,45 +1,42 @@
 "use client";
-import { create, update } from "@/apis/role-group";
-import { findAll } from "@/apis/role.api";
-import { showToastResponse } from "@/helper/show-toast.helper";
-import { IRole, IRoleGroup } from "@/interfaces/model.interface";
+import { update, uploadSingle, findAllKey } from "@/apis/image";
+import { showToast } from "@/helper/show-toast.helper";
+import { IImage } from "@/interfaces/model.interface";
 import { IPropRoleAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
-import { Button, Form, Input, Modal, Select } from "antd";
-import TextArea from "antd/es/input/TextArea";
+import { Button, Form, Input, Modal, Select, Upload } from "antd";
 import { useEffect, useState, useTransition } from "react";
 import { v4 as uuidV4 } from "uuid";
 
-export default function RoleGroupAction({
+export default function ImageStorageAction({
   dataEdit,
   isOpen = false,
   setIsOpen,
   onClose,
-}: IPropRoleAction<IRoleGroup>) {
+}: IPropRoleAction<IImage>) {
   const idEdit = dataEdit?.id;
-  const [roleGroupActionForm] = Form.useForm<Partial<IRoleGroup>>();
-  const [roles, setRoles] = useState<IRole[]>();
+  const [roleGroupActionForm] = Form.useForm<Partial<IImage>>();
   const [isPending, startTransition] = useTransition();
+  const [keys, setKeys] = useState<Pick<IImage, "key">[]>();
 
   //
   useEffect(() => {
     if (idEdit) {
-      const roles = (dataEdit?.roles || []) as IRole[];
       roleGroupActionForm.setFieldsValue({
-        name: dataEdit?.name,
-        desc: dataEdit.desc,
-        roles: roles?.map((role) => role.id),
+        label: dataEdit?.label,
+        key: dataEdit.key,
       });
     }
-
     fetchDataForForm();
   }, [dataEdit, idEdit, roleGroupActionForm]);
 
   //
   async function fetchDataForForm() {
-    const [resRole] = await Promise.all([findAll({ limit: "1e9", page: "1" })]);
+    const [resRole] = await Promise.all([
+      findAllKey({ limit: "1e9", page: "1" }),
+    ]);
     if (resRole.statusCode === 200) {
-      setRoles(resRole.data.items);
+      setKeys(resRole.data.items);
     }
   }
 
@@ -48,19 +45,19 @@ export default function RoleGroupAction({
     try {
       startTransition(async () => {
         const formData = await roleGroupActionForm.validateFields();
-        let res: TResponse<IRoleGroup>;
+        let res: TResponse<IImage>;
         if (idEdit) {
           res = await update(idEdit, formData);
         } else {
-          res = await create(formData);
+          res = await uploadSingle(formData);
         }
 
         //
         if (res.statusCode !== 200) {
-          showToastResponse(res);
+          showToast(res);
           return;
         }
-        showToastResponse(res);
+        showToast(res);
         handleCancel();
         roleGroupActionForm.resetFields();
       });
@@ -115,38 +112,42 @@ export default function RoleGroupAction({
         layout="vertical"
         autoComplete="off"
       >
-        <Form.Item<IRoleGroup>
-          label="Name"
-          name="name"
-          rules={[{ required: true, message: "Please input name!" }]}
+        <Form.Item<IImage>
+          label="Label"
+          name="label"
+          rules={[{ required: true, message: "Please input label!" }]}
         >
           <Input size="large" />
         </Form.Item>
-        <Form.Item<IRoleGroup>
-          label="Description"
-          name="desc"
-          rules={[{ required: true, message: "Please input description!" }]}
-        >
-          <TextArea rows={4} />
-        </Form.Item>
 
-        <Form.Item<IRoleGroup>
-          label="Roles"
-          name="roles"
-          rules={[{ required: true, message: "Please select role!" }]}
+        <Form.Item<IImage>
+          label="Key word"
+          name="key"
+          rules={[{ required: true, message: "Please select key word!" }]}
         >
-          <Select
-            mode="multiple"
-            maxCount={3}
-            size="large"
-            placeholder="Select roles"
-          >
-            {roles?.map((role) => (
-              <Select.Option key={uuidV4()} value={role.id}>
-                {role.name}
+          <Select maxCount={3} size="large" placeholder="Select key word">
+            {keys?.map((item) => (
+              <Select.Option key={uuidV4()} value={item.key}>
+                {item.key}
               </Select.Option>
             ))}
           </Select>
+        </Form.Item>
+
+        <Form.Item<IImage>
+          label="Upload Image"
+          name="image"
+          rules={[{ required: true, message: "Please upload an image!" }]}
+          valuePropName="fileList"
+          getValueFromEvent={(e) => e?.fileList}
+        >
+          <Upload
+            beforeUpload={() => false} // Không upload ngay lập tức
+            listType="picture-card"
+            maxCount={1}
+          >
+            <Button icon={<UploadOutlined />}>Upload</Button>
+          </Upload>
         </Form.Item>
       </Form>
     </Modal>

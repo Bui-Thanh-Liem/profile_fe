@@ -42,19 +42,6 @@ export async function findOneById(id: string) {
   return response;
 }
 
-// export async function findManyByIds(ids: string[]) {
-//   const response = await callApiServerCookie<IRole>({
-//     url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.ROLE}/ids/${ids}`,
-//     options: {
-//       method: "GET",
-//     },
-//   });
-//   revalidateTag(CONSTANT_TAG_CACHE.roles);
-//   return response;
-// }
-
-// export function findOneByField() {}
-
 export async function findAll(queries: InterfaceCommon.IQueries) {
   const response = await callApiServerCookie<InterfaceCommon.IGetMulti<IRole>>({
     url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${

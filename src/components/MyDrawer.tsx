@@ -1,6 +1,7 @@
+"use client";
 import { IPropMyDrawer } from "@/interfaces/propsComponent.interface";
 import { Drawer, Space } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 export function MyDrawer({
@@ -12,6 +13,7 @@ export function MyDrawer({
   ...rest
 }: IPropMyDrawer) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState<boolean>(false);
 
   const showDrawer = () => {
     setOpen(true);
@@ -21,12 +23,17 @@ export function MyDrawer({
     setOpen(false);
   };
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <>
-      {createPortal(
-        <span onClick={showDrawer}>{handleElement}</span>,
-        document.body
-      )}
+      {mounted &&
+        createPortal(
+          <span onClick={showDrawer}>{handleElement}</span>,
+          document.body
+        )}
 
       <Drawer
         title={title}

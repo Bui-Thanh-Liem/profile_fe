@@ -10,7 +10,7 @@ import RoleGroupAction from "./RoleGroupAction";
 
 export default function RoleGroupLayout({
   items,
-  totalItems,
+  // totalItems,
 }: IPropRoleLayout<IRoleGroup>) {
   const [open, setOpen] = useState<boolean>(false);
   const [dataEdit, setDataEdit] = useState<IRoleGroup | undefined>(undefined);

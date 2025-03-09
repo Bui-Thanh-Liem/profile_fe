@@ -3,10 +3,10 @@ import {
   ButtonProps,
   DrawerProps,
   InputProps,
-  TableColumnsType
+  TableColumnsType,
 } from "antd";
 import { ChangeEvent, ReactElement, ReactNode } from "react";
-import { IRoleGroup } from "./model.interface";
+import { IImage, IRoleGroup } from "./model.interface";
 import { TResponse } from "./response.interface";
 
 export interface IPropIconNavbar {
@@ -41,6 +41,12 @@ export interface IPropCardSkill {
 export interface IPropCardRoleGroup {
   onClickEdit: (dataEdit: IRoleGroup) => void;
   roleGroup: IRoleGroup;
+  onChangeChecked: (checked: boolean, id: string) => void;
+}
+
+export interface IPropCardImageStorage {
+  onClickEdit: (dataEdit: IImage) => void;
+  imageStorage: IImage;
   onChangeChecked: (checked: boolean, id: string) => void;
 }
 

@@ -14,4 +14,6 @@ export const CONSTANT_TAG_CACHE = {
   roleGroups: "role-groups",
   image: "image",
   images: "images",
+  imageStorage: "image-storage",
+  imageStorages: "image-storages",
 };

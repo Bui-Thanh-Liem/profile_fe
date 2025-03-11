@@ -6,7 +6,7 @@ import {
   TableColumnsType,
 } from "antd";
 import { ChangeEvent, ReactElement, ReactNode } from "react";
-import { IImage, IRoleGroup } from "./model.interface";
+import { IImageStorage, IRoleGroup } from "./model.interface";
 import { TResponse } from "./response.interface";
 
 export interface IPropIconNavbar {
@@ -45,8 +45,8 @@ export interface IPropCardRoleGroup {
 }
 
 export interface IPropCardImageStorage {
-  onClickEdit: (dataEdit: IImage) => void;
-  imageStorage: IImage;
+  onClickEdit: (dataEdit: IImageStorage) => void;
+  imageStorage: IImageStorage;
   onChangeChecked: (checked: boolean, id: string) => void;
 }
 

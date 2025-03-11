@@ -3,7 +3,7 @@ import { create, update } from "@/apis/role-group";
 import { findAll } from "@/apis/role.api";
 import { showToast } from "@/helper/show-toast.helper";
 import { IRole, IRoleGroup } from "@/interfaces/model.interface";
-import { IPropRoleAction } from "@/interfaces/propsLayoutAction";
+import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
 import { Button, Form, Input, Modal, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
@@ -15,7 +15,7 @@ export default function RoleGroupAction({
   isOpen = false,
   setIsOpen,
   onClose,
-}: IPropRoleAction<IRoleGroup>) {
+}: IPropBaseAction<IRoleGroup>) {
   const idEdit = dataEdit?.id;
   const [roleGroupActionForm] = Form.useForm<Partial<IRoleGroup>>();
   const [roles, setRoles] = useState<IRole[]>();

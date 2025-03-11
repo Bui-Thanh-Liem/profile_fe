@@ -1,9 +1,9 @@
 "use client";
 import { create, update } from "@/apis/role.api";
-import { showToastResponse } from "@/helper/show-toast.helper";
+import { showToast } from "@/helper/show-toast.helper";
 import { IRoleDataResource } from "@/interfaces/common.interface";
 import { IRole } from "@/interfaces/model.interface";
-import { IPropRoleAction } from "@/interfaces/propsLayoutAction";
+import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
 import { Button, Form, Input, Modal } from "antd";
 import TextArea from "antd/es/input/TextArea";
@@ -16,7 +16,7 @@ export default function RoleAction({
   isOpen = false,
   setIsOpen,
   onClose,
-}: IPropRoleAction<IRole>) {
+}: IPropBaseAction<IRole>) {
   const idEdit = dataEdit?.id;
   const [roleActionForm] = Form.useForm<Partial<IRole>>();
   const resources = Object.values(Enums.ERoleResources);
@@ -65,10 +65,10 @@ export default function RoleAction({
 
         //
         if (res.statusCode !== 200) {
-          showToastResponse(res);
+          showToast(res);
           return;
         }
-        showToastResponse(res);
+        showToast(res);
         handleCancel();
         roleActionForm.resetFields();
       });

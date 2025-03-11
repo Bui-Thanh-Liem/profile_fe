@@ -6,6 +6,3 @@ export interface IPropBaseAction<T> {
   setIsOpen?: (val: boolean) => void;
   onClose?: () => void;
 }
-
-export interface IPropUserAction<T> extends IPropBaseAction<T> {}
-export interface IPropRoleAction<T> extends IPropBaseAction<T> {}

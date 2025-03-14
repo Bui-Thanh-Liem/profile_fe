@@ -3,7 +3,6 @@ import { v4 as uuidV4 } from "uuid";
 //
 import CardStorage from "@/components/cards/CardStorage";
 import { IPropCardStorage } from "@/interfaces/propsComponent.interface";
-import ModalRequireLogin from "@/components/modals/ModalRequireLogin";
 import baseAlgorithm from "../../../../public/icons/algorithm.png";
 import backend from "../../../../public/icons/backend.png";
 import cmd from "../../../../public/icons/cmd.png";
@@ -79,7 +78,6 @@ export default function StoragePage() {
   return (
     <main className="flex justify-center items-center min-h-screen">
       <div className="w-[1200px]">
-        <ModalRequireLogin />
         <div className="flex flex-wrap gap-6">
           {itemsStorage?.map((item) => (
             <CardStorage

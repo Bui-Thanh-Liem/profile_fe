@@ -9,12 +9,12 @@ import { ChangeEvent, ReactElement, ReactNode } from "react";
 import { IImageStorage, IRoleGroup } from "./model.interface";
 import { TResponse } from "./response.interface";
 
-export interface IPropIconNavbar {
+export interface IPropNavbarItemIcon {
   src: string;
   alt: string;
 }
 
-export interface IPropItemLinkNavbar {
+export interface IPropNavbarItemLink {
   href: string;
   children: string | ReactNode;
 }

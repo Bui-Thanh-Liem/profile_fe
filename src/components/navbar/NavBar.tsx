@@ -4,9 +4,9 @@ import github from "../../../public/icons/github.png";
 // import instagram from "../../../public/icons/instagram.png";
 import twitter from "../../../public/icons/twitter.png";
 import youtube from "../../../public/icons/youtube.png";
-import ItemIconNavbar from "./ItemIconNavbar";
 import Logo from "../Logo";
-import ItemLinkNavbar from "./ItemLinkNavbar";
+import { NavbarItemLink } from "./NavbarItemLink";
+import { NavbarItemIcon } from "./NavbarItemIcon";
 
 //
 function NavBar() {
@@ -17,42 +17,42 @@ function NavBar() {
       </div>
       <ul className="flex gap-8">
         <li>
-          <ItemLinkNavbar href="/about">About</ItemLinkNavbar>
+          <NavbarItemLink href="/about">About</NavbarItemLink>
         </li>
         <li>
-          <ItemLinkNavbar href="/skills">Skills</ItemLinkNavbar>
+          <NavbarItemLink href="/skills">Skills</NavbarItemLink>
         </li>
         <li>
-          <ItemLinkNavbar href="/education">Education</ItemLinkNavbar>
+          <NavbarItemLink href="/education">Education</NavbarItemLink>
         </li>
         <li>
-          <ItemLinkNavbar href="/work">Work</ItemLinkNavbar>
+          <NavbarItemLink href="/work">Work</NavbarItemLink>
         </li>
         <li>
-          <ItemLinkNavbar href="/experience">Experience</ItemLinkNavbar>
+          <NavbarItemLink href="/experience">Experience</NavbarItemLink>
         </li>
         <li>
-          <ItemLinkNavbar href="/">Home</ItemLinkNavbar>
+          <NavbarItemLink href="/">Home</NavbarItemLink>
         </li>
         <li>
-          <ItemLinkNavbar href="/blogs">Blogs</ItemLinkNavbar>
+          <NavbarItemLink href="/blogs">Blogs</NavbarItemLink>
         </li>
         <li>
-          <ItemLinkNavbar href="/projects">Projects</ItemLinkNavbar>
+          <NavbarItemLink href="/projects">Projects</NavbarItemLink>
         </li>
         <li>
-          <ItemLinkNavbar href="/storage">Storage</ItemLinkNavbar>
+          <NavbarItemLink href="/storage">Storage</NavbarItemLink>
         </li>
       </ul>
       <ul className="flex gap-8 justify-end">
         <li>
           <a href="#" target="">
-            <ItemIconNavbar src={github.src} alt="github" />
+            <NavbarItemIcon src={github.src} alt="github" />
           </a>
         </li>
         <li>
           <a href="#" target="">
-            <ItemIconNavbar src={facebook.src} alt="facebook" />
+            <NavbarItemIcon src={facebook.src} alt="facebook" />
           </a>
         </li>
         {/* <li>
@@ -62,12 +62,12 @@ function NavBar() {
         </li> */}
         <li>
           <a href="#" target="">
-            <ItemIconNavbar src={twitter.src} alt="twitter" />
+            <NavbarItemIcon src={twitter.src} alt="twitter" />
           </a>
         </li>
         <li>
           <a href="#" target="">
-            <ItemIconNavbar src={youtube.src} alt="youtube" />
+            <NavbarItemIcon src={youtube.src} alt="youtube" />
           </a>
         </li>
       </ul>

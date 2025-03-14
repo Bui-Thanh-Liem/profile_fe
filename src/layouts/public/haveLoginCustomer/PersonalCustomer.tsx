@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 const userItems: MenuProps["items"] = [
   {
-    key: "1",
+    key: "customer/my-account",
     label: "My Account",
     disabled: true,
   },

@@ -2,10 +2,10 @@
 import { Button, Form, Input, Modal, notification, Tooltip } from "antd";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import Logo from "../../../components/Logo";
 import contactMe from "../../public/icons/contactMe.png";
-import Logo from "./Logo";
 
-export default function ContactMe() {
+export function ContactMe() {
   const [open, setOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);

@@ -1,7 +1,7 @@
-import ContactMe from "@/components/ContactMe";
 import Footer from "@/components/Footer";
-import HaveLoginCustomer from "@/layouts/public/haveLoginCustomer/HaveLoginCustomer";
 import NavBar from "@/components/navbar/NavBar";
+import { FloatElement } from "@/layouts/public/float-element/FloatElement";
+import HaveLoginCustomer from "@/layouts/public/haveLoginCustomer/HaveLoginCustomer";
 
 export default function PublicLayout({
   children,
@@ -16,7 +16,7 @@ export default function PublicLayout({
         </div>
         <HaveLoginCustomer />
         {children}
-        <ContactMe />
+        <FloatElement />
         <Footer />
       </div>
     </div>

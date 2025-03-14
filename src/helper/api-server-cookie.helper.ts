@@ -1,5 +1,6 @@
 "use server";
 import { refresh } from "@/apis/auth.api";
+import { clearCookie } from "@/app/actions/clear-cookie";
 import { CONSTANT_ENV } from "@/constants";
 import { TResponse } from "@/interfaces/response.interface";
 import { handleStringCookie } from "@/utils/handleString.util";
@@ -90,6 +91,7 @@ export const callApiServerCookie = async <T>({
   //
   if (result.statusCode === 403) {
     // Call api logout
+    await clearCookie();
     redirect("/auth/login");
   }
 

@@ -4,14 +4,14 @@ import { CardRoleGroup } from "@/components/cards/CardRoleGroup";
 import MyTableToolbar from "@/components/table/MyTableToolbar";
 import { showToast } from "@/helper/show-toast.helper";
 import { IRoleGroup } from "@/interfaces/model.interface";
-import { IPropRoleLayout } from "@/interfaces/propsLayout.interface";
+import { IPropLayout } from "@/interfaces/propsLayout.interface";
 import { useState } from "react";
 import RoleGroupAction from "./RoleGroupAction";
 
 export default function RoleGroupLayout({
   items,
   // totalItems,
-}: IPropRoleLayout<IRoleGroup>) {
+}: IPropLayout<IRoleGroup>) {
   const [open, setOpen] = useState<boolean>(false);
   const [dataEdit, setDataEdit] = useState<IRoleGroup | undefined>(undefined);
   const [checkedIds, setCheckedIds] = useState<string[] | []>([]);

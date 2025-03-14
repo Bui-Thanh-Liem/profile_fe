@@ -1,8 +1,8 @@
 "use client";
-import { update, uploadSingle, findAllKey } from "@/apis/image";
+import { create, update } from "@/apis/image-storage";
 import { showToast } from "@/helper/show-toast.helper";
-import { IImage } from "@/interfaces/model.interface";
-import { IPropRoleAction } from "@/interfaces/propsLayoutAction";
+import { IImage, IImageStorage } from "@/interfaces/model.interface";
+import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
 import { Button, Form, Input, Modal, Select, Upload } from "antd";
 import { useEffect, useState, useTransition } from "react";
@@ -13,22 +13,22 @@ export default function ImageStorageAction({
   isOpen = false,
   setIsOpen,
   onClose,
-}: IPropRoleAction<IImage>) {
+}: IPropBaseAction<IImageStorage>) {
   const idEdit = dataEdit?.id;
-  const [roleGroupActionForm] = Form.useForm<Partial<IImage>>();
+  const [imageStorageActionForm] = Form.useForm<Partial<IImageStorage>>();
   const [isPending, startTransition] = useTransition();
-  const [keys, setKeys] = useState<Pick<IImage, "key">[]>();
+  const [keys, setKeys] = useState<Pick<IImageStorage, "keyWord">[]>();
 
   //
   useEffect(() => {
     if (idEdit) {
-      roleGroupActionForm.setFieldsValue({
+      imageStorageActionForm.setFieldsValue({
         label: dataEdit?.label,
-        key: dataEdit.key,
+        keyWord: dataEdit.keyWord,
       });
     }
     fetchDataForForm();
-  }, [dataEdit, idEdit, roleGroupActionForm]);
+  }, [dataEdit, idEdit, imageStorageActionForm]);
 
   //
   async function fetchDataForForm() {
@@ -44,12 +44,12 @@ export default function ImageStorageAction({
   function onSubmitForm() {
     try {
       startTransition(async () => {
-        const formData = await roleGroupActionForm.validateFields();
-        let res: TResponse<IImage>;
+        const formData = await imageStorageActionForm.validateFields();
+        let res: TResponse<IImageStorage>;
         if (idEdit) {
           res = await update(idEdit, formData);
         } else {
-          res = await uploadSingle(formData);
+          res = await create(formData);
         }
 
         //
@@ -59,7 +59,7 @@ export default function ImageStorageAction({
         }
         showToast(res);
         handleCancel();
-        roleGroupActionForm.resetFields();
+        imageStorageActionForm.resetFields();
       });
     } catch (error) {
       console.log("Error::", error);
@@ -70,7 +70,7 @@ export default function ImageStorageAction({
   function handleCancel() {
     if (setIsOpen) {
       setIsOpen(false);
-      roleGroupActionForm.resetFields();
+      imageStorageActionForm.resetFields();
       if (onClose) {
         onClose();
       }
@@ -104,7 +104,7 @@ export default function ImageStorageAction({
       width={600}
     >
       <Form
-        form={roleGroupActionForm}
+        form={imageStorageActionForm}
         name="user-action"
         initialValues={{ remember: true }}
         onFinish={onSubmitForm}
@@ -112,7 +112,7 @@ export default function ImageStorageAction({
         layout="vertical"
         autoComplete="off"
       >
-        <Form.Item<IImage>
+        <Form.Item<IImageStorage>
           label="Label"
           name="label"
           rules={[{ required: true, message: "Please input label!" }]}
@@ -120,9 +120,9 @@ export default function ImageStorageAction({
           <Input size="large" />
         </Form.Item>
 
-        <Form.Item<IImage>
+        <Form.Item<IImageStorage>
           label="Key word"
-          name="key"
+          name="keyWord"
           rules={[{ required: true, message: "Please select key word!" }]}
         >
           <Select maxCount={3} size="large" placeholder="Select key word">

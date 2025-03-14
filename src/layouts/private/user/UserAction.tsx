@@ -3,7 +3,7 @@ import { findAll } from "@/apis/role.api";
 import { create, update } from "@/apis/user.api";
 import { showToast } from "@/helper/show-toast.helper";
 import { IRole, IRoleGroup, IUser } from "@/interfaces/model.interface";
-import { IPropUserAction } from "@/interfaces/propsLayoutAction";
+import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
 import { Button, Col, Form, Input, Modal, Row, Select } from "antd";
 import { Enums } from "liemdev-profile-lib";
@@ -19,7 +19,7 @@ export default function UserAction({
   isOpen = false,
   setIsOpen,
   onClose,
-}: IPropUserAction<IUser>) {
+}: IPropBaseAction<IUser>) {
   const idEdit = dataEdit?.id;
   const [userActionForm] = Form.useForm<Partial<IUser>>();
   const subAdminValue = Form.useWatch("subAdmin", userActionForm);

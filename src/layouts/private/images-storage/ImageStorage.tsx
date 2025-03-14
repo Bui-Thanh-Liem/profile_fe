@@ -3,23 +3,25 @@ import { deleteMulti } from "@/apis/role-group";
 import { CardImageStorage } from "@/components/cards/CardImageStorage";
 import MyTableToolbar from "@/components/table/MyTableToolbar";
 import { showToast } from "@/helper/show-toast.helper";
-import { IImage } from "@/interfaces/model.interface";
-import { IPropRoleLayout } from "@/interfaces/propsLayout.interface";
+import { IImageStorage } from "@/interfaces/model.interface";
+import { IPropLayout } from "@/interfaces/propsLayout.interface";
 import { useState } from "react";
 import RoleGroupAction from "./ImageStorageAction";
 
 export default function ImageStorageLayout({
   items,
   totalItems,
-}: IPropRoleLayout<IImage>) {
+}: IPropLayout<IImageStorage>) {
   const [open, setOpen] = useState<boolean>(false);
   const [checkedIds, setCheckedIds] = useState<string[] | []>([]);
-  const [dataEdit, setDataEdit] = useState<IImage | undefined>(undefined);
+  const [dataEdit, setDataEdit] = useState<IImageStorage | undefined>(
+    undefined
+  );
 
   console.log("items::", items, totalItems);
 
   //
-  function onEdit(data: IImage) {
+  function onEdit(data: IImageStorage) {
     setDataEdit(data);
     setOpen(true);
   }

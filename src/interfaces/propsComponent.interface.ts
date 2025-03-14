@@ -57,14 +57,6 @@ export interface IPropCardPercentAdmin {
   link?: string;
 }
 
-export interface IPropCardStorage extends IPropCardSkill {
-  href: string;
-  status?: {
-    name: string;
-    color: string;
-  };
-}
-
 export interface IPropInputPrimary extends InputProps {
   value: string;
   onChangeInput: (event: ChangeEvent<HTMLInputElement>) => void;
@@ -124,4 +116,10 @@ export interface IPropMyDrawer extends DrawerProps {
   title: string;
   header: ReactNode;
   content: ReactNode;
+}
+
+export interface IPropStorageNavItem {
+  image: string;
+  name: string;
+  href: string;
 }

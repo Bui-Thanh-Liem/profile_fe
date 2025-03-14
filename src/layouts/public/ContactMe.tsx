@@ -3,7 +3,7 @@ import { Button, Form, Input, Modal, notification, Tooltip } from "antd";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Logo from "../../components/Logo";
-import contactMe from "../../public/icons/contactMe.png";
+import contactMe from "../../../public/icons/contactMe.png";
 
 export function ContactMe() {
   const [open, setOpen] = useState<boolean>(false);
@@ -58,7 +58,7 @@ export function ContactMe() {
         title="Contact me!"
         placement="topRight"
         open={open}
-        color="#04befe"
+        color="#"
       >
         <Image
           src={contactMe.src}

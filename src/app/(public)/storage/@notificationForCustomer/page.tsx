@@ -1,3 +1,4 @@
-export default function notificationForCustomer() {
-  return <p>notification for customer</p>;
+import { NotificationForCustomerLayout } from "@/layouts/public/storage/NotificationForCustomer";
+export default function notificationForCustomerPage() {
+  return <NotificationForCustomerLayout />;
 }

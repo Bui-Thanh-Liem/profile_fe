@@ -10,10 +10,11 @@ import js from "../../../../../public/icons/skills/javascript.png";
 import mui from "../../../../../public/icons/skills/mui.png";
 import nextjs from "../../../../../public/icons/skills/nextjs.png";
 import redux from "../../../../../public/icons/skills/redux.png";
-import zustand from "../../../../../public/icons/skills/zustand.png";
 import tailwind from "../../../../../public/icons/skills/tailwind.png";
+import zustand from "../../../../../public/icons/skills/zustand.png";
 
-export default function FontEndPage() {
+export default function FrontEndPage() {
+  //
   const skills = [
     { name: "Html", icon: html, link: "/storage/font-end/html" },
     { name: "Css", icon: css, link: "/storage/font-end/css" },
@@ -26,7 +27,15 @@ export default function FontEndPage() {
     { name: "React js", icon: react, link: "/storage/font-end/reactjs" },
     { name: "Next js", icon: nextjs, link: "/storage/font-end/nextjs" },
     { name: "Ant design", icon: antd, link: "/storage/font-end/ant-design" },
-    { name: "Material ui", icon: mui, link: "/storage/font-end/material-ui" },
+    {
+      name: "Material ui",
+      icon: mui,
+      link: "/storage/font-end/material-ui",
+      status: {
+        name: "Coming soon",
+        color: "blue",
+      },
+    },
     { name: "Zustand", icon: zustand, link: "/storage/font-end/zustand" },
     { name: "Redux", icon: redux, link: "/storage/font-end/redux" },
   ];
@@ -38,9 +47,10 @@ export default function FontEndPage() {
           return (
             <div key={uuidV4()}>
               <CardSkill
-                icon={skill.icon.src}
+                image={skill.icon.src}
                 name={skill.name}
                 link={skill.link}
+                progress={0}
               />
             </div>
           );

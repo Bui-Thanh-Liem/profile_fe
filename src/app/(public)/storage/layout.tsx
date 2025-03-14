@@ -1,4 +1,12 @@
-import { Col, Row, Space } from "antd";
+import { StorageNavItem } from "@/components/StoreageNavItem";
+import { IPropStorageNavItem } from "@/interfaces/propsComponent.interface";
+import { v4 } from "uuid";
+import baseAlgorithm from "../../../../public/icons/algorithm.png";
+import backend from "../../../../public/icons/backend.png";
+import cmd from "../../../../public/icons/cmd.png";
+import dataStructureAndAlgorithm from "../../../../public/icons/data-structure.png";
+import devOps from "../../../../public/icons/devOps.png";
+import frontend from "../../../../public/icons/frontend.png";
 
 export default function StorageLayout({
   children,
@@ -9,34 +17,58 @@ export default function StorageLayout({
   notificationForCustomer: React.ReactNode;
   requireLogin: React.ReactNode;
 }) {
+  //
+  const mockData: IPropStorageNavItem[] = [
+    {
+      image: frontend.src,
+      name: "Front-end",
+      href: "/storage/front-end",
+    },
+    {
+      image: backend.src,
+      name: "Back-end",
+      href: "/storage/back-end",
+    },
+    {
+      image: devOps.src,
+      name: "Devops",
+      href: "/storage/devops",
+    },
+    {
+      image: baseAlgorithm.src,
+      name: "Base Algorithm",
+      href: "/storage/base-algorithm",
+    },
+    {
+      image: dataStructureAndAlgorithm.src,
+      name: "Advanced Algorithm",
+      href: "/storage/advanced-algorithm",
+    },
+    {
+      image: cmd.src,
+      name: "Command line",
+      href: "/storage/command-line",
+    },
+  ];
   return (
     <>
-      {requireLogin}
-      {notificationForCustomer}
-      {children}
-      <Space>
-        <Row>
-          <Col>Intro</Col>
-        </Row>
-        <Row>
-          <Col>Front-end</Col>
-        </Row>
-        <Row>
-          <Col>Back-end</Col>
-        </Row>
-        <Row>
-          <Col>Devops</Col>
-        </Row>
-        <Row>
-          <Col>Base Algorithm</Col>
-        </Row>
-        <Row>
-          <Col>Advanced Algorithm</Col>
-        </Row>
-        <Row>
-          <Col>Command line</Col>
-        </Row>
-      </Space>
+      <div className="flex justify-center items-center min-h-screen">
+        <div className="w-[1200px]">
+          {requireLogin}
+          {notificationForCustomer}
+          {children}
+          <div className="fixed top-1/2 right-[calc(50%-700px)] translate-x-1/2 -translate-y-1/2">
+            {mockData.map((item) => (
+              <StorageNavItem
+                key={v4()}
+                image={item.image}
+                name={item.name}
+                href={item.href}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
     </>
   );
 }

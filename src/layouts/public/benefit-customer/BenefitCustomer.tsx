@@ -1,7 +1,7 @@
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import { FloatButton } from "antd";
 
-export function FeatureOfStorage() {
+export function BenefitCustomer() {
   return (
     <>
       <FloatButton

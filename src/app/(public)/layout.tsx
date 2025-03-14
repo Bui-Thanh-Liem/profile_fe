@@ -1,7 +1,6 @@
 import Footer from "@/components/Footer";
 import NavBar from "@/components/navbar/NavBar";
-import { FloatElement } from "@/layouts/public/float-element/FloatElement";
-import HaveLoginCustomer from "@/layouts/public/haveLoginCustomer/HaveLoginCustomer";
+import { ContactMe } from "@/layouts/public/ContactMe";
 
 export default function PublicLayout({
   children,
@@ -14,9 +13,8 @@ export default function PublicLayout({
         <div className="fixed top-0 left-0 right-0 z-50 flex shadow-sm bg-background">
           <NavBar />
         </div>
-        <HaveLoginCustomer />
         {children}
-        <FloatElement />
+        <ContactMe />
         <Footer />
       </div>
     </div>

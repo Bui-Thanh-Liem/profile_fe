@@ -14,58 +14,64 @@ import frontend from "../../../../public/icons/frontend.png";
 //
 const itemsStorage: Array<IPropCardStorage> = [
   {
-    icon: frontend.src,
+    image: frontend.src,
     name: "Front-end",
     href: "/storage/font-end",
     status: {
       name: "Coming soon",
       color: "blue",
     },
+    progress: 0
   },
   {
-    icon: backend.src,
+    image: backend.src,
     name: "Back-end",
     href: "/storage/back-end",
     status: {
       name: "ready",
       color: "red",
     },
+    progress: 0
   },
   {
-    icon: devOps.src,
+    image: devOps.src,
     name: "Devops",
     href: "/storage/devops",
     status: {
       name: "Coming soon",
       color: "blue",
     },
+    progress: 0
   },
   {
-    icon: baseAlgorithm.src,
+    image: baseAlgorithm.src,
     name: "Base Algorithm",
     href: "/storage/base-algorithm",
     status: {
       name: "Coming soon",
       color: "blue",
     },
+    progress: 0
   },
   {
-    icon: dataStructureAndAlgorithm.src,
+    image: dataStructureAndAlgorithm.src,
     name: "Advanced Algorithm",
     href: "/storage/advanced-algorithm",
     status: {
       name: "Coming soon",
       color: "blue",
     },
+    progress: 0
   },
   {
-    icon: cmd.src,
+    image: cmd.src,
     name: "Command line",
     href: "/storage/command-line",
     status: {
       name: "Coming soon",
       color: "blue",
     },
+    progress: 0
   },
 ];
 
@@ -81,7 +87,8 @@ export default function StoragePage() {
               status={item.status}
               href={item.href}
               name={item.name}
-              icon={item.icon}
+              image={item.image}
+              progress={0}
             />
           ))}
         </div>

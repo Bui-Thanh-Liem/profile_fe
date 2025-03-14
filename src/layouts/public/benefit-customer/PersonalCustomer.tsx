@@ -1,10 +1,10 @@
 "use client";
 import { Avatar, Dropdown, MenuProps } from "antd";
+import { useRouter } from "next/navigation";
 import { IoIosLogOut } from "react-icons/io";
 import { RiSettings4Line, RiUser2Line } from "react-icons/ri";
 import liem from "../../../../public/me.png";
 import useCustomerStore from "../../../stores/useCustomerStore";
-import { useRouter } from "next/navigation";
 
 const userItems: MenuProps["items"] = [
   {
@@ -40,12 +40,12 @@ const userItems: MenuProps["items"] = [
 
 export default function PersonalCustomer() {
   const router = useRouter();
-  const { logout } = useCustomerStore();
+  const { logoutCustomer } = useCustomerStore();
   const onClickItemMenu: MenuProps["onClick"] = (info) => {
     console.log("info.key:::", info.key);
 
     if (info.key === "customer/logout") {
-      logout();
+      logoutCustomer();
       router.push("/");
     }
   };

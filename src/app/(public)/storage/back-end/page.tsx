@@ -1,18 +1,18 @@
 import CardSkill from "@/components/cards/CardSkill";
-import { v4 as uuidV4 } from "uuid";
 
 //
-import nodeJs from "../../../../../public/icons/skills/nodejs.png";
+import docker from "../../../../../public/icons/skills/docker.png";
 import expressJs from "../../../../../public/icons/skills/express.png";
+import mySql from "../../../../../public/icons/skills/javascript.png";
 import jwt from "../../../../../public/icons/skills/jwt.png";
 import mongoDb from "../../../../../public/icons/skills/mongo.png";
-import mySql from "../../../../../public/icons/skills/javascript.png";
-import ts from "../../../../../public/icons/skills/typescript.png";
 import nestjs from "../../../../../public/icons/skills/nestjs.png";
+import nodeJs from "../../../../../public/icons/skills/nodejs.png";
 import redis from "../../../../../public/icons/skills/redis.png";
-import docker from "../../../../../public/icons/skills/docker.png";
+import ts from "../../../../../public/icons/skills/typescript.png";
 
 export default function BackEndPage() {
+  //
   const skills = [
     { name: "Node JS", icon: nodeJs, link: "/storage/back-end/nodejs" },
     {
@@ -38,11 +38,12 @@ export default function BackEndPage() {
       <div className="m-auto w-[1200px] grid grid-cols-4 place-items-center gap-y-16">
         {skills.map((skill) => {
           return (
-            <div key={uuidV4()}>
+            <div key={skill.link}>
               <CardSkill
-                icon={skill.icon.src}
+                image={skill.icon.src}
                 name={skill.name}
                 link={skill.link}
+                progress={0}
               />
             </div>
           );

@@ -1,17 +1,14 @@
 "use client";
 import { IPropStorageNavItem } from "@/interfaces/propsComponent.interface";
-import { Col, Row, Tooltip } from "antd";
+import { Col, Row } from "antd";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { MyTooltip } from "./MyTooltip";
 
 export function StorageNavItem({ image, name, href }: IPropStorageNavItem) {
   const pathname = usePathname();
   const isActive = href === pathname;
-  const color = "#04befe";
-  console.log("pathname:::", pathname);
-  console.log("href:::", href);
-  console.log("isActive:::", isActive);
 
   return (
     <Row
@@ -21,9 +18,9 @@ export function StorageNavItem({ image, name, href }: IPropStorageNavItem) {
     >
       <Col>
         <Link href={href}>
-          <Tooltip title={name} placement="right" color={color}>
+          <MyTooltip title={name} placement="right" color="#04befe">
             <Image src={image} alt={name} width={50} height={50} />
-          </Tooltip>
+          </MyTooltip>
         </Link>
       </Col>
     </Row>

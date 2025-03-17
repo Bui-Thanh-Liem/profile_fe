@@ -1,9 +1,10 @@
 "use client";
-import { Button, Form, Input, Modal, notification, Tooltip } from "antd";
+import { MyTooltip } from "@/components/MyTooltip";
+import { Button, Form, Input, Modal, notification } from "antd";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import Logo from "../../components/Logo";
 import contactMe from "../../../public/icons/contactMe.png";
+import Logo from "../../components/Logo";
 
 export function ContactMe() {
   const [open, setOpen] = useState<boolean>(false);
@@ -54,12 +55,7 @@ export function ContactMe() {
 
   return (
     <>
-      <Tooltip
-        title="Contact me!"
-        placement="topRight"
-        open={open}
-        color="#"
-      >
+      <MyTooltip title="Contact me!" placement="topRight" open={open}>
         <Image
           src={contactMe.src}
           alt="contact me"
@@ -68,7 +64,7 @@ export function ContactMe() {
           className="rounded-full fixed right-8 bottom-8 cursor-pointer"
           onClick={handleClick}
         />
-      </Tooltip>
+      </MyTooltip>
       <Modal
         open={openModal}
         title={
@@ -92,6 +88,7 @@ export function ContactMe() {
             Submit
           </Button>,
         ]}
+        centered
       >
         <Form
           form={contactForm}

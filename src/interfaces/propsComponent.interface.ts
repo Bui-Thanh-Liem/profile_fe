@@ -4,6 +4,7 @@ import {
   DrawerProps,
   InputProps,
   TableColumnsType,
+  TooltipProps,
 } from "antd";
 import { ChangeEvent, ReactElement, ReactNode } from "react";
 import { IImageStorage, IRoleGroup } from "./model.interface";
@@ -123,3 +124,7 @@ export interface IPropStorageNavItem {
   name: string;
   href: string;
 }
+
+export type IPropMyTooltip = TooltipProps & {
+  children: ReactNode;
+};

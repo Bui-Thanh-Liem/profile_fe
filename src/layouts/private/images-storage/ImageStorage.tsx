@@ -6,7 +6,7 @@ import { showToast } from "@/helper/show-toast.helper";
 import { IImageStorage } from "@/interfaces/model.interface";
 import { IPropLayout } from "@/interfaces/propsLayout.interface";
 import { useState } from "react";
-import RoleGroupAction from "./ImageStorageAction";
+import ImageStorageAction from "./ImageStorageAction";
 
 export default function ImageStorageLayout({
   items,
@@ -56,13 +56,13 @@ export default function ImageStorageLayout({
         onClickAddItem={() => setOpen(true)}
         onClickDeleteItems={onDeleteMulti}
       />
-      <RoleGroupAction
+      <ImageStorageAction
         isOpen={open}
         onClose={() => {}}
         setIsOpen={setOpen}
         dataEdit={dataEdit}
       />
-      <div className="grid grid-cols-5 gap-8 h-96 bg-red-200">
+      <div className="grid grid-cols-5 gap-8">
         {items?.map((item) => (
           <CardImageStorage
             key={item.label}

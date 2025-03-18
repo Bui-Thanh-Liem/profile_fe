@@ -1,10 +1,12 @@
 "use client";
 import { create, update } from "@/apis/image-storage";
+import { findAll } from "@/apis/keyword";
+import { MyUpload } from "@/components/MyUpload";
 import { showToast } from "@/helper/show-toast.helper";
-import { IImage, IImageStorage } from "@/interfaces/model.interface";
+import { IImageStorage, IKeyWord } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
-import { Button, Form, Input, Modal, Select, Upload } from "antd";
+import { Button, Form, Input, Modal, Select } from "antd";
 import { useEffect, useState, useTransition } from "react";
 import { v4 as uuidV4 } from "uuid";
 
@@ -17,14 +19,20 @@ export default function ImageStorageAction({
   const idEdit = dataEdit?.id;
   const [imageStorageActionForm] = Form.useForm<Partial<IImageStorage>>();
   const [isPending, startTransition] = useTransition();
-  const [keys, setKeys] = useState<Pick<IImageStorage, "keyWord">[]>();
+  const [keyWords, setKeyWords] = useState<IKeyWord[]>();
 
   //
   useEffect(() => {
     if (idEdit) {
+      //
+      const keyWordIds = (dataEdit.keyWords as IKeyWord[])?.map(
+        (key) => key.id
+      );
+
+      //
       imageStorageActionForm.setFieldsValue({
         label: dataEdit?.label,
-        keyWord: dataEdit.keyWord,
+        keyWords: keyWordIds,
       });
     }
     fetchDataForForm();
@@ -32,11 +40,11 @@ export default function ImageStorageAction({
 
   //
   async function fetchDataForForm() {
-    const [resRole] = await Promise.all([
-      findAllKey({ limit: "1e9", page: "1" }),
+    const [resKeyWords] = await Promise.all([
+      findAll({ limit: "1e9", page: "1" }),
     ]);
-    if (resRole.statusCode === 200) {
-      setKeys(resRole.data.items);
+    if (resKeyWords.statusCode === 200) {
+      setKeyWords(resKeyWords.data.items);
     }
   }
 
@@ -82,7 +90,9 @@ export default function ImageStorageAction({
       open={isOpen}
       title={
         <div className="text-center">
-          <p className="my-4">{`${idEdit ? "Edit" : "Create"} role group`}</p>
+          <p className="my-4">{`${
+            idEdit ? "Edit" : "Create"
+          } image storage`}</p>
         </div>
       }
       onOk={onSubmitForm}
@@ -117,37 +127,36 @@ export default function ImageStorageAction({
           name="label"
           rules={[{ required: true, message: "Please input label!" }]}
         >
-          <Input size="large" />
+          <Input size="large" placeholder="Enter label" />
         </Form.Item>
 
         <Form.Item<IImageStorage>
           label="Key word"
-          name="keyWord"
+          name="keyWords"
           rules={[{ required: true, message: "Please select key word!" }]}
         >
-          <Select maxCount={3} size="large" placeholder="Select key word">
-            {keys?.map((item) => (
-              <Select.Option key={uuidV4()} value={item.key}>
-                {item.key}
+          <Select
+            maxCount={3}
+            size="large"
+            mode="multiple"
+            placeholder="Select key word"
+          >
+            {keyWords?.map((item) => (
+              <Select.Option key={uuidV4()} value={item.name}>
+                {item.name}
               </Select.Option>
             ))}
           </Select>
         </Form.Item>
 
-        <Form.Item<IImage>
+        <Form.Item<IImageStorage>
           label="Upload Image"
-          name="image"
+          name="images"
           rules={[{ required: true, message: "Please upload an image!" }]}
           valuePropName="fileList"
           getValueFromEvent={(e) => e?.fileList}
         >
-          <Upload
-            beforeUpload={() => false} // Không upload ngay lập tức
-            listType="picture-card"
-            maxCount={1}
-          >
-            <Button icon={<UploadOutlined />}>Upload</Button>
-          </Upload>
+          <MyUpload />
         </Form.Item>
       </Form>
     </Modal>

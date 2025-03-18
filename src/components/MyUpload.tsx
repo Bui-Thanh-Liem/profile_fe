@@ -5,7 +5,7 @@ import React, { useState } from "react";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
-const App: React.FC = () => {
+export const MyUpload: React.FC = () => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
@@ -41,5 +41,3 @@ const App: React.FC = () => {
     </ImgCrop>
   );
 };
-
-export default App;

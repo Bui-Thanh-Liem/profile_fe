@@ -2,9 +2,10 @@ import { deleteMulti } from "@/apis/role-group";
 import { showToast } from "@/helper/show-toast.helper";
 import { IPropCardImageStorage } from "@/interfaces/propsComponent.interface";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Card, Checkbox, Dropdown, Image, MenuProps, Space } from "antd";
+import { Card, Checkbox, Dropdown, MenuProps, Space } from "antd";
 import Meta from "antd/es/card/Meta";
 import { useState } from "react";
+import { MyImage } from "../MyImage";
 
 export function CardImageStorage({
   imageStorage,
@@ -12,10 +13,11 @@ export function CardImageStorage({
   onChangeChecked,
 }: IPropCardImageStorage) {
   const [checked, setChecked] = useState<boolean>(false);
+  const { id, label, desc } = imageStorage;
 
   //
   async function onDelete() {
-    const res = await deleteMulti([imageStorage.id]);
+    const res = await deleteMulti([id]);
     if (res.statusCode !== 200) {
       showToast(res);
       return;
@@ -45,6 +47,12 @@ export function CardImageStorage({
     },
   ];
 
+  const imageList = [
+    "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
+    "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
+    "https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png",
+  ];
+
   //
   return (
     <>
@@ -56,17 +64,13 @@ export function CardImageStorage({
             <Space className="text-blue-500">More</Space>
           </Dropdown>
         }
-        cover={
-          <Image
-            alt="example"
-            src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
-          />
-        }
+        cover={<MyImage alt={label} images={imageList} />}
       >
-        <Meta title="Europe Street beat" description="www.instagram.com" />
+        <Meta title={label} description={desc} />
         <div className="text-end">
           <Checkbox
             value={checked}
+            checked={checked}
             onChange={(event) => {
               const isChecked = event.target.checked;
               setChecked(isChecked);

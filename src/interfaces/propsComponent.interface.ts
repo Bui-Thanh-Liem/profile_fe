@@ -128,3 +128,8 @@ export interface IPropStorageNavItem {
 export type IPropMyTooltip = TooltipProps & {
   children: ReactNode;
 };
+
+export interface IPropMyImage {
+  images: string[];
+  alt: string;
+}

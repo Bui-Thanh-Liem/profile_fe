@@ -1,10 +1,10 @@
 "use server";
-import { refresh } from "@/apis/auth.api";
+import { logout, refresh } from "@/apis/auth.api";
 import { clearCookie } from "@/app/actions/clear-cookie";
 import { CONSTANT_ENV } from "@/constants";
 import { TResponse } from "@/interfaces/response.interface";
 import { handleStringCookie } from "@/utils/handleString.util";
-import { Utils } from "liemdev-profile-lib";
+import { Constants, Utils } from "liemdev-profile-lib";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -91,13 +91,15 @@ export const callApiServerCookie = async <T>({
   //
   if (result.statusCode === 403) {
     // Call api logout
-    await clearCookie();
+    await clearCookie(Constants.CONSTANT_TOKEN.TOKEN_NAME_USER);
+    await logout();
     redirect("/auth/login");
   }
 
   //
   if (result.statusCode === 406) {
     // Call api logout
+    await clearCookie(Constants.CONSTANT_TOKEN.TOKEN_NAME_CUSTOMER);
     redirect("/storage");
   }
 

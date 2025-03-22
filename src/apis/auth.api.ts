@@ -2,8 +2,6 @@ import { CONSTANT_ROUTE } from "@/constants";
 import { callApiServerCookie } from "@/helper/api-server-cookie.helper";
 import { IUser } from "@/interfaces/model.interface";
 import { InterfaceCommon, Utils } from "liemdev-profile-lib";
-import { Constants } from "liemdev-profile-lib";
-import { cookies } from "next/headers";
 
 export async function login(payload: Partial<IUser>) {
   const response = await callApiServerCookie<
@@ -36,7 +34,6 @@ export async function logout() {
       method: "POST",
     },
   });
-  cookies().delete(Constants.CONSTANT_TOKEN.TOKEN_NAME_USER);
   return response;
 }
 

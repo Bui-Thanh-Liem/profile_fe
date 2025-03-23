@@ -129,7 +129,6 @@ export type IPropMyTooltip = TooltipProps & {
   children: ReactNode;
 };
 
-export interface IPropMyImage {
-  images: string[];
-  alt: string;
+export interface IPropMyUpload {
+  onChangeUpload: (files: File[]) => void;
 }

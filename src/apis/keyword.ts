@@ -41,7 +41,7 @@ export async function findOneById(id: string) {
   return response;
 }
 
-export async function findAll(queries: InterfaceCommon.IQueries) {
+export async function findAll(queries: InterfaceCommon.IQueries<IKeyWord>) {
   const response = await callApiServerCookie<
     InterfaceCommon.IGetMulti<IKeyWord>
   >({
@@ -50,8 +50,8 @@ export async function findAll(queries: InterfaceCommon.IQueries) {
     }${Utils.ConvertObject.convertObjectToString(queries)}`,
     options: {
       method: "GET",
-      cache: "force-cache",
-      next: { tags: [CONSTANT_TAG_CACHE.keyWords] },
+      cache: "no-cache",
+      // next: { tags: [CONSTANT_TAG_CACHE.keyWords] },
     },
   });
   return response;

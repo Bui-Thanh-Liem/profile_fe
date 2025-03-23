@@ -1,10 +1,15 @@
 import { findAll } from "@/apis/image-storage";
+import { IImageStorage } from "@/interfaces/model.interface";
 import { IPropPage } from "@/interfaces/propsPage.interface";
 import ImageStorageLayout from "@/layouts/private/images-storage/ImageStorage";
+import { handleSetDefaultQueries } from "@/utils/handleSetDefaultQueries";
 
-export default async function ImageStoragePage({ searchParams }: IPropPage) {
-  const { limit, page, search } = searchParams;
-  const resImgStorages = await findAll({ limit, page, search });
+export default async function ImageStoragePage({
+  searchParams,
+}: IPropPage<IImageStorage>) {
+  const { limit, page } = handleSetDefaultQueries(searchParams);
+  const resImgStorages = await findAll({ limit, page });
+
   return (
     <ImageStorageLayout
       items={resImgStorages?.data?.items || []}

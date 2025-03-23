@@ -51,8 +51,8 @@ export default function RoleAction({
 
   //
   function onSubmitForm() {
-    try {
-      startTransition(async () => {
+    startTransition(async () => {
+      try {
         const formData = await roleActionForm.validateFields();
         console.log("formData:::", formData);
 
@@ -71,10 +71,10 @@ export default function RoleAction({
         showToast(res);
         handleCancel();
         roleActionForm.resetFields();
-      });
-    } catch (error) {
-      console.log("Error::", error);
-    }
+      } catch (error) {
+        console.log("Error::", error);
+      }
+    });
   }
 
   //

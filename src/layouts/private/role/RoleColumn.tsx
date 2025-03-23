@@ -1,7 +1,7 @@
 "use client";
 import { IRoleDataResource } from "@/interfaces/common.interface";
 import { IRole } from "@/interfaces/model.interface";
-import { generatorColor } from "@/utils/common.util";
+import { generatorColor } from "@/utils/generatorColorRole";
 import { TableColumnsType, Tag } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { v4 } from "uuid";

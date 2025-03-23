@@ -1,6 +1,6 @@
 "use client";
 import { IRoleDataResource } from "@/interfaces/common.interface";
-import { generatorColor } from "@/utils/common.util";
+import { generatorColor } from "@/utils/generatorColorRole";
 import { Select, SelectProps, Switch, Tag } from "antd";
 import { Enums } from "liemdev-profile-lib";
 import { useEffect, useState } from "react";

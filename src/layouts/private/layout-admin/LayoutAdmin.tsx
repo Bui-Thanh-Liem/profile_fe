@@ -6,9 +6,10 @@ import {
   CustomerServiceOutlined,
   FileImageOutlined,
   FileOutlined,
+  KeyOutlined,
+  RadiusSettingOutlined,
   TeamOutlined,
   UserOutlined,
-  RadiusSettingOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Layout, Menu, theme } from "antd";
@@ -25,18 +26,21 @@ function getItem(
   label: React.ReactNode,
   key: React.Key,
   icon?: React.ReactNode,
-  children?: MenuItem[]
+  children?: MenuItem[],
+  disabled?: boolean,
 ): MenuItem {
   return {
     key,
     icon,
     children,
     label,
+    disabled,
   } as MenuItem;
 }
 
 const items: MenuItem[] = [
   getItem(<Link href="/admin">Dashboard</Link>, "/admin", <BarChartOutlined />),
+  { type: "divider" },
   getItem("Administrator", "administrator", <TeamOutlined />, [
     getItem(
       <Link href="/admin/users">Users</Link>,
@@ -58,6 +62,12 @@ const items: MenuItem[] = [
     <Link href="/admin/customers">Customers</Link>,
     "/admin/customers",
     <CustomerServiceOutlined />
+  ),
+  { type: "divider" },
+  getItem(
+    <Link href="/admin/keywords">Keyword</Link>,
+    "/admin/keywords",
+    <KeyOutlined />,
   ),
   getItem(
     <Link href="/admin/skills">Skills</Link>,

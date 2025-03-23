@@ -1,5 +1,5 @@
 "use client";
-import { deleteMulti } from "@/apis/role-group";
+import { deleteMulti } from "@/apis/image-storage";
 import { CardImageStorage } from "@/components/cards/CardImageStorage";
 import MyTableToolbar from "@/components/table/MyTableToolbar";
 import { showToast } from "@/helper/show-toast.helper";
@@ -17,8 +17,6 @@ export default function ImageStorageLayout({
   const [dataEdit, setDataEdit] = useState<IImageStorage | undefined>(
     undefined
   );
-
-  console.log("items::", items, totalItems);
 
   //
   function onEdit(data: IImageStorage) {

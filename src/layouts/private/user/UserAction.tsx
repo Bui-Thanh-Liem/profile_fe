@@ -66,8 +66,8 @@ export default function UserAction({
 
   //
   function onSubmitForm() {
-    try {
-      startTransition(async () => {
+    startTransition(async () => {
+      try {
         const formData = await userActionForm.validateFields();
         let res: TResponse<IUser>;
         if (idEdit) {
@@ -84,10 +84,10 @@ export default function UserAction({
         showToast(res);
         userActionForm.resetFields();
         handleCancel();
-      });
-    } catch (error) {
-      console.log("Error::", error);
-    }
+      } catch (error) {
+        console.log("Error::", error);
+      }
+    });
   }
 
   //

@@ -10,8 +10,8 @@ import Logo from "@/components/Logo";
 import { showToast } from "@/helper/show-toast.helper";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
-import developerGIF from "../../../public/web-developer.gif";
-import useAuthStore from "../../stores/useAuthStore";
+import developerGIF from "../../../../public/web-developer.gif";
+import useAuthStore from "../../../stores/useAuthStore";
 
 type FieldTypeLogin = {
   email?: string;
@@ -90,15 +90,18 @@ export default function Login() {
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
           <Captcha handleCheck={setIsCheckCaptcha} />
-          <div className="mt-6 flex justify-end">
-            <ButtonPrimary
-              disabled={!isCheckCaptcha}
-              onClick={handleLogin}
-              loading={isPending}
-            >
-              Submit
-            </ButtonPrimary>
-          </div>
+          <Form.Item>
+            <div className="mt-6 flex justify-end">
+              <ButtonPrimary
+                disabled={!isCheckCaptcha}
+                onClick={handleLogin}
+                loading={isPending}
+                onSubmit={handleLogin}
+              >
+                Submit
+              </ButtonPrimary>
+            </div>
+          </Form.Item>
         </Form>
       </div>
     </div>

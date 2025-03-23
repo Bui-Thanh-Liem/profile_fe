@@ -45,8 +45,8 @@ export default function RoleGroupAction({
 
   //
   function onSubmitForm() {
-    try {
-      startTransition(async () => {
+    startTransition(async () => {
+      try {
         const formData = await roleGroupActionForm.validateFields();
         let res: TResponse<IRoleGroup>;
         if (idEdit) {
@@ -63,10 +63,10 @@ export default function RoleGroupAction({
         showToast(res);
         handleCancel();
         roleGroupActionForm.resetFields();
-      });
-    } catch (error) {
-      console.log("Error::", error);
-    }
+      } catch (error) {
+        console.log("Error::", error);
+      }
+    });
   }
 
   //

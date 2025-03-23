@@ -1,12 +1,11 @@
 "use server";
 import { cookies } from "next/headers";
 
-export async function clearCookie(key: string) {
+export async function clearCookieBrowser(key: string) {
   try {
     cookies().delete(key);
-    return true;
   } catch (error) {
-    console.log("error", error);
+    console.log("clearCookie error", error);
     return false;
   }
 }

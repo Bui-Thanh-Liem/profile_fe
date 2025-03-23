@@ -5,24 +5,24 @@ import { IImageStorage } from "@/interfaces/model.interface";
 import { InterfaceCommon, Utils } from "liemdev-profile-lib";
 import { revalidateTag } from "next/cache";
 
-export async function create(payload: Partial<IImageStorage>) {
+export async function create(payload: FormData) {
   const response = await callApiServerCookie<IImageStorage>({
     url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.IMAGE_STORAGE}`,
     options: {
       method: "POST",
-      body: JSON.stringify(payload),
+      body: payload,
     },
   });
   revalidateTag(CONSTANT_TAG_CACHE.imageStorages);
   return response;
 }
 
-export async function update(id: string, payload: Partial<IImageStorage>) {
+export async function update(id: string, payload: FormData) {
   const response = await callApiServerCookie<IImageStorage>({
     url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.IMAGE_STORAGE}/${id}`,
     options: {
       method: "PATCH",
-      body: JSON.stringify(payload),
+      body: payload,
     },
   });
   revalidateTag(CONSTANT_TAG_CACHE.imageStorages);
@@ -41,7 +41,9 @@ export async function findOneById(id: string) {
   return response;
 }
 
-export async function findAll(queries: InterfaceCommon.IQueries) {
+export async function findAll(
+  queries: InterfaceCommon.IQueries<IImageStorage>
+) {
   const response = await callApiServerCookie<
     InterfaceCommon.IGetMulti<IImageStorage>
   >({

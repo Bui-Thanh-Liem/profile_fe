@@ -40,7 +40,7 @@ const ButtonPrimary = ({ children, ...restProps }: IPropButtonPrimary) => {
       }}
     >
       <Space>
-        <Button type="primary" {...restProps}>
+        <Button htmlType="submit" type="primary" {...restProps}>
           {children}
         </Button>
       </Space>

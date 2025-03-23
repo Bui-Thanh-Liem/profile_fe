@@ -1,5 +1,6 @@
 import { StorageNavItem } from "@/components/StoreageNavItem";
 import { IPropStorageNavItem } from "@/interfaces/propsComponent.interface";
+import { Watermark } from "antd";
 import { v4 } from "uuid";
 import baseAlgorithm from "../../../../public/icons/algorithm.png";
 import backend from "../../../../public/icons/backend.png";
@@ -7,6 +8,7 @@ import cmd from "../../../../public/icons/cmd.png";
 import dataStructureAndAlgorithm from "../../../../public/icons/data-structure.png";
 import devOps from "../../../../public/icons/devOps.png";
 import frontend from "../../../../public/icons/frontend.png";
+import imageStorage from "../../../../public/icons/image-storage.png";
 
 export default function StorageLayout({
   children,
@@ -49,11 +51,16 @@ export default function StorageLayout({
       name: "Command line",
       href: "/storage/command-line",
     },
+    {
+      image: imageStorage.src,
+      name: "Image storage",
+      href: "/storage/image-storage",
+    },
   ];
   return (
-    <>
+    <Watermark content={["LiemDev", "https://liemdev.dev"]}>
       <div className="flex justify-center items-center min-h-screen">
-        <div className="w-[1200px]">
+        <div className="w-[1200px] min-h-screen">
           {requireLogin}
           {notificationForCustomer}
           {children}
@@ -69,6 +76,6 @@ export default function StorageLayout({
           </div>
         </div>
       </div>
-    </>
+    </Watermark>
   );
 }

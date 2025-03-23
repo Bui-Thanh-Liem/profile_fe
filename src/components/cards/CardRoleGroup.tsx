@@ -3,7 +3,7 @@ import { showToast } from "@/helper/show-toast.helper";
 import { IRoleDataResource } from "@/interfaces/common.interface";
 import { IRole } from "@/interfaces/model.interface";
 import { IPropCardRoleGroup } from "@/interfaces/propsComponent.interface";
-import { generatorColor } from "@/utils/common.util";
+import { generatorColor } from "@/utils/generatorColorRole";
 import {
   DeleteOutlined,
   EditOutlined,

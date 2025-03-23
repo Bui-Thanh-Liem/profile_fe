@@ -7,6 +7,7 @@ import { IImageStorage, IKeyWord } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
 import { Button, Form, Input, Modal, Select } from "antd";
+import TextArea from "antd/es/input/TextArea";
 import { useEffect, useState, useTransition } from "react";
 import { v4 as uuidV4 } from "uuid";
 
@@ -25,14 +26,10 @@ export default function ImageStorageAction({
   useEffect(() => {
     if (idEdit) {
       //
-      const keyWordIds = (dataEdit.keyWords as IKeyWord[])?.map(
-        (key) => key.id
-      );
-
-      //
       imageStorageActionForm.setFieldsValue({
         label: dataEdit?.label,
-        keyWords: keyWordIds,
+        desc: dataEdit?.desc,
+        keyWord: dataEdit?.keyWord,
       });
     }
     fetchDataForForm();
@@ -40,9 +37,11 @@ export default function ImageStorageAction({
 
   //
   async function fetchDataForForm() {
-    const [resKeyWords] = await Promise.all([
-      findAll({ limit: "1e9", page: "1" }),
-    ]);
+    const resKeyWords = await findAll({
+      limit: "1e9",
+      page: "1",
+      fieldUnused: "imageStorage",
+    });
     if (resKeyWords.statusCode === 200) {
       setKeyWords(resKeyWords.data.items);
     }
@@ -50,14 +49,29 @@ export default function ImageStorageAction({
 
   //
   function onSubmitForm() {
-    try {
-      startTransition(async () => {
-        const formData = await imageStorageActionForm.validateFields();
+    startTransition(async () => {
+      try {
+        const formDataAntd = await imageStorageActionForm.validateFields();
+        const formdata = new FormData();
+
+        // Fields images other
+        for (const [key, value] of Object.entries(formDataAntd)) {
+          if (key !== "images") {
+            formdata.append(key, value as any);
+          }
+        }
+
+        // Fields images
+        const images = formDataAntd.images as any;
+        if (images?.length) {
+          images.forEach((file: any) => formdata.append("images", file));
+        }
+
         let res: TResponse<IImageStorage>;
         if (idEdit) {
-          res = await update(idEdit, formData);
+          res = await update(idEdit, formdata);
         } else {
-          res = await create(formData);
+          res = await create(formdata);
         }
 
         //
@@ -68,10 +82,10 @@ export default function ImageStorageAction({
         showToast(res);
         handleCancel();
         imageStorageActionForm.resetFields();
-      });
-    } catch (error) {
-      console.log("Error::", error);
-    }
+      } catch (error) {
+        console.log("Error::", error);
+      }
+    });
   }
 
   //
@@ -132,31 +146,32 @@ export default function ImageStorageAction({
 
         <Form.Item<IImageStorage>
           label="Key word"
-          name="keyWords"
+          name="keyWord"
           rules={[{ required: true, message: "Please select key word!" }]}
         >
-          <Select
-            maxCount={3}
-            size="large"
-            mode="multiple"
-            placeholder="Select key word"
-          >
+          <Select size="large" placeholder="Select key word">
             {keyWords?.map((item) => (
-              <Select.Option key={uuidV4()} value={item.name}>
+              <Select.Option key={uuidV4()} value={item.id}>
                 {item.name}
               </Select.Option>
             ))}
           </Select>
         </Form.Item>
 
+        <Form.Item<IImageStorage> label="Description" name="desc">
+          <TextArea rows={4} />
+        </Form.Item>
+
         <Form.Item<IImageStorage>
           label="Upload Image"
           name="images"
           rules={[{ required: true, message: "Please upload an image!" }]}
-          valuePropName="fileList"
-          getValueFromEvent={(e) => e?.fileList}
         >
-          <MyUpload />
+          <MyUpload
+            onChangeUpload={(files) =>
+              imageStorageActionForm.setFieldsValue({ images: files as any })
+            }
+          />
         </Form.Item>
       </Form>
     </Modal>

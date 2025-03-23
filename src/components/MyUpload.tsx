@@ -1,15 +1,26 @@
+import { IPropMyUpload } from "@/interfaces/propsComponent.interface";
 import type { GetProp, UploadFile, UploadProps } from "antd";
 import { Upload } from "antd";
 import ImgCrop from "antd-img-crop";
-import React, { useState } from "react";
+import { useState } from "react";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
-export const MyUpload: React.FC = () => {
+export const MyUpload = ({ onChangeUpload }: IPropMyUpload) => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
+
+    // Chuẩn hóa danh sách file về dạng File[]
+    const files = newFileList
+      .filter((file) => file.status === "done")
+      .map((file) => file.originFileObj as File);
+
+    //
+    if (onChangeUpload) {
+      onChangeUpload(files);
+    }
   };
 
   const onPreview = async (file: UploadFile) => {
@@ -30,7 +41,6 @@ export const MyUpload: React.FC = () => {
   return (
     <ImgCrop rotationSlider>
       <Upload
-        action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
         listType="picture-card"
         fileList={fileList}
         onChange={onChange}

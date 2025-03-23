@@ -1,6 +1,6 @@
 "use server";
 import { logout, refresh } from "@/apis/auth.api";
-import { clearCookie } from "@/app/actions/clear-cookie";
+import { clearCookieBrowser } from "@/app/actions/clear-cookie";
 import { CONSTANT_ENV } from "@/constants";
 import { TResponse } from "@/interfaces/response.interface";
 import { handleStringCookie } from "@/utils/handleString.util";
@@ -91,7 +91,7 @@ export const callApiServerCookie = async <T>({
   //
   if (result.statusCode === 403) {
     // Call api logout
-    await clearCookie(Constants.CONSTANT_TOKEN.TOKEN_NAME_USER);
+    await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_USER);
     await logout();
     redirect("/auth/login");
   }
@@ -99,7 +99,7 @@ export const callApiServerCookie = async <T>({
   //
   if (result.statusCode === 406) {
     // Call api logout
-    await clearCookie(Constants.CONSTANT_TOKEN.TOKEN_NAME_CUSTOMER);
+    await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_CUSTOMER);
     redirect("/storage");
   }
 

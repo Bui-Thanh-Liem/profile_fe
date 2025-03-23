@@ -16,8 +16,6 @@ export default function RoleGroupLayout({
   const [dataEdit, setDataEdit] = useState<IRoleGroup | undefined>(undefined);
   const [checkedIds, setCheckedIds] = useState<string[] | []>([]);
 
-  console.log("items::", items);
-
   //
   function onEdit(data: IRoleGroup) {
     setDataEdit(data);

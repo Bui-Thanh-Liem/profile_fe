@@ -42,7 +42,7 @@ export async function findOneById(id: string) {
   return response;
 }
 
-export async function findAll(queries: InterfaceCommon.IQueries) {
+export async function findAll(queries: InterfaceCommon.IQueries<IRole>) {
   const response = await callApiServerCookie<InterfaceCommon.IGetMulti<IRole>>({
     url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
       CONSTANT_ROUTE.ROLE

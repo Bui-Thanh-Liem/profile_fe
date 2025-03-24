@@ -18,4 +18,6 @@ export const CONSTANT_TAG_CACHE = {
   imageStorages: "image-storages",
   keyWord: "key-word",
   keyWords: "key-words",
+  skill: "skill",
+  skills: "skills",
 };

@@ -48,7 +48,7 @@ export interface IPropCardRoleGroup {
 export interface IPropCardImageStorage {
   onClickEdit: (dataEdit: IImageStorage) => void;
   imageStorage: IImageStorage;
-  onChangeChecked: (checked: boolean, id: string) => void;
+  actives: string[];
 }
 
 export interface IPropCardPercentAdmin {
@@ -130,5 +130,6 @@ export type IPropMyTooltip = TooltipProps & {
 };
 
 export interface IPropMyUpload {
+  values: string[];
   onChangeUpload: (files: File[]) => void;
 }

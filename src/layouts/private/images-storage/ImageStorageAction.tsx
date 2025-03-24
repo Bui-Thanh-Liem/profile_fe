@@ -18,6 +18,9 @@ export default function ImageStorageAction({
   onClose,
 }: IPropBaseAction<IImageStorage>) {
   const idEdit = dataEdit?.id;
+  console.log("dataEdit:::", dataEdit);
+
+  const keyWord = (dataEdit?.keyWord as IKeyWord) || {};
   const [imageStorageActionForm] = Form.useForm<Partial<IImageStorage>>();
   const [isPending, startTransition] = useTransition();
   const [keyWords, setKeyWords] = useState<IKeyWord[]>();
@@ -29,7 +32,7 @@ export default function ImageStorageAction({
       imageStorageActionForm.setFieldsValue({
         label: dataEdit?.label,
         desc: dataEdit?.desc,
-        keyWord: dataEdit?.keyWord,
+        keyWord: keyWord?.id,
       });
     }
     fetchDataForForm();
@@ -43,7 +46,13 @@ export default function ImageStorageAction({
       fieldUnused: "imageStorage",
     });
     if (resKeyWords.statusCode === 200) {
-      setKeyWords(resKeyWords.data.items);
+      setKeyWords(() => {
+        if (keyWord?.id) {
+          return [keyWord, ...resKeyWords.data.items];
+        } else {
+          return resKeyWords.data.items;
+        }
+      });
     }
   }
 
@@ -168,6 +177,7 @@ export default function ImageStorageAction({
           rules={[{ required: true, message: "Please upload an image!" }]}
         >
           <MyUpload
+            values={dataEdit?.images || []}
             onChangeUpload={(files) =>
               imageStorageActionForm.setFieldsValue({ images: files as any })
             }

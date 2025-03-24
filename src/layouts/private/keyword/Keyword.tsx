@@ -11,15 +11,15 @@ import { KeywordAction } from "./KeywordAction";
 
 function KeywordItem({
   keyword,
-  active,
+  actives,
   handleEdit,
 }: {
   keyword: IKeyWord;
-  active: string[];
+  actives: string[];
   handleEdit: (keyword: IKeyWord) => void;
 }) {
   const { id, name, color } = keyword;
-  const isActive = active.includes(id);
+  const isActive = actives.includes(id);
 
   //
   function handleClick(e: MouseEvent<HTMLElement>) {
@@ -123,7 +123,7 @@ IPropLayout<IKeyWord>) {
           <Col key={item.name} onClick={() => handleClick(item.id)}>
             <KeywordItem
               keyword={item}
-              active={activeIds}
+              actives={activeIds}
               handleEdit={onEdit}
             />
           </Col>

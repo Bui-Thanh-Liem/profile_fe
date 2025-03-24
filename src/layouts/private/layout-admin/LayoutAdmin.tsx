@@ -27,7 +27,7 @@ function getItem(
   key: React.Key,
   icon?: React.ReactNode,
   children?: MenuItem[],
-  disabled?: boolean,
+  disabled?: boolean
 ): MenuItem {
   return {
     key,
@@ -40,6 +40,12 @@ function getItem(
 
 const items: MenuItem[] = [
   getItem(<Link href="/admin">Dashboard</Link>, "/admin", <BarChartOutlined />),
+  { type: "divider" },
+  getItem(
+    <Link href="/admin/skills">Skills</Link>,
+    "/admin/skills",
+    <AlertOutlined />
+  ),
   { type: "divider" },
   getItem("Administrator", "administrator", <TeamOutlined />, [
     getItem(
@@ -67,13 +73,10 @@ const items: MenuItem[] = [
   getItem(
     <Link href="/admin/keywords">Keyword</Link>,
     "/admin/keywords",
-    <KeyOutlined />,
+    <KeyOutlined />
   ),
-  getItem(
-    <Link href="/admin/skills">Skills</Link>,
-    "/admin/skills",
-    <AlertOutlined />
-  ),
+
+  { type: "divider" },
   getItem(
     <Link href="/admin/files-storage">Files Storage</Link>,
     "/admin/files-storage",

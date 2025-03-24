@@ -7,13 +7,14 @@ import { IImageStorage } from "@/interfaces/model.interface";
 import { IPropLayout } from "@/interfaces/propsLayout.interface";
 import { useState } from "react";
 import ImageStorageAction from "./ImageStorageAction";
+import { Col, Row } from "antd";
 
 export default function ImageStorageLayout({
   items,
   totalItems,
 }: IPropLayout<IImageStorage>) {
   const [open, setOpen] = useState<boolean>(false);
-  const [checkedIds, setCheckedIds] = useState<string[] | []>([]);
+  const [activeIds, setActiveIds] = useState<string[]>([]);
   const [dataEdit, setDataEdit] = useState<IImageStorage | undefined>(
     undefined
   );
@@ -25,32 +26,32 @@ export default function ImageStorageLayout({
   }
 
   //
-  function onChangeChecked(checked: boolean, id: string) {
-    if (checked) {
-      setCheckedIds([...checkedIds, id]);
+  function handleClick(id: string) {
+    let result = [...activeIds];
+    const isExist = activeIds.includes(id);
+    if (isExist) {
+      result = result.filter((activeId) => id !== activeId);
     } else {
-      setCheckedIds((prev) => {
-        const clone = [...prev];
-        return clone.filter((checkedId) => checkedId !== id);
-      });
+      result.push(id);
     }
+    setActiveIds(result);
   }
 
   //
   async function onDeleteMulti() {
-    const res = await deleteMulti(checkedIds);
+    const res = await deleteMulti(activeIds);
     if (res.statusCode !== 200) {
       showToast(res);
       return;
     }
     showToast(res);
-    setCheckedIds([]);
+    setActiveIds([]);
   }
 
   return (
     <>
       <MyTableToolbar
-        checkedIds={checkedIds}
+        checkedIds={activeIds}
         onClickAddItem={() => setOpen(true)}
         onClickDeleteItems={onDeleteMulti}
       />
@@ -60,16 +61,17 @@ export default function ImageStorageLayout({
         setIsOpen={setOpen}
         dataEdit={dataEdit}
       />
-      <div className="grid grid-cols-5 gap-8">
+      <Row>
         {items?.map((item) => (
-          <CardImageStorage
-            key={item.label}
-            imageStorage={item}
-            onClickEdit={onEdit}
-            onChangeChecked={onChangeChecked}
-          />
+          <Col span={4} key={item.label} onClick={() => handleClick(item.id)}>
+            <CardImageStorage
+              imageStorage={item}
+              onClickEdit={onEdit}
+              actives={activeIds}
+            />
+          </Col>
         ))}
-      </div>
+      </Row>
     </>
   );
 }

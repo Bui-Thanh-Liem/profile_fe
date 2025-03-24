@@ -3,16 +3,7 @@ import { showToast } from "@/helper/show-toast.helper";
 import { IKeyWord } from "@/interfaces/model.interface";
 import { IPropCardImageStorage } from "@/interfaces/propsComponent.interface";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import {
-  Badge,
-  Card,
-  Carousel,
-  Checkbox,
-  Dropdown,
-  MenuProps,
-  Modal,
-  Space,
-} from "antd";
+import { Badge, Card, Carousel, Dropdown, MenuProps, Modal, Space } from "antd";
 import Meta from "antd/es/card/Meta";
 import Image from "next/image";
 import { useState } from "react";
@@ -33,7 +24,11 @@ const MyImageInCard = ({ images, alt }: IPropMyImage) => {
         width={200}
         alt={alt}
         src={images[0]}
-        onClick={() => setVisible(true)}
+        onClick={(e) => {
+          setVisible(true);
+          e.preventDefault();
+          e.stopPropagation();
+        }}
         className="cursor-pointer object-contain"
       />
       <Modal
@@ -69,10 +64,10 @@ const MyImageInCard = ({ images, alt }: IPropMyImage) => {
 export function CardImageStorage({
   imageStorage,
   onClickEdit,
-  onChangeChecked,
+  actives,
 }: IPropCardImageStorage) {
-  const [checked, setChecked] = useState<boolean>(false);
   const { id, label, desc, images, keyWord } = imageStorage;
+  const isActive = actives.includes(id);
 
   //
   async function onDelete() {
@@ -117,23 +112,12 @@ export function CardImageStorage({
         hoverable
         style={{ width: 300 }}
         extra={
-          <>
-            <Checkbox
-              value={checked}
-              checked={checked}
-              onChange={(event) => {
-                const isChecked = event.target.checked;
-                setChecked(isChecked);
-                onChangeChecked(isChecked, imageStorage.id);
-              }}
-              className="mr-6"
-            />
-            <Dropdown menu={{ items }} arrow={true}>
-              <Space className="text-blue-500">More</Space>
-            </Dropdown>
-          </>
+          <Dropdown menu={{ items }} arrow={true}>
+            <Space className="text-blue-500">More</Space>
+          </Dropdown>
         }
         cover={<MyImageInCard alt={label} images={images} />}
+        className={`${isActive ? "bg-red-200" : ""}`}
       >
         <Meta
           title={label}

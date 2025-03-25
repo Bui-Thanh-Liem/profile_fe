@@ -7,7 +7,7 @@ import {
   TooltipProps,
 } from "antd";
 import { ChangeEvent, ReactElement, ReactNode } from "react";
-import { IImageStorage, IRoleGroup } from "./model.interface";
+import { IRoleGroup } from "./model.interface";
 import { TResponse } from "./response.interface";
 
 export interface IPropNavbarItemIcon {
@@ -45,17 +45,19 @@ export interface IPropCardRoleGroup {
   onChangeChecked: (checked: boolean, id: string) => void;
 }
 
-export interface IPropCardImageStorage {
-  onClickEdit: (dataEdit: IImageStorage) => void;
-  imageStorage: IImageStorage;
-  actives: string[];
-}
-
 export interface IPropCardPercentAdmin {
   value: number;
   title: string;
   percent: number;
   link?: string;
+}
+
+export interface IPropCardItem<T> {
+  item: T;
+  actives: string[];
+  onClickEdit: (dataEdit: T) => void;
+  onClickDelete: (ids: string[]) => void;
+  onClickActive: () => void;
 }
 
 export interface IPropInputPrimary extends InputProps {
@@ -94,8 +96,9 @@ export interface IPropTableAction {
 
 export interface IPropsMyTableToolbar {
   onClickAddItem: () => void;
-  onClickDeleteItems: () => void;
+  onClickDeleteItems: (ids: string[]) => void;
   checkedIds: Array<string>;
+  totalItems: number;
 }
 
 export interface IPropMyTag {

@@ -5,9 +5,9 @@ import MyTableToolbar from "@/components/table/MyTableToolbar";
 import { showToast } from "@/helper/show-toast.helper";
 import { IImageStorage } from "@/interfaces/model.interface";
 import { IPropLayout } from "@/interfaces/propsLayout.interface";
+import { Checkbox, CheckboxChangeEvent, Col, Row } from "antd";
 import { useState } from "react";
 import ImageStorageAction from "./ImageStorageAction";
-import { Col, Row } from "antd";
 
 export default function ImageStorageLayout({
   items,
@@ -18,6 +18,7 @@ export default function ImageStorageLayout({
   const [dataEdit, setDataEdit] = useState<IImageStorage | undefined>(
     undefined
   );
+  const ids = items.map((item) => item.id);
 
   //
   function onEdit(data: IImageStorage) {
@@ -26,7 +27,7 @@ export default function ImageStorageLayout({
   }
 
   //
-  function handleClick(id: string) {
+  function handleClickActive(id: string) {
     let result = [...activeIds];
     const isExist = activeIds.includes(id);
     if (isExist) {
@@ -38,8 +39,17 @@ export default function ImageStorageLayout({
   }
 
   //
-  async function onDeleteMulti() {
-    const res = await deleteMulti(activeIds);
+  function handleCheckAll(e: CheckboxChangeEvent) {
+    if (e.target.checked) {
+      setActiveIds(ids);
+    } else {
+      setActiveIds([]);
+    }
+  }
+
+  //
+  async function onDeleteMulti(ids: string[]) {
+    const res = await deleteMulti(ids);
     if (res.statusCode !== 200) {
       showToast(res);
       return;
@@ -54,20 +64,33 @@ export default function ImageStorageLayout({
         checkedIds={activeIds}
         onClickAddItem={() => setOpen(true)}
         onClickDeleteItems={onDeleteMulti}
+        totalItems={totalItems}
       />
+      {!!totalItems && (
+        <div className="mb-2">
+          <Checkbox
+            onChange={handleCheckAll}
+            checked={activeIds.length === ids.length}
+          >
+            Check all
+          </Checkbox>
+        </div>
+      )}
       <ImageStorageAction
         isOpen={open}
         onClose={() => {}}
         setIsOpen={setOpen}
         dataEdit={dataEdit}
       />
-      <Row>
+      <Row gutter={[16, 24]}>
         {items?.map((item) => (
-          <Col span={4} key={item.label} onClick={() => handleClick(item.id)}>
+          <Col span={5} key={item.label}>
             <CardImageStorage
-              imageStorage={item}
-              onClickEdit={onEdit}
+              item={item}
               actives={activeIds}
+              onClickEdit={onEdit}
+              onClickDelete={onDeleteMulti}
+              onClickActive={() => handleClickActive(item.id)}
             />
           </Col>
         ))}

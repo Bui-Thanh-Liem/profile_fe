@@ -8,7 +8,7 @@ import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
 import { Button, Form, Input, Modal, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { useEffect, useState, useTransition } from "react";
+import { useCallback, useEffect, useState, useTransition } from "react";
 import { v4 as uuidV4 } from "uuid";
 
 export default function ImageStorageAction({
@@ -18,28 +18,13 @@ export default function ImageStorageAction({
   onClose,
 }: IPropBaseAction<IImageStorage>) {
   const idEdit = dataEdit?.id;
-  console.log("dataEdit:::", dataEdit);
-
   const keyWord = (dataEdit?.keyWord as IKeyWord) || {};
   const [imageStorageActionForm] = Form.useForm<Partial<IImageStorage>>();
   const [isPending, startTransition] = useTransition();
   const [keyWords, setKeyWords] = useState<IKeyWord[]>();
 
   //
-  useEffect(() => {
-    if (idEdit) {
-      //
-      imageStorageActionForm.setFieldsValue({
-        label: dataEdit?.label,
-        desc: dataEdit?.desc,
-        keyWord: keyWord?.id,
-      });
-    }
-    fetchDataForForm();
-  }, [dataEdit, idEdit, imageStorageActionForm]);
-
-  //
-  async function fetchDataForForm() {
+  const fetchDataForForm = useCallback(async () => {
     const resKeyWords = await findAll({
       limit: "1e9",
       page: "1",
@@ -54,7 +39,20 @@ export default function ImageStorageAction({
         }
       });
     }
-  }
+  }, []);
+
+  //
+  useEffect(() => {
+    if (idEdit) {
+      //
+      imageStorageActionForm.setFieldsValue({
+        label: dataEdit?.label,
+        desc: dataEdit?.desc,
+        keyWord: keyWord?.id,
+      });
+    }
+    fetchDataForForm();
+  }, [dataEdit, fetchDataForForm, idEdit, imageStorageActionForm, keyWord?.id]);
 
   //
   function onSubmitForm() {
@@ -105,6 +103,7 @@ export default function ImageStorageAction({
       if (onClose) {
         onClose();
       }
+      setKeyWords([]);
     }
   }
 

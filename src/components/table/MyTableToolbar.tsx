@@ -12,6 +12,7 @@ export default function MyTableToolbar({
   checkedIds,
   onClickAddItem,
   onClickDeleteItems,
+  totalItems,
 }: IPropsMyTableToolbar) {
   const pushUrl = usePushUrl();
   const [searchValue, setSearchValue] = useState<string>();
@@ -29,9 +30,19 @@ export default function MyTableToolbar({
           <ButtonPrimary onClick={onClickAddItem}>
             <PlusOutlined />
           </ButtonPrimary>
+          <Button variant="text" color="primary">
+            {totalItems} items
+          </Button>
           {checkedIds.length > 0 && (
-            <Button type="primary" danger onClick={onClickDeleteItems}>
-              Delete checked
+            <Button
+              color="danger"
+              variant="filled"
+              danger
+              onClick={() => onClickDeleteItems(checkedIds)}
+            >
+              {`Delete checked (${
+                checkedIds.length && checkedIds.length
+              } items)`}
             </Button>
           )}
         </div>

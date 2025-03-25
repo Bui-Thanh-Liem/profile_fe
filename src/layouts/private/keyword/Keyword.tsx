@@ -1,57 +1,18 @@
 "use client";
 import { deleteMulti } from "@/apis/keyword";
+import { CardKeyword } from "@/components/cards/CardKeyword";
 import MyTableToolbar from "@/components/table/MyTableToolbar";
 import { showToast } from "@/helper/show-toast.helper";
 import { IKeyWord } from "@/interfaces/model.interface";
 import { IPropLayout } from "@/interfaces/propsLayout.interface";
-import { EditOutlined } from "@ant-design/icons";
-import { Button, Checkbox, CheckboxChangeEvent, Col, Row } from "antd";
-import { MouseEvent, useState } from "react";
+import { Checkbox, CheckboxChangeEvent, Col, Row } from "antd";
+import { useState } from "react";
 import { KeywordAction } from "./KeywordAction";
-
-function KeywordItem({
-  keyword,
-  actives,
-  handleEdit,
-}: {
-  keyword: IKeyWord;
-  actives: string[];
-  handleEdit: (keyword: IKeyWord) => void;
-}) {
-  const { id, name, color } = keyword;
-  const isActive = actives.includes(id);
-
-  //
-  function handleClick(e: MouseEvent<HTMLElement>) {
-    e.preventDefault();
-    e.stopPropagation();
-    handleEdit(keyword);
-  }
-
-  return (
-    <p
-      className="px-2 py-1 cursor-pointer rounded-sm font-bold text-white border border-transparent relative group"
-      style={{
-        backgroundColor: color,
-        borderColor: isActive ? "red" : "transparent",
-      }}
-    >
-      {name}
-      <Button
-        size="small"
-        shape="circle"
-        icon={<EditOutlined />}
-        className="absolute -bottom-3 -right-2 hidden group-hover:block"
-        onClick={handleClick}
-      />
-    </p>
-  );
-}
 
 export default function KeywordLayout({
   items,
-}: // totalItems,
-IPropLayout<IKeyWord>) {
+  totalItems,
+}: IPropLayout<IKeyWord>) {
   const [open, setOpen] = useState<boolean>(false);
   const [dataEdit, setDataEdit] = useState<IKeyWord | undefined>(undefined);
   const [activeIds, setActiveIds] = useState<string[]>([]);
@@ -64,7 +25,7 @@ IPropLayout<IKeyWord>) {
   }
 
   //
-  function handleClick(id: string) {
+  function handleClickActive(id: string) {
     let result = [...activeIds];
     const isExist = activeIds.includes(id);
     if (isExist) {
@@ -85,8 +46,8 @@ IPropLayout<IKeyWord>) {
   }
 
   //
-  async function onDeleteMulti() {
-    const res = await deleteMulti(activeIds);
+  async function onDeleteMulti(ids: string[]) {
+    const res = await deleteMulti(ids);
     if (res.statusCode !== 200) {
       showToast(res);
       return;
@@ -101,17 +62,18 @@ IPropLayout<IKeyWord>) {
         checkedIds={activeIds}
         onClickAddItem={() => setOpen(true)}
         onClickDeleteItems={onDeleteMulti}
+        totalItems={totalItems}
       />
-      <div className="mb-2">
-        <Checkbox
-          onChange={handleCheckAll}
-          checked={activeIds.length === ids.length}
-        >
-          Check all
-        </Checkbox>
-        <span className="font-bold">{activeIds.length}</span>
-      </div>
-
+      {!!totalItems && (
+        <div className="mb-2">
+          <Checkbox
+            onChange={handleCheckAll}
+            checked={activeIds.length === ids.length}
+          >
+            Check all
+          </Checkbox>
+        </div>
+      )}
       <KeywordAction
         isOpen={open}
         onClose={() => {}}
@@ -120,11 +82,13 @@ IPropLayout<IKeyWord>) {
       />
       <Row gutter={[16, 24]}>
         {items?.map((item) => (
-          <Col key={item.name} onClick={() => handleClick(item.id)}>
-            <KeywordItem
-              keyword={item}
+          <Col span={4} key={item.name}>
+            <CardKeyword
+              item={item}
               actives={activeIds}
-              handleEdit={onEdit}
+              onClickEdit={onEdit}
+              onClickDelete={onDeleteMulti}
+              onClickActive={() => handleClickActive(item.id)}
             />
           </Col>
         ))}

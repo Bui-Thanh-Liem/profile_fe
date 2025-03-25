@@ -180,6 +180,7 @@ export default function MyTable<T extends IBaseMyTable>({
         checkedIds={checkedIds}
         onClickAddItem={onAddItem}
         onClickDeleteItems={() => onDeleteItems(checkedIds)}
+        totalItems={totalDataSource}
       />
       <Card>
         <Table<T>
@@ -194,7 +195,7 @@ export default function MyTable<T extends IBaseMyTable>({
             showSizeChanger: true,
             pageSizeOptions: [20, 40, 60, 80, 100],
             showTotal: (total, range) =>
-              `${totalDataSource} - Display ${range[0]}-${range[1]} on total record ${total}`,
+              `Display ${range[0]}-${range[1]} on total record ${total}`,
           }}
         />
         {contextHolder}

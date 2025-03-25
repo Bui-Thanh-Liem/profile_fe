@@ -1,12 +1,10 @@
-import { deleteMulti } from "@/apis/image-storage";
-import { showToast } from "@/helper/show-toast.helper";
-import { IKeyWord } from "@/interfaces/model.interface";
-import { IPropCardImageStorage } from "@/interfaces/propsComponent.interface";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
-import { Badge, Card, Carousel, Dropdown, MenuProps, Modal, Space } from "antd";
+import { IImageStorage, IKeyWord } from "@/interfaces/model.interface";
+import { IPropCardItem } from "@/interfaces/propsComponent.interface";
+import { Badge, Card, Carousel, Modal, Space, Tag } from "antd";
 import Meta from "antd/es/card/Meta";
 import Image from "next/image";
 import { useState } from "react";
+import { ItemAction } from "../ItemAction";
 
 interface IPropMyImage {
   images: string[];
@@ -62,44 +60,14 @@ const MyImageInCard = ({ images, alt }: IPropMyImage) => {
 
 //
 export function CardImageStorage({
-  imageStorage,
-  onClickEdit,
+  item,
   actives,
-}: IPropCardImageStorage) {
-  const { id, label, desc, images, keyWord } = imageStorage;
+  onClickEdit,
+  onClickDelete,
+  onClickActive,
+}: IPropCardItem<IImageStorage>) {
+  const { id, label, desc, images, keyWord } = item;
   const isActive = actives.includes(id);
-
-  //
-  async function onDelete() {
-    const res = await deleteMulti([id]);
-    if (res.statusCode !== 200) {
-      showToast(res);
-      return;
-    }
-    showToast(res);
-  }
-
-  //
-  const items: MenuProps["items"] = [
-    {
-      key: "Edit",
-      label: "Edit",
-      icon: <EditOutlined />,
-      extra: "⌘E",
-      onClick: () => onClickEdit(imageStorage),
-    },
-    {
-      type: "divider",
-    },
-    {
-      danger: true,
-      key: "Delete",
-      label: "Delete",
-      icon: <DeleteOutlined color="red" />,
-      extra: "⌘D",
-      onClick: onDelete,
-    },
-  ];
 
   //
   return (
@@ -112,12 +80,21 @@ export function CardImageStorage({
         hoverable
         style={{ width: 300 }}
         extra={
-          <Dropdown menu={{ items }} arrow={true}>
-            <Space className="text-blue-500">More</Space>
-          </Dropdown>
+          <Space className="flex items-center">
+            <Tag
+              bordered={false}
+              color={isActive ? "error" : ""}
+              onClick={onClickActive}
+            >
+              Checked
+            </Tag>
+            <ItemAction
+              onEdit={() => onClickEdit(item)}
+              onDelete={() => onClickDelete([id])}
+            />
+          </Space>
         }
         cover={<MyImageInCard alt={label} images={images} />}
-        className={`${isActive ? "bg-red-200" : ""}`}
       >
         <Meta
           title={label}

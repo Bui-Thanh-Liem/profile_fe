@@ -2,13 +2,19 @@ import { IPropMyUpload } from "@/interfaces/propsComponent.interface";
 import type { GetProp, UploadFile, UploadProps } from "antd";
 import { Upload } from "antd";
 import ImgCrop from "antd-img-crop";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
 export const MyUpload = ({ values, onChangeUpload }: IPropMyUpload) => {
-  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [fileList, setFileList] = useState<UploadFile[]>([
+    {
+      uid: "-1",
+      name: "image.jpg",
+      status: "done",
+      url: "http://localhost:9000/uploads/robin-1742915415719.jpg",
+    },
+  ]);
 
   //
   useEffect(() => {

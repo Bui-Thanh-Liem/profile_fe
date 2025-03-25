@@ -17,11 +17,9 @@ export default function ImageStorageAction({
   setIsOpen,
   onClose,
 }: IPropBaseAction<IImageStorage>) {
-  const idEdit = dataEdit?.id;
-  const keyWord = (dataEdit?.keyWord as IKeyWord) || {};
   const [imageStorageActionForm] = Form.useForm<Partial<IImageStorage>>();
   const [isPending, startTransition] = useTransition();
-  const [keyWords, setKeyWords] = useState<IKeyWord[]>();
+  const [keyWords, setKeyWords] = useState<IKeyWord[]>([]);
 
   //
   const fetchDataForForm = useCallback(async () => {
@@ -31,28 +29,26 @@ export default function ImageStorageAction({
       fieldUnused: "imageStorage",
     });
     if (resKeyWords.statusCode === 200) {
-      setKeyWords(() => {
-        if (keyWord?.id) {
-          return [keyWord, ...resKeyWords.data.items];
-        } else {
-          return resKeyWords.data.items;
-        }
-      });
+      setKeyWords(resKeyWords.data.items);
     }
   }, []);
 
   //
   useEffect(() => {
-    if (idEdit) {
-      //
+    if (dataEdit?.id) {
+      const keyWord = (dataEdit?.keyWord as IKeyWord) || {};
       imageStorageActionForm.setFieldsValue({
         label: dataEdit?.label,
         desc: dataEdit?.desc,
         keyWord: keyWord?.id,
       });
+      setKeyWords((prev) => [...(prev || []), keyWord]);
     }
     fetchDataForForm();
-  }, [dataEdit, fetchDataForForm, idEdit, imageStorageActionForm, keyWord?.id]);
+    return () => {
+      setKeyWords([]);
+    };
+  }, [dataEdit, fetchDataForForm, imageStorageActionForm]);
 
   //
   function onSubmitForm() {
@@ -75,8 +71,8 @@ export default function ImageStorageAction({
         }
 
         let res: TResponse<IImageStorage>;
-        if (idEdit) {
-          res = await update(idEdit, formdata);
+        if (dataEdit?.id) {
+          res = await update(dataEdit?.id, formdata);
         } else {
           res = await create(formdata);
         }
@@ -103,7 +99,6 @@ export default function ImageStorageAction({
       if (onClose) {
         onClose();
       }
-      setKeyWords([]);
     }
   }
 
@@ -113,7 +108,7 @@ export default function ImageStorageAction({
       title={
         <div className="text-center">
           <p className="my-4">{`${
-            idEdit ? "Edit" : "Create"
+            dataEdit?.id ? "Edit" : "Create"
           } image storage`}</p>
         </div>
       }

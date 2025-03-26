@@ -92,12 +92,7 @@ export default function Login() {
           <Captcha handleCheck={setIsCheckCaptcha} />
           <Form.Item>
             <div className="mt-6 flex justify-end">
-              <ButtonPrimary
-                disabled={!isCheckCaptcha}
-                onClick={handleLogin}
-                loading={isPending}
-                onSubmit={handleLogin}
-              >
+              <ButtonPrimary disabled={!isCheckCaptcha} loading={isPending}>
                 Submit
               </ButtonPrimary>
             </div>

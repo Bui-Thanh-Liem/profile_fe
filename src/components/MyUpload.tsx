@@ -7,18 +7,14 @@ import { useEffect, useState } from "react";
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
 export const MyUpload = ({ values, onChangeUpload }: IPropMyUpload) => {
-  const [fileList, setFileList] = useState<UploadFile[]>([
-    {
-      uid: "-1",
-      name: "image.jpg",
-      status: "done",
-      url: "http://localhost:9000/uploads/robin-1742915415719.jpg",
-    },
-  ]);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  console.log("MyUpload dataEdit?.images:::", values);
 
   //
   useEffect(() => {
     if (values && values.length > 0) {
+      console.log("MyUpload in useEff values::::", values);
+
       const files = values.map((url, index) => ({
         uid: `-${index}`,
         name: `image-${index}.jpg`,

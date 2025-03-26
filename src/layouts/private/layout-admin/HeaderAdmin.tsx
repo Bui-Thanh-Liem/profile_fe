@@ -75,9 +75,10 @@ export function HeaderAdmin() {
           </p>
           <p className="leading-none text-gray-app">{currentUser?.email}</p>
         </div>
-        <Dropdown menu={{ items }} arrow={true}>
+        <Dropdown menu={{ items }} arrow={true} trigger={["click"]}>
           <Space>
             <MyAvatar
+              className="cursor-pointer"
               src={currentUser?.avatar || ""}
               alt={currentUser?.fullName || ""}
               fallbackText={currentUser?.fullName || ""}

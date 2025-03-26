@@ -33,7 +33,7 @@ export function LogoutLayout() {
     if (second < 0) return;
 
     if (second === 0) {
-      // handleLogout();
+      handleLogout();
       return;
     }
 

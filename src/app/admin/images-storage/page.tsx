@@ -10,6 +10,8 @@ export default async function ImageStoragePage({
   const { limit, page } = handleSetDefaultQueries(searchParams);
   const resImgStorages = await findAll({ limit, page });
 
+  console.log("resImgStorages:::", resImgStorages.data.items);
+
   return (
     <ImageStorageLayout
       items={resImgStorages?.data?.items || []}

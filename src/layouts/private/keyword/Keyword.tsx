@@ -76,7 +76,9 @@ export default function KeywordLayout({
       )}
       <KeywordAction
         isOpen={open}
-        onClose={() => {}}
+        onClose={() => {
+          setDataEdit(undefined);
+        }}
         setIsOpen={setOpen}
         dataEdit={dataEdit}
       />

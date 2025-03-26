@@ -91,6 +91,8 @@ export default function ImageStorageAction({
     });
   }
 
+  console.log("ImageStorageAction dataEdit?.images:::", dataEdit?.images);
+
   //
   function handleCancel() {
     if (setIsOpen) {

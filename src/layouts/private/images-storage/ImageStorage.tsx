@@ -78,7 +78,9 @@ export default function ImageStorageLayout({
       )}
       <ImageStorageAction
         isOpen={open}
-        onClose={() => {}}
+        onClose={() => {
+          setDataEdit(undefined);
+        }}
         setIsOpen={setOpen}
         dataEdit={dataEdit}
       />

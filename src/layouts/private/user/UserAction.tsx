@@ -110,7 +110,7 @@ export default function UserAction({
             <p className="my-4">{`${idEdit ? "Edit" : "Create"} user`}</p>
           </div>
         }
-        // onOk={onSubmitForm}
+        onOk={onSubmitForm}
         onCancel={handleCancel}
         centered
         footer={[

@@ -74,14 +74,16 @@ export default function KeywordLayout({
           </Checkbox>
         </div>
       )}
-      <KeywordAction
-        isOpen={open}
-        onClose={() => {
-          setDataEdit(undefined);
-        }}
-        setIsOpen={setOpen}
-        dataEdit={dataEdit}
-      />
+      {open && (
+        <KeywordAction
+          isOpen={open}
+          onClose={() => {
+            setDataEdit(undefined);
+          }}
+          setIsOpen={setOpen}
+          dataEdit={dataEdit}
+        />
+      )}
       <Row gutter={[16, 24]}>
         {items?.map((item) => (
           <Col span={4} key={item.name}>

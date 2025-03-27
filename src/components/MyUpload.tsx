@@ -8,13 +8,10 @@ type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
 export const MyUpload = ({ values, onChangeUpload }: IPropMyUpload) => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-  console.log("MyUpload dataEdit?.images:::", values);
 
   //
   useEffect(() => {
     if (values && values.length > 0) {
-      console.log("MyUpload in useEff values::::", values);
-
       const files = values.map((url, index) => ({
         uid: `-${index}`,
         name: `image-${index}.jpg`,
@@ -29,14 +26,23 @@ export const MyUpload = ({ values, onChangeUpload }: IPropMyUpload) => {
   //
   const onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
+    console.log("newFileList::", newFileList);
 
     // Chuẩn hóa danh sách file về dạng File[]
     const files = newFileList
       .filter((file) => file.status === "done")
-      .map((file) => file.originFileObj as File);
+      .map((file) => {
+        if (file?.originFileObj) {
+          return file.originFileObj;
+        } else {
+          return file?.url;
+        }
+      }) as File[];
 
     //
     if (onChangeUpload) {
+      console.log("files liem :::", files);
+
       onChangeUpload(files);
     }
   };

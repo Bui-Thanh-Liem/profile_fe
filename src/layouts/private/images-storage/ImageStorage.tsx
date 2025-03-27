@@ -76,14 +76,16 @@ export default function ImageStorageLayout({
           </Checkbox>
         </div>
       )}
-      <ImageStorageAction
-        isOpen={open}
-        onClose={() => {
-          setDataEdit(undefined);
-        }}
-        setIsOpen={setOpen}
-        dataEdit={dataEdit}
-      />
+      {open && (
+        <ImageStorageAction
+          isOpen={open}
+          onClose={() => {
+            setDataEdit(undefined);
+          }}
+          setIsOpen={setOpen}
+          dataEdit={dataEdit}
+        />
+      )}
       <Row gutter={[16, 24]}>
         {items?.map((item) => (
           <Col span={5} key={item.label}>

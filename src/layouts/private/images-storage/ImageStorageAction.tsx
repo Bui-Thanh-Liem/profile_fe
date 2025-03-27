@@ -56,18 +56,15 @@ export default function ImageStorageAction({
       try {
         const formDataAntd = await imageStorageActionForm.validateFields();
         const formdata = new FormData();
+        console.log("formDataAntd:::", formDataAntd);
 
         // Fields images other
         for (const [key, value] of Object.entries(formDataAntd)) {
-          if (key !== "images") {
+          if (key === "images" && Array.isArray(value)) {
+            value.forEach((file: any) => formdata.append("images", file));
+          } else {
             formdata.append(key, value as any);
           }
-        }
-
-        // Fields images
-        const images = formDataAntd.images as any;
-        if (images?.length) {
-          images.forEach((file: any) => formdata.append("images", file));
         }
 
         let res: TResponse<IImageStorage>;
@@ -90,8 +87,6 @@ export default function ImageStorageAction({
       }
     });
   }
-
-  console.log("ImageStorageAction dataEdit?.images:::", dataEdit?.images);
 
   //
   function handleCancel() {
@@ -174,9 +169,10 @@ export default function ImageStorageAction({
         >
           <MyUpload
             values={dataEdit?.images || []}
-            onChangeUpload={(files) =>
-              imageStorageActionForm.setFieldsValue({ images: files as any })
-            }
+            onChangeUpload={(files) => {
+              console.log("files from upload :::", files);
+              imageStorageActionForm.setFieldsValue({ images: files as any });
+            }}
           />
         </Form.Item>
       </Form>

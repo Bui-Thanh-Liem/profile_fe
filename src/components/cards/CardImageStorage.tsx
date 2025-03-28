@@ -1,6 +1,6 @@
 import { IImageStorage, IKeyWord } from "@/interfaces/model.interface";
 import { IPropCardItem } from "@/interfaces/propsComponent.interface";
-import { Badge, Card, Carousel, Modal, Space, Tag } from "antd";
+import { Card, Carousel, Modal, Space, Tag } from "antd";
 import Meta from "antd/es/card/Meta";
 import Image from "next/image";
 import { useState } from "react";
@@ -66,42 +66,45 @@ export function CardImageStorage({
   onClickDelete,
   onClickActive,
 }: IPropCardItem<IImageStorage>) {
-  const { id, label, desc, images, keyWord } = item;
+  const { id, label, desc, images, keywords } = item;
   const isActive = actives.includes(id);
 
   //
   return (
-    <Badge.Ribbon
-      text={(keyWord as IKeyWord)?.name}
-      color={(keyWord as IKeyWord)?.color}
-      placement="start"
+    <Card
+      hoverable
+      style={{ width: 300 }}
+      extra={
+        <Space className="flex items-center">
+          <Tag
+            bordered={false}
+            color={isActive ? "error" : ""}
+            onClick={onClickActive}
+          >
+            Checked
+          </Tag>
+          <ItemAction
+            onEdit={() => onClickEdit(item)}
+            onDelete={() => onClickDelete([id])}
+          />
+        </Space>
+      }
+      cover={<MyImageInCard alt={label} images={images} />}
     >
-      <Card
-        hoverable
-        style={{ width: 300 }}
-        extra={
-          <Space className="flex items-center">
-            <Tag
-              bordered={false}
-              color={isActive ? "error" : ""}
-              onClick={onClickActive}
-            >
-              Checked
+      <Meta
+        title={label}
+        description={!!desc ? desc : ""}
+        className="line-clamp-3"
+      />
+      {keywords.length > 0 && (
+        <div className="mt-4 flex flex-wrap gap-y-2">
+          {(keywords as IKeyWord[])?.map((keyword) => (
+            <Tag key={keyword.name} color={keyword.color}>
+              {keyword.name}
             </Tag>
-            <ItemAction
-              onEdit={() => onClickEdit(item)}
-              onDelete={() => onClickDelete([id])}
-            />
-          </Space>
-        }
-        cover={<MyImageInCard alt={label} images={images} />}
-      >
-        <Meta
-          title={label}
-          description={!!desc ? desc : ""}
-          className="line-clamp-3"
-        />
-      </Card>
-    </Badge.Ribbon>
+          ))}
+        </div>
+      )}
+    </Card>
   );
 }

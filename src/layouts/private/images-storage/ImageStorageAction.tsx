@@ -19,34 +19,33 @@ export default function ImageStorageAction({
 }: IPropBaseAction<IImageStorage>) {
   const [imageStorageActionForm] = Form.useForm<Partial<IImageStorage>>();
   const [isPending, startTransition] = useTransition();
-  const [keyWords, setKeyWords] = useState<IKeyWord[]>([]);
+  const [keywords, setKeywords] = useState<IKeyWord[]>([]);
 
   //
   const fetchDataForForm = useCallback(async () => {
     const resKeyWords = await findAll({
       limit: "1e9",
       page: "1",
-      fieldUnused: "imageStorage",
     });
     if (resKeyWords.statusCode === 200) {
-      setKeyWords(resKeyWords.data.items);
+      setKeywords(resKeyWords.data.items);
     }
   }, []);
 
   //
   useEffect(() => {
     if (dataEdit?.id) {
-      const keyWord = (dataEdit?.keyWord as IKeyWord) || {};
+      const keywordEdits = (dataEdit?.keywords as IKeyWord[]) || [];
       imageStorageActionForm.setFieldsValue({
         label: dataEdit?.label,
         desc: dataEdit?.desc,
-        keyWord: keyWord?.id,
+        keywords: keywordEdits?.map((key) => key.id),
       });
-      setKeyWords((prev) => [...(prev || []), keyWord]);
+      setKeywords((prev) => [...(prev || []), ...keywordEdits]);
     }
     fetchDataForForm();
     return () => {
-      setKeyWords([]);
+      setKeywords([]);
     };
   }, [dataEdit, fetchDataForForm, imageStorageActionForm]);
 
@@ -56,7 +55,6 @@ export default function ImageStorageAction({
       try {
         const formDataAntd = await imageStorageActionForm.validateFields();
         const formdata = new FormData();
-        console.log("formDataAntd:::", formDataAntd);
 
         // Fields images other
         for (const [key, value] of Object.entries(formDataAntd)) {
@@ -146,11 +144,11 @@ export default function ImageStorageAction({
 
         <Form.Item<IImageStorage>
           label="Key word"
-          name="keyWord"
+          name="keywords"
           rules={[{ required: true, message: "Please select key word!" }]}
         >
-          <Select size="large" placeholder="Select key word">
-            {keyWords?.map((item) => (
+          <Select size="large" mode="multiple" placeholder="Select key word">
+            {keywords?.map((item) => (
               <Select.Option key={uuidV4()} value={item.id}>
                 {item.name}
               </Select.Option>
@@ -169,10 +167,9 @@ export default function ImageStorageAction({
         >
           <MyUpload
             values={dataEdit?.images || []}
-            onChangeUpload={(files) => {
-              console.log("files from upload :::", files);
-              imageStorageActionForm.setFieldsValue({ images: files as any });
-            }}
+            onChangeUpload={(files) =>
+              imageStorageActionForm.setFieldsValue({ images: files as any })
+            }
           />
         </Form.Item>
       </Form>

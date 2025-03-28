@@ -46,7 +46,7 @@ export async function findAll(queries: InterfaceCommon.IQueries<ISkill>) {
     {
       url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
         CONSTANT_ROUTE.SKILL
-      }${Utils.ConvertObject.convertObjectToString(queries)}`,
+      }${Utils.UtilConvert.convertObjectToString(queries)}`,
       options: {
         method: "GET",
         cache: "force-cache",

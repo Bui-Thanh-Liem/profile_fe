@@ -41,13 +41,13 @@ export async function findOneById(id: string) {
   return response;
 }
 
-export async function findAll(queries: InterfaceCommon.IQueries) {
+export async function findAll(queries: InterfaceCommon.IQueries<IRoleGroup>) {
   const response = await callApiServerCookie<
     InterfaceCommon.IGetMulti<IRoleGroup>
   >({
     url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
       CONSTANT_ROUTE.ROLE_GROUP
-    }${Utils.ConvertObject.convertObjectToString(queries)}`,
+    }${Utils.UtilConvert.convertObjectToString(queries)}`,
     options: {
       method: "GET",
       cache: "force-cache",

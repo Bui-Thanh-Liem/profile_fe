@@ -49,7 +49,7 @@ export async function findAll(
   >({
     url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
       CONSTANT_ROUTE.IMAGE_STORAGE
-    }${Utils.ConvertObject.convertObjectToString(queries)}`,
+    }${Utils.UtilConvert.convertObjectToString(queries)}`,
     options: {
       method: "GET",
       cache: "force-cache",

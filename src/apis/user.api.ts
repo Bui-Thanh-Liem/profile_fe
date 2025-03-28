@@ -55,11 +55,11 @@ export async function findOneById(id: string) {
 
 // export function findOneByField() {}
 
-export async function findAll(queries: InterfaceCommon.IQueries) {
+export async function findAll(queries: InterfaceCommon.IQueries<IUser>) {
   const response = await callApiServerCookie<InterfaceCommon.IGetMulti<IUser>>({
     url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
       CONSTANT_ROUTE.USER
-    }${Utils.ConvertObject.convertObjectToString(queries)}`,
+    }${Utils.UtilConvert.convertObjectToString(queries)}`,
     options: {
       method: "GET",
       cache: "force-cache",

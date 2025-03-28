@@ -64,7 +64,7 @@ export default function KeywordLayout({
         onClickDeleteItems={onDeleteMulti}
         totalItems={totalItems}
       />
-      {!!totalItems && (
+      {!!items.length && (
         <div className="mb-2">
           <Checkbox
             onChange={handleCheckAll}

@@ -79,7 +79,7 @@ export async function resetPassword({
   const response = await callApiServerCookie<boolean>({
     url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
       CONSTANT_ROUTE.AUTH
-    }/${"reset-password"}${Utils.ConvertObject.convertObjectToString({
+    }/${"reset-password"}${Utils.UtilConvert.convertObjectToString({
       token,
     })}`,
     options: {

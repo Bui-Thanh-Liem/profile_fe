@@ -13,7 +13,7 @@ export async function create(payload: Partial<IKeyWord>) {
       body: JSON.stringify(payload),
     },
   });
-  revalidateTag(CONSTANT_TAG_CACHE.keyWords);
+  revalidateTag(CONSTANT_TAG_CACHE.keywords);
   return response;
 }
 
@@ -25,7 +25,7 @@ export async function update(id: string, payload: Partial<IKeyWord>) {
       body: JSON.stringify(payload),
     },
   });
-  revalidateTag(CONSTANT_TAG_CACHE.keyWords);
+  revalidateTag(CONSTANT_TAG_CACHE.keywords);
   return response;
 }
 
@@ -35,7 +35,7 @@ export async function findOneById(id: string) {
     options: {
       method: "GET",
       cache: "force-cache",
-      next: { tags: [CONSTANT_TAG_CACHE.keyWord] },
+      next: { tags: [CONSTANT_TAG_CACHE.keyword] },
     },
   });
   return response;
@@ -47,11 +47,11 @@ export async function findAll(queries: InterfaceCommon.IQueries<IKeyWord>) {
   >({
     url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
       CONSTANT_ROUTE.KEYWORD
-    }${Utils.ConvertObject.convertObjectToString(queries)}`,
+    }${Utils.UtilConvert.convertObjectToString(queries)}`,
     options: {
       method: "GET",
       cache: "no-cache",
-      // next: { tags: [CONSTANT_TAG_CACHE.keyWords] },
+      next: { tags: [CONSTANT_TAG_CACHE.keywords] },
     },
   });
   return response;
@@ -67,6 +67,6 @@ export async function deleteMulti(payload: string[]) {
       body: JSON.stringify(payload),
     },
   });
-  revalidateTag(CONSTANT_TAG_CACHE.keyWords);
+  revalidateTag(CONSTANT_TAG_CACHE.keywords);
   return response;
 }

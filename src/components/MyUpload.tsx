@@ -20,13 +20,13 @@ export const MyUpload = ({ values, onChangeUpload }: IPropMyUpload) => {
         thumbUrl: url,
       }));
       setFileList(files as any);
+      onChangeUpload(values as any);
     }
   }, []);
 
   //
   const onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
-    console.log("newFileList::", newFileList);
 
     // Chuẩn hóa danh sách file về dạng File[]
     const files = newFileList
@@ -41,8 +41,6 @@ export const MyUpload = ({ values, onChangeUpload }: IPropMyUpload) => {
 
     //
     if (onChangeUpload) {
-      console.log("files liem :::", files);
-
       onChangeUpload(files);
     }
   };

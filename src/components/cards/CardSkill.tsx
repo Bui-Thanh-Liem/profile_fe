@@ -13,7 +13,7 @@ export function CardSkill({
   onClickDelete,
   onClickActive,
 }: IPropCardItem<ISkill>) {
-  const { id, name, image } = item;
+  const { id, name, image, progress } = item;
   const isActive = actives.includes(id);
 
   //
@@ -49,7 +49,12 @@ export function CardSkill({
       <Meta
         title={name}
         description={
-          <Slider defaultValue={0} tooltip={{ open: true, color: "#04befe" }} />
+          <div className="px-2">
+            <Slider
+              value={progress}
+              tooltip={{ open: true, color: "#04befe" }}
+            />
+          </div>
         }
       />
     </Card>

@@ -17,6 +17,9 @@ function NavBar() {
       </div>
       <ul className="flex gap-8">
         <li>
+          <NavbarItemLink href="/">Home</NavbarItemLink>
+        </li>
+        <li>
           <NavbarItemLink href="/about">About</NavbarItemLink>
         </li>
         <li>
@@ -26,19 +29,16 @@ function NavBar() {
           <NavbarItemLink href="/education">Education</NavbarItemLink>
         </li>
         <li>
-          <NavbarItemLink href="/work">Work</NavbarItemLink>
-        </li>
-        <li>
           <NavbarItemLink href="/experience">Experience</NavbarItemLink>
         </li>
         <li>
-          <NavbarItemLink href="/">Home</NavbarItemLink>
+          <NavbarItemLink href="/projects">Projects</NavbarItemLink>
+        </li>
+        <li>
+          <NavbarItemLink href="/work">Work</NavbarItemLink>
         </li>
         <li>
           <NavbarItemLink href="/blogs">Blogs</NavbarItemLink>
-        </li>
-        <li>
-          <NavbarItemLink href="/projects">Projects</NavbarItemLink>
         </li>
         <li>
           <NavbarItemLink href="/storage">Storage</NavbarItemLink>

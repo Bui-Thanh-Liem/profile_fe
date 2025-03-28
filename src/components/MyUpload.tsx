@@ -6,7 +6,11 @@ import { useEffect, useState } from "react";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
-export const MyUpload = ({ values, onChangeUpload }: IPropMyUpload) => {
+export const MyUpload = ({
+  values,
+  onChangeUpload,
+  length = 4,
+}: IPropMyUpload) => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   //
@@ -70,7 +74,7 @@ export const MyUpload = ({ values, onChangeUpload }: IPropMyUpload) => {
           onChange={onChange}
           onPreview={onPreview}
         >
-          {fileList.length < 5 && "+ Upload"}
+          {fileList.length < length && "+ Upload"}
         </Upload>
       </ImgCrop>
     </>

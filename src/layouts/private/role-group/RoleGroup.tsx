@@ -5,16 +5,18 @@ import MyTableToolbar from "@/components/table/MyTableToolbar";
 import { showToast } from "@/helper/show-toast.helper";
 import { IRoleGroup } from "@/interfaces/model.interface";
 import { IPropLayout } from "@/interfaces/propsLayout.interface";
+import { Checkbox, CheckboxChangeEvent, Col, Row } from "antd";
 import { useState } from "react";
 import RoleGroupAction from "./RoleGroupAction";
 
 export default function RoleGroupLayout({
   items,
-  // totalItems,
+  totalItems,
 }: IPropLayout<IRoleGroup>) {
   const [open, setOpen] = useState<boolean>(false);
+  const [activeIds, setActiveIds] = useState<string[]>([]);
   const [dataEdit, setDataEdit] = useState<IRoleGroup | undefined>(undefined);
-  const [checkedIds, setCheckedIds] = useState<string[] | []>([]);
+  const ids = items.map((item) => item.id);
 
   //
   function onEdit(data: IRoleGroup) {
@@ -23,51 +25,76 @@ export default function RoleGroupLayout({
   }
 
   //
-  function onChangeChecked(checked: boolean, id: string) {
-    if (checked) {
-      setCheckedIds([...checkedIds, id]);
+  function handleClickActive(id: string) {
+    let result = [...activeIds];
+    const isExist = activeIds.includes(id);
+    if (isExist) {
+      result = result.filter((activeId) => id !== activeId);
     } else {
-      setCheckedIds((prev) => {
-        const clone = [...prev];
-        return clone.filter((checkedId) => checkedId !== id);
-      });
+      result.push(id);
+    }
+    setActiveIds(result);
+  }
+
+  //
+  function handleCheckAll(e: CheckboxChangeEvent) {
+    if (e.target.checked) {
+      setActiveIds(ids);
+    } else {
+      setActiveIds([]);
     }
   }
 
   //
-  async function onDeleteMulti() {
-    const res = await deleteMulti(checkedIds);
+  async function onDeleteMulti(ids: string[]) {
+    const res = await deleteMulti(ids);
     if (res.statusCode !== 200) {
       showToast(res);
       return;
     }
     showToast(res);
-    setCheckedIds([]);
+    setActiveIds([]);
   }
 
   return (
     <>
       <MyTableToolbar
-        checkedIds={checkedIds}
+        checkedIds={activeIds}
         onClickAddItem={() => setOpen(true)}
         onClickDeleteItems={onDeleteMulti}
+        totalItems={totalItems}
       />
-      <RoleGroupAction
-        isOpen={open}
-        onClose={() => {}}
-        setIsOpen={setOpen}
-        dataEdit={dataEdit}
-      />
-      <div className="grid grid-cols-5 gap-8 h-96 bg-red-200">
+      {!!items.length && (
+        <div className="mb-2">
+          <Checkbox
+            onChange={handleCheckAll}
+            checked={activeIds.length === ids.length}
+          >
+            Check all
+          </Checkbox>
+        </div>
+      )}
+      {open && (
+        <RoleGroupAction
+          isOpen={open}
+          onClose={() => {}}
+          setIsOpen={setOpen}
+          dataEdit={dataEdit}
+        />
+      )}
+      <Row gutter={[16, 24]}>
         {items?.map((item) => (
-          <CardRoleGroup
-            key={item.name}
-            roleGroup={item}
-            onClickEdit={onEdit}
-            onChangeChecked={onChangeChecked}
-          />
+          <Col span={6} key={item.name}>
+            <CardRoleGroup
+              item={item}
+              actives={activeIds}
+              onClickEdit={onEdit}
+              onClickDelete={onDeleteMulti}
+              onClickActive={() => handleClickActive(item.id)}
+            />
+          </Col>
         ))}
-      </div>
+      </Row>
     </>
   );
 }

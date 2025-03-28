@@ -73,7 +73,6 @@ export function CardImageStorage({
   return (
     <Card
       hoverable
-      style={{ width: 300 }}
       extra={
         <Space className="flex items-center">
           <Tag

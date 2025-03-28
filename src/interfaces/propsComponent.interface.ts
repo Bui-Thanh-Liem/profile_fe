@@ -7,7 +7,6 @@ import {
   TooltipProps,
 } from "antd";
 import { ChangeEvent, ReactElement, ReactNode } from "react";
-import { IRoleGroup } from "./model.interface";
 import { TResponse } from "./response.interface";
 
 export interface IPropNavbarItemIcon {
@@ -37,12 +36,6 @@ export interface IPropCardSkill {
   image: string;
   progress: number;
   link?: string;
-}
-
-export interface IPropCardRoleGroup {
-  onClickEdit: (dataEdit: IRoleGroup) => void;
-  roleGroup: IRoleGroup;
-  onChangeChecked: (checked: boolean, id: string) => void;
 }
 
 export interface IPropCardPercentAdmin {
@@ -135,4 +128,5 @@ export type IPropMyTooltip = TooltipProps & {
 export interface IPropMyUpload {
   values: string[];
   onChangeUpload: (files: File[]) => void;
+  length?: number;
 }

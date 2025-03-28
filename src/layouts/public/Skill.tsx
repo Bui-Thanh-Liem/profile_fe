@@ -5,6 +5,9 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 //
+import { MyEmpty } from "@/components/MyEmpty";
+import { ISkill } from "@/interfaces/model.interface";
+import { IPropLayout } from "@/interfaces/propsLayout.interface";
 import antd from "../../../public/icons/skills/ant.png";
 import react from "../../../public/icons/skills/computer.png";
 import css from "../../../public/icons/skills/css-file-format.png";
@@ -45,9 +48,10 @@ function SkillItem({ name, image, progress, link }: IPropCardSkill) {
     });
   };
 
+  // bg-gradient-to-tr from-primary
   return (
     <div
-      className={`h-32 w-56 border-4 bg-gradient-to-tr from-primary rounded-tl-3xl rounded-br-3xl flex justify-center items-center flex-col gap-2 cursor-pointer hover:scale-110 transition-all duration-200 relative`}
+      className={`h-32 w-56 border-4 border-primary bg-white rounded-tl-3xl rounded-br-3xl flex justify-center items-center flex-col gap-2 cursor-pointer hover:scale-110 transition-all duration-200 relative`}
       onClick={openNotification}
     >
       <Progress
@@ -56,47 +60,57 @@ function SkillItem({ name, image, progress, link }: IPropCardSkill) {
         type="circle"
         percent={progress}
       />
-      <Image width={50} height={50} src={image} alt={name} />
-      <p className="font-bold text-background shadow-2xl">{name}</p>
+      <Image
+        width={50}
+        height={50}
+        src={image}
+        alt={name}
+        className="bg-transparent"
+      />
+      <p className="font-bold text-primary shadow-2xl">{name}</p>
     </div>
   );
 }
 
-export function SkillLayout() {
+export function SkillLayout({ items }: IPropLayout<ISkill>) {
   const skills = [
-    { name: "Html", image: html, progress: 85 },
-    { name: "Css", image: css, progress: 90 },
-    { name: "Tailwind Css", image: tailwind, progress: 95 },
-    { name: "Javascript", image: js, progress: 90 },
-    { name: "React js", image: react, progress: 80 },
-    { name: "Redux", image: redux, progress: 85 },
-    { name: "Zustand", image: zustand, progress: 65 },
-    { name: "Next js", image: nextjs, progress: 55 },
-    { name: "Ant design", image: antd, progress: 75 },
-    { name: "Material ui", image: mui, progress: 75 },
-    { name: "Github", image: github, progress: 85 },
-    { name: "Node js", image: node, progress: 95 },
-    { name: "Express js", image: express, progress: 85 },
-    { name: "Json web token", image: jwt, progress: 85 },
-    { name: "Mongo DB", image: mongo, progress: 65 },
-    { name: "Mysql", image: mysql, progress: 85 },
-    { name: "Typescript", image: ts, progress: 65 },
-    { name: "Nest js", image: nestjs, progress: 65 },
-    { name: "Redis", image: redis, progress: 55 },
-    { name: "Docker", image: docker, progress: 35 },
+    { name: "Html", image: html.src, progress: 85 },
+    { name: "Css", image: css.src, progress: 90 },
+    { name: "Tailwind Css", image: tailwind.src, progress: 95 },
+    { name: "Javascript", image: js.src, progress: 90 },
+    { name: "React js", image: react.src, progress: 80 },
+    { name: "Redux", image: redux.src, progress: 85 },
+    { name: "Zustand", image: zustand.src, progress: 65 },
+    { name: "Next js", image: nextjs.src, progress: 55 },
+    { name: "Ant design", image: antd.src, progress: 75 },
+    { name: "Material ui", image: mui.src, progress: 75 },
+    { name: "Github", image: github.src, progress: 85 },
+    { name: "Node js", image: node.src, progress: 95 },
+    { name: "Express js", image: express.src, progress: 85 },
+    { name: "Json web token", image: jwt.src, progress: 85 },
+    { name: "Mongo DB", image: mongo.src, progress: 65 },
+    { name: "Mysql", image: mysql.src, progress: 85 },
+    { name: "Typescript", image: ts.src, progress: 65 },
+    { name: "Nest js", image: nestjs.src, progress: 65 },
+    { name: "Redis", image: redis.src, progress: 55 },
+    { name: "Docker", image: docker.src, progress: 35 },
   ];
   return (
     <main className="flex h-screen pt-10">
-      <div className="m-auto w-[1200px] grid grid-cols-5 place-items-center gap-y-4">
-        {skills.map((skill) => (
-          <SkillItem
-            key={skill.name}
-            image={skill.image.src}
-            name={skill.name}
-            progress={skill.progress}
-          />
-        ))}
-      </div>
+      {items.length ? (
+        <div className="m-auto w-[1200px] grid grid-cols-5 place-items-center gap-y-4">
+          {items.map((skill) => (
+            <SkillItem
+              key={skill.name}
+              image={skill.image}
+              name={skill.name}
+              progress={skill.progress}
+            />
+          ))}
+        </div>
+      ) : (
+        <MyEmpty />
+      )}
     </main>
   );
 }

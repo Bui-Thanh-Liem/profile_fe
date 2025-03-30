@@ -1,9 +1,11 @@
+"use client";
 import { ISkill } from "@/interfaces/model.interface";
 import { IPropCardItem } from "@/interfaces/propsComponent.interface";
 import { Card, Slider, Space, Tag } from "antd";
 import Meta from "antd/es/card/Meta";
 import Image from "next/image";
 import { ItemAction } from "../ItemAction";
+import { useEffect, useState } from "react";
 
 //
 export function CardSkill({
@@ -15,6 +17,11 @@ export function CardSkill({
 }: IPropCardItem<ISkill>) {
   const { id, name, image, progress } = item;
   const isActive = actives.includes(id);
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => setIsMounted(true), []);
+
+  //
+  if (!isMounted) return <p>loading...</p>;
 
   //
   return (
@@ -37,13 +44,15 @@ export function CardSkill({
         </Space>
       }
       cover={
-        <Image
-          height={200}
-          width={200}
-          alt={name}
-          src={image}
-          className="object-contain"
-        />
+        <div className="w-48 h-48 flex">
+          <Image
+            height={200}
+            width={200}
+            alt={name}
+            src={image}
+            className="object-contain m-auto"
+          />
+        </div>
       }
     >
       <Meta

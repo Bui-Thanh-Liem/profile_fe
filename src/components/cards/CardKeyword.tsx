@@ -34,8 +34,11 @@ export function CardKeyword({
         </Space>
       }
     >
-      <p style={{ color }} className="line-clamp-2 text-lg font-bold">
-        {name}
+      <p
+        style={{ backgroundColor: color }}
+        className="line-clamp-2 text-lg font-bold text-white inline"
+      >
+        {name.toLocaleUpperCase()}
       </p>
     </Card>
   );

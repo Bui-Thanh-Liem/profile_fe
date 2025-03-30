@@ -8,8 +8,9 @@ type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
 export const MyUpload = ({
   values,
-  onChangeUpload,
+  aspect = 1,
   length = 4,
+  onChangeUpload,
 }: IPropMyUpload) => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
 
@@ -67,7 +68,14 @@ export const MyUpload = ({
 
   return (
     <>
-      <ImgCrop rotationSlider>
+      <ImgCrop
+        aspect={aspect}
+        fillColor="transparent"
+        modalTitle="edit image"
+        rotationSlider
+        zoomSlider
+        quality={1}
+      >
         <Upload
           listType="picture-card"
           fileList={fileList}

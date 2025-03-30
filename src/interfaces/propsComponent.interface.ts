@@ -129,4 +129,5 @@ export interface IPropMyUpload {
   values: string[];
   onChangeUpload: (files: File[]) => void;
   length?: number;
+  aspect?: number;
 }

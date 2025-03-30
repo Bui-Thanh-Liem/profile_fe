@@ -46,6 +46,11 @@ const items: MenuItem[] = [
     "/admin/skills",
     <AlertOutlined />
   ),
+  getItem(
+    <Link href="/admin/about">About</Link>,
+    "/admin/about",
+    <AlertOutlined />
+  ),
   { type: "divider" },
   getItem("Administrator", "administrator", <TeamOutlined />, [
     getItem(

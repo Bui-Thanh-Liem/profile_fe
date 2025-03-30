@@ -8,7 +8,7 @@ export default function PublicLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
+    <main>
       <div className={`antialiased bg-gray-second-app`}>
         <div className="fixed top-0 left-0 right-0 z-50 flex shadow-sm bg-background">
           <NavBar />
@@ -17,6 +17,6 @@ export default function PublicLayout({
         <ContactMe />
         <Footer />
       </div>
-    </div>
+    </main>
   );
 }

@@ -33,12 +33,11 @@ export default function SkillAction({
     startTransition(async () => {
       try {
         const formDataAntd = await skillActionForm.validateFields();
-        const formdata = new FormData();
 
         //
+        const formdata = new FormData();
         for (const [key, value] of Object.entries(formDataAntd)) {
           if (key === "image" && typeof value === "object") {
-            console.log("key:::", (value as any)[0]);
             formdata.append(key, (value as any)[0]);
           } else {
             formdata.append(key, value as any);
@@ -102,6 +101,7 @@ export default function SkillAction({
         </Button>,
       ]}
       width={600}
+      zIndex={99999}
     >
       <Form
         form={skillActionForm}

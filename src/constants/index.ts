@@ -20,4 +20,5 @@ export const CONSTANT_TAG_CACHE = {
   keywords: "key-words",
   skill: "skill",
   skills: "skills",
+  about: "about",
 };

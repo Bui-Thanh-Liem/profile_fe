@@ -38,13 +38,13 @@ export default function StorageLayout({
     },
     {
       image: baseAlgorithm.src,
-      name: "Base Algorithm",
-      href: "/storage/base-algorithm",
+      name: "Algorithm",
+      href: "/storage/algorithm",
     },
     {
       image: dataStructureAndAlgorithm.src,
-      name: "Advanced Algorithm",
-      href: "/storage/advanced-algorithm",
+      name: "Data structure",
+      href: "/storage/data-structure",
     },
     {
       image: cmd.src,

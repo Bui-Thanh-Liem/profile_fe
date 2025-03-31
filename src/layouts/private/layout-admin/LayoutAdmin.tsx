@@ -5,11 +5,13 @@ import {
   BarChartOutlined,
   CustomerServiceOutlined,
   FileImageOutlined,
-  FileOutlined,
+  ReconciliationOutlined,
   KeyOutlined,
   RadiusSettingOutlined,
   TeamOutlined,
   UserOutlined,
+  GroupOutlined,
+  UngroupOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Layout, Menu, theme } from "antd";
@@ -76,16 +78,25 @@ const items: MenuItem[] = [
   ),
   { type: "divider" },
   getItem(
-    <Link href="/admin/keywords">Keyword</Link>,
+    <Link href="/admin/keywords">Keywords</Link>,
     "/admin/keywords",
     <KeyOutlined />
   ),
-
   { type: "divider" },
   getItem(
-    <Link href="/admin/files-storage">Files Storage</Link>,
-    "/admin/files-storage",
-    <FileOutlined />
+    <Link href="/admin/subjects">Subjects</Link>,
+    "/admin/subjects",
+    <ReconciliationOutlined />
+  ),
+  getItem(
+    <Link href="/admin/subject-groups">Subject groups</Link>,
+    "/admin/subject-group",
+    <GroupOutlined />
+  ),
+  getItem(
+    <Link href="/admin/subject-items">Subject items</Link>,
+    "/admin/subject-group",
+    <UngroupOutlined />
   ),
   getItem(
     <Link href="/admin/images-storage">Images Storage</Link>,

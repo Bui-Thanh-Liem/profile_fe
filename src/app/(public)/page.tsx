@@ -8,11 +8,11 @@ import { FaUserGraduate } from "react-icons/fa";
 import meWebp from "../../../public/meWebp.webp";
 
 export default function HomePage() {
-  console.log("re-render");
-
+  //
   const classesImage =
     "relative col-span-3 w-[400px] h-[400px] p-6 rounded-tl-[80px] rounded-br-[80px] border-2 border-solid border-primary shadow-md shadow-primary";
 
+  //
   return (
     <section className="flex h-screen">
       <Row className="m-auto w-[1200px] justify-between">

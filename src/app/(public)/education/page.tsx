@@ -1,7 +1,46 @@
 import { AwardEducation } from "@/components/AwardEducation";
+import { MyTimelineContainer } from "@/components/MyTimeline";
+import { IPropMyTimeLine } from "@/interfaces/propsComponent.interface";
 import { Col, Row } from "antd";
 
 export default function EducationPage() {
+  //
+  const timelineData: IPropMyTimeLine[] = [
+    {
+      date: "08 - 2018",
+      title:
+        "Started studying at Ho Chi Minh City University of Industry with a major in Electrical Technology",
+      description:
+        "Start your academic journey with an exciting foundation of knowledge about your field of study. Join academic clubs and connect with like-minded friends.",
+    },
+    {
+      date: "03 - 2022",
+      title: "Graduate internship",
+      description:
+        "It was fun to get 90% of the way there and realize that I didn't really like the industry I was pursuing.",
+    },
+    {
+      date: "07 - 2022",
+      title:
+        "Completed program at Ho Chi Minh City University of Technology with GPA 3.4/4.0",
+      description:
+        "End of a challenging learning journey and valuable experience.",
+    },
+    {
+      date: "08 - 2022",
+      title:
+        "Started studying at Ho Chi Minh City College of Information Technology with a major in Information Technology",
+      description: "start pursuing the career you love",
+    },
+    {
+      date: "08 - 2024",
+      title: "Graduated with honors with an average score of 3.5/4.0",
+      description:
+        "Taking the first step toward building a rewarding career driven by passion and dedication.",
+    },
+  ];
+
+  //
   return (
     <section className="flex h-screen">
       <Row className="w-[1200px] m-auto justify-between">
@@ -19,65 +58,7 @@ export default function EducationPage() {
           <AwardEducation />
         </Col>
         <Col span={10}>
-          <div className="max-w-2xl mx-auto p-6">
-            <div className="space-y-6">
-              <div className="flex">
-                <div className="flex flex-col items-center mr-4">
-                  <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
-                  <div className="h-full w-0.5 bg-blue-300"></div>
-                </div>
-                <div>
-                  <div className="font-medium text-gray-700">08-2018</div>
-                  <div className="font-bold text-gray-900">
-                    Started studying at Ho Chi Minh City University of Industry
-                    with a major in Electrical Technology
-                  </div>
-                  <p className="text-gray-600 mt-1">
-                    Start your academic journey with an exciting foundation of
-                    knowledge about your field of study. Join academic clubs and
-                    connect with like-minded friends.
-                  </p>
-                </div>
-              </div>
-
-              {/*  */}
-              <div className="flex">
-                <div className="flex flex-col items-center mr-4">
-                  <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
-                  <div className="h-full w-0.5 bg-blue-300"></div>
-                </div>
-                <div>
-                  <div className="font-medium text-gray-700">03-2022</div>
-                  <div className="font-bold text-gray-900">
-                    Graduate internship
-                  </div>
-                  <p className="text-gray-600 mt-1">
-                    It was fun to get 90% of the way there and realize that I
-                    didn&apos;t really like the industry I was pursuing.
-                  </p>
-                </div>
-              </div>
-
-              {/*  */}
-              <div className="flex">
-                <div className="flex flex-col items-center mr-4">
-                  <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
-                  <div className="h-full w-0.5 bg-blue-300"></div>
-                </div>
-                <div>
-                  <div className="font-medium text-gray-700">07-2022</div>
-                  <div className="font-bold text-gray-900">
-                    Completed program at Ho Chi Minh City University of
-                    Technology with GPA 3.4/4.0
-                  </div>
-                  <p className="text-gray-600 mt-1">
-                    End of a challenging learning journey and valuable
-                    experience.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <MyTimelineContainer items={timelineData} datePosition="end" />
         </Col>
       </Row>
     </section>

@@ -35,9 +35,6 @@ function NavBar() {
           <NavbarItemLink href="/projects">Projects</NavbarItemLink>
         </li>
         <li>
-          <NavbarItemLink href="/work">Work</NavbarItemLink>
-        </li>
-        <li>
           <NavbarItemLink href="/blogs">Blogs</NavbarItemLink>
         </li>
         <li>

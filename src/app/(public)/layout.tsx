@@ -9,7 +9,7 @@ export default function PublicLayout({
 }>) {
   return (
     <main>
-      <div className={`antialiased bg-gray-second-app`}>
+      <div className={`antialiased bg-[#d2f8fd]`}>
         <div className="fixed top-0 left-0 right-0 z-50 flex shadow-sm bg-background">
           <NavBar />
         </div>

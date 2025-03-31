@@ -131,3 +131,15 @@ export interface IPropMyUpload {
   length?: number;
   aspect?: number;
 }
+
+export interface IPropMyTimeLine {
+  date: string;
+  title: string;
+  description: string;
+  datePosition?: "start" | "end";
+}
+
+export interface IPropMyTimelineContainer {
+  datePosition: "start" | "end";
+  items: IPropMyTimeLine[];
+}

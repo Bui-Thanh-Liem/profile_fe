@@ -14,7 +14,7 @@ export function AwardEducation() {
             <a
               href="https://iuh.edu.vn/"
               target="_blank"
-              className="text-lg underline text-yellow-300 font-bold"
+              className="text-lg text-yellow-300 font-bold hover:underline hover:text-yellow-300"
             >
               Graduated in Industrial Electricity
             </a>
@@ -24,7 +24,7 @@ export function AwardEducation() {
             <a
               href="https://itc.edu.vn/"
               target="_blank"
-              className="text-lg underline text-yellow-300 font-bold"
+              className="text-lg text-yellow-300 font-bold hover:underline hover:text-yellow-300"
             >
               Graduated in Information Technology
             </a>

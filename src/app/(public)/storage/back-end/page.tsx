@@ -1,4 +1,4 @@
-import CardSkill from "@/components/cards/CardSkill";
+import CardSkill from "@/components/cards/CardSkillAdmin";
 
 //
 import docker from "../../../../../public/icons/skills/docker.png";

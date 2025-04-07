@@ -1,4 +1,4 @@
-import CardSkill from "@/components/cards/CardSkill";
+import { CardSkillAdmin } from "@/components/cards/CardSkillAdmin";
 import { v4 as uuidV4 } from "uuid";
 
 //

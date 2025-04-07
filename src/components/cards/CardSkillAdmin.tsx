@@ -4,11 +4,11 @@ import { IPropCardItem } from "@/interfaces/propsComponent.interface";
 import { Card, Slider, Space, Tag } from "antd";
 import Meta from "antd/es/card/Meta";
 import Image from "next/image";
-import { ItemAction } from "../ItemAction";
 import { useEffect, useState } from "react";
+import { ItemAction } from "../ItemAction";
 
 //
-export function CardSkill({
+export function CardSkillAdmin({
   item,
   actives,
   onClickEdit,

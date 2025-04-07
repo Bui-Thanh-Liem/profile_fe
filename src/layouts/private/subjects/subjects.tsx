@@ -1,22 +1,25 @@
 "use client";
-import { deleteMulti } from "@/apis/skill";
-import { CardSkill } from "@/components/cards/CardSkillAdmin";
+import { deleteMulti } from "@/apis/image-storage";
+import { CardImageStorage } from "@/components/cards/CardImageStorage";
 import MyTableToolbar from "@/components/table/MyTableToolbar";
 import { showToast } from "@/helper/show-toast.helper";
-import { ISkill } from "@/interfaces/model.interface";
+import { ISubject } from "@/interfaces/model.interface";
 import { IPropLayout } from "@/interfaces/propsLayout.interface";
 import { Checkbox, CheckboxChangeEvent, Col, Row } from "antd";
 import { useState } from "react";
-import SkillAction from "./SkillAction";
+import ImageStorageAction from "./subjectsAction";
 
-export function SkillAdminLayout({ items, totalItems }: IPropLayout<ISkill>) {
+export default function SubjectAdminLayout({
+  items,
+  totalItems,
+}: IPropLayout<ISubject>) {
   const [open, setOpen] = useState<boolean>(false);
   const [activeIds, setActiveIds] = useState<string[]>([]);
-  const [dataEdit, setDataEdit] = useState<ISkill | undefined>(undefined);
+  const [dataEdit, setDataEdit] = useState<ISubject | undefined>(undefined);
   const ids = items.map((item) => item.id);
 
   //
-  function onEdit(data: ISkill) {
+  function onEdit(data: ISubject) {
     setDataEdit(data);
     setOpen(true);
   }
@@ -72,7 +75,7 @@ export function SkillAdminLayout({ items, totalItems }: IPropLayout<ISkill>) {
         </div>
       )}
       {open && (
-        <SkillAction
+        <ImageStorageAction
           isOpen={open}
           onClose={() => {
             setDataEdit(undefined);
@@ -83,8 +86,8 @@ export function SkillAdminLayout({ items, totalItems }: IPropLayout<ISkill>) {
       )}
       <Row gutter={[16, 24]}>
         {items?.map((item) => (
-          <Col span={5} key={item.name}>
-            <CardSkill
+          <Col span={5} key={item.label}>
+            <CardImageStorage
               item={item}
               actives={activeIds}
               onClickEdit={onEdit}

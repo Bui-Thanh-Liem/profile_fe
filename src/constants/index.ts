@@ -23,4 +23,8 @@ export const CONSTANT_TAG_CACHE = {
   about: "about",
   subject: "subject",
   subjects: "subjects",
+  subject_group: "subject-group",
+  subject_groups: "subject-groups",
+  subject_item: "subject-item",
+  subject_items: "subject-items",
 };

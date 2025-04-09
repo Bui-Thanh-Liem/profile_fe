@@ -46,13 +46,13 @@ export const callApiServerCookie = async <T>({
       httpOnly: true,
       secure: process.env.NODE_ENV === CONSTANT_ENV.NODE_ENV.PROD,
       sameSite: "lax", // Khớp với BE
-      maxAge: Utils.ConvertTime.convertSecond("DAY", 3),
+      maxAge: Utils.UtilConvert.convertToSecond("DAY", 3),
     });
     cookies().set(refresh[0], refresh[1], {
       httpOnly: true,
       secure: process.env.NODE_ENV === CONSTANT_ENV.NODE_ENV.PROD,
       sameSite: "lax", // Khớp với BE
-      maxAge: Utils.ConvertTime.convertSecond("DAY", 7),
+      maxAge: Utils.UtilConvert.convertToSecond("DAY", 7),
     });
   }
 
@@ -76,13 +76,13 @@ export const callApiServerCookie = async <T>({
         httpOnly: true,
         secure: process.env.NODE_ENV === CONSTANT_ENV.NODE_ENV.PROD,
         sameSite: "lax", // Khớp với BE
-        maxAge: Utils.ConvertTime.convertSecond("DAY", 3),
+        maxAge: Utils.UtilConvert.convertToSecond("DAY", 3),
       });
       cookies().set(refresh[0], refresh[1], {
         httpOnly: true,
         secure: process.env.NODE_ENV === CONSTANT_ENV.NODE_ENV.PROD,
         sameSite: "lax", // Khớp với BE
-        maxAge: Utils.ConvertTime.convertSecond("DAY", 7),
+        maxAge: Utils.UtilConvert.convertToSecond("DAY", 7),
       });
     }
     result = await response.json();
@@ -109,4 +109,4 @@ export const callApiServerCookie = async <T>({
 // khi gọi api trên server component thì phải check hết hạn token hoặc ở middleware
 // Chuyển hướng tới trang logout rồi xoá cookie
 
-// Khi gọi api tới nestjs từ use server của next thì resquest thự hiện từ server-side không phải từ trình duyệt
+// Khi gọi api tới nestjs từ use server của next thì resquest thực hiện từ server-side không phải từ trình duyệt

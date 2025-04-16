@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import NavBar from "@/components/navbar/NavBar";
 import { ContactMe } from "@/layouts/public/ContactMe";
+import "./layout.css";
 
 export default function PublicLayout({
   children,
@@ -9,7 +10,7 @@ export default function PublicLayout({
 }>) {
   return (
     <main>
-      <div className={`antialiased bg-[#d2f8fd]`}>
+      <div className={`antialiased bg`}>
         <div className="fixed top-0 left-0 right-0 z-50 flex shadow-sm bg-background">
           <NavBar />
         </div>

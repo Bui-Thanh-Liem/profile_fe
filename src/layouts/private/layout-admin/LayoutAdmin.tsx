@@ -5,13 +5,12 @@ import {
   BarChartOutlined,
   CustomerServiceOutlined,
   FileImageOutlined,
-  ReconciliationOutlined,
+  GroupOutlined,
   KeyOutlined,
   RadiusSettingOutlined,
   TeamOutlined,
-  UserOutlined,
-  GroupOutlined,
   UngroupOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Layout, Menu, theme } from "antd";
@@ -83,11 +82,6 @@ const items: MenuItem[] = [
     <KeyOutlined />
   ),
   { type: "divider" },
-  getItem(
-    <Link href="/admin/subjects">Subjects</Link>,
-    "/admin/subjects",
-    <ReconciliationOutlined />
-  ),
   getItem(
     <Link href="/admin/subject-groups">Subject groups</Link>,
     "/admin/subject-group",

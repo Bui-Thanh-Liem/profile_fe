@@ -4,7 +4,7 @@ import Link from "next/link";
 
 function ComingSoonPage() {
   return (
-    <div className="h-screen flex items-center">
+    <div className="h-screen flex items-center bg-gray-second-app">
       <Result
         status="info"
         title="Coming Soon"

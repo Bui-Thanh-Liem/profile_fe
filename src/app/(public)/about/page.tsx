@@ -17,20 +17,23 @@ async function AboutPage() {
           <h2 className="mb-4 text-lg font-bold text-foreground">Biography</h2>
           <>
             {text?.map((x) => (
-              <p key={v4()} className="font-medium mb-3">
+              <p key={v4()} className="font-medium text-base mb-3">
                 {x}
               </p>
             ))}
           </>
-          <a href="mailto:buithanhliem5073@gmail.com" className="mt-6 mb-2">
+          <a
+            href="mailto:buithanhliem5073@gmail.com"
+            className="mt-6 mb-2 text-lg"
+          >
             <HighlighText text="Email: " />
             {email}
           </a>
-          <a href={`tel:${phone}`} className="mb-2">
+          <a href={`tel:${phone}`} className="mb-2 text-lg">
             <HighlighText text="Phone: " />
             {phone}
           </a>
-          <p className="mb-2">
+          <p className="mb-2 text-lg">
             <HighlighText text="Place: " />
             {address}
           </p>

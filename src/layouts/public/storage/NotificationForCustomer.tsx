@@ -1,9 +1,11 @@
 "use client";
+import useCustomerStore from "@/stores/useCustomerStore";
 import { Modal } from "antd";
 import { useEffect, useState } from "react";
 
 export function NotificationForCustomerLayout() {
   const [open, setOpen] = useState(false);
+  const { isLoggedCustomer } = useCustomerStore();
 
   //
   useEffect(() => {
@@ -21,6 +23,9 @@ export function NotificationForCustomerLayout() {
     setOpen(false);
   };
 
+  // Chưa đăng nhập không hiện thông báo
+  if (!isLoggedCustomer) return null;
+
   return (
     <Modal
       open={open}
@@ -31,11 +36,7 @@ export function NotificationForCustomerLayout() {
       footer={[]}
       width={1000}
     >
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
+      <p>Notification</p>
     </Modal>
   );
 }

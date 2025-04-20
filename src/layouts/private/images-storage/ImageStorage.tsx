@@ -86,10 +86,11 @@ export default function ImageStorageLayout({
           dataEdit={dataEdit}
         />
       )}
-      <Row gutter={[16, 24]}>
+      <Row gutter={[24, 24]}>
         {items?.map((item) => (
-          <Col span={5} key={item.label}>
+          <Col span={6} key={item.label}>
             <CardImageStorage
+              type="admin"
               item={item}
               actives={activeIds}
               onClickEdit={onEdit}

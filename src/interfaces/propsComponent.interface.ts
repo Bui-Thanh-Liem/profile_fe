@@ -8,6 +8,7 @@ import {
 } from "antd";
 import { ChangeEvent, ReactElement, ReactNode } from "react";
 import { TResponse } from "./response.interface";
+import { IUser } from "./model.interface";
 
 export interface IPropNavbarItemIcon {
   src: string;
@@ -45,12 +46,12 @@ export interface IPropCardPercentAdmin {
   link?: string;
 }
 
-export interface IPropCardItem<T> {
+export interface IPropCardItemAdmin<T> {
   item: T;
-  actives: string[];
-  onClickEdit: (dataEdit: T) => void;
-  onClickDelete: (ids: string[]) => void;
-  onClickActive: () => void;
+  actives?: string[];
+  onClickEdit?: (dataEdit: T) => void;
+  onClickDelete?: (ids: string[]) => void;
+  onClickActive?: () => void;
 }
 
 export interface IPropInputPrimary extends InputProps {
@@ -139,7 +140,23 @@ export interface IPropMyTimeLine {
   datePosition?: "start" | "end";
 }
 
+export interface IPropAuthor {
+  user: IUser;
+  date: Date;
+  detail?: boolean;
+}
+
 export interface IPropMyTimelineContainer {
   datePosition: "start" | "end";
   items: IPropMyTimeLine[];
+}
+
+export interface IPropImageCarousel {
+  images: string[];
+  alt: string;
+}
+
+export interface IPropComponentLayout<T> {
+  items: Array<T>;
+  totalItems: number;
 }

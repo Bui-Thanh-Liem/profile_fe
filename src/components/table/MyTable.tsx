@@ -2,11 +2,11 @@
 import { useToast } from "@/hooks/useToast";
 import { IBase, IUser } from "@/interfaces/model.interface";
 import IPropMyTable from "@/interfaces/propsComponent.interface";
-import { UserOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import { Card, Table } from "antd";
 import { createStyles } from "antd-style";
 import React, { useEffect, useState } from "react";
+import { Author } from "../Author";
 import MyTableAction from "./MyTableAction";
 import MyTableToolbar from "./MyTableToolbar";
 
@@ -76,20 +76,7 @@ export default function MyTable<T extends IBaseMyTable>({
       render: (record) => {
         const creator = record.createdBy as IUser;
         const createdAt = record.createdAt;
-        const date = new Date(createdAt);
-
-        const formattedDate = new Intl.DateTimeFormat("sv-SE").format(
-          new Date(createdAt)
-        );
-        const formattedTime = date.toLocaleTimeString("en-GB");
-
-        //
-        return (
-          <>
-            <p>{creator?.fullName || <UserOutlined />}</p>
-            <p>{`${formattedDate}, ${formattedTime}`}</p>
-          </>
-        );
+        return <Author user={creator} date={createdAt} />;
       },
     },
     {
@@ -99,21 +86,7 @@ export default function MyTable<T extends IBaseMyTable>({
       render: (record) => {
         const editor = record.updatedBy as IUser;
         const updatedAt = record.updatedAt;
-        const date = new Date(updatedAt);
-
-        //
-        const formattedDate = new Intl.DateTimeFormat("sv-SE").format(
-          new Date(updatedAt)
-        );
-        const formattedTime = date.toLocaleTimeString("en-GB");
-
-        //
-        return (
-          <>
-            <p>{editor?.fullName || <UserOutlined />}</p>
-            <p>{`${formattedDate}, ${formattedTime}`}</p>
-          </>
-        );
+        return <Author user={editor} date={updatedAt} />;
       },
     },
     {

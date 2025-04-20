@@ -1,7 +1,13 @@
 import ComingSoonPage from "@/components/pages/ComingSoon";
+import { ContactMe } from "@/layouts/public/ContactMe";
 
 function ProjectPage() {
-  return <ComingSoonPage />;
+  return (
+    <>
+      <ComingSoonPage />
+      <ContactMe />
+    </>
+  );
 }
 
 export default ProjectPage;

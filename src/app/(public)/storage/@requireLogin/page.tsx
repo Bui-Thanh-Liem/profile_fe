@@ -1,5 +1,5 @@
-import ModalRequireLogin from "@/components/modals/ModalRequireLogin";
+import { RequireLogin } from "@/layouts/public/storage/RequireLogin";
 
-export default function RequireLogin() {
-  return <ModalRequireLogin />;
+export default function RequireLoginPage() {
+  return <RequireLogin />;
 }

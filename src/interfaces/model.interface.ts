@@ -9,7 +9,6 @@ export type ISkill = InterfaceModel.ISkill;
 export type IImageStorage = InterfaceModel.IImageStorage;
 export type IKeyWord = InterfaceModel.IKeyWord;
 export type ISendMail = InterfaceModel.ISendMail;
-export type ISubject = InterfaceModel.ISubject;
 export type ISubjectGroup = InterfaceModel.ISubjectGroup;
 export type ISubjectItem = InterfaceModel.ISubjectItem;
 export type IAbout = InterfaceModel.IAbout;

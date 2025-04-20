@@ -6,7 +6,7 @@ export function CardPercentAdmin({
   title,
   value,
   percent,
-  link,
+  // link,
 }: IPropCardPercentAdmin) {
   return (
     <Card>

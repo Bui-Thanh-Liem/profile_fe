@@ -1,62 +1,11 @@
-import { IImageStorage, IKeyWord } from "@/interfaces/model.interface";
-import { IPropCardItem } from "@/interfaces/propsComponent.interface";
-import { Card, Carousel, Modal, Space, Tag } from "antd";
+import { IImageStorage, IKeyWord, IUser } from "@/interfaces/model.interface";
+import { IPropCardItemAdmin } from "@/interfaces/propsComponent.interface";
+import { Card, Space, Tag } from "antd";
 import Meta from "antd/es/card/Meta";
-import Image from "next/image";
-import { useState } from "react";
+import { ImageCarousel } from "../ImageCarousel";
 import { ItemAction } from "../ItemAction";
-
-interface IPropMyImage {
-  images: string[];
-  alt: string;
-}
-
-//
-const MyImageInCard = ({ images, alt }: IPropMyImage) => {
-  const [visible, setVisible] = useState(false);
-
-  return (
-    <>
-      <Image
-        height={200}
-        width={200}
-        alt={alt}
-        src={images[0]}
-        onClick={(e) => {
-          setVisible(true);
-          e.preventDefault();
-          e.stopPropagation();
-        }}
-        className="cursor-pointer object-contain"
-      />
-      <Modal
-        open={visible}
-        footer={null}
-        onCancel={() => setVisible(false)}
-        width={800}
-        centered
-      >
-        <Carousel infinite={false} arrows>
-          {images.map((src, index) => (
-            <div key={index} style={{ textAlign: "center" }}>
-              <Image
-                width={800}
-                height={600}
-                src={src}
-                alt={`carousel-${index}`}
-                style={{
-                  maxWidth: "100%",
-                  maxHeight: "500px",
-                  objectFit: "contain",
-                }}
-              />
-            </div>
-          ))}
-        </Carousel>
-      </Modal>
-    </>
-  );
-};
+import { MyAvatar } from "../MyAvatar";
+import { Author } from "../Author";
 
 //
 export function CardImageStorage({
@@ -65,35 +14,79 @@ export function CardImageStorage({
   onClickEdit,
   onClickDelete,
   onClickActive,
-}: IPropCardItem<IImageStorage>) {
-  const { id, label, desc, images, keywords } = item;
-  const isActive = actives.includes(id);
+  type,
+}: IPropCardItemAdmin<IImageStorage> & { type: "customer" | "admin" }) {
+  const {
+    id,
+    label,
+    desc,
+    images,
+    keywords,
+    createdBy,
+    createdAt,
+    updatedAt,
+    updatedBy,
+  } = item;
+  const { avatar, fullName } = createdBy as IUser;
+  const isActive = actives?.includes(id);
 
   //
   return (
     <Card
       hoverable
       extra={
-        <Space className="flex items-center">
-          <Tag
-            bordered={false}
-            color={isActive ? "error" : ""}
-            onClick={onClickActive}
-          >
-            Checked
-          </Tag>
-          <ItemAction
-            onEdit={() => onClickEdit(item)}
-            onDelete={() => onClickDelete([id])}
-          />
-        </Space>
+        type === "admin" && (
+          <Space className="flex items-center">
+            <Tag
+              bordered={false}
+              color={isActive ? "error" : ""}
+              onClick={onClickActive}
+            >
+              Checked
+            </Tag>
+            <ItemAction
+              onEdit={() => {
+                if (onClickEdit) onClickEdit(item);
+              }}
+              onDelete={() => {
+                if (onClickDelete) onClickDelete([id]);
+              }}
+            />
+          </Space>
+        )
       }
-      cover={<MyImageInCard alt={label} images={images} />}
+      cover={<ImageCarousel alt={label} images={images} />}
+      actions={
+        type === "admin"
+          ? [
+              <Author
+                key={"created"}
+                user={createdBy as IUser}
+                date={createdAt}
+                detail={false}
+              />,
+              <Author
+                key={"created"}
+                user={updatedBy as IUser}
+                date={updatedAt}
+                detail={false}
+              />,
+            ]
+          : undefined
+      }
+      className="shadow-md shadow-primary rounded-md"
     >
       <Meta
+        avatar={
+          <MyAvatar
+            className="cursor-pointer"
+            src={avatar || ""}
+            alt={fullName || ""}
+            fallbackText={fullName || ""}
+          />
+        }
         title={label}
-        description={!!desc ? desc : ""}
-        className="line-clamp-3"
+        description={desc}
       />
       {keywords.length > 0 && (
         <div className="mt-4 flex flex-wrap gap-y-2">
@@ -104,6 +97,9 @@ export function CardImageStorage({
           ))}
         </div>
       )}
+      <div>
+        <p>{}</p>
+      </div>
     </Card>
   );
 }

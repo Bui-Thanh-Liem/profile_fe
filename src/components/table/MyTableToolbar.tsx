@@ -14,13 +14,17 @@ export default function MyTableToolbar({
   onClickDeleteItems,
   totalItems,
 }: IPropsMyTableToolbar) {
-  const pushUrl = usePushUrl();
+  const { pushUrl } = usePushUrl();
   const [searchValue, setSearchValue] = useState<string>();
   const searchValueDebounce = useDebounce(searchValue, 1200);
 
   //
   useEffect(() => {
-    pushUrl({ search: searchValueDebounce });
+    if (searchValueDebounce) {
+      pushUrl({ search: searchValueDebounce });
+    } else {
+      pushUrl({});
+    }
   }, [searchValueDebounce, pushUrl]);
 
   return (

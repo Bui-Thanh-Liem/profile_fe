@@ -42,17 +42,17 @@ export async function findOneById(id: string) {
 }
 
 export async function findAll(
-  queries: InterfaceCommon.IQueries<IImageStorage>
+  queries?: InterfaceCommon.IQueries<IImageStorage>
 ) {
   const response = await callApiServerCookie<
     InterfaceCommon.IGetMulti<IImageStorage>
   >({
     url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
       CONSTANT_ROUTE.IMAGE_STORAGE
-    }${Utils.UtilConvert.convertObjectToString(queries)}`,
+    }${Utils.UtilConvert.convertObjectToString(queries || {})}`,
     options: {
       method: "GET",
-      cache: "force-cache",
+      cache: "no-cache", // luu cache
       next: { tags: [CONSTANT_TAG_CACHE.imageStorages] },
     },
   });

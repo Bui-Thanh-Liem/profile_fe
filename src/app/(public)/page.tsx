@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaUserGraduate } from "react-icons/fa";
 import meWebp from "../../../public/meWebp.webp";
+import { ContactMe } from "@/layouts/public/ContactMe";
 
 export default function HomePage() {
   //
@@ -42,6 +43,7 @@ export default function HomePage() {
           <Image src={meWebp} alt="LiemDev" className={classesImage} />
         </Col>
       </Row>
+      <ContactMe />
     </section>
   );
 }

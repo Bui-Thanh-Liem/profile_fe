@@ -1,24 +1,30 @@
 "use client";
 import { IQueries } from "@/interfaces/common.interface";
 import { usePathname, useRouter } from "next/navigation";
+import { useCallback } from "react";
 
-export function usePushUrl() {
+export function usePushUrl<T>() {
   const router = useRouter();
   const pathname = usePathname();
 
-  function pushUrl(queryParams: IQueries) {
-    const searchParams = new URLSearchParams();
+  const pushUrl = useCallback(
+    (queryParams: IQueries<T>) => {
+      const searchParams = new URLSearchParams();
 
-    Object.entries(queryParams).forEach(([key, value]) => {
-      if (value !== undefined) {
-        searchParams.append(key, String(value));
-      }
-    });
+      Object.entries(queryParams).forEach(([key, value]) => {
+        if (value !== undefined) {
+          const isObject = typeof value === "object" && value !== null;
+          const encodedValue = isObject ? JSON.stringify(value) : String(value);
+          searchParams.append(key, encodedValue);
+        }
+      });
 
-    const newUrl = `${pathname}?${searchParams.toString()}`;
-    router.push(newUrl);
-    // router.refresh();
-  }
+      const newUrl = `${pathname}?${searchParams.toString()}`;
+      console.log("newUrl:::", newUrl);
+      router.push(newUrl);
+    },
+    [pathname, router]
+  );
 
-  return pushUrl;
+  return { pushUrl };
 }

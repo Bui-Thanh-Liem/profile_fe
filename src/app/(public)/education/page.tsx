@@ -1,6 +1,7 @@
 import { AwardEducation } from "@/components/AwardEducation";
 import { MyTimelineContainer } from "@/components/MyTimeline";
 import { IPropMyTimeLine } from "@/interfaces/propsComponent.interface";
+import { ContactMe } from "@/layouts/public/ContactMe";
 import { Col, Row } from "antd";
 
 export default function EducationPage() {
@@ -61,6 +62,7 @@ export default function EducationPage() {
           <MyTimelineContainer items={timelineData} datePosition="end" />
         </Col>
       </Row>
+      <ContactMe />
     </section>
   );
 }

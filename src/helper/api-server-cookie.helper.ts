@@ -93,7 +93,7 @@ export const callApiServerCookie = async <T>({
     // Call api logout
     await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_USER);
     await logout();
-    redirect("/auth/login");
+    redirect("/auth/logout");
   }
 
   //

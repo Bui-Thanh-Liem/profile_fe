@@ -1,3 +1,4 @@
+import { TResponse } from "@/interfaces/response.interface";
 import { useState, useEffect } from "react";
 
 export default function useFetch<T>(url: string) {
@@ -14,11 +15,11 @@ export default function useFetch<T>(url: string) {
 
       try {
         const response = await fetch(url, { signal: controller.signal });
-        if (!response.ok) {
+        const result = (await response.json()) as TResponse<T>;
+        if (result.statusCode !== 200) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const result = await response.json();
-        setData(result);
+        setData(result.data);
       } catch (error) {
         if (error instanceof Error && error.name !== "AbortError") {
           setError(error); // Chỉ lưu lỗi nếu không phải AbortError

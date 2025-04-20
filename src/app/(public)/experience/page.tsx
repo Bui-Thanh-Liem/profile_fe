@@ -1,5 +1,6 @@
 import { MyTimelineContainer } from "@/components/MyTimeline";
 import { IPropMyTimeLine } from "@/interfaces/propsComponent.interface";
+import { ContactMe } from "@/layouts/public/ContactMe";
 import { Col, Row } from "antd";
 
 function ExperiencePage() {
@@ -25,6 +26,7 @@ function ExperiencePage() {
           <MyTimelineContainer items={timelineData} datePosition="start" />
         </Col>
       </Row>
+      <ContactMe />
     </section>
   );
 }

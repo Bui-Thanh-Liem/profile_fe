@@ -1,6 +1,6 @@
 import { IPropMyUpload } from "@/interfaces/propsComponent.interface";
 import type { GetProp, UploadFile, UploadProps } from "antd";
-import { Upload } from "antd";
+import { Switch, Upload } from "antd";
 import ImgCrop from "antd-img-crop";
 import { useEffect, useState } from "react";
 
@@ -13,6 +13,7 @@ export const MyUpload = ({
   onChangeUpload,
 }: IPropMyUpload) => {
   const [fileList, setFileList] = useState<UploadFile[]>([]);
+  const [isCutImage, setIsCutImage] = useState<boolean>(true);
 
   //
   useEffect(() => {
@@ -68,14 +69,25 @@ export const MyUpload = ({
 
   return (
     <>
-      <ImgCrop
-        aspect={aspect}
-        fillColor="transparent"
-        modalTitle="edit image"
-        rotationSlider
-        zoomSlider
-        quality={1}
-      >
+      {isCutImage ? (
+        <ImgCrop
+          aspect={aspect}
+          fillColor="transparent"
+          modalTitle="edit image"
+          rotationSlider
+          zoomSlider
+          quality={1}
+        >
+          <Upload
+            listType="picture-card"
+            fileList={fileList}
+            onChange={onChange}
+            onPreview={onPreview}
+          >
+            {fileList.length < length && "+ Upload"}
+          </Upload>
+        </ImgCrop>
+      ) : (
         <Upload
           listType="picture-card"
           fileList={fileList}
@@ -84,7 +96,15 @@ export const MyUpload = ({
         >
           {fileList.length < length && "+ Upload"}
         </Upload>
-      </ImgCrop>
+      )}
+      <div className="mt-2">
+        <span className="text-gray-app">Cut image (200x200)</span>
+        <Switch
+          className="ml-2"
+          value={isCutImage}
+          onChange={() => setIsCutImage(!isCutImage)}
+        />
+      </div>
     </>
   );
 };

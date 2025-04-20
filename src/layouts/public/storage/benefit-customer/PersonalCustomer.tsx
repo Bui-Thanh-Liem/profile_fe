@@ -1,0 +1,71 @@
+"use client";
+import { MyAvatar } from "@/components/MyAvatar";
+import { Dropdown, FloatButton, MenuProps } from "antd";
+import { useRouter } from "next/navigation";
+import { IoIosLogOut } from "react-icons/io";
+import { RiSettings4Line, RiUser2Line } from "react-icons/ri";
+import useCustomerStore from "../../../../stores/useCustomerStore";
+
+const userItems: MenuProps["items"] = [
+  {
+    key: "customer/my-account",
+    label: "My Account",
+    disabled: true,
+  },
+  {
+    type: "divider",
+  },
+  {
+    key: "customer/profile",
+    label: "Profile",
+    icon: <RiUser2Line />,
+    extra: "Ctrl + P",
+  },
+  {
+    key: "customer/settings",
+    label: "Settings",
+    icon: <RiSettings4Line />,
+    extra: "Ctrl + S",
+  },
+  {
+    type: "divider",
+  },
+  {
+    key: "customer/logout",
+    label: <span className="text-red-600">Logout</span>,
+    icon: <IoIosLogOut color="#dc2626" />,
+    extra: "Ctrl + O",
+  },
+];
+
+export default function PersonalCustomer() {
+  const router = useRouter();
+  const { logoutCustomer, currentCustomer } = useCustomerStore();
+  const onClickItemMenu: MenuProps["onClick"] = (info) => {
+    console.log("info.key:::", info.key);
+
+    if (info.key === "customer/logout") {
+      logoutCustomer();
+      router.push("/");
+    }
+  };
+
+  return (
+    <FloatButton.Group style={{ insetInlineEnd: 100 }}>
+      <Dropdown
+        menu={{ items: userItems, onClick: onClickItemMenu }}
+        arrow={{ pointAtCenter: true }}
+        placement="top"
+        trigger={["hover"]}
+      >
+        <span>
+          <MyAvatar
+            src={currentCustomer?.avatar || ""}
+            alt={currentCustomer?.fullName || ""}
+            fallbackText={currentCustomer?.fullName || ""}
+          />
+        </span>
+      </Dropdown>
+    </FloatButton.Group>
+  );
+}

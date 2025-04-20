@@ -1,8 +1,9 @@
 import { StorageNavItem } from "@/components/StoreageNavItem";
 import { IPropStorageNavItem } from "@/interfaces/propsComponent.interface";
-import { v4 } from "uuid";
 
 //
+import FilterAndSearchStorage from "@/layouts/public/storage/FilterAndSearchStorage";
+import { BenefitCustomer } from "@/layouts/public/storage/benefit-customer/BenefitCustomer";
 import baseAlgorithm from "../../../../public/icons/algorithm.png";
 import backend from "../../../../public/icons/backend.png";
 import cmd from "../../../../public/icons/cmd.png";
@@ -10,6 +11,7 @@ import dataStructureAndAlgorithm from "../../../../public/icons/data-structure.p
 import devOps from "../../../../public/icons/devOps.png";
 import frontend from "../../../../public/icons/frontend.png";
 import imageStorage from "../../../../public/icons/image-storage.png";
+import PersonalCustomer from "@/layouts/public/storage/benefit-customer/PersonalCustomer";
 
 export default function StorageLayout({
   children,
@@ -21,7 +23,7 @@ export default function StorageLayout({
   requireLogin: React.ReactNode;
 }) {
   //
-  const mockData: IPropStorageNavItem[] = [
+  const storageNavData: IPropStorageNavItem[] = [
     {
       image: frontend.src,
       name: "Front-end",
@@ -60,21 +62,24 @@ export default function StorageLayout({
   ];
   return (
     <div className="flex justify-center items-center min-h-screen">
-      <div className="w-[1200px] min-h-screen">
+      <div className="w-[1200px] min-h-screen pt-20">
         {requireLogin}
         {notificationForCustomer}
-        {children}
+        <FilterAndSearchStorage />
+        <div className="mt-28">{children}</div>
         <div className="fixed top-1/2 right-[calc(50%-700px)] translate-x-1/2 -translate-y-1/2">
-          {mockData.map((item) => (
+          {storageNavData.map((nav) => (
             <StorageNavItem
-              key={v4()}
-              image={item.image}
-              name={item.name}
-              href={item.href}
+              key={nav.href}
+              image={nav.image}
+              name={nav.name}
+              href={nav.href}
             />
           ))}
         </div>
       </div>
+      <PersonalCustomer />
+      <BenefitCustomer />
     </div>
   );
 }

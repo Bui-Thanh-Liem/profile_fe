@@ -76,7 +76,7 @@ export function LogoutLayout() {
           currentUser.email,
           formData.source || ""
         );
-        formData.subject = "This is mail from form Feedback logout";
+        formData.subject = "This is mail form Feedback logout";
         const res = await sendMailAdmin(formData);
 
         //

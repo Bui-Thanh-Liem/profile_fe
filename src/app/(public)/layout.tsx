@@ -15,7 +15,6 @@ export default function PublicLayout({
           <NavBar />
         </div>
         {children}
-        <ContactMe />
         <Footer />
       </div>
     </main>

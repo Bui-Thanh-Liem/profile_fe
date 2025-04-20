@@ -7,8 +7,8 @@ import { handleSetDefaultQueries } from "@/utils/handleSetDefaultQueries";
 export default async function ImageStoragePage({
   searchParams,
 }: IPropPage<IImageStorage>) {
-  const { limit, page } = handleSetDefaultQueries(searchParams);
-  const resImgStorages = await findAll({ limit, page });
+  const queryDefault = handleSetDefaultQueries(searchParams);
+  const resImgStorages = await findAll(queryDefault);
 
   return (
     <ImageStorageLayout

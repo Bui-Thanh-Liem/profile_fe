@@ -104,7 +104,7 @@ export function KeywordAction({
           name="name"
           rules={[{ required: true, message: "Please input name!" }]}
         >
-          <Input size="large" />
+          <Input size="large" maxLength={16} />
         </Form.Item>
         <Form.Item<IKeyWord> label="Color" name="color">
           <ColorPicker

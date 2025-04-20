@@ -147,7 +147,12 @@ export default function ImageStorageAction({
           name="keywords"
           rules={[{ required: true, message: "Please select key word!" }]}
         >
-          <Select size="large" mode="multiple" placeholder="Select key word">
+          <Select
+            size="large"
+            mode="multiple"
+            placeholder="Select key word"
+            maxCount={2}
+          >
             {keywords?.map((item) => (
               <Select.Option key={uuidV4()} value={item.id}>
                 {item.name}

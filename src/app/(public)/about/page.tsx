@@ -1,6 +1,7 @@
 import { find } from "@/apis/about.api";
 import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import HighlighText from "@/components/elements/HighlighText";
+import { ContactMe } from "@/layouts/public/ContactMe";
 import { Col, Row } from "antd";
 import Image from "next/image";
 import { TbFileCv } from "react-icons/tb";
@@ -52,6 +53,7 @@ async function AboutPage() {
             className="w-full h-auto rounded-2xl"
           />
         </Col>
+        <ContactMe />
       </Row>
     </section>
   );

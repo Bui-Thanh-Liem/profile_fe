@@ -1,6 +1,6 @@
 import { IRoleDataResource } from "@/interfaces/common.interface";
 import { IRole, IRoleGroup } from "@/interfaces/model.interface";
-import { IPropCardItem } from "@/interfaces/propsComponent.interface";
+import { IPropCardItemAdmin } from "@/interfaces/propsComponent.interface";
 import { generatorColor } from "@/utils/generatorColorRole";
 import { Badge, Card, Space, Tag } from "antd";
 import { v4 } from "uuid";
@@ -38,7 +38,7 @@ export function CardRoleGroup({
   onClickActive,
   onClickDelete,
   onClickEdit,
-}: IPropCardItem<IRoleGroup>) {
+}: IPropCardItemAdmin<IRoleGroup>) {
   const { id, name, roles } = item;
   const isActive = actives.includes(id);
 

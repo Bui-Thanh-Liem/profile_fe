@@ -1,8 +1,21 @@
+import { findAll } from "@/apis/image-storage";
+import { IImageStorage } from "@/interfaces/model.interface";
+import { IPropPage } from "@/interfaces/propsPage.interface";
+import ImageStorageLayout from "@/layouts/public/storage/ImageStorageLayout";
+import { handleSetDefaultQueries } from "@/utils/handleSetDefaultQueries";
 
-export default function ImageStoragePage() {
-  return <main className="flex h-screen pt-10">
-  <div className="m-auto w-[1200px] grid grid-cols-4 place-items-center gap-y-16">
-    BE
-  </div>
-</main>
+export default async function ImageStoragePage({
+  searchParams,
+}: IPropPage<IImageStorage>) {
+  const queryDefault = handleSetDefaultQueries(searchParams);
+  const res = await findAll(queryDefault);
+  const { items, totalItems } = res.data;
+
+  return (
+    <main className="flex">
+      <div className="m-auto w-[1200px]">
+        <ImageStorageLayout items={items} totalItems={totalItems} />
+      </div>
+    </main>
+  );
 }

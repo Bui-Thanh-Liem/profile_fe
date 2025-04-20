@@ -1,6 +1,7 @@
-import { IKeyWord } from "@/interfaces/model.interface";
-import { IPropCardItem } from "@/interfaces/propsComponent.interface";
+import { IKeyWord, IUser } from "@/interfaces/model.interface";
+import { IPropCardItemAdmin } from "@/interfaces/propsComponent.interface";
 import { Card, Space, Tag } from "antd";
+import { Author } from "../Author";
 import { ItemAction } from "../ItemAction";
 
 export function CardKeyword({
@@ -9,9 +10,9 @@ export function CardKeyword({
   onClickEdit,
   onClickDelete,
   onClickActive,
-}: IPropCardItem<IKeyWord>) {
-  const { id, name, color } = item;
-  const isActive = actives.includes(id);
+}: IPropCardItemAdmin<IKeyWord>) {
+  const { id, name, color, createdAt, createdBy, updatedAt, updatedBy } = item;
+  const isActive = actives?.includes(id);
 
   return (
     <Card
@@ -28,11 +29,29 @@ export function CardKeyword({
             Checked
           </Tag>
           <ItemAction
-            onDelete={() => onClickDelete([id])}
-            onEdit={() => onClickEdit(item)}
+            onDelete={() => {
+              if (onClickDelete) onClickDelete([id]);
+            }}
+            onEdit={() => {
+              if (onClickEdit) onClickEdit(item);
+            }}
           />
         </Space>
       }
+      actions={[
+        <Author
+          key={"created"}
+          user={createdBy as IUser}
+          date={createdAt}
+          detail={false}
+        />,
+        <Author
+          key={"created"}
+          user={updatedBy as IUser}
+          date={updatedAt}
+          detail={false}
+        />,
+      ]}
     >
       <p
         style={{ backgroundColor: color }}

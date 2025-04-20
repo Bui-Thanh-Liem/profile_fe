@@ -1,6 +1,6 @@
 "use client";
 import { ISkill } from "@/interfaces/model.interface";
-import { IPropCardItem } from "@/interfaces/propsComponent.interface";
+import { IPropCardItemAdmin } from "@/interfaces/propsComponent.interface";
 import { Card, Slider, Space, Tag } from "antd";
 import Meta from "antd/es/card/Meta";
 import Image from "next/image";
@@ -14,7 +14,7 @@ export function CardSkillAdmin({
   onClickEdit,
   onClickDelete,
   onClickActive,
-}: IPropCardItem<ISkill>) {
+}: IPropCardItemAdmin<ISkill>) {
   const { id, name, image, progress } = item;
   const isActive = actives.includes(id);
   const [isMounted, setIsMounted] = useState(false);

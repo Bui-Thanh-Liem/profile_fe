@@ -1,6 +1,5 @@
-import Footer from "@/components/Footer";
-import NavBar from "@/components/navbar/NavBar";
-import { ContactMe } from "@/layouts/public/ContactMe";
+import Footer from "@/layouts/public/Footer";
+import NavBar from "@/layouts/public/navbar/NavBar";
 import "./layout.css";
 
 export default function PublicLayout({

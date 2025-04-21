@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 
 //
 import Image from "next/image";
-import google from "../../../../public/icons/google.png";
+import google from "../../../../public/google.png";
 import useCustomerStore from "../../../stores/useCustomerStore";
 import Logo from "../../../components/Logo";
 const { Countdown } = Statistic;
@@ -41,8 +41,7 @@ type FieldTypeOTP = {
 
 export function RequireLogin() {
   const [isMounted, setIsMounted] = useState(false);
-  const { isLoggedCustomer, loginCustomer, currentCustomer } =
-    useCustomerStore();
+  const { isLoggedCustomer, loginCustomer } = useCustomerStore();
 
   //
   const router = useRouter();

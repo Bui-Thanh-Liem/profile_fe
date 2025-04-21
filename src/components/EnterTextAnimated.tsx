@@ -1,8 +1,8 @@
 "use client";
 import { memo, useEffect, useRef, useState } from "react";
-import programer from "../../public/icons/programer.png";
-import frontend from "../../public/icons/frontend.png";
-import backend from "../../public/icons/backend.png";
+import programer from "../../public/programer.png";
+import frontend from "../../public/frontend.png";
+import backend from "../../public/backend.png";
 
 //
 import { IPropEnterTextAnimated } from "@/interfaces/propsComponent.interface";

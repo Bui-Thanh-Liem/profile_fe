@@ -11,8 +11,7 @@ import { TResponse } from "./response.interface";
 import { IUser } from "./model.interface";
 
 export interface IPropNavbarItemIcon {
-  src: string;
-  alt: string;
+  icon: ReactNode;
 }
 
 export interface IPropNavbarItemLink {
@@ -117,7 +116,7 @@ export interface IPropMyDrawer extends DrawerProps {
 }
 
 export interface IPropStorageNavItem {
-  image: string;
+  icon: ReactNode;
   name: string;
   href: string;
 }

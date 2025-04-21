@@ -1,12 +1,13 @@
 //
-import facebook from "../../../public/icons/facebook.png";
-import github from "../../../public/icons/github.png";
-// import instagram from "../../../public/icons/instagram.png";
-import twitter from "../../../public/icons/twitter.png";
-import youtube from "../../../public/icons/youtube.png";
-import Logo from "../Logo";
-import { NavbarItemLink } from "./NavbarItemLink";
+import {
+  FacebookOutlined,
+  GithubOutlined,
+  TwitterOutlined,
+  YoutubeOutlined,
+} from "@ant-design/icons";
+import Logo from "../../../components/Logo";
 import { NavbarItemIcon } from "./NavbarItemIcon";
+import { NavbarItemLink } from "./NavbarItemLink";
 
 //
 function NavBar() {
@@ -44,27 +45,22 @@ function NavBar() {
       <ul className="flex gap-8 justify-end">
         <li>
           <a href="#" target="">
-            <NavbarItemIcon src={github.src} alt="github" />
+            <NavbarItemIcon icon={<FacebookOutlined color=""/>} />
           </a>
         </li>
         <li>
           <a href="#" target="">
-            <NavbarItemIcon src={facebook.src} alt="facebook" />
-          </a>
-        </li>
-        {/* <li>
-          <a href="#" target="">
-            <ItemIconNavbar src={instagram.src} alt="instagram" />
-          </a>
-        </li> */}
-        <li>
-          <a href="#" target="">
-            <NavbarItemIcon src={twitter.src} alt="twitter" />
+            <NavbarItemIcon icon={<GithubOutlined />} />
           </a>
         </li>
         <li>
           <a href="#" target="">
-            <NavbarItemIcon src={youtube.src} alt="youtube" />
+            <NavbarItemIcon icon={<TwitterOutlined />} />
+          </a>
+        </li>
+        <li>
+          <a href="#" target="">
+            <NavbarItemIcon icon={<YoutubeOutlined />} />
           </a>
         </li>
       </ul>

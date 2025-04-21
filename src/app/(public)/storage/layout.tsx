@@ -1,17 +1,17 @@
 import { StorageNavItem } from "@/components/StoreageNavItem";
 import { IPropStorageNavItem } from "@/interfaces/propsComponent.interface";
-
-//
 import FilterAndSearchStorage from "@/layouts/public/storage/FilterAndSearchStorage";
 import { BenefitCustomer } from "@/layouts/public/storage/benefit-customer/BenefitCustomer";
-import baseAlgorithm from "../../../../public/icons/algorithm.png";
-import backend from "../../../../public/icons/backend.png";
-import cmd from "../../../../public/icons/cmd.png";
-import dataStructureAndAlgorithm from "../../../../public/icons/data-structure.png";
-import devOps from "../../../../public/icons/devOps.png";
-import frontend from "../../../../public/icons/frontend.png";
-import imageStorage from "../../../../public/icons/image-storage.png";
 import PersonalCustomer from "@/layouts/public/storage/benefit-customer/PersonalCustomer";
+import {
+  FileCode,
+  FileJson,
+  Images,
+  MonitorCog,
+  SpellCheck,
+  SpellCheck2,
+  Terminal,
+} from "lucide-react";
 
 export default function StorageLayout({
   children,
@@ -25,41 +25,43 @@ export default function StorageLayout({
   //
   const storageNavData: IPropStorageNavItem[] = [
     {
-      image: frontend.src,
+      icon: <FileCode />,
       name: "Front-end",
       href: "/storage/front-end",
     },
     {
-      image: backend.src,
+      icon: <FileJson />,
       name: "Back-end",
       href: "/storage/back-end",
     },
     {
-      image: devOps.src,
+      icon: <MonitorCog />,
       name: "Devops",
       href: "/storage/devops",
     },
     {
-      image: baseAlgorithm.src,
+      icon: <SpellCheck />,
       name: "Algorithm",
       href: "/storage/algorithm",
     },
     {
-      image: dataStructureAndAlgorithm.src,
+      icon: <SpellCheck2 />,
       name: "Data structure",
       href: "/storage/data-structure",
     },
     {
-      image: cmd.src,
+      icon: <Terminal />,
       name: "Command line",
       href: "/storage/command-line",
     },
     {
-      image: imageStorage.src,
+      icon: <Images />,
       name: "Image storage",
       href: "/storage/image-storage",
     },
   ];
+
+  //
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="w-[1200px] min-h-screen pt-20">
@@ -71,7 +73,7 @@ export default function StorageLayout({
           {storageNavData.map((nav) => (
             <StorageNavItem
               key={nav.href}
-              image={nav.image}
+              icon={nav.icon}
               name={nav.name}
               href={nav.href}
             />

@@ -1,13 +1,12 @@
 "use client";
 import { IPropStorageNavItem } from "@/interfaces/propsComponent.interface";
-import { Col, Row } from "antd";
-import Image from "next/image";
+import { ArrowLeftOutlined } from "@ant-design/icons";
+import { Button, Col, Row } from "antd";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { MyTooltip } from "./MyTooltip";
-import arrowLeft from "../../public/icons/left-arrow.png";
 
-export function StorageNavItem({ image, name, href }: IPropStorageNavItem) {
+export function StorageNavItem({ icon, name, href }: IPropStorageNavItem) {
   const pathname = usePathname();
   const isActive = href === pathname;
 
@@ -20,19 +19,18 @@ export function StorageNavItem({ image, name, href }: IPropStorageNavItem) {
       >
         <Link href={href}>
           <MyTooltip title={name} placement="right" color="#04befe">
-            <Image src={image} alt={name} width={50} height={50} />
+            <Button
+              type={isActive ? "primary" : "text"}
+              shape="circle"
+              size="middle"
+              icon={icon}
+            />
           </MyTooltip>
         </Link>
       </Col>
       {isActive && (
         <Col className="absolute top-1/2 -translate-y-1/2 -right-12">
-          <Image
-            width={30}
-            height={10}
-            src={arrowLeft.src}
-            alt="icon"
-            className="animate-bounce-left object-contain"
-          />
+          <ArrowLeftOutlined color="red" />
         </Col>
       )}
     </Row>

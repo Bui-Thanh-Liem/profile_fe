@@ -13,7 +13,7 @@ export default function PublicLayout({
         <div className="fixed top-0 left-0 right-0 z-50 flex shadow-sm bg-background">
           <NavBar />
         </div>
-        {children}
+        <div>{children}</div>
         <Footer />
       </div>
     </main>

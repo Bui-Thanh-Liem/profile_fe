@@ -2,17 +2,16 @@
 import { MyAvatar } from "@/components/MyAvatar";
 import { MyDrawer } from "@/components/MyDrawer";
 import useAuthStore from "@/stores/useAuthStore";
-import {
-  LogoutOutlined,
-  ProfileOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
 import { Dropdown, MenuProps, Space } from "antd";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import { ProfileCurrentUser } from "./ProfileCurrentUser";
 import { SettingCurrentUser } from "./SettingCurrentUser";
-
+import {
+  LogoutOutlined,
+  SettingOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 export function HeaderAdmin() {
   //
   const router = useRouter();
@@ -40,7 +39,7 @@ export function HeaderAdmin() {
     {
       key: "Profile",
       label: "Profile",
-      icon: <ProfileOutlined />,
+      icon: <UserOutlined />,
       extra: "⌘P",
       onClick: onClickProfile,
     },
@@ -58,7 +57,7 @@ export function HeaderAdmin() {
       danger: true,
       key: "Logout",
       label: "Logout",
-      icon: <LogoutOutlined />,
+      icon: <LogoutOutlined style={{ color: "red" }} />,
       extra: "⌘L",
       onClick: onClickLogout,
     },

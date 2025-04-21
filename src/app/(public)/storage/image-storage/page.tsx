@@ -1,4 +1,5 @@
 import { findAll } from "@/apis/image-storage";
+import PaginationStorage from "@/components/MyPagination";
 import { IImageStorage } from "@/interfaces/model.interface";
 import { IPropPage } from "@/interfaces/propsPage.interface";
 import ImageStorageLayout from "@/layouts/public/storage/ImageStorageLayout";

@@ -4,8 +4,8 @@ import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import { MyUpload } from "@/components/MyUpload";
 import { showToast } from "@/helper/show-toast.helper";
 import { IAbout } from "@/interfaces/model.interface";
-import { MinusOutlined, PlusOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Input, Row } from "antd";
+import { Minus, Plus } from "lucide-react";
 import { useEffect, useTransition } from "react";
 const { TextArea } = Input;
 
@@ -102,7 +102,7 @@ export function AboutAdminLayout({ item }: { item: IAbout }) {
                       />
                     </Form.Item>
                     <Button shape="circle" danger>
-                      <MinusOutlined onClick={() => remove(name)} />
+                      <Minus onClick={() => remove(name)} />
                     </Button>
                   </div>
                 ))}
@@ -110,7 +110,7 @@ export function AboutAdminLayout({ item }: { item: IAbout }) {
                   type="dashed"
                   onClick={() => add("")}
                   block
-                  icon={<PlusOutlined />}
+                  icon={<Plus />}
                   disabled={fields.length >= 3}
                 >
                   add new line

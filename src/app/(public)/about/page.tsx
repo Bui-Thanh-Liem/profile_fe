@@ -3,8 +3,8 @@ import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import HighlighText from "@/components/elements/HighlighText";
 import { ContactMe } from "@/layouts/public/ContactMe";
 import { Col, Row } from "antd";
+import { FileText } from "lucide-react";
 import Image from "next/image";
-import { TbFileCv } from "react-icons/tb";
 import { v4 } from "uuid";
 
 async function AboutPage() {
@@ -39,7 +39,7 @@ async function AboutPage() {
             {address}
           </p>
           <a href="/CV_BuiThanhLiem.pdf" target="_blank" download={true}>
-            <ButtonPrimary size="large" icon={<TbFileCv />} className="mt-2">
+            <ButtonPrimary size="large" icon={<FileText />} className="mt-2">
               Resume
             </ButtonPrimary>
           </a>

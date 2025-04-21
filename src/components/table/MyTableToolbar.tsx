@@ -2,10 +2,10 @@
 import { useDebounce } from "@/hooks/useDebounce";
 import { usePushUrl } from "@/hooks/usePushUrl";
 import { IPropsMyTableToolbar } from "@/interfaces/propsComponent.interface";
-import { PlusOutlined } from "@ant-design/icons";
 import { Button, Card, Input, Select } from "antd";
 import { useEffect, useState } from "react";
 import ButtonPrimary from "../elements/ButtonPrimary";
+import { Plus } from "lucide-react";
 const { Search } = Input;
 
 export default function MyTableToolbar({
@@ -32,7 +32,7 @@ export default function MyTableToolbar({
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-4">
           <ButtonPrimary onClick={onClickAddItem}>
-            <PlusOutlined />
+          <Plus />
           </ButtonPrimary>
           <Button variant="text" color="primary">
             {totalItems} items

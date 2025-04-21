@@ -1,19 +1,20 @@
 "use client";
 import { sendMailAdmin } from "@/apis/send-mail";
+import HighlighText from "@/components/elements/HighlighText";
 import { showToast } from "@/helper/show-toast.helper";
 import { ISendMail } from "@/interfaces/model.interface";
 import { TResponse } from "@/interfaces/response.interface";
 import { generatorResourceMail } from "@/utils/generatorResourceMail";
 import {
   AntDesignOutlined,
-  UserOutlined,
   PlusOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import { Avatar, Button, Col, Form, Input, Modal, Row, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { Enums } from "liemdev-profile-lib";
 import Image from "next/image";
-import { useEffect, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import intro from "../../../../public/launching.png";
 
 type TForm = {
@@ -28,11 +29,6 @@ export const StorageLayout = () => {
   const [actionForm] = Form.useForm<Partial<TForm>>();
   const [isPending, startTransition] = useTransition();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  //
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   //
   function onSubmitForm() {
@@ -59,6 +55,7 @@ export const StorageLayout = () => {
         showToast({
           statusCode: 500,
           message: "error in sending mail",
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as TResponse<any>);
         console.log("Error::", error);
       }
@@ -74,47 +71,52 @@ export const StorageLayout = () => {
   return (
     <>
       <Row>
-        <Col span={12}>
-          <p className="text-xl font-bold">
-            &ldquo;Hello programmers! If you want to share your knowledge and
-            build a valuable knowledge base together, don&apos;t hesitate to
-            email me — I&apos;m always ready to listen and accompany you!&ldquo;
-          </p>
-          <Avatar.Group
-            size="large"
-            max={{
-              count: 2,
-              style: {
-                color: "#f56a00",
-                backgroundColor: "#fde3cf",
+        <Col span={12} className="flex flex-col gap-6">
+          <h1 className="text-5xl font-bold text-foreground">Interested in</h1>
+          <h1 className="text-5xl font-bold text-foreground">
+            this <HighlighText text="Storage" /> ? Shoot me an
+          </h1>
+          <h1 className="text-5xl font-bold text-foreground">
+            email to join and
+          </h1>
+          <h1 className="text-5xl font-bold text-foreground">contribute!</h1>
+          <div>
+            <Avatar.Group
+              size="large"
+              max={{
+                count: 2,
+                style: {
+                  color: "#f56a00",
+                  backgroundColor: "#fde3cf",
+                  cursor: "pointer",
+                },
+                popover: { trigger: "click" },
+              }}
+            >
+              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+              <Avatar style={{ backgroundColor: "#f56a00" }}>K</Avatar>
+              <Avatar
+                style={{ backgroundColor: "#87d068" }}
+                icon={<UserOutlined />}
+              />
+              <Avatar
+                style={{ backgroundColor: "#1677ff" }}
+                icon={<AntDesignOutlined />}
+              />
+            </Avatar.Group>
+            <Avatar
+              style={{
+                backgroundColor: "#d9d9d9",
                 cursor: "pointer",
-              },
-              popover: { trigger: "click" },
-            }}
-          >
-            <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-            <Avatar style={{ backgroundColor: "#f56a00" }}>K</Avatar>
-            <Avatar
-              style={{ backgroundColor: "#87d068" }}
-              icon={<UserOutlined />}
+              }}
+              icon={<PlusOutlined />}
+              onClick={() => {
+                console.log("Thêm người dùng");
+              }}
             />
-            <Avatar
-              style={{ backgroundColor: "#1677ff" }}
-              icon={<AntDesignOutlined />}
-            />
-          </Avatar.Group>
-          <Avatar
-            style={{
-              backgroundColor: "#d9d9d9",
-              cursor: "pointer",
-            }}
-            icon={<PlusOutlined />}
-            onClick={() => {
-              console.log("Thêm người dùng");
-            }}
-          />
+          </div>
         </Col>
-        <Col span={12} className="-mt-10">
+        <Col span={12}>
           <Image width={400} height={400} src={intro.src} alt="intro" />
         </Col>
       </Row>

@@ -1,4 +1,4 @@
-import ComingSoonPage from "@/components/pages/ComingSoon";
+import ComingSoonPage from "@/components/ComingSoon";
 import { ContactMe } from "@/layouts/public/ContactMe";
 
 function ProjectPage() {

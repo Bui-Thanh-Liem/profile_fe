@@ -1,4 +1,4 @@
-import ComingSoonPage from "@/components/pages/ComingSoon";
+import ComingSoonPage from "@/components/ComingSoon";
 
 function SettingPage() {
   return <ComingSoonPage />;

@@ -2,9 +2,12 @@
 import { MyAvatar } from "@/components/MyAvatar";
 import { Dropdown, FloatButton, MenuProps } from "antd";
 import { useRouter } from "next/navigation";
-import { IoIosLogOut } from "react-icons/io";
-import { RiSettings4Line, RiUser2Line } from "react-icons/ri";
 import useCustomerStore from "../../../../stores/useCustomerStore";
+import {
+  LogoutOutlined,
+  SettingOutlined,
+  UserOutlined,
+} from "@ant-design/icons";
 
 const userItems: MenuProps["items"] = [
   {
@@ -18,13 +21,13 @@ const userItems: MenuProps["items"] = [
   {
     key: "customer/profile",
     label: "Profile",
-    icon: <RiUser2Line />,
+    icon: <UserOutlined />,
     extra: "Ctrl + P",
   },
   {
     key: "customer/settings",
     label: "Settings",
-    icon: <RiSettings4Line />,
+    icon: <SettingOutlined />,
     extra: "Ctrl + S",
   },
   {
@@ -33,7 +36,7 @@ const userItems: MenuProps["items"] = [
   {
     key: "customer/logout",
     label: <span className="text-red-600">Logout</span>,
-    icon: <IoIosLogOut color="#dc2626" />,
+    icon: <LogoutOutlined style={{ color: "red" }} />,
     extra: "Ctrl + O",
   },
 ];

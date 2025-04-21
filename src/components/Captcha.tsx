@@ -1,9 +1,8 @@
-import { Input } from "antd";
-import React, { useState, useEffect } from "react";
-import { FaRotate } from "react-icons/fa6";
-import ButtonPrimary from "./elements/ButtonPrimary";
-import { FaCheck } from "react-icons/fa";
 import { IPropCaptcha } from "@/interfaces/propsComponent.interface";
+import { Input } from "antd";
+import { CheckCheck, RefreshCcw } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import ButtonPrimary from "./elements/ButtonPrimary";
 
 const Captcha = ({ handleCheck }: IPropCaptcha) => {
   const [captcha, setCaptcha] = useState("");
@@ -91,11 +90,11 @@ const Captcha = ({ handleCheck }: IPropCaptcha) => {
               generateCaptcha();
             }}
           >
-            <FaRotate />
+            <RefreshCcw />
           </ButtonPrimary>
         </>
       ) : (
-        <FaCheck color="green" className="m-auto" size={32} />
+        <CheckCheck color="green" className="m-auto" size={32} />
       )}
     </div>
   );

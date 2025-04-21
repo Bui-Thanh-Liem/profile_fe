@@ -1,6 +1,6 @@
 import { IPropTableAction } from "@/interfaces/propsComponent.interface";
-import { DeleteOutlined, EditOutlined, MoreOutlined } from "@ant-design/icons";
 import { Button, Dropdown, MenuProps } from "antd";
+import { Ellipsis, Pencil, Trash2 } from "lucide-react";
 
 export function ItemAction({ onDelete, onEdit }: IPropTableAction) {
   //
@@ -8,7 +8,7 @@ export function ItemAction({ onDelete, onEdit }: IPropTableAction) {
     {
       key: "Edit",
       label: "Edit",
-      icon: <EditOutlined />,
+      icon: <Pencil />,
       extra: "⌘E",
       onClick: onEdit,
     },
@@ -19,7 +19,7 @@ export function ItemAction({ onDelete, onEdit }: IPropTableAction) {
       danger: true,
       key: "Delete",
       label: "Delete",
-      icon: <DeleteOutlined color="red" />,
+      icon: <Trash2 color="red" />,
       extra: "⌘D",
       onClick: onDelete,
     },
@@ -28,7 +28,7 @@ export function ItemAction({ onDelete, onEdit }: IPropTableAction) {
   return (
     <Dropdown menu={{ items }} arrow={true} trigger={["click"]}>
       <Button shape="circle">
-        <MoreOutlined className="text-xl font-bold" />
+        <Ellipsis className="text-xl font-bold" />
       </Button>
     </Dropdown>
   );

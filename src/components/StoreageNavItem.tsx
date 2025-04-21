@@ -1,6 +1,5 @@
 "use client";
 import { IPropStorageNavItem } from "@/interfaces/propsComponent.interface";
-import { ArrowLeftOutlined } from "@ant-design/icons";
 import { Button, Col, Row } from "antd";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -22,17 +21,12 @@ export function StorageNavItem({ icon, name, href }: IPropStorageNavItem) {
             <Button
               type={isActive ? "primary" : "text"}
               shape="circle"
-              size="middle"
+              size="large"
               icon={icon}
             />
           </MyTooltip>
         </Link>
       </Col>
-      {isActive && (
-        <Col className="absolute top-1/2 -translate-y-1/2 -right-12">
-          <ArrowLeftOutlined color="red" />
-        </Col>
-      )}
     </Row>
   );
 }

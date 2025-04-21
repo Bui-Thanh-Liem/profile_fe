@@ -1,8 +1,8 @@
 import { StorageNavItem } from "@/components/StoreageNavItem";
 import { IPropStorageNavItem } from "@/interfaces/propsComponent.interface";
-import FilterAndSearchStorage from "@/layouts/public/storage/FilterAndSearchStorage";
 import { BenefitCustomer } from "@/layouts/public/storage/benefit-customer/BenefitCustomer";
 import PersonalCustomer from "@/layouts/public/storage/benefit-customer/PersonalCustomer";
+import FilterAndSearchStorage from "@/layouts/public/storage/FilterAndSearchStorage";
 import {
   FileCode,
   FileJson,

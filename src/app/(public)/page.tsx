@@ -1,12 +1,12 @@
 import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import HighlighText from "@/components/elements/HighlighText";
 import EnterTextAnimated from "@/components/EnterTextAnimated";
+import { ContactMe } from "@/layouts/public/ContactMe";
 import { Col, Row } from "antd";
+import { GraduationCap } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { FaUserGraduate } from "react-icons/fa";
 import meWebp from "../../../public/meWebp.webp";
-import { ContactMe } from "@/layouts/public/ContactMe";
 
 export default function HomePage() {
   //
@@ -34,7 +34,7 @@ export default function HomePage() {
           </h1>
 
           <Link href="/about">
-            <ButtonPrimary size="large" icon={<FaUserGraduate />}>
+            <ButtonPrimary size="large" icon={<GraduationCap />}>
               About me
             </ButtonPrimary>
           </Link>

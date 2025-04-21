@@ -40,7 +40,7 @@ function EnterTextAnimated({ texts }: IPropEnterTextAnimated) {
           return indexSlice - 1;
         }
       });
-    }, 100);
+    }, 75);
 
     return () => {
       clearInterval(id);

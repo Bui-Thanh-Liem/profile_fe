@@ -25,11 +25,7 @@ export default function FilterAndSearchStorage() {
   const { pushUrl } = usePushUrl<Pick<IImageStorage, "keywords">>();
 
   useEffect(() => {
-    if (searchValueDebounce) {
-      pushUrl({ search: searchValueDebounce });
-    } else {
-      pushUrl({});
-    }
+    pushUrl({ search: searchValueDebounce || "" });
   }, [searchValueDebounce, pushUrl]);
 
   //

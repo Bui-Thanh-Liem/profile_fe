@@ -45,22 +45,45 @@ function NavBar() {
       <ul className="flex gap-8 justify-end">
         <li>
           <a href="#" target="">
-            <NavbarItemIcon icon={<FacebookOutlined color=""/>} />
+            <NavbarItemIcon
+              icon={
+                <FacebookOutlined
+                  className="text-blue-500"
+                  style={{ fontSize: "24px" }}
+                />
+              }
+            />
           </a>
         </li>
         <li>
           <a href="#" target="">
-            <NavbarItemIcon icon={<GithubOutlined />} />
+            <NavbarItemIcon
+              icon={<GithubOutlined style={{ fontSize: "24px" }} />}
+            />
           </a>
         </li>
         <li>
           <a href="#" target="">
-            <NavbarItemIcon icon={<TwitterOutlined />} />
+            <NavbarItemIcon
+              icon={
+                <TwitterOutlined
+                  className="text-blue-400"
+                  style={{ fontSize: "24px" }}
+                />
+              }
+            />
           </a>
         </li>
         <li>
           <a href="#" target="">
-            <NavbarItemIcon icon={<YoutubeOutlined />} />
+            <NavbarItemIcon
+              icon={
+                <YoutubeOutlined
+                  className="text-red-600"
+                  style={{ fontSize: "24px" }}
+                />
+              }
+            />
           </a>
         </li>
       </ul>

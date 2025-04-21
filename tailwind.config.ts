@@ -16,6 +16,12 @@ const config: Config = {
         "gray-app": "var(--gray-app)",
         "gray-second-app": "var(--gray-second-app)",
       },
+      height: {
+        "content-storage": "var(--height-content-storage)",
+      },
+      minHeight: {
+        "content-storage": "var(--height-content-storage)",
+      },
       animation: {
         wave: "wave 2s ease-in-out infinite",
         "fade-in": "fade-in 1s ease-in-out",

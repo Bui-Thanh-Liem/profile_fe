@@ -3,7 +3,7 @@ import { IPropCardItemAdmin } from "@/interfaces/propsComponent.interface";
 import { Card, Space, Tag } from "antd";
 import Meta from "antd/es/card/Meta";
 import { ImageCarousel } from "../ImageCarousel";
-import { ItemAction } from "../ItemAction";
+import { ItemAction } from "../ActionCard";
 import { MyAvatar } from "../MyAvatar";
 import { Author } from "../Author";
 

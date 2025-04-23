@@ -1,15 +1,11 @@
 "use client";
 import { sendMailAdmin } from "@/apis/send-mail";
 import HighlighText from "@/components/elements/HighlighText";
+import { MyAvatar } from "@/components/MyAvatar";
 import { showToast } from "@/helper/show-toast.helper";
 import { ISendMail } from "@/interfaces/model.interface";
 import { TResponse } from "@/interfaces/response.interface";
 import { generatorResourceMail } from "@/utils/generatorResourceMail";
-import {
-  AntDesignOutlined,
-  PlusOutlined,
-  UserOutlined,
-} from "@ant-design/icons";
 import { Avatar, Button, Col, Form, Input, Modal, Row, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { Enums } from "liemdev-profile-lib";
@@ -55,7 +51,7 @@ export const StorageLayout = () => {
         showToast({
           statusCode: 500,
           message: "error in sending mail",
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
         } as TResponse<any>);
         console.log("Error::", error);
       }
@@ -70,54 +66,68 @@ export const StorageLayout = () => {
 
   return (
     <>
-      <Row>
-        <Col span={12} className="flex flex-col gap-6">
-          <h1 className="text-5xl font-bold text-foreground">Interested in</h1>
-          <h1 className="text-5xl font-bold text-foreground">
-            this <HighlighText text="Storage" /> ? Shoot me an
+      <Row className="min-h-content-storage items-center">
+        <Col span={10} className="flex flex-col gap-6">
+          <h1 className="text-6xl font-bold text-foreground">If you are</h1>
+          <h1 className="text-6xl font-bold text-foreground">interested in</h1>
+          <h1 className="text-6xl font-bold text-foreground">
+            this <HighlighText text="Storage" />,
           </h1>
-          <h1 className="text-5xl font-bold text-foreground">
-            email to join and
+          <h1 className="text-6xl font-bold text-foreground">
+            please join us.
           </h1>
-          <h1 className="text-5xl font-bold text-foreground">contribute!</h1>
+          <p className="text-lg text-gray-500">
+            Has this amazing Storage caught your eye yet? Join us now to unlock
+            a world of exclusive features, smarter solutions, and so much more!
+            👀
+          </p>
           <div>
-            <Avatar.Group
-              size="large"
-              max={{
-                count: 2,
-                style: {
-                  color: "#f56a00",
-                  backgroundColor: "#fde3cf",
-                  cursor: "pointer",
-                },
-                popover: { trigger: "click" },
-              }}
-            >
-              <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
-              <Avatar style={{ backgroundColor: "#f56a00" }}>K</Avatar>
-              <Avatar
-                style={{ backgroundColor: "#87d068" }}
-                icon={<UserOutlined />}
+            <Avatar.Group>
+              <MyAvatar
+                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                alt="liem"
+                fallbackText={"liem"}
               />
-              <Avatar
-                style={{ backgroundColor: "#1677ff" }}
-                icon={<AntDesignOutlined />}
+              <MyAvatar
+                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                alt="liem"
+                fallbackText={"liem"}
+              />
+              <MyAvatar
+                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                alt="liem"
+                fallbackText={"liem"}
+              />
+              <MyAvatar
+                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                alt="liem"
+                fallbackText={"liem"}
+              />
+              <MyAvatar
+                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                alt="liem"
+                fallbackText={"liem"}
+              />
+              <MyAvatar
+                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                alt="liem"
+                fallbackText={"liem"}
+              />
+              <MyAvatar
+                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                alt="liem"
+                fallbackText={"liem"}
+              />
+              <MyAvatar
+                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                alt="liem"
+                fallbackText={"liem"}
               />
             </Avatar.Group>
-            <Avatar
-              style={{
-                backgroundColor: "#d9d9d9",
-                cursor: "pointer",
-              }}
-              icon={<PlusOutlined />}
-              onClick={() => {
-                console.log("Thêm người dùng");
-              }}
-            />
           </div>
         </Col>
-        <Col span={12}>
-          <Image width={400} height={400} src={intro.src} alt="intro" />
+        <Col span={14} className="flex justify-center">
+          <Image width={512} height={512} src={intro.src} alt="intro" />
         </Col>
       </Row>
 

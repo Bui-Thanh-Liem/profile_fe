@@ -3,13 +3,14 @@ import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import HighlighText from "@/components/elements/HighlighText";
 import { ContactMe } from "@/layouts/public/ContactMe";
 import { Col, Row } from "antd";
-import { FileText } from "lucide-react";
+import { FileJpgOutlined } from "@ant-design/icons";
 import Image from "next/image";
 import { v4 } from "uuid";
 
 async function AboutPage() {
   const resAbout = await find();
   const { text, address, email, phone, image } = resAbout.data;
+  console.log("resAbout.data:::", resAbout.data);
 
   return (
     <section className="flex h-screen">
@@ -39,7 +40,11 @@ async function AboutPage() {
             {address}
           </p>
           <a href="/CV_BuiThanhLiem.pdf" target="_blank" download={true}>
-            <ButtonPrimary size="large" icon={<FileText />} className="mt-2">
+            <ButtonPrimary
+              size="large"
+              icon={<FileJpgOutlined />}
+              className="mt-2"
+            >
               Resume
             </ButtonPrimary>
           </a>

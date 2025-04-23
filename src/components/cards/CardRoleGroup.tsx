@@ -4,7 +4,7 @@ import { IPropCardItemAdmin } from "@/interfaces/propsComponent.interface";
 import { generatorColor } from "@/utils/generatorColorRole";
 import { Badge, Card, Space, Tag } from "antd";
 import { v4 } from "uuid";
-import { ItemAction } from "../ItemAction";
+import { ItemAction } from "../ActionCard";
 
 //
 function RoleItem({ role }: { role: IRole }) {

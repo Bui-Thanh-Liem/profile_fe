@@ -5,7 +5,7 @@ import { IPropsMyTableToolbar } from "@/interfaces/propsComponent.interface";
 import { Button, Card, Input, Select } from "antd";
 import { useEffect, useState } from "react";
 import ButtonPrimary from "../elements/ButtonPrimary";
-import { Plus } from "lucide-react";
+import { PlusOutlined } from "@ant-design/icons";
 const { Search } = Input;
 
 export default function MyTableToolbar({
@@ -32,7 +32,7 @@ export default function MyTableToolbar({
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-4">
           <ButtonPrimary onClick={onClickAddItem}>
-          <Plus />
+            <PlusOutlined />
           </ButtonPrimary>
           <Button variant="text" color="primary">
             {totalItems} items

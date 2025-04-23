@@ -4,14 +4,14 @@ import { BenefitCustomer } from "@/layouts/public/storage/benefit-customer/Benef
 import PersonalCustomer from "@/layouts/public/storage/benefit-customer/PersonalCustomer";
 import FilterAndSearchStorage from "@/layouts/public/storage/FilterAndSearchStorage";
 import {
-  FileCode,
-  FileJson,
-  Images,
-  MonitorCog,
-  SpellCheck,
-  SpellCheck2,
-  Terminal,
-} from "lucide-react";
+  LayoutOutlined,
+  PartitionOutlined,
+  CalculatorOutlined,
+  RadarChartOutlined,
+  DatabaseOutlined,
+  CodeOutlined,
+  FileImageOutlined,
+} from "@ant-design/icons";
 
 export default function StorageLayout({
   children,
@@ -25,37 +25,37 @@ export default function StorageLayout({
   //
   const storageNavData: IPropStorageNavItem[] = [
     {
-      icon: <FileCode />,
+      icon: <LayoutOutlined style={{ fontSize: "24px" }} />,
       name: "Front-end",
       href: "/storage/front-end",
     },
     {
-      icon: <FileJson />,
+      icon: <RadarChartOutlined style={{ fontSize: "24px" }} />,
       name: "Back-end",
       href: "/storage/back-end",
     },
     {
-      icon: <MonitorCog />,
+      icon: <PartitionOutlined style={{ fontSize: "24px" }} />,
       name: "Devops",
       href: "/storage/devops",
     },
     {
-      icon: <SpellCheck />,
+      icon: <CalculatorOutlined style={{ fontSize: "24px" }} />,
       name: "Algorithm",
       href: "/storage/algorithm",
     },
     {
-      icon: <SpellCheck2 />,
+      icon: <DatabaseOutlined style={{ fontSize: "24px" }} />,
       name: "Data structure",
       href: "/storage/data-structure",
     },
     {
-      icon: <Terminal />,
+      icon: <CodeOutlined style={{ fontSize: "24px" }} />,
       name: "Command line",
       href: "/storage/command-line",
     },
     {
-      icon: <Images />,
+      icon: <FileImageOutlined style={{ fontSize: "24px" }} />,
       name: "Image storage",
       href: "/storage/image-storage",
     },

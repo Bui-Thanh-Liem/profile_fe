@@ -3,10 +3,10 @@ import HighlighText from "@/components/elements/HighlighText";
 import EnterTextAnimated from "@/components/EnterTextAnimated";
 import { ContactMe } from "@/layouts/public/ContactMe";
 import { Col, Row } from "antd";
-import { GraduationCap } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import meWebp from "../../../public/meWebp.webp";
+import { UserOutlined } from "@ant-design/icons";
 
 export default function HomePage() {
   //
@@ -34,7 +34,7 @@ export default function HomePage() {
           </h1>
 
           <Link href="/about">
-            <ButtonPrimary size="large" icon={<GraduationCap />}>
+            <ButtonPrimary size="large" icon={<UserOutlined />}>
               About me
             </ButtonPrimary>
           </Link>

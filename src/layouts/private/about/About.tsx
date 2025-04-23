@@ -5,7 +5,7 @@ import { MyUpload } from "@/components/MyUpload";
 import { showToast } from "@/helper/show-toast.helper";
 import { IAbout } from "@/interfaces/model.interface";
 import { Button, Col, Form, Input, Row } from "antd";
-import { Minus, Plus } from "lucide-react";
+import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import { useEffect, useTransition } from "react";
 const { TextArea } = Input;
 
@@ -102,7 +102,7 @@ export function AboutAdminLayout({ item }: { item: IAbout }) {
                       />
                     </Form.Item>
                     <Button shape="circle" danger>
-                      <Minus onClick={() => remove(name)} />
+                      <MinusOutlined onClick={() => remove(name)} />
                     </Button>
                   </div>
                 ))}
@@ -110,7 +110,7 @@ export function AboutAdminLayout({ item }: { item: IAbout }) {
                   type="dashed"
                   onClick={() => add("")}
                   block
-                  icon={<Plus />}
+                  icon={<PlusOutlined />}
                   disabled={fields.length >= 3}
                 >
                   add new line

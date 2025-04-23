@@ -1,6 +1,6 @@
 import { IPropCaptcha } from "@/interfaces/propsComponent.interface";
+import { CheckCircleOutlined, SyncOutlined } from "@ant-design/icons";
 import { Input } from "antd";
-import { CheckCheck, RefreshCcw } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import ButtonPrimary from "./elements/ButtonPrimary";
 
@@ -90,11 +90,13 @@ const Captcha = ({ handleCheck }: IPropCaptcha) => {
               generateCaptcha();
             }}
           >
-            <RefreshCcw />
+            <SyncOutlined />
           </ButtonPrimary>
         </>
       ) : (
-        <CheckCheck color="green" className="m-auto" size={32} />
+        <CheckCircleOutlined
+          style={{ fontSize: "32px", margin: "auto", color: "green" }}
+        />
       )}
     </div>
   );

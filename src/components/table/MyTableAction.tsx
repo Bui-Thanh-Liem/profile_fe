@@ -1,6 +1,6 @@
 import { Button, Popconfirm } from "antd";
 import { IPropTableAction } from "@/interfaces/propsComponent.interface";
-import { Pencil, Trash2 } from "lucide-react";
+import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
 export default function MyTableAction({ onEdit, onDelete }: IPropTableAction) {
   //
@@ -17,21 +17,21 @@ export default function MyTableAction({ onEdit, onDelete }: IPropTableAction) {
     <div className="flex items-center gap-2">
       <Popconfirm
         title="Sure to edit?"
-        icon={<Pencil color="orange" />}
+        icon={<EditOutlined style={{ color: "orange" }} />}
         onConfirm={onConfirmEdit}
       >
         <Button size="small" color="primary" variant="outlined">
-          <Pencil />
+          <EditOutlined />
         </Button>
       </Popconfirm>
       <Popconfirm
         title="Sure to delete?"
-        icon={<Trash2 color="red" />}
+        icon={<DeleteOutlined style={{ color: "red" }} />}
         okButtonProps={{ danger: true }}
         onConfirm={onConfirmDelete}
       >
         <Button size="small" danger>
-          <Trash2 />
+          <DeleteOutlined />
         </Button>
       </Popconfirm>
     </div>

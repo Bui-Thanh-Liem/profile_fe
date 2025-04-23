@@ -2,7 +2,7 @@ import { IKeyWord, IUser } from "@/interfaces/model.interface";
 import { IPropCardItemAdmin } from "@/interfaces/propsComponent.interface";
 import { Card, Space, Tag } from "antd";
 import { Author } from "../Author";
-import { ItemAction } from "../ItemAction";
+import { ItemAction } from "../ActionCard";
 
 export function CardKeyword({
   item,

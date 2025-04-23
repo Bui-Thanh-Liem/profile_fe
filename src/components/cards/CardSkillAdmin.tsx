@@ -5,7 +5,7 @@ import { Card, Slider, Space, Tag } from "antd";
 import Meta from "antd/es/card/Meta";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { ItemAction } from "../ItemAction";
+import { ItemAction } from "../ActionCard";
 
 //
 export function CardSkillAdmin({

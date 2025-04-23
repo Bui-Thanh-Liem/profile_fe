@@ -6,7 +6,7 @@ import { TableColumnsType, Tag } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { v4 } from "uuid";
 
-export const userActionColumns: TableColumnsType<IRole> = [
+export const RoleActionColumns: TableColumnsType<IRole> = [
   {
     title: "Name",
     width: 150,

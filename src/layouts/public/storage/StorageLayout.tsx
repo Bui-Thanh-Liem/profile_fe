@@ -1,11 +1,12 @@
 "use client";
 import { sendMailAdmin } from "@/apis/send-mail";
 import HighlighText from "@/components/elements/HighlighText";
+import Logo from "@/components/Logo";
 import { MyAvatar } from "@/components/MyAvatar";
 import { showToast } from "@/helper/show-toast.helper";
 import { ISendMail } from "@/interfaces/model.interface";
-import { TResponse } from "@/interfaces/response.interface";
 import { generatorResourceMail } from "@/utils/generatorResourceMail";
+import { PlusOutlined } from "@ant-design/icons";
 import { Avatar, Button, Col, Form, Input, Modal, Row, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { Enums } from "liemdev-profile-lib";
@@ -48,11 +49,6 @@ export const StorageLayout = () => {
         showToast(res);
         actionForm.resetFields();
       } catch (error) {
-        showToast({
-          statusCode: 500,
-          message: "error in sending mail",
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } as TResponse<any>);
         console.log("Error::", error);
       }
     });
@@ -66,7 +62,7 @@ export const StorageLayout = () => {
 
   return (
     <>
-      <Row className="min-h-content-storage items-center">
+      <Row>
         <Col span={10} className="flex flex-col gap-6">
           <h1 className="text-6xl font-bold text-foreground">If you are</h1>
           <h1 className="text-6xl font-bold text-foreground">interested in</h1>
@@ -79,51 +75,42 @@ export const StorageLayout = () => {
           <p className="text-lg text-gray-500">
             Has this amazing Storage caught your eye yet? Join us now to unlock
             a world of exclusive features, smarter solutions, and so much more!
-            👀
           </p>
           <div>
             <Avatar.Group>
               <MyAvatar
-                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                // src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
                 alt="liem"
                 fallbackText={"liem"}
               />
               <MyAvatar
-                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                // src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
                 alt="liem"
                 fallbackText={"liem"}
               />
               <MyAvatar
-                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                // src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
                 alt="liem"
                 fallbackText={"liem"}
               />
               <MyAvatar
-                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                // src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
                 alt="liem"
                 fallbackText={"liem"}
               />
               <MyAvatar
-                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                alt="liem"
-                fallbackText={"liem"}
-              />
-              <MyAvatar
-                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                alt="liem"
-                fallbackText={"liem"}
-              />
-              <MyAvatar
-                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                alt="liem"
-                fallbackText={"liem"}
-              />
-              <MyAvatar
-                src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
+                // src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
                 alt="liem"
                 fallbackText={"liem"}
               />
             </Avatar.Group>
+            <Button
+              size="large"
+              shape="circle"
+              className="-ml-2"
+              icon={<PlusOutlined />}
+              onClick={() => setIsOpen(true)}
+            />
           </div>
         </Col>
         <Col span={14} className="flex justify-center">
@@ -134,7 +121,6 @@ export const StorageLayout = () => {
       {/*  */}
       <Modal
         open={isOpen}
-        title={"liemdev"}
         onOk={onSubmitForm}
         onCancel={handleCancel}
         centered
@@ -151,8 +137,11 @@ export const StorageLayout = () => {
             OK
           </Button>,
         ]}
-        width={600}
+        width={500}
       >
+        <div className="text-center mb-8">
+          <Logo size="small" />
+        </div>
         <Form
           form={actionForm}
           name="user-action"
@@ -161,14 +150,13 @@ export const StorageLayout = () => {
           onFinishFailed={() => {}}
           layout="vertical"
           autoComplete="off"
-          className="mt-8 p-8 rounded-lg shadow-lg"
         >
           <Form.Item<TForm>
             label="Name"
             name="name"
             rules={[{ required: true, message: "Please input name!" }]}
           >
-            <Input size="large" maxLength={16} />
+            <Input size="large" maxLength={16} placeholder="name" />
           </Form.Item>
           <Form.Item<TForm>
             label="Email"
@@ -199,7 +187,7 @@ export const StorageLayout = () => {
             </Select>
           </Form.Item>
           <Form.Item<TForm> label="Description" name="desc">
-            <TextArea rows={2} />
+            <TextArea rows={2} placeholder="description" />
           </Form.Item>
         </Form>
       </Modal>

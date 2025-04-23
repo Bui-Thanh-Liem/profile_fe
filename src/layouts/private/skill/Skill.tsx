@@ -1,6 +1,6 @@
 "use client";
 import { deleteMulti } from "@/apis/skill";
-import { CardSkill } from "@/components/cards/CardSkillAdmin";
+import { CardSkillAdmin } from "@/components/cards/CardSkillAdmin";
 import MyTableToolbar from "@/components/table/MyTableToolbar";
 import { showToast } from "@/helper/show-toast.helper";
 import { ISkill } from "@/interfaces/model.interface";
@@ -81,10 +81,10 @@ export function SkillAdminLayout({ items, totalItems }: IPropLayout<ISkill>) {
           dataEdit={dataEdit}
         />
       )}
-      <Row gutter={[16, 24]}>
+      <Row gutter={[16, 16]}>
         {items?.map((item) => (
-          <Col span={5} key={item.name}>
-            <CardSkill
+          <Col span={4} key={item.name}>
+            <CardSkillAdmin
               item={item}
               actives={activeIds}
               onClickEdit={onEdit}

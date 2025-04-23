@@ -88,7 +88,7 @@ export function KeywordAction({
           OK
         </Button>,
       ]}
-      width={600}
+      width={400}
     >
       <Form
         form={keywordActionForm}

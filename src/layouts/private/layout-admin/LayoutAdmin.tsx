@@ -42,17 +42,6 @@ function getItem(
 const items: MenuItem[] = [
   getItem(<Link href="/admin">Dashboard</Link>, "/admin", <BarChartOutlined />),
   { type: "divider" },
-  getItem(
-    <Link href="/admin/skills">Skills</Link>,
-    "/admin/skills",
-    <AlertOutlined />
-  ),
-  getItem(
-    <Link href="/admin/about">About</Link>,
-    "/admin/about",
-    <AlertOutlined />
-  ),
-  { type: "divider" },
   getItem("Administrator", "administrator", <TeamOutlined />, [
     getItem(
       <Link href="/admin/users">Users</Link>,
@@ -68,6 +57,16 @@ const items: MenuItem[] = [
       <Link href="/admin/role-groups">Role Groups</Link>,
       "/admin/role-groups",
       <RadiusSettingOutlined />
+    ),
+    getItem(
+      <Link href="/admin/skills">Skills</Link>,
+      "/admin/skills",
+      <AlertOutlined />
+    ),
+    getItem(
+      <Link href="/admin/about">About</Link>,
+      "/admin/about",
+      <AlertOutlined />
     ),
   ]),
   getItem(

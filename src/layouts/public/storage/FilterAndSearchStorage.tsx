@@ -65,6 +65,11 @@ export default function FilterAndSearchStorage() {
     });
   }
 
+  //
+  if (pathname.endsWith("/storage")) {
+    return null;
+  }
+
   return (
     <div className="h-20 w-[1200px] rounded-2xl bg-white shadow-md shadow-primary fixed left-1/2 -translate-x-1/2 z-40">
       <div className="flex justify-between items-center h-full px-8">

@@ -117,7 +117,7 @@ export default function SkillAction({
           name="name"
           rules={[{ required: true, message: "Please input name!" }]}
         >
-          <Input size="large" placeholder="Enter label" />
+          <Input size="large" placeholder="Enter label" maxLength={16} />
         </Form.Item>
 
         <Form.Item<ISkill>

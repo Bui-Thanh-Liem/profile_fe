@@ -4,7 +4,7 @@ import { IPropCardItemAdmin } from "@/interfaces/propsComponent.interface";
 import { generatorColor } from "@/utils/generatorColorRole";
 import { Badge, Card, Space, Tag } from "antd";
 import { v4 } from "uuid";
-import { ItemAction } from "../ActionCard";
+import { ActionCard } from "../ActionCard";
 
 //
 function RoleItem({ role }: { role: IRole }) {
@@ -40,7 +40,7 @@ export function CardRoleGroup({
   onClickEdit,
 }: IPropCardItemAdmin<IRoleGroup>) {
   const { id, name, roles } = item;
-  const isActive = actives.includes(id);
+  const isActive = actives?.includes(id);
 
   //
   return (
@@ -57,9 +57,9 @@ export function CardRoleGroup({
             >
               Checked
             </Tag>
-            <ItemAction
-              onDelete={() => onClickDelete([id])}
-              onEdit={() => onClickEdit(item)}
+            <ActionCard
+              onDelete={() => {if(onClickDelete) onClickDelete([id])}}
+              onEdit={() => {if(onClickEdit) onClickEdit(item)}}
             />
           </Space>
         }

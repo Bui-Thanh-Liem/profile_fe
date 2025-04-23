@@ -55,7 +55,7 @@ export function ContactMe() {
 
   return (
     <>
-      <MyTooltip title="Contact me!" placement="topRight" open={open}>
+      <MyTooltip title="Contact me!" placement="topRight" open={open} fresh>
         <Image
           src={contactMe.src}
           alt="contact me"

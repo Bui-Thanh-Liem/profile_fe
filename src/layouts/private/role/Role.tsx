@@ -3,7 +3,7 @@ import MyTable from "@/components/table/MyTable";
 import { IRole } from "@/interfaces/model.interface";
 import { IPropLayout } from "@/interfaces/propsLayout.interface";
 import RoleAction from "./RoleAction";
-import { userActionColumns } from "./RoleColumn";
+import { RoleActionColumns } from "./RoleColumn";
 
 export default function RoleLayout({
   items,
@@ -13,7 +13,7 @@ export default function RoleLayout({
     <MyTable
       dataSource={items}
       totalDataSource={totalItems}
-      columns={userActionColumns}
+      columns={RoleActionColumns}
       actionDataSource={<RoleAction />}
       deleteApi={deleteMulti}
     />

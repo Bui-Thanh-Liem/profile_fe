@@ -42,7 +42,7 @@ export default function RoleItemResource({
   useEffect(() => {
     setValueAction(value?.actions || []);
     setValueSwitch(value?.resource === resource);
-  }, [value]);
+  }, [resource, value]);
 
   //
   useEffect(() => {

@@ -25,10 +25,12 @@ export const MyUpload = ({
         url,
         thumbUrl: url,
       }));
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       setFileList(files as any);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onChangeUpload(values as any);
     }
-  }, []);
+  }, [onChangeUpload, values]);
 
   //
   const onChange: UploadProps["onChange"] = ({ fileList: newFileList }) => {

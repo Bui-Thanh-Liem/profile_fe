@@ -1,6 +1,6 @@
 import { TResponse } from "@/interfaces/response.interface";
-import useCustomerStore from "@/stores/useCustomerStore";
-import useAuthStore from "@/stores/useAuthStore";
+// import useCustomerStore from "@/stores/useCustomerStore";
+// import useAuthStore from "@/stores/useAuthStore";
 
 interface IOptions {
   url: string;
@@ -12,14 +12,14 @@ export const callApiClientBearer = async <T>({
   options,
 }: IOptions): Promise<TResponse<T>> => {
   //
-  const { currentUser, logoutUser } = useAuthStore.getState();
-  const { currentCustomer, logoutCustomer } = useCustomerStore.getState();
+  // const { currentUser, logoutUser } = useAuthStore.getState();  // chuyen doi tu hook sang function, moi co the goi trong func
+  // const { currentCustomer, logoutCustomer } = useCustomerStore.getState();
 
   //
   let headers: HeadersInit = {
     ...options.headers,
-    authorization: `Bearer ${currentUser?.token.access_token}`,
-    customer: `Bearer ${currentCustomer?.token.access_token}`,
+    // authorization: `Bearer ${currentUser?.token.access_token}`,
+    // customer: `Bearer ${currentCustomer?.token.access_token}`,
   };
 
   // header
@@ -40,12 +40,12 @@ export const callApiClientBearer = async <T>({
   const result = await response.json();
 
   if (result.status == 403) {
-    logoutUser();
+    // logoutUser();
     window.location.href = "/auth/login";
   }
 
   if (result.statusCode == 406) {
-    logoutCustomer();
+    // logoutCustomer();
     window.location.href = "/storage";
   }
 

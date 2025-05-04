@@ -23,7 +23,7 @@ export function AboutAdminLayout({ item }: { item: IAbout }) {
         phone: item?.phone,
       });
     }
-  }, []);
+  }, [aboutActionForm, item]);
 
   function resetForm() {
     aboutActionForm.setFieldsValue({
@@ -45,12 +45,14 @@ export function AboutAdminLayout({ item }: { item: IAbout }) {
         const formdata = new FormData();
         for (const [key, value] of Object.entries(formDataAntd)) {
           if (key === "image" && typeof value === "object") {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             formdata.append(key, (value as any)[0]);
           } else if (key === "text" && typeof value === "object") {
             (value as string[]).forEach((str: string) =>
               formdata.append("text", str)
             );
           } else {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             formdata.append(key, value as any);
           }
         }
@@ -171,6 +173,7 @@ export function AboutAdminLayout({ item }: { item: IAbout }) {
               <MyUpload
                 values={item?.image ? [item.image] : []}
                 onChangeUpload={(files) =>
+                  // eslint-disable-next-line @typescript-eslint/no-explicit-any
                   aboutActionForm.setFieldsValue({ image: files as any })
                 }
                 length={1}

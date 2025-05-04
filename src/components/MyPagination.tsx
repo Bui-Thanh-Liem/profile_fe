@@ -10,9 +10,9 @@ export default function MyPagination({
   open?: boolean;
   total: number;
 }) {
-  if (!open) return null;
-
   const { pushUrl } = usePushUrl<Pick<IImageStorage, "keywords">>();
+
+  if (!open) return null;
 
   //
   const onChange = (page: number, pageSize: number) => {

@@ -38,8 +38,10 @@ export default function SkillAction({
         const formdata = new FormData();
         for (const [key, value] of Object.entries(formDataAntd)) {
           if (key === "image" && typeof value === "object") {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             formdata.append(key, (value as any)[0]);
           } else {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             formdata.append(key, value as any);
           }
         }
@@ -128,6 +130,7 @@ export default function SkillAction({
           <MyUpload
             values={dataEdit?.image ? [dataEdit.image] : []}
             onChangeUpload={(files) =>
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               skillActionForm.setFieldsValue({ image: files as any })
             }
             length={1}

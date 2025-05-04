@@ -59,8 +59,10 @@ export default function ImageStorageAction({
         // Fields images other
         for (const [key, value] of Object.entries(formDataAntd)) {
           if (key === "images" && Array.isArray(value)) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             value.forEach((file: any) => formdata.append("images", file));
           } else {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
             formdata.append(key, value as any);
           }
         }
@@ -173,6 +175,7 @@ export default function ImageStorageAction({
           <MyUpload
             values={dataEdit?.images || []}
             onChangeUpload={(files) =>
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               imageStorageActionForm.setFieldsValue({ images: files as any })
             }
           />

@@ -12,6 +12,7 @@ import {
   CodeOutlined,
   FileImageOutlined,
 } from "@ant-design/icons";
+import { Suspense } from "react";
 
 export default function StorageLayout({
   children,
@@ -67,7 +68,9 @@ export default function StorageLayout({
       <div className="w-[1200px] min-h-screen pt-20">
         {requireLogin}
         {notificationForCustomer}
-        <FilterAndSearchStorage />
+        <Suspense fallback={<div>Đang tải...</div>}>
+          <FilterAndSearchStorage />
+        </Suspense>
         <div className="mt-28">{children}</div>
         <div className="fixed top-1/2 right-[calc(50%-700px)] translate-x-1/2 -translate-y-1/2">
           {storageNavData.map((nav) => (

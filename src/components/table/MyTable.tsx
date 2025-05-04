@@ -58,7 +58,7 @@ export default function MyTable<T extends IBaseMyTable>({
     if (!isOpenActionDataSource) {
       setDataEdit(null);
     }
-  }, []);
+  }, [isOpenActionDataSource]);
 
   //
   const baseColumns: TableColumnsType<T> = [

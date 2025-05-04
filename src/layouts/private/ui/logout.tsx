@@ -14,7 +14,7 @@ import Title from "antd/es/typography/Title";
 import { Constants, Enums } from "liemdev-profile-lib";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useEffect, useState, useTransition } from "react";
+import { useCallback, useEffect, useState, useTransition } from "react";
 import logoutImg from "../../../../public/check-out.png";
 
 export function LogoutLayout() {
@@ -25,6 +25,13 @@ export function LogoutLayout() {
   const [second, setSecond] = useState<number>(5);
   const [isPending, startTransition] = useTransition();
   const [isShowForm, setIsShowForm] = useState<boolean>(true);
+
+  //
+  const handleLogout = useCallback(async () => {
+    await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_USER);
+    await logout();
+    router.replace("login");
+  }, [router]);
 
   //
   // -1 stop second - feedback
@@ -42,19 +49,12 @@ export function LogoutLayout() {
     }, 1000);
 
     return () => clearInterval(idInterval);
-  }, [second]);
+  }, [handleLogout, second]);
 
   //
   function handleFeedback() {
     setSecond(-1);
     setIsShowForm(!isShowForm);
-  }
-
-  //
-  async function handleLogout() {
-    await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_USER);
-    await logout();
-    router.replace("login");
   }
 
   //

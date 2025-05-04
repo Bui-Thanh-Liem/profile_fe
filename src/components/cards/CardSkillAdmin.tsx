@@ -1,7 +1,7 @@
 "use client";
 import { ISkill } from "@/interfaces/model.interface";
 import { IPropCardItemAdmin } from "@/interfaces/propsComponent.interface";
-import { Card, Progress, Slider, Space, Tag } from "antd";
+import { Card, Progress, Space, Tag } from "antd";
 import Meta from "antd/es/card/Meta";
 import Image from "next/image";
 import { useEffect, useState } from "react";

@@ -8,6 +8,12 @@ const nextConfig = {
         port: "9000",
         pathname: "**",
       },
+      {
+        protocol: "https",
+        hostname: "liemdev.info.vn",
+        port: "9000",
+        pathname: "**",
+      },
     ],
   },
 };

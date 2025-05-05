@@ -186,7 +186,7 @@ export function RequireLogin() {
   }
 
   return (
-    <>
+    <div tabIndex={-1}>
       {/* login */}
       <Modal
         open={isLogin}
@@ -220,6 +220,7 @@ export function RequireLogin() {
           onFinishFailed={() => {}}
           autoComplete="off"
           layout="vertical"
+          tabIndex={-1}
         >
           <div
             className="mt-6 mb-4 rounded-md flex justify-center gap-4 py-2 bg-gray-100 cursor-pointer border hover:bg-gray-50"
@@ -281,6 +282,7 @@ export function RequireLogin() {
             OK
           </Button>,
         ]}
+        wrapProps={{ tabIndex: -1 }}
       >
         <Form
           form={registerForm}
@@ -290,6 +292,7 @@ export function RequireLogin() {
           onFinishFailed={() => {}}
           layout="vertical"
           autoComplete="off"
+          tabIndex={-1}
         >
           <Form.Item<FieldTypeRegister>
             label="Username"
@@ -362,6 +365,7 @@ export function RequireLogin() {
             OK
           </Button>,
         ]}
+        wrapProps={{ tabIndex: -1 }}
       >
         <Form
           form={otpForm}
@@ -372,6 +376,7 @@ export function RequireLogin() {
           layout="vertical"
           autoComplete="off"
           className="text-center"
+          tabIndex={-1}
         >
           <Form.Item<FieldTypeOTP>
             name="otp"
@@ -399,6 +404,6 @@ export function RequireLogin() {
           </Form.Item>
         </Form>
       </Modal>
-    </>
+    </div>
   );
 }

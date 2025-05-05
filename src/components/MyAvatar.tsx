@@ -2,6 +2,8 @@ import { IPropMyAvatar } from "@/interfaces/propsComponent.interface";
 import { Avatar } from "antd";
 
 export function MyAvatar({ src, alt, fallbackText, ...rest }: IPropMyAvatar) {
+  console.log("fallbackText:::", fallbackText);
+
   return src ? (
     <Avatar src={src} alt={alt || "user"} className="w-10 h-10" {...rest} />
   ) : (

@@ -102,16 +102,6 @@ export const StorageLayout = () => {
                   alt="liem"
                   fallbackText={"liem"}
                 />
-                <MyAvatar
-                  // src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                  alt="liem"
-                  fallbackText={"liem"}
-                />
-                <MyAvatar
-                  // src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                  alt="liem"
-                  fallbackText={"liem"}
-                />
               </Avatar.Group>
               <Button
                 size="large"

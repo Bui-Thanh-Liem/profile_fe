@@ -36,7 +36,7 @@ export function NotificationForCustomerLayout() {
         focusTriggerAfterClose={false}
         wrapProps={{ tabIndex: -1 }} // Prevent modal content from being focusable
       >
-        <div tabIndex={-1}>
+        <div tabIndex={-1} className="text-center">
           <p>Notification</p>
         </div>
       </Modal>

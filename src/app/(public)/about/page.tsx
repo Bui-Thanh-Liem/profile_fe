@@ -2,15 +2,14 @@ import { find } from "@/apis/about.api";
 import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import HighlighText from "@/components/elements/HighlighText";
 import { ContactMe } from "@/layouts/public/ContactMe";
-import { Col, Row } from "antd";
 import { FileJpgOutlined } from "@ant-design/icons";
+import { Col, Row } from "antd";
 import Image from "next/image";
 import { v4 } from "uuid";
 
 async function AboutPage() {
   const resAbout = await find();
   const { text, address, email, phone, image } = resAbout.data;
-  console.log("resAbout.data:::", resAbout.data);
 
   return (
     <section className="flex h-screen">

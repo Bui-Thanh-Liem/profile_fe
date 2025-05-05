@@ -30,7 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/logo.png" type="image/png" />
+        <link rel="icon" href="./logo.png" type="image/png" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         {children}

@@ -1,0 +1,34 @@
+/* arrow */
+.custom-arrow {
+  opacity: 0.8;
+}
+.custom-arrow:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.7) !important;
+  color: #fff !important;
+}
+
+/* dot */
+.custom-dots {
+  bottom: 10px;
+  display: flex;
+  justify-content: center;
+}
+.custom-dots li {
+  margin: 0 4px;
+}
+.custom-dots li button {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%; /* Làm dot tròn */
+  background: #ccc; /* Màu dot không active */
+  border: none;
+  transition: all 0.3s;
+  opacity: 1;
+}
+.custom-dots li.slick-active button {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%; /* Đảm bảo dot active cũng tròn */
+  background: #ef4444; /* Màu red-500 cho dot active */
+}

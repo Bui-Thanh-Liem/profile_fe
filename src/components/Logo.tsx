@@ -14,7 +14,7 @@ const Logo = ({ size = "medium" }: IPropLogo) => {
   return (
     <Link
       href="/"
-      className={`bg-foreground text-background font-bold ${sizeIn}`}
+      className={`bg-foreground text-background font-bold ${sizeIn} hover:text-white`}
     >
       .LiemDev
     </Link>

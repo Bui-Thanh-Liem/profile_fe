@@ -1,6 +1,7 @@
 "use client";
 import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import { Result } from "antd";
+import Link from "next/link";
 import { useEffect } from "react";
 
 export default function ErrorPage({
@@ -20,7 +21,14 @@ export default function ErrorPage({
         status="500"
         title="500"
         subTitle="Sorry, something went wrong."
-        extra={<ButtonPrimary onClick={() => reset()}>Try again</ButtonPrimary>}
+        extra={
+          <div className="flex gap-x-4 items-center">
+            <Link href={"/"}>
+              <ButtonPrimary>Back to Home</ButtonPrimary>
+            </Link>
+            <ButtonPrimary onClick={() => reset()}>Try again</ButtonPrimary>
+          </div>
+        }
         style={{ height: `calc(100vh - var(--hight-navbar))`, margin: "auto" }}
       />
     </div>

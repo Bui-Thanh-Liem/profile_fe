@@ -66,8 +66,8 @@ export default function StorageLayout({
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="w-[1200px] min-h-screen pt-20">
-        <div>{requireLogin}</div>
-        <div>{notificationForCustomer}</div>
+        {requireLogin}
+        {notificationForCustomer}
         <Suspense fallback={<div>Đang tải...</div>}>
           <FilterAndSearchStorage />
         </Suspense>

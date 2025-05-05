@@ -210,6 +210,7 @@ export function RequireLogin() {
             OK
           </Button>,
         ]}
+        wrapProps={{ tabIndex: -1 }} // Prevent modal content from being focusable
       >
         <Form
           form={loginForm}

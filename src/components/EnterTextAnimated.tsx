@@ -1,15 +1,12 @@
 "use client";
 import { memo, useEffect, useRef, useState } from "react";
-import programer from "../../public/programer.png";
-import frontend from "../../public/frontend.png";
-import backend from "../../public/backend.png";
 
 //
 import { IPropEnterTextAnimated } from "@/interfaces/propsComponent.interface";
 import Image from "next/image";
 
 function EnterTextAnimated({ texts }: IPropEnterTextAnimated) {
-  const images = [programer, frontend, backend];
+  const images = ['/programer.png', '/frontend.png', '/backend.png'];
   const [index, setIndex] = useState<number>(0);
   const [indexSlice, setIndexSlice] = useState<number>(0);
   const isDirectionLetter = useRef(false);

@@ -3,7 +3,6 @@ import { MyTooltip } from "@/components/MyTooltip";
 import { Button, Form, Input, Modal, notification } from "antd";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import contactMe from "../../../public/contactMe.png";
 import Logo from "../../components/Logo";
 
 export function ContactMe() {
@@ -57,7 +56,7 @@ export function ContactMe() {
     <>
       <MyTooltip title="Contact me!" placement="topRight" open={open} fresh>
         <Image
-          src={contactMe.src}
+          src="/contactMe.png"
           alt="contact me"
           width={76}
           height={76}

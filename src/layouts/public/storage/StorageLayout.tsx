@@ -13,9 +13,6 @@ import TextArea from "antd/es/input/TextArea";
 import { Enums } from "liemdev-profile-lib";
 import Image from "next/image";
 import { useState, useTransition } from "react";
-import intro from "../../../../public/launching.png";
-import note from "../../../../public/note.png";
-import development from "../../../../public/development.png";
 
 type TForm = {
   name: string;
@@ -72,7 +69,7 @@ export const StorageLayout = () => {
             <Image
               width={400}
               height={400}
-              src={intro.src}
+              src="/launching.png"
               alt="intro"
               className="m-auto"
             />
@@ -120,7 +117,7 @@ export const StorageLayout = () => {
             <Image
               width={200}
               height={200}
-              src={note.src}
+              src="/note.png"
               alt="intro"
               className="m-auto mb-20"
             />
@@ -142,7 +139,7 @@ export const StorageLayout = () => {
             <Image
               width={200}
               height={200}
-              src={development.src}
+              src="/development.png"
               alt="intro"
               className="m-auto mb-20"
             />

@@ -15,7 +15,6 @@ import { Constants, Enums } from "liemdev-profile-lib";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState, useTransition } from "react";
-import logoutImg from "../../../../public/check-out.png";
 
 export function LogoutLayout() {
   const router = useRouter();
@@ -133,7 +132,7 @@ export function LogoutLayout() {
           </Col>
           <Col span={12} className="text-center">
             <Image
-              src={logoutImg.src}
+              src="/check-out.png"
               alt="Logout"
               width={300}
               height={300}

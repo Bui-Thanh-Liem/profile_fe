@@ -2,11 +2,10 @@ import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import HighlighText from "@/components/elements/HighlighText";
 import EnterTextAnimated from "@/components/EnterTextAnimated";
 import { ContactMe } from "@/layouts/public/ContactMe";
+import { UserOutlined } from "@ant-design/icons";
 import { Col, Row } from "antd";
 import Image from "next/image";
 import Link from "next/link";
-import meWebp from "../../../public/meWebp.webp";
-import { UserOutlined } from "@ant-design/icons";
 
 export default function HomePage() {
   //
@@ -40,7 +39,12 @@ export default function HomePage() {
           </Link>
         </Col>
         <Col className={classesImage}>
-          <Image src={meWebp} alt="LiemDev" className={classesImage} />
+          <Image
+            src="/meWebp.webp"
+            alt="LiemDev"
+            fill
+            className={`${classesImage} absolute`}
+          />
         </Col>
       </Row>
       <ContactMe />

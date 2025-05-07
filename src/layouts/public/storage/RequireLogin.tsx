@@ -15,7 +15,6 @@ import { useEffect, useState } from "react";
 
 //
 import Image from "next/image";
-import google from "../../../../public/google.png";
 import useCustomerStore from "../../../stores/useCustomerStore";
 import Logo from "../../../components/Logo";
 const { Countdown } = Statistic;
@@ -226,7 +225,7 @@ export function RequireLogin() {
             className="mt-6 mb-4 rounded-md flex justify-center gap-4 py-2 bg-gray-100 cursor-pointer border hover:bg-gray-50"
             onClick={handleLoginGoogle}
           >
-            <Image src={google.src} alt="google" width={20} height={20} />
+            <Image src="/google.png" alt="google" width={20} height={20} />
             <p>Google</p>
           </div>
           <Divider plain>Or</Divider>

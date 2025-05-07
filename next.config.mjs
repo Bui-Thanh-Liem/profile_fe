@@ -11,6 +11,13 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "liemdev.info.vn",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "www.liemdev.info.vn",
+        port: "",
         pathname: "/**",
       },
     ],

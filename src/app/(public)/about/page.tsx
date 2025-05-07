@@ -50,7 +50,6 @@ async function AboutPage() {
         </Col>
         <Col className="border-2 rounded-tl-[80px] rounded-br-[80px] border-solid border-primary shadow-xl shadow-primary overflow-hidden">
           <Image
-            loader={({ src }) => src}
             width={433}
             height={577}
             src={image}

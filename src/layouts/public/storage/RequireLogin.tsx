@@ -10,7 +10,7 @@ import {
   notification,
   Statistic,
 } from "antd";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 //
@@ -44,6 +44,8 @@ export function RequireLogin() {
 
   //
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const googleLogin = searchParams.get("google_login");
 
   //
   const [isLogin, setIsLogin] = useState<boolean>(false);
@@ -179,7 +181,7 @@ export function RequireLogin() {
   if (!isMounted) return null; // Tránh render khi chưa mounted
 
   //
-  if (isLoggedCustomer) {
+  if (isLoggedCustomer || (googleLogin && googleLogin === "success")) {
     return null;
   }
 

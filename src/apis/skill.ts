@@ -7,7 +7,7 @@ import { revalidateTag } from "next/cache";
 
 export async function create(payload: FormData) {
   const response = await callApiServerCookie<ISkill>({
-    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.SKILL}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.SKILL}`,
     options: {
       method: "POST",
       body: payload,
@@ -19,7 +19,7 @@ export async function create(payload: FormData) {
 
 export async function update(id: string, payload: FormData) {
   const response = await callApiServerCookie<ISkill>({
-    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.SKILL}/${id}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.SKILL}/${id}`,
     options: {
       method: "PATCH",
       body: payload,
@@ -31,7 +31,7 @@ export async function update(id: string, payload: FormData) {
 
 export async function findOneById(id: string) {
   const response = await callApiServerCookie<ISkill>({
-    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.SKILL}/${id}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.SKILL}/${id}`,
     options: {
       method: "GET",
       cache: "force-cache",
@@ -42,11 +42,14 @@ export async function findOneById(id: string) {
 }
 
 export async function findAll(queries: InterfaceCommon.IQueries<ISkill>) {
-  console.log("process.env.SERVER_HOST:::", process.env.SERVER_HOST);
+  console.log(
+    "process.env.NEXT_PUBLIC_SERVER_HOST:::",
+    process.env.NEXT_PUBLIC_SERVER_HOST
+  );
 
   const response = await callApiServerCookie<InterfaceCommon.IGetMulti<ISkill>>(
     {
-      url: `${process.env.SERVER_HOST}/api/v1/${
+      url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${
         CONSTANT_ROUTE.SKILL
       }${Utils.UtilConvert.convertObjectToString(queries)}`,
       options: {
@@ -62,7 +65,7 @@ export async function findAll(queries: InterfaceCommon.IQueries<ISkill>) {
 export async function deleteMulti(payload: string[]) {
   const response = await callApiServerCookie<InterfaceCommon.IGetMulti<ISkill>>(
     {
-      url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.SKILL}`,
+      url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.SKILL}`,
       options: {
         method: "DELETE",
         body: JSON.stringify(payload),

@@ -43,7 +43,7 @@ export function middleware(request: NextRequest) {
     }
 
     // check token
-    return fetch(`${process.env.SERVER_HOST}/api/v1/protected`)
+    return fetch(`${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/protected`)
       .then((res) => res.json())
       .then((res) => {
         console.log("res protected :::", res);

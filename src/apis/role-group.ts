@@ -7,7 +7,7 @@ import { revalidateTag } from "next/cache";
 
 export async function create(payload: Partial<IRoleGroup>) {
   const response = await callApiServerCookie<IRoleGroup>({
-    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.ROLE_GROUP}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.ROLE_GROUP}`,
     options: {
       method: "POST",
       body: JSON.stringify(payload),
@@ -19,7 +19,7 @@ export async function create(payload: Partial<IRoleGroup>) {
 
 export async function update(id: string, payload: Partial<IRoleGroup>) {
   const response = await callApiServerCookie<IRoleGroup>({
-    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.ROLE_GROUP}/${id}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.ROLE_GROUP}/${id}`,
     options: {
       method: "PATCH",
       body: JSON.stringify(payload),
@@ -31,7 +31,7 @@ export async function update(id: string, payload: Partial<IRoleGroup>) {
 
 export async function findOneById(id: string) {
   const response = await callApiServerCookie<IRoleGroup>({
-    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.ROLE_GROUP}/${id}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.ROLE_GROUP}/${id}`,
     options: {
       method: "GET",
       cache: "force-cache",
@@ -45,7 +45,7 @@ export async function findAll(queries: InterfaceCommon.IQueries<IRoleGroup>) {
   const response = await callApiServerCookie<
     InterfaceCommon.IGetMulti<IRoleGroup>
   >({
-    url: `${process.env.SERVER_HOST}/api/v1/${
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${
       CONSTANT_ROUTE.ROLE_GROUP
     }${Utils.UtilConvert.convertObjectToString(queries)}`,
     options: {
@@ -61,7 +61,7 @@ export async function deleteMulti(payload: string[]) {
   const response = await callApiServerCookie<
     InterfaceCommon.IGetMulti<IRoleGroup>
   >({
-    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.ROLE_GROUP}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.ROLE_GROUP}`,
     options: {
       method: "DELETE",
       body: JSON.stringify(payload),

@@ -7,7 +7,7 @@ import { revalidateTag } from "next/cache";
 
 export async function create(payload: FormData) {
   const response = await callApiServerCookie<IImageStorage>({
-    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.IMAGE_STORAGE}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.IMAGE_STORAGE}`,
     options: {
       method: "POST",
       body: payload,
@@ -19,7 +19,7 @@ export async function create(payload: FormData) {
 
 export async function update(id: string, payload: FormData) {
   const response = await callApiServerCookie<IImageStorage>({
-    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.IMAGE_STORAGE}/${id}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.IMAGE_STORAGE}/${id}`,
     options: {
       method: "PATCH",
       body: payload,
@@ -31,7 +31,7 @@ export async function update(id: string, payload: FormData) {
 
 export async function findOneById(id: string) {
   const response = await callApiServerCookie<IImageStorage>({
-    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.IMAGE_STORAGE}/${id}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.IMAGE_STORAGE}/${id}`,
     options: {
       method: "GET",
       cache: "force-cache",
@@ -47,7 +47,7 @@ export async function findAll(
   const response = await callApiServerCookie<
     InterfaceCommon.IGetMulti<IImageStorage>
   >({
-    url: `${process.env.SERVER_HOST}/api/v1/${
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${
       CONSTANT_ROUTE.IMAGE_STORAGE
     }${Utils.UtilConvert.convertObjectToString(queries || {})}`,
     options: {
@@ -63,7 +63,7 @@ export async function deleteMulti(payload: string[]) {
   const response = await callApiServerCookie<
     InterfaceCommon.IGetMulti<IImageStorage>
   >({
-    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.IMAGE_STORAGE}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.IMAGE_STORAGE}`,
     options: {
       method: "DELETE",
       body: JSON.stringify(payload),

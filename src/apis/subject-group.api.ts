@@ -7,7 +7,7 @@ import { revalidateTag } from "next/cache";
 
 export async function create(payload: FormData) {
   const response = await callApiServerCookie<ISubjectGroup>({
-    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.SUBJECT_GROUP}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.SUBJECT_GROUP}`,
     options: {
       method: "POST",
       body: payload,
@@ -19,7 +19,7 @@ export async function create(payload: FormData) {
 
 export async function update(id: string, payload: FormData) {
   const response = await callApiServerCookie<ISubjectGroup>({
-    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.SUBJECT_GROUP}/${id}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.SUBJECT_GROUP}/${id}`,
     options: {
       method: "PATCH",
       body: payload,
@@ -31,7 +31,7 @@ export async function update(id: string, payload: FormData) {
 
 export async function findOneById(id: string) {
   const response = await callApiServerCookie<ISubjectGroup>({
-    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.SUBJECT_GROUP}/${id}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.SUBJECT_GROUP}/${id}`,
     options: {
       method: "GET",
       cache: "force-cache",
@@ -47,7 +47,7 @@ export async function findAll(
   const response = await callApiServerCookie<
     InterfaceCommon.IGetMulti<ISubjectGroup>
   >({
-    url: `${process.env.SERVER_HOST}/api/v1/${
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${
       CONSTANT_ROUTE.SUBJECT_GROUP
     }${Utils.UtilConvert.convertObjectToString(queries)}`,
     options: {
@@ -63,7 +63,7 @@ export async function deleteMulti(payload: string[]) {
   const response = await callApiServerCookie<
     InterfaceCommon.IGetMulti<ISubjectGroup>
   >({
-    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.SUBJECT_GROUP}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.SUBJECT_GROUP}`,
     options: {
       method: "DELETE",
       body: JSON.stringify(payload),

@@ -1,10 +1,11 @@
 "use client";
 
+import { verifyLoginGoogle } from "@/apis/customer";
 import useCustomerStore from "@/stores/useCustomerStore";
-import { useEffect, useState } from "react";
+import { Button } from "antd";
 import dynamic from "next/dynamic";
 import { useSearchParams } from "next/navigation";
-import { Button } from "antd";
+import { useEffect, useState } from "react";
 
 // Import Modal từ antd động, với ssr = false
 const DynamicModal = dynamic(() => import("antd").then((mod) => mod.Modal), {
@@ -12,13 +13,12 @@ const DynamicModal = dynamic(() => import("antd").then((mod) => mod.Modal), {
 });
 
 export function NotificationForCustomerLayout() {
-  const { isLoggedCustomer } = useCustomerStore();
+  const { isLoggedCustomer, loginCustomer } = useCustomerStore();
   const [open, setOpen] = useState(true);
   const [mounted, setMounted] = useState(false);
   const searchParams = useSearchParams();
-  const loginType = searchParams.get("loginType");
-  console.log("loginType:::", loginType);
-  console.log("loginType:::", loginType === "google");
+  const googleLogin = searchParams.get("google_login");
+  const isSuccessLogin = googleLogin && googleLogin === "success";
 
   //
   useEffect(() => {
@@ -30,15 +30,23 @@ export function NotificationForCustomerLayout() {
     setOpen(false);
   };
 
+  //
+  async function onOkNotification() {
+    const res = await verifyLoginGoogle();
+    console.log("res customer :::", res);
+
+    if (res.statusCode === 200) {
+      loginCustomer(res.data);
+      setOpen(false);
+    }
+  }
+
+  if (!isLoggedCustomer) {
+    return null;
+  }
+
   // Chỉ render khi đã mount ở client
   if (!mounted) return null;
-
-  //
-  function onOkNotification() {
-    
-    
-    setOpen(false);
-  }
 
   return (
     <div>
@@ -56,7 +64,7 @@ export function NotificationForCustomerLayout() {
       >
         <div className="text-center">
           <p>Notification</p>
-          {loginType && loginType === "google" && (
+          {isSuccessLogin && (
             <Button type="primary" onClick={onOkNotification}>
               OK
             </Button>

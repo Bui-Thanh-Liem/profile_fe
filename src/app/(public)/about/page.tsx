@@ -10,6 +10,7 @@ import { v4 } from "uuid";
 async function AboutPage() {
   const resAbout = await find();
   const { text, address, email, phone, image } = resAbout.data;
+  console.log("resAbout:::", resAbout);
 
   return (
     <section className="flex h-screen">

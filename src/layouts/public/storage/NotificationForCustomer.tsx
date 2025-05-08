@@ -13,7 +13,7 @@ const DynamicModal = dynamic(() => import("antd").then((mod) => mod.Modal), {
 });
 
 export function NotificationForCustomerLayout() {
-  const { isLoggedCustomer, loginCustomer } = useCustomerStore();
+  const { loginCustomer } = useCustomerStore();
   const [open, setOpen] = useState(true);
   const [mounted, setMounted] = useState(false);
   const searchParams = useSearchParams();
@@ -41,7 +41,7 @@ export function NotificationForCustomerLayout() {
     }
   }
 
-  if (!isLoggedCustomer) {
+  if (!isSuccessLogin) {
     return null;
   }
 

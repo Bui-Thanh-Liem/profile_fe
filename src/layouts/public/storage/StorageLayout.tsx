@@ -65,7 +65,7 @@ export const StorageLayout = () => {
       <MyCarousel>
         {/*  */}
         <Row>
-          <Col span={12} offset={6} className="flex flex-col gap-6">
+          <Col span={14} offset={5} className="flex flex-col gap-6">
             <Image
               width={400}
               height={400}
@@ -113,7 +113,7 @@ export const StorageLayout = () => {
 
         {/*  */}
         <Row>
-          <Col span={12} offset={6} className="flex flex-col gap-6">
+          <Col span={14} offset={5} className="flex flex-col gap-6">
             <Image
               width={200}
               height={200}
@@ -135,7 +135,7 @@ export const StorageLayout = () => {
 
         {/*  */}
         <Row>
-          <Col span={12} offset={6} className="flex flex-col gap-6">
+          <Col span={14} offset={5} className="flex flex-col gap-6">
             <Image
               width={200}
               height={200}

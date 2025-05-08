@@ -10,9 +10,7 @@ export function middleware(request: NextRequest) {
   const customerCookie = request.cookies.get(
     CONSTANT_TOKEN.TOKEN_NAME_CUSTOMER
   );
-  console.log("customerCookie:::", customerCookie);
   const userCookie = request.cookies.get(CONSTANT_TOKEN.TOKEN_NAME_USER);
-  console.log("userCookie:::", userCookie);
 
   // const allCookies = request.cookies.getAll();
 

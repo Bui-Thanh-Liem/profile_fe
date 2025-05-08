@@ -36,7 +36,14 @@ export const imageStorageActionColumns: TableColumnsType<IImageStorage> = [
       return (
         <div className="flex flex-wrap gap-2">
           {imgs?.map((img) => (
-            <Image key={img} alt="img" src={img} width={60} height={60} />
+            <Image
+              key={img}
+              alt="img"
+              src={img}
+              width={60}
+              height={60}
+              unoptimized
+            />
           ))}
         </div>
       );

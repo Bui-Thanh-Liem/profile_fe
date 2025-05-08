@@ -4,7 +4,6 @@ import { IImageStorage } from "@/interfaces/model.interface";
 import { IPropComponentLayout } from "@/interfaces/propsComponent.interface";
 import { Col, Row } from "antd";
 import Image from "next/image";
-import empty from "../../../../public/empty.png";
 
 export default function ImageStorageLayout({
   items,
@@ -24,7 +23,7 @@ export default function ImageStorageLayout({
             <Image
               width={200}
               height={200}
-              src={empty.src}
+              src="/empty.png"
               alt="empty"
               className="m-auto"
             />

@@ -1,4 +1,5 @@
 "use client";
+import useCustomerStore from "@/stores/useCustomerStore";
 import {
   CommentOutlined,
   CustomerServiceOutlined,
@@ -7,6 +8,8 @@ import {
 import { Badge, Dropdown, FloatButton, MenuProps } from "antd";
 
 export function BenefitCustomer() {
+  const { isLoggedCustomer } = useCustomerStore();
+
   //
   const notificationItems: MenuProps["items"] = [
     {
@@ -37,6 +40,9 @@ export function BenefitCustomer() {
       ),
     },
   ];
+
+  //
+  if (!isLoggedCustomer) return null;
 
   return (
     <>

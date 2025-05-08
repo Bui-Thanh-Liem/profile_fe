@@ -88,7 +88,7 @@ const items: MenuItem[] = [
   ),
   getItem(
     <Link href="/admin/subject-items">Subject items</Link>,
-    "/admin/subject-group",
+    "/admin/subject-item",
     <UngroupOutlined />
   ),
   getItem(

@@ -57,6 +57,7 @@ export function CardSkillAdmin({
               alt={name}
               src={image}
               className="object-contain"
+              unoptimized
             />
             <p>{name}</p>
             <Progress type="circle" size={40} percent={progress} />

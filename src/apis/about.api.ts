@@ -6,7 +6,7 @@ import { revalidateTag } from "next/cache";
 
 export async function update(payload: FormData) {
   const response = await callApiServerCookie<IAbout>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.ABOUT}`,
+    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.ABOUT}`,
     options: {
       method: "PATCH",
       body: payload,
@@ -18,7 +18,7 @@ export async function update(payload: FormData) {
 
 export async function find() {
   const response = await callApiServerCookie<IAbout>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.ABOUT}`,
+    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.ABOUT}`,
     options: {
       method: "GET",
       next: { tags: [CONSTANT_TAG_CACHE.about], revalidate: 3600 },

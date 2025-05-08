@@ -7,7 +7,7 @@ import { revalidateTag } from "next/cache";
 
 export async function create(payload: Partial<IRole>) {
   const response = await callApiServerCookie<IRole>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.ROLE}`,
+    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.ROLE}`,
     options: {
       method: "POST",
       body: JSON.stringify(payload),
@@ -19,7 +19,7 @@ export async function create(payload: Partial<IRole>) {
 
 export async function update(id: string, payload: Partial<IRole>) {
   const response = await callApiServerCookie<IRole>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.ROLE}/${id}`,
+    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.ROLE}/${id}`,
     options: {
       method: "PATCH",
       body: JSON.stringify(payload),
@@ -32,7 +32,7 @@ export async function update(id: string, payload: Partial<IRole>) {
 
 export async function findOneById(id: string) {
   const response = await callApiServerCookie<IRole>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.ROLE}/${id}`,
+    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.ROLE}/${id}`,
     options: {
       method: "GET",
       cache: "force-cache",
@@ -44,7 +44,7 @@ export async function findOneById(id: string) {
 
 export async function findAll(queries: InterfaceCommon.IQueries<IRole>) {
   const response = await callApiServerCookie<InterfaceCommon.IGetMulti<IRole>>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
+    url: `${process.env.SERVER_HOST}/api/v1/${
       CONSTANT_ROUTE.ROLE
     }${Utils.UtilConvert.convertObjectToString(queries)}`,
     options: {
@@ -58,7 +58,7 @@ export async function findAll(queries: InterfaceCommon.IQueries<IRole>) {
 
 export async function deleteMulti(payload: string[]) {
   const response = await callApiServerCookie<InterfaceCommon.IGetMulti<IRole>>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.ROLE}`,
+    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.ROLE}`,
     options: {
       method: "DELETE",
       body: JSON.stringify(payload),

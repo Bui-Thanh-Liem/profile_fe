@@ -43,7 +43,8 @@ const userItems: MenuProps["items"] = [
 
 export default function PersonalCustomer() {
   const router = useRouter();
-  const { logoutCustomer, currentCustomer } = useCustomerStore();
+  const { isLoggedCustomer, logoutCustomer, currentCustomer } =
+    useCustomerStore();
   const onClickItemMenu: MenuProps["onClick"] = (info) => {
     console.log("info.key:::", info.key);
 
@@ -52,6 +53,8 @@ export default function PersonalCustomer() {
       router.push("/");
     }
   };
+
+  if (!isLoggedCustomer) return null;
 
   return (
     <FloatButton.Group style={{ insetInlineEnd: 100 }}>

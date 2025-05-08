@@ -55,6 +55,7 @@ async function AboutPage() {
             src={image}
             alt="LiemDev"
             className="w-full h-auto rounded-2xl"
+            unoptimized
           />
         </Col>
         <ContactMe />

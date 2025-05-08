@@ -15,8 +15,8 @@ import { useEffect, useState } from "react";
 
 //
 import Image from "next/image";
-import useCustomerStore from "../../../stores/useCustomerStore";
 import Logo from "../../../components/Logo";
+import useCustomerStore from "../../../stores/useCustomerStore";
 const { Countdown } = Statistic;
 
 type FieldTypeLogin = {
@@ -134,8 +134,7 @@ export function RequireLogin() {
 
   //
   async function handleLoginGoogle() {
-    console.log("login google");
-    loginCustomer({ avatar: "", fullName: "customer" });
+    window.location.href = `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/customer/google`;
   }
 
   //

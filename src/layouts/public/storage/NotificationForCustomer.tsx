@@ -1,45 +1,68 @@
 "use client";
-import { Modal } from "antd";
-import { useEffect, useState } from "react";
+
 import useCustomerStore from "@/stores/useCustomerStore";
+import { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import { useSearchParams } from "next/navigation";
+import { Button } from "antd";
+
+// Import Modal từ antd động, với ssr = false
+const DynamicModal = dynamic(() => import("antd").then((mod) => mod.Modal), {
+  ssr: false,
+});
 
 export function NotificationForCustomerLayout() {
   const { isLoggedCustomer } = useCustomerStore();
-  const [open, setOpen] = useState(isLoggedCustomer);
+  const [open, setOpen] = useState(true);
+  const [mounted, setMounted] = useState(false);
+  const searchParams = useSearchParams();
+  const loginType = searchParams.get("loginType");
+  console.log("loginType:::", loginType);
+  console.log("loginType:::", loginType === "google");
 
-  // Prevent auto-focus by blurring active element
+  //
   useEffect(() => {
-    if (open) {
-      // Blur any focused element to prevent scrolling
-      if (document.activeElement) {
-        (document.activeElement as HTMLElement).blur();
-      }
-    }
+    setMounted(true);
   }, [open]);
 
+  //
   const handleClose = () => {
     setOpen(false);
   };
 
-  if (!isLoggedCustomer) return null;
+  // Chỉ render khi đã mount ở client
+  if (!mounted) return null;
+
+  //
+  function onOkNotification() {
+    
+    
+    setOpen(false);
+  }
 
   return (
     <div>
-      <Modal
+      <DynamicModal
         open={open}
         onOk={handleClose}
         onCancel={handleClose}
         centered
-        maskClosable
+        maskClosable={false}
         footer={null}
         width={1000}
         focusTriggerAfterClose={false}
-        wrapProps={{ tabIndex: -1 }} // Prevent modal content from being focusable
+        wrapProps={{ tabIndex: -1 }}
+        closable={false}
       >
-        <div tabIndex={-1} className="text-center">
+        <div className="text-center">
           <p>Notification</p>
+          {loginType && loginType === "google" && (
+            <Button type="primary" onClick={onOkNotification}>
+              OK
+            </Button>
+          )}
         </div>
-      </Modal>
+      </DynamicModal>
     </div>
   );
 }

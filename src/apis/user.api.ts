@@ -8,7 +8,7 @@ import { CONSTANT_TAG_CACHE } from "@/constants";
 
 export async function create(payload: Partial<IUser>) {
   const response = await callApiServerCookie<IUser>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.USER}`,
+    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.USER}`,
     options: {
       method: "POST",
       body: JSON.stringify(payload),
@@ -20,7 +20,7 @@ export async function create(payload: Partial<IUser>) {
 
 export async function update(id: string, payload: Partial<IUser>) {
   const response = await callApiServerCookie<IUser>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.USER}/${id}`,
+    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.USER}/${id}`,
     options: {
       method: "PATCH",
       body: JSON.stringify(payload),
@@ -32,7 +32,7 @@ export async function update(id: string, payload: Partial<IUser>) {
 
 export async function findOneById(id: string) {
   const response = await callApiServerCookie<IUser>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.USER}/${id}`,
+    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.USER}/${id}`,
     options: {
       method: "GET",
       cache: "force-cache",
@@ -44,7 +44,7 @@ export async function findOneById(id: string) {
 
 // export async function findManyByIds(ids: string[]) {
 //   const response = await callApiServerCookie<IUser>({
-//     url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.USER}/ids/${ids}`,
+//     url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.USER}/ids/${ids}`,
 //     options: {
 //       method: "GET",
 //     },
@@ -57,7 +57,7 @@ export async function findOneById(id: string) {
 
 export async function findAll(queries: InterfaceCommon.IQueries<IUser>) {
   const response = await callApiServerCookie<InterfaceCommon.IGetMulti<IUser>>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
+    url: `${process.env.SERVER_HOST}/api/v1/${
       CONSTANT_ROUTE.USER
     }${Utils.UtilConvert.convertObjectToString(queries)}`,
     options: {
@@ -71,7 +71,7 @@ export async function findAll(queries: InterfaceCommon.IQueries<IUser>) {
 
 export async function deleteMulti(payload: string[]) {
   const response = await callApiServerCookie<InterfaceCommon.IGetMulti<IUser>>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.USER}`,
+    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.USER}`,
     options: {
       method: "DELETE",
       body: JSON.stringify(payload),

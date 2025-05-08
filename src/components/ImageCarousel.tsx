@@ -21,6 +21,7 @@ export const ImageCarousel = ({ images, alt }: IPropImageCarousel) => {
             e.stopPropagation();
           }}
           className="cursor-pointer object-contain"
+          unoptimized
         />
       </div>
       <Modal
@@ -46,6 +47,7 @@ export const ImageCarousel = ({ images, alt }: IPropImageCarousel) => {
                 src={src}
                 alt={`carousel-${index}`}
                 className="object-contain cursor-grab"
+                unoptimized
               />
             </div>
           ))}

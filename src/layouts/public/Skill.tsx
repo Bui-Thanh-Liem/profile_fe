@@ -46,6 +46,7 @@ function SkillItem({ name, image, progress, link }: IPropCardSkill) {
         src={image}
         alt={name}
         className="bg-transparent"
+        unoptimized
       />
       <p className="font-bold text-primary shadow-2xl">{name}</p>
     </div>

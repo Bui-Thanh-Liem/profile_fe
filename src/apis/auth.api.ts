@@ -7,7 +7,7 @@ export async function login(payload: Partial<IUser>) {
   const response = await callApiServerCookie<
     InterfaceCommon.IResponseLogin<IUser>
   >({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.AUTH}/${"login"}`,
+    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.AUTH}/${"login"}`,
     options: {
       method: "POST",
       body: JSON.stringify(payload),
@@ -18,7 +18,9 @@ export async function login(payload: Partial<IUser>) {
 
 export async function refresh() {
   const response = await callApiServerCookie<boolean>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.AUTH}/${"refresh"}`,
+    url: `${process.env.SERVER_HOST}/api/v1/${
+      CONSTANT_ROUTE.AUTH
+    }/${"refresh"}`,
     options: {
       method: "POST",
       // body: JSON.stringify(""),
@@ -29,7 +31,7 @@ export async function refresh() {
 
 export async function logout() {
   const response = await callApiServerCookie<boolean>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.AUTH}/${"logout"}`,
+    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.AUTH}/${"logout"}`,
     options: {
       method: "POST",
     },
@@ -39,7 +41,7 @@ export async function logout() {
 
 export async function enterEmail(payload: { email: string }) {
   const response = await callApiServerCookie<boolean>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
+    url: `${process.env.SERVER_HOST}/api/v1/${
       CONSTANT_ROUTE.AUTH
     }/${"enter-email"}`,
     options: {
@@ -58,7 +60,7 @@ export async function configOtp({
   otp: string;
 }) {
   const response = await callApiServerCookie<{ token: string }>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
+    url: `${process.env.SERVER_HOST}/api/v1/${
       CONSTANT_ROUTE.AUTH
     }/${"confirm-otp"}/${token}`,
     options: {
@@ -77,7 +79,7 @@ export async function resetPassword({
   password: string;
 }) {
   const response = await callApiServerCookie<boolean>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
+    url: `${process.env.SERVER_HOST}/api/v1/${
       CONSTANT_ROUTE.AUTH
     }/${"reset-password"}${Utils.UtilConvert.convertObjectToString({
       token,
@@ -92,7 +94,7 @@ export async function resetPassword({
 
 export async function getMe() {
   const response = await callApiServerCookie<IUser>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.AUTH}/${"me"}`,
+    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.AUTH}/${"me"}`,
     options: {
       method: "GET",
     },

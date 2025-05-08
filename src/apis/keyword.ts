@@ -7,7 +7,7 @@ import { revalidateTag } from "next/cache";
 
 export async function create(payload: Partial<IKeyWord>) {
   const response = await callApiServerCookie<IKeyWord>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.KEYWORD}`,
+    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.KEYWORD}`,
     options: {
       method: "POST",
       body: JSON.stringify(payload),
@@ -19,7 +19,7 @@ export async function create(payload: Partial<IKeyWord>) {
 
 export async function update(id: string, payload: Partial<IKeyWord>) {
   const response = await callApiServerCookie<IKeyWord>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.KEYWORD}/${id}`,
+    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.KEYWORD}/${id}`,
     options: {
       method: "PATCH",
       body: JSON.stringify(payload),
@@ -31,7 +31,7 @@ export async function update(id: string, payload: Partial<IKeyWord>) {
 
 export async function findOneById(id: string) {
   const response = await callApiServerCookie<IKeyWord>({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.KEYWORD}/${id}`,
+    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.KEYWORD}/${id}`,
     options: {
       method: "GET",
       cache: "force-cache",
@@ -45,7 +45,7 @@ export async function findAll(queries: InterfaceCommon.IQueries<IKeyWord>) {
   const response = await callApiServerCookie<
     InterfaceCommon.IGetMulti<IKeyWord>
   >({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${
+    url: `${process.env.SERVER_HOST}/api/v1/${
       CONSTANT_ROUTE.KEYWORD
     }${Utils.UtilConvert.convertObjectToString(queries)}`,
     options: {
@@ -61,7 +61,7 @@ export async function deleteMulti(payload: string[]) {
   const response = await callApiServerCookie<
     InterfaceCommon.IGetMulti<IKeyWord>
   >({
-    url: `${CONSTANT_ROUTE.V1_DOMAIN_DEV}/${CONSTANT_ROUTE.KEYWORD}`,
+    url: `${process.env.SERVER_HOST}/api/v1/${CONSTANT_ROUTE.KEYWORD}`,
     options: {
       method: "DELETE",
       body: JSON.stringify(payload),

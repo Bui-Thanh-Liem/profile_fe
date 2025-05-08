@@ -15,7 +15,7 @@ const { Search } = Input;
 export default function FilterAndSearchStorage() {
   const pathname = usePathname();
   const [searchValue, setSearchValue] = useState<string | undefined>(undefined);
-  const searchValueDebounce = useDebounce(searchValue, 1400);
+  const searchValueDebounce = useDebounce(searchValue, 1200);
   const [keyword, setKeyword] = useState<string | undefined>(undefined);
   const pathnameSplit = pathname.split("/")?.filter(Boolean);
   const endItem = pathnameSplit[pathnameSplit.length - 1];

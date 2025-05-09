@@ -21,7 +21,7 @@ function SkillItem({ name, image, progress, link }: IPropCardSkill) {
     notification.open({
       message: name,
       description: "Please visit the project page for more details.",
-      icon: <Image width={24} height={24} src={image} alt={name} />,
+      icon: <Image width={24} height={24} src={image} alt={name} unoptimized />,
       onClick: () => {
         router.push("/projects");
       },

@@ -132,22 +132,10 @@ export interface IPropMyUpload {
   aspect?: number;
 }
 
-export interface IPropMyTimeLine {
-  date: string;
-  title: string;
-  description: string;
-  datePosition?: "start" | "end";
-}
-
 export interface IPropAuthor {
   user: IUser;
   date: Date;
   detail?: boolean;
-}
-
-export interface IPropMyTimelineContainer {
-  datePosition: "start" | "end";
-  items: IPropMyTimeLine[];
 }
 
 export interface IPropImageCarousel {

@@ -1,4 +1,4 @@
-import { RequireLogin } from "@/layouts/public/storage/RequireLogin";
+import { RequireLogin } from "@/layouts/public/storage/general/RequireLogin";
 import { Suspense } from "react";
 
 export default function RequireLoginPage() {

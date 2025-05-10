@@ -36,17 +36,16 @@ export function EducationLayout() {
   //
   const timelineData: IEducationItem[] = [
     {
-      date: "08 - 2018",
-      title:
-        "Started studying at Ho Chi Minh City University of Industry with a major in Electrical Technology",
+      date: "08 - 2024",
+      title: "Graduated with honors with an average score of 3.5/4.0",
       description:
-        "Start your academic journey with an exciting foundation of knowledge about your field of study. Join academic clubs and connect with like-minded friends.",
+        "Taking the first step toward building a rewarding career driven by passion and dedication.",
     },
     {
-      date: "03 - 2022",
-      title: "Graduate internship",
-      description:
-        "It was fun to get 90% of the way there and realize that I didn't really like the industry I was pursuing.",
+      date: "08 - 2022",
+      title:
+        "Started studying at Ho Chi Minh City College of Information Technology with a major in Information Technology",
+      description: "start pursuing the career you love",
     },
     {
       date: "07 - 2022",
@@ -56,16 +55,17 @@ export function EducationLayout() {
         "End of a challenging learning journey and valuable experience.",
     },
     {
-      date: "08 - 2022",
-      title:
-        "Started studying at Ho Chi Minh City College of Information Technology with a major in Information Technology",
-      description: "start pursuing the career you love",
+      date: "03 - 2022",
+      title: "Graduate internship",
+      description:
+        "It was fun to get 90% of the way there and realize that I didn't really like the industry I was pursuing.",
     },
     {
-      date: "08 - 2024",
-      title: "Graduated with honors with an average score of 3.5/4.0",
+      date: "08 - 2018",
+      title:
+        "Started studying at Ho Chi Minh City University of Industry with a major in Electrical Technology",
       description:
-        "Taking the first step toward building a rewarding career driven by passion and dedication.",
+        "Start your academic journey with an exciting foundation of knowledge about your field of study. Join academic clubs and connect with like-minded friends.",
     },
   ];
 

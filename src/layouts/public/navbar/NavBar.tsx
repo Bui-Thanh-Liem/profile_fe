@@ -1,94 +1,97 @@
-//
+"use client";
+import { useBreakpoints } from "@/hooks/useBreakpoints";
 import {
   FacebookOutlined,
-  GithubOutlined,
-  TwitterOutlined,
-  YoutubeOutlined,
+  GithubOutlined
 } from "@ant-design/icons";
+import { useEffect } from "react";
 import Logo from "../../../components/Logo";
 import { NavbarItemIcon } from "./NavbarItemIcon";
 import { NavbarItemLink } from "./NavbarItemLink";
 
 //
-function NavBar() {
+export default function NavBar() {
+  const {
+    isMobileSmall,
+    isMobileLarge,
+    isTablet,
+    isDesktopSmall,
+    isDesktop,
+    isDesktopLarge,
+  } = useBreakpoints();
+
+  useEffect(() => {
+    console.log("isMobileSmall::::", isMobileSmall);
+    console.log("isMobileLarge::::", isMobileLarge);
+    console.log("isTablet::::", isTablet);
+    console.log("isDesktopSmall::::", isDesktopSmall);
+    console.log("isDesktop::::", isDesktop);
+    console.log("isDesktopLarge::::", isDesktopLarge);
+  }, [
+    isDesktop,
+    isDesktopLarge,
+    isDesktopSmall,
+    isMobileLarge,
+    isMobileSmall,
+    isTablet,
+  ]);
+
+  //
+  const navLinks = [
+    { href: "/", label: "Home" },
+    { href: "/about", label: "About" },
+    { href: "/skills", label: "Skills" },
+    { href: "/education", label: "Education" },
+    { href: "/experience", label: "Experience" },
+    { href: "/projects", label: "Projects" },
+    { href: "/blogs", label: "Blogs" },
+    { href: "/storage", label: "Storage" },
+  ];
+
+  //
+  const socialLinks = [
+    {
+      icon: (
+        <FacebookOutlined
+          className="text-blue-500"
+          style={{ fontSize: "24px" }}
+        />
+      ),
+      href: "https://www.facebook.com/profile.php?id=100010395697006",
+      target: "_blank",
+    },
+    {
+      icon: <GithubOutlined style={{ fontSize: "24px" }} />,
+      href: "https://github.com/Bui-Thanh-Liem",
+      target: "_blank",
+    },
+  ];
+
   return (
     <div className="w-[1200px] m-auto flex justify-between items-center h-16">
       <div>
         <Logo />
       </div>
+
+      {/*  */}
       <ul className="flex gap-8">
-        <li>
-          <NavbarItemLink href="/">Home</NavbarItemLink>
-        </li>
-        <li>
-          <NavbarItemLink href="/about">About</NavbarItemLink>
-        </li>
-        <li>
-          <NavbarItemLink href="/skills">Skills</NavbarItemLink>
-        </li>
-        <li>
-          <NavbarItemLink href="/education">Education</NavbarItemLink>
-        </li>
-        <li>
-          <NavbarItemLink href="/experience">Experience</NavbarItemLink>
-        </li>
-        <li>
-          <NavbarItemLink href="/projects">Projects</NavbarItemLink>
-        </li>
-        <li>
-          <NavbarItemLink href="/blogs">Blogs</NavbarItemLink>
-        </li>
-        <li>
-          <NavbarItemLink href="/storage">Storage</NavbarItemLink>
-        </li>
+        {navLinks?.map((nav) => (
+          <li key={nav.href}>
+            <NavbarItemLink href={nav.href}>{nav.label}</NavbarItemLink>
+          </li>
+        ))}
       </ul>
+
+      {/*  */}
       <ul className="flex gap-8 justify-end">
-        <li>
-          <a href="#" target="">
-            <NavbarItemIcon
-              icon={
-                <FacebookOutlined
-                  className="text-blue-500"
-                  style={{ fontSize: "24px" }}
-                />
-              }
-            />
-          </a>
-        </li>
-        <li>
-          <a href="#" target="">
-            <NavbarItemIcon
-              icon={<GithubOutlined style={{ fontSize: "24px" }} />}
-            />
-          </a>
-        </li>
-        <li>
-          <a href="#" target="">
-            <NavbarItemIcon
-              icon={
-                <TwitterOutlined
-                  className="text-blue-400"
-                  style={{ fontSize: "24px" }}
-                />
-              }
-            />
-          </a>
-        </li>
-        <li>
-          <a href="#" target="">
-            <NavbarItemIcon
-              icon={
-                <YoutubeOutlined
-                  className="text-red-600"
-                  style={{ fontSize: "24px" }}
-                />
-              }
-            />
-          </a>
-        </li>
+        {socialLinks?.map((nav) => (
+          <li key={nav.href}>
+            <a href="#" target="">
+              <NavbarItemIcon icon={nav.icon} />
+            </a>
+          </li>
+        ))}
       </ul>
     </div>
   );
 }
-
-export default NavBar;

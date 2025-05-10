@@ -57,7 +57,7 @@ export function SkillLayout({ items }: IPropLayout<ISkill>) {
   return (
     <section className="flex h-screen">
       {items.length ? (
-        <Row className="m-auto w-[1200px] justify-between gap-y-4">
+        <Row className="m-auto w-[1200px] gap-4">
           {items.map((skill) => (
             <Col key={skill.name}>
               <SkillItem

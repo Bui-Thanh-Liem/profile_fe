@@ -4,7 +4,7 @@ import { CONSTANT_TOKEN } from "./constants";
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  const response = NextResponse.next();
+  // const response = NextResponse.next();
   console.log("pathname:::", pathname);
 
   const customerCookie = request.cookies.get(
@@ -41,24 +41,24 @@ export function middleware(request: NextRequest) {
     }
 
     // check token
-    return fetch(`${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/protected`)
-      .then((res) => res.json())
-      .then((res) => {
-        console.log("res protected :::", res);
+    // return fetch(`${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/protected`)
+    //   .then((res) => res.json())
+    //   .then((res) => {
+    //     console.log("res protected :::", res);
 
-        if (res?.statusCode !== 200) {
-          response.cookies.set(CONSTANT_TOKEN.TOKEN_NAME_USER, "", {
-            maxAge: 0, // or expires: new Date(0)
-            // path: "/", // Đảm bảo xoá trên toàn bộ trang web
-            // httpOnly: true, // Bảo mật hơn (cookie không thể bị truy cập từ client-side JS)
-            // secure: process.env.NODE_ENV === "production", // Chỉ bật trên HTTPS khi production
-            // sameSite: "strict", // Đảm bảo cookie không bị gửi trong yêu cầu từ trang khác
-          });
-          // NextResponse.redirect(new URL("/login", request.url));
-        }
-        return NextResponse.next();
-      })
-      .catch(() => NextResponse.redirect(new URL("/login", request.url)));
+    //     if (res?.statusCode !== 200) {
+    //       response.cookies.set(CONSTANT_TOKEN.TOKEN_NAME_USER, "", {
+    //         maxAge: 0, // or expires: new Date(0)
+    //         // path: "/", // Đảm bảo xoá trên toàn bộ trang web
+    //         // httpOnly: true, // Bảo mật hơn (cookie không thể bị truy cập từ client-side JS)
+    //         // secure: process.env.NODE_ENV === "production", // Chỉ bật trên HTTPS khi production
+    //         // sameSite: "strict", // Đảm bảo cookie không bị gửi trong yêu cầu từ trang khác
+    //       });
+    //       NextResponse.redirect(new URL("/login", request.url));
+    //     }
+    //     return NextResponse.next();
+    //   })
+    //   .catch(() => NextResponse.redirect(new URL("/login", request.url)));
   }
 
   // logged

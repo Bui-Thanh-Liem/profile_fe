@@ -1,6 +1,6 @@
 "use client";
 import { create, update } from "@/apis/role.api";
-import { showToast } from "@/helper/show-toast.helper";
+import { showToast } from "@/utils/show-toast.util";
 import { IRoleDataResource } from "@/interfaces/common.interface";
 import { IRole } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
@@ -9,7 +9,9 @@ import { Button, Form, Input, Modal } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { Enums } from "liemdev-profile-lib";
 import { useEffect, useTransition } from "react";
-import RoleItemResource from "./RoleItemResource";
+import { RoleItemResource } from "./RoleItemResource";
+import { customerMessageErrorAntd } from "@/utils/customerMessageErrorAntd";
+import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 
 export default function RoleAction({
   dataEdit,
@@ -72,7 +74,19 @@ export default function RoleAction({
         handleCancel();
         roleActionForm.resetFields();
       } catch (error) {
-        console.log("Error::", error);
+        const messages = customerMessageErrorAntd<IRole>(
+          error as ValidateErrorEntity,
+          ["dataSources"]
+        );
+        console.log("messages:::", messages);
+
+        for (const mess of messages) {
+          showToast({
+            statusCode: 422,
+            message: mess,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          } as TResponse<any>);
+        }
       }
     });
   }

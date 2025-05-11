@@ -1,5 +1,4 @@
 "use client";
-import { useToast } from "@/hooks/useToast";
 import { IBase, IUser } from "@/interfaces/model.interface";
 import IPropMyTable from "@/interfaces/propsComponent.interface";
 import type { TableColumnsType, TableProps } from "antd";
@@ -9,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { Author } from "../Author";
 import MyTableAction from "./MyTableAction";
 import MyTableToolbar from "./MyTableToolbar";
+import { showToast } from "@/utils/show-toast.util";
 
 const useStyle = createStyles(({ css, token }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -49,9 +49,6 @@ export default function MyTable<T extends IBaseMyTable>({
     useState<boolean>(false);
   const [dataEdit, setDataEdit] = useState<Partial<T> | null>(null);
   const [checkedIds, setCheckedIds] = useState<Array<string> | []>([]);
-
-  //
-  const { showToast, contextHolder } = useToast();
 
   //
   useEffect(() => {
@@ -171,7 +168,6 @@ export default function MyTable<T extends IBaseMyTable>({
               `Display ${range[0]}-${range[1]} on total record ${total}`,
           }}
         />
-        {contextHolder}
       </Card>
       {React.cloneElement(actionDataSource, {
         isOpen: isOpenActionDataSource,

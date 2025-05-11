@@ -2,7 +2,7 @@
 import { update } from "@/apis/about.api";
 import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import { MyUpload } from "@/components/MyUpload";
-import { showToast } from "@/helper/show-toast.helper";
+import { showToast } from "@/utils/show-toast.util";
 import { IAbout } from "@/interfaces/model.interface";
 import { Button, Col, Form, Input, Row } from "antd";
 import { PlusOutlined, MinusOutlined } from "@ant-design/icons";

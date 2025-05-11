@@ -25,7 +25,7 @@ const tagRender: TagRender = (props) => {
   );
 };
 
-export default function RoleItemResource({
+export function RoleItemResource({
   resource,
   value,
   onChangeResource,

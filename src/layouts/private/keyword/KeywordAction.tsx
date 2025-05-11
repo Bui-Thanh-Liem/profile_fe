@@ -1,6 +1,6 @@
 "use client";
 import { create, update } from "@/apis/keyword";
-import { showToast } from "@/helper/show-toast.helper";
+import { showToast } from "@/utils/show-toast.util";
 import { IKeyWord } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
@@ -38,6 +38,7 @@ export function KeywordAction({
         } else {
           res = await create(formData);
         }
+        console.log("res keyword:::", res);
 
         //
         if (res.statusCode !== 200) {
@@ -93,10 +94,10 @@ export function KeywordAction({
       <Form
         form={keywordActionForm}
         name="user-action"
-        initialValues={{ remember: true }}
         onFinish={onSubmitForm}
         onFinishFailed={() => {}}
         layout="vertical"
+        initialValues={{ name: "", color: "#1677ff" }}
         autoComplete="off"
       >
         <Form.Item<IKeyWord>
@@ -104,11 +105,10 @@ export function KeywordAction({
           name="name"
           rules={[{ required: true, message: "Please input name!" }]}
         >
-          <Input size="large" maxLength={16} />
+          <Input size="large" maxLength={16} placeholder="Enter name keyword" />
         </Form.Item>
         <Form.Item<IKeyWord> label="Color" name="color">
           <ColorPicker
-            defaultValue="#1677ff"
             showText
             allowClear
             onChange={(color) => {

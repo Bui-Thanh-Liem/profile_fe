@@ -2,7 +2,7 @@
 import { deleteMulti } from "@/apis/role-group";
 import { CardRoleGroup } from "@/components/cards/CardRoleGroup";
 import MyTableToolbar from "@/components/table/MyTableToolbar";
-import { showToast } from "@/helper/show-toast.helper";
+import { showToast } from "@/utils/show-toast.util";
 import { IRoleGroup } from "@/interfaces/model.interface";
 import { IPropLayout } from "@/interfaces/propsLayout.interface";
 import { Checkbox, CheckboxChangeEvent, Col, Row } from "antd";

@@ -1,7 +1,7 @@
 "use client";
 import { create, update } from "@/apis/skill";
 import { MyUpload } from "@/components/MyUpload";
-import { showToast } from "@/helper/show-toast.helper";
+import { showToast } from "@/utils/show-toast.util";
 import { ISkill } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";

@@ -2,7 +2,7 @@
 import { create, update } from "@/apis/image-storage";
 import { findAll } from "@/apis/keyword";
 import { MyUpload } from "@/components/MyUpload";
-import { showToast } from "@/helper/show-toast.helper";
+import { showToast } from "@/utils/show-toast.util";
 import { IImageStorage, IKeyWord } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";

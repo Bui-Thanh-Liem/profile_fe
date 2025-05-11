@@ -2,7 +2,7 @@
 import { deleteMulti } from "@/apis/skill";
 import { CardSkillAdmin } from "@/components/cards/CardSkillAdmin";
 import MyTableToolbar from "@/components/table/MyTableToolbar";
-import { showToast } from "@/helper/show-toast.helper";
+import { showToast } from "@/utils/show-toast.util";
 import { ISkill } from "@/interfaces/model.interface";
 import { IPropLayout } from "@/interfaces/propsLayout.interface";
 import { Checkbox, CheckboxChangeEvent, Col, Row } from "antd";

@@ -2,6 +2,7 @@
 import { ParagraphItemTable } from "@/components/table/ParagraphItemTable";
 import { TextAreaItemTable } from "@/components/table/TextAreaItemTable";
 import { IImageStorage, IKeyWord } from "@/interfaces/model.interface";
+import { setPrefixFile } from "@/utils/setPrefixFile";
 import { TableColumnsType, Tag } from "antd";
 import Image from "next/image";
 
@@ -38,7 +39,7 @@ export const imageStorageActionColumns: TableColumnsType<IImageStorage> = [
             <Image
               key={img}
               alt="img"
-              src={img}
+              src={setPrefixFile(img)}
               width={60}
               height={60}
               unoptimized

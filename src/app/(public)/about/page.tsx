@@ -2,6 +2,7 @@ import { find } from "@/apis/about.api";
 import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import HighlighText from "@/components/elements/HighlighText";
 import { ContactMe } from "@/layouts/public/ContactMe";
+import { setPrefixFile } from "@/utils/setPrefixFile";
 import { FileJpgOutlined } from "@ant-design/icons";
 import { Col, Row } from "antd";
 import Image from "next/image";
@@ -10,7 +11,6 @@ import { v4 } from "uuid";
 async function AboutPage() {
   const resAbout = await find();
   const { text, address, email, phone, image } = resAbout.data;
-  console.log("resAbout:::", resAbout);
 
   return (
     <section className="flex h-screen">
@@ -53,7 +53,7 @@ async function AboutPage() {
           <Image
             width={433}
             height={577}
-            src={image}
+            src={setPrefixFile(image)}
             alt="LiemDev"
             className="w-full h-auto rounded-2xl"
             unoptimized

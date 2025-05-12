@@ -2,9 +2,10 @@
 import { ParagraphItemTable } from "@/components/table/ParagraphItemTable";
 import { TextAreaItemTable } from "@/components/table/TextAreaItemTable";
 import { IKeyWord, ISubjectItem } from "@/interfaces/model.interface";
+import { setPrefixFile } from "@/utils/setPrefixFile";
 import { TableColumnsType, Tag, Typography } from "antd";
-const { Text } = Typography;
 import Image from "next/image";
+const { Text } = Typography;
 
 export const subjectItemActionColumns: TableColumnsType<ISubjectItem> = [
   {
@@ -46,7 +47,13 @@ export const subjectItemActionColumns: TableColumnsType<ISubjectItem> = [
       !_ ? (
         <span>-</span>
       ) : (
-        <Image alt="img" src={_} width={60} height={60} unoptimized />
+        <Image
+          alt="img"
+          src={setPrefixFile(_)}
+          width={60}
+          height={60}
+          unoptimized
+        />
       ),
   },
   {

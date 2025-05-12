@@ -21,7 +21,6 @@ export default function SubjectItemActionAction({
   const [subjectItemActionForm] = Form.useForm<Partial<ISubjectItem>>();
   const [isPending, startTransition] = useTransition();
   const [keywords, setKeywords] = useState<IKeyWord[]>([]);
-  const [file, setFile] = useState<File | null>(null);
 
   //
   const fetchDataForForm = useCallback(async () => {
@@ -45,7 +44,6 @@ export default function SubjectItemActionAction({
         type: dataEdit?.type,
         keywords: keywordEdits?.map((key) => key.id),
       });
-      setFile(dataEdit.image as unknown as File);
       setKeywords((prev) => [...(prev || []), ...keywordEdits]);
     }
     fetchDataForForm();
@@ -59,16 +57,12 @@ export default function SubjectItemActionAction({
     startTransition(async () => {
       try {
         const formDataAntd = await subjectItemActionForm.validateFields();
+        console.log("formDataAntd::", formDataAntd);
 
         //
         const formdata = new FormData();
         for (const [key, value] of Object.entries(formDataAntd)) {
-          if (key !== "image") {
-            formdata.append(key, value as string);
-          } else {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            formdata.append(key, file as any);
-          }
+          formdata.append(key, value as string);
         }
 
         let res: TResponse<ISubjectItem>;
@@ -151,7 +145,7 @@ export default function SubjectItemActionAction({
           name="type"
           rules={[{ required: true, message: "Please select type !" }]}
         >
-          <Select size="large" placeholder="Select type" maxCount={2}>
+          <Select size="large" placeholder="Select type">
             {Object.values(Enums.ETypeSubject)?.map((item) => (
               <Select.Option key={uuidV4()} value={item}>
                 {item}
@@ -194,9 +188,8 @@ export default function SubjectItemActionAction({
         >
           <MyUpload
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            values={file ? [file as any] : []}
+            values={dataEdit ? [dataEdit.image] : []}
             onChangeUpload={([file]) => {
-              setFile(file);
               subjectItemActionForm.setFieldValue("image", file);
             }}
             length={1}

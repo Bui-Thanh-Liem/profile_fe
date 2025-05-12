@@ -6,6 +6,7 @@ import Meta from "antd/es/card/Meta";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { ActionCard } from "../ActionCard";
+import { setPrefixFile } from "@/utils/setPrefixFile";
 
 //
 export function CardSkillAdmin({
@@ -55,7 +56,7 @@ export function CardSkillAdmin({
               width={24}
               height={24}
               alt={name}
-              src={image}
+              src={setPrefixFile(image)}
               className="object-contain"
               unoptimized
             />

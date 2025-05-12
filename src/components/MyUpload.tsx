@@ -1,4 +1,5 @@
 import { IPropMyUpload } from "@/interfaces/propsComponent.interface";
+import { setPrefixFile } from "@/utils/setPrefixFile";
 import type { GetProp, UploadFile, UploadProps } from "antd";
 import { Switch, Upload } from "antd";
 import ImgCrop from "antd-img-crop";
@@ -17,20 +18,15 @@ export const MyUpload = ({
 
   //
   useEffect(() => {
-    if (values && values.length > 0) {
-      const files = values.map((url, index) => {
-        if (typeof url === "string") {
-          return {
-            uid: `-${index}`,
-            name: `image-${index}.jpg`,
-            status: "done",
-            url,
-            thumbUrl: url,
-          };
-        } else {
-          return url;
-        }
-      });
+    if (values && typeof values[0] === "string" && values.length > 0) {
+      const files = values.map((url, index) => ({
+        uid: `image-${index}`,
+        name: `image-${index}.jpg`,
+        status: "done",
+        url: setPrefixFile(url),
+        thumbUrl: setPrefixFile(url),
+      }));
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       setFileList(files as any);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

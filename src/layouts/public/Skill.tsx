@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { MyEmpty } from "@/components/MyEmpty";
 import { ISkill } from "@/interfaces/model.interface";
 import { IPropLayout } from "@/interfaces/propsLayout.interface";
+import { setPrefixFile } from "@/utils/setPrefixFile";
 
 function SkillItem({ name, image, progress, link }: IPropCardSkill) {
   const router = useRouter();
@@ -21,7 +22,15 @@ function SkillItem({ name, image, progress, link }: IPropCardSkill) {
     notification.open({
       message: name,
       description: "Please visit the project page for more details.",
-      icon: <Image width={24} height={24} src={image} alt={name} unoptimized />,
+      icon: (
+        <Image
+          width={24}
+          height={24}
+          src={setPrefixFile(image)}
+          alt={name}
+          unoptimized
+        />
+      ),
       onClick: () => {
         router.push("/projects");
       },
@@ -43,7 +52,7 @@ function SkillItem({ name, image, progress, link }: IPropCardSkill) {
       <Image
         width={50}
         height={50}
-        src={image}
+        src={setPrefixFile(image)}
         alt={name}
         className="bg-transparent"
         unoptimized

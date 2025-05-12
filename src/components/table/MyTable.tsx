@@ -50,6 +50,8 @@ export default function MyTable<T extends IBaseMyTable>({
   const [dataEdit, setDataEdit] = useState<Partial<T> | null>(null);
   const [checkedIds, setCheckedIds] = useState<Array<string> | []>([]);
 
+  console.log("Boolean(actionDataSource):::", Boolean(actionDataSource));
+
   //
   useEffect(() => {
     if (!isOpenActionDataSource) {
@@ -95,6 +97,7 @@ export default function MyTable<T extends IBaseMyTable>({
         if (record.isAdmin) return null;
         return (
           <MyTableAction
+            isEdit={Boolean(actionDataSource)}
             onEdit={() => onEditItem(record)}
             onDelete={() => onDeleteItem(record.id)}
           />
@@ -131,6 +134,8 @@ export default function MyTable<T extends IBaseMyTable>({
   //
   async function onDeleteItem(id: string) {
     const res = await deleteApi([id]);
+    console.log("res delete :::", res);
+
     showToast(res);
   }
 
@@ -169,7 +174,7 @@ export default function MyTable<T extends IBaseMyTable>({
           }}
         />
       </Card>
-      {React.cloneElement(actionDataSource, {
+      {React.cloneElement(actionDataSource || <></>, {
         isOpen: isOpenActionDataSource,
         setIsOpen: setIsOpenActionDataSource,
         dataEdit,

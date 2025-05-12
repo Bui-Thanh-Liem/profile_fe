@@ -2,7 +2,11 @@ import { Button, Popconfirm } from "antd";
 import { IPropTableAction } from "@/interfaces/propsComponent.interface";
 import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
-export default function MyTableAction({ onEdit, onDelete }: IPropTableAction) {
+export default function MyTableAction({
+  onEdit,
+  onDelete,
+  isEdit = false,
+}: IPropTableAction) {
   //
   function onConfirmEdit() {
     onEdit();
@@ -20,7 +24,12 @@ export default function MyTableAction({ onEdit, onDelete }: IPropTableAction) {
         icon={<EditOutlined style={{ color: "orange" }} />}
         onConfirm={onConfirmEdit}
       >
-        <Button size="small" color="primary" variant="outlined">
+        <Button
+          size="small"
+          color="primary"
+          variant="outlined"
+          disabled={!isEdit}
+        >
           <EditOutlined />
         </Button>
       </Popconfirm>

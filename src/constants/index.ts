@@ -27,4 +27,6 @@ export const CONSTANT_TAG_CACHE = {
   subject_groups: "subject-groups",
   subject_item: "subject-item",
   subject_items: "subject-items",
+  customer: "customer",
+  customers: "customers",
 };

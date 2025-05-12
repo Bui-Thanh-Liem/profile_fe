@@ -1,11 +1,10 @@
 "use client";
 import { MyAvatar } from "@/components/MyAvatar";
 import MyTag from "@/components/MyTag";
-import { IRole, IRoleGroup, IUser } from "@/interfaces/model.interface";
+import { ICustomer } from "@/interfaces/model.interface";
 import { TableColumnsType } from "antd";
-import { v4 } from "uuid";
 
-export const userActionColumns: TableColumnsType<IUser> = [
+export const customerActionColumns: TableColumnsType<ICustomer> = [
   {
     title: "Avatar",
     width: 150,
@@ -30,12 +29,6 @@ export const userActionColumns: TableColumnsType<IUser> = [
     fixed: "left",
   },
   {
-    title: "Gender",
-    width: 150,
-    dataIndex: "gender",
-    key: "gender",
-  },
-  {
     title: "Email",
     width: 250,
     dataIndex: "email",
@@ -50,41 +43,6 @@ export const userActionColumns: TableColumnsType<IUser> = [
     render: (_) => {
       if (!_) return "-";
       return <a href={`tel:${_}`}>{_}</a>;
-    },
-  },
-  {
-    title: "Role",
-    width: 250,
-    dataIndex: "roles",
-    key: "roles",
-    render: (_) => {
-      if (!_?.length) {
-        return "-";
-      }
-      return _.map((role: IRole) => <p key={v4()}>{role.name}</p>);
-    },
-  },
-  {
-    title: "Role group",
-    width: 250,
-    dataIndex: "roleGroups",
-    key: "roleGroups",
-    render: (_) => {
-      if (!_?.length) {
-        return "-";
-      }
-      return _.map((roleGroup: IRoleGroup) => (
-        <p key={v4()}>{roleGroup.name}</p>
-      ));
-    },
-  },
-  {
-    title: "Sub Admin",
-    width: 150,
-    dataIndex: "subAdmin",
-    key: "subAdmin",
-    render: (_) => {
-      return <MyTag tagName={_ ? "YES" : "NO"} />;
     },
   },
   {

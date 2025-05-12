@@ -52,8 +52,8 @@ export const imageStorageActionColumns: TableColumnsType<IImageStorage> = [
   {
     title: "Keywords",
     width: 250,
-    dataIndex: "name",
-    key: "name",
+    dataIndex: "keywords",
+    key: "keywords",
     fixed: "left",
     render: (_) => {
       const keys = _ as IKeyWord[];

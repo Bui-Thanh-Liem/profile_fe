@@ -1,6 +1,6 @@
 "use client";
 
-import { verifyLoginGoogle } from "@/apis/customer";
+import { verifyLoginGoogle } from "@/apis/customer.api";
 import useCustomerStore from "@/stores/useCustomerStore";
 import { Button } from "antd";
 import dynamic from "next/dynamic";

@@ -66,12 +66,16 @@ export default function StorageLayout({
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="w-[1200px] min-h-screen pt-20">
-        {requireLogin}
-        {notificationForCustomer}
+        <Suspense fallback={<div>Đang tải...</div>}>{requireLogin}</Suspense>
+        <Suspense fallback={<div>Đang tải...</div>}>
+          {notificationForCustomer}
+        </Suspense>
         <Suspense fallback={<div>Đang tải...</div>}>
           <FilterAndSearchStorage />
         </Suspense>
-        <div className="mt-28">{children}</div>
+        <Suspense fallback={<div>Đang tải...</div>}>
+          <div className="mt-28">{children}</div>
+        </Suspense>
         <div className="fixed top-1/2 right-[calc(50%-700px)] translate-x-1/2 -translate-y-1/2">
           {storageNavData.map((nav) => (
             <StorageNavItem

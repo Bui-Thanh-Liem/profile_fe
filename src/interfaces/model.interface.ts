@@ -12,3 +12,4 @@ export type ISendMail = InterfaceModel.ISendMail;
 export type ISubjectGroup = InterfaceModel.ISubjectGroup;
 export type ISubjectItem = InterfaceModel.ISubjectItem;
 export type IAbout = InterfaceModel.IAbout;
+export type ICustomer = InterfaceModel.ICustomer;

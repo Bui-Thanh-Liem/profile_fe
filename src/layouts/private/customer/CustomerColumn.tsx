@@ -1,6 +1,7 @@
 "use client";
 import { MyAvatar } from "@/components/MyAvatar";
 import MyTag from "@/components/MyTag";
+import { ParagraphItemTable } from "@/components/table/ParagraphItemTable";
 import { ICustomer } from "@/interfaces/model.interface";
 import { TableColumnsType } from "antd";
 
@@ -27,6 +28,7 @@ export const customerActionColumns: TableColumnsType<ICustomer> = [
     dataIndex: "fullName",
     key: "fullName",
     fixed: "left",
+    render: (_) => <ParagraphItemTable str={_} />,
   },
   {
     title: "Email",

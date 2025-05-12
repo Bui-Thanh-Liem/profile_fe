@@ -50,8 +50,6 @@ export default function MyTable<T extends IBaseMyTable>({
   const [dataEdit, setDataEdit] = useState<Partial<T> | null>(null);
   const [checkedIds, setCheckedIds] = useState<Array<string> | []>([]);
 
-  console.log("Boolean(actionDataSource):::", Boolean(actionDataSource));
-
   //
   useEffect(() => {
     if (!isOpenActionDataSource) {
@@ -134,8 +132,6 @@ export default function MyTable<T extends IBaseMyTable>({
   //
   async function onDeleteItem(id: string) {
     const res = await deleteApi([id]);
-    console.log("res delete :::", res);
-
     showToast(res);
   }
 

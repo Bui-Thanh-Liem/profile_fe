@@ -7,8 +7,7 @@ import { handleSetDefaultQueries } from "@/utils/handleSetDefaultQueries";
 export default async function RoleGroupsPage({
   searchParams,
 }: IPropPage<IRoleGroup>) {
-  const { limit, page } = handleSetDefaultQueries(searchParams);
-  const resRoleGroups = await findAll({ limit, page });
+  const resRoleGroups = await findAll(handleSetDefaultQueries(searchParams));
 
   return (
     <RoleGroupLayout

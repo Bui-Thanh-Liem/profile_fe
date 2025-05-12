@@ -7,8 +7,7 @@ import { handleSetDefaultQueries } from "@/utils/handleSetDefaultQueries";
 export default async function KeywordPage({
   searchParams,
 }: IPropPage<IKeyWord>) {
-  const { limit, page } = handleSetDefaultQueries(searchParams);
-  const resKeywords = await findAll({ limit, page });
+  const resKeywords = await findAll(handleSetDefaultQueries(searchParams));
 
   return (
     <KeywordLayout

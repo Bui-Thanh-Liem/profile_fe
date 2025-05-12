@@ -1,16 +1,17 @@
 "use client";
 import { ParagraphItemTable } from "@/components/table/ParagraphItemTable";
 import { TextAreaItemTable } from "@/components/table/TextAreaItemTable";
-import { IImageStorage, IKeyWord } from "@/interfaces/model.interface";
-import { TableColumnsType, Tag } from "antd";
+import { IKeyWord, ISubjectItem } from "@/interfaces/model.interface";
+import { TableColumnsType, Tag, Typography } from "antd";
+const { Text } = Typography;
 import Image from "next/image";
 
-export const imageStorageActionColumns: TableColumnsType<IImageStorage> = [
+export const subjectItemActionColumns: TableColumnsType<ISubjectItem> = [
   {
-    title: "Label",
+    title: "Name",
     width: 200,
-    dataIndex: "label",
-    key: "label",
+    dataIndex: "name",
+    key: "name",
     fixed: "left",
     render: (_) => <ParagraphItemTable str={_} />,
   },
@@ -22,38 +23,37 @@ export const imageStorageActionColumns: TableColumnsType<IImageStorage> = [
     render: (_) => <TextAreaItemTable str={_} />,
   },
   {
-    title: "Images",
-    width: 300,
-    dataIndex: "images",
-    key: "name",
-    fixed: "left",
+    title: "Code",
+    width: 350,
+    dataIndex: "code",
+    key: "code",
     render: (_) => {
-      const imgs = _ as string[];
-
-      if (!imgs?.length) return <span>-</span>;
-
-      return (
-        <div className="flex gap-2">
-          {imgs?.map((img) => (
-            <Image
-              key={img}
-              alt="img"
-              src={img}
-              width={60}
-              height={60}
-              unoptimized
-            />
-          ))}
-        </div>
+      return !_ ? (
+        <span>-</span>
+      ) : (
+        <Text className="line-clamp-3" code>
+          {_}
+        </Text>
       );
     },
+  },
+  {
+    title: "Image",
+    width: 100,
+    dataIndex: "image",
+    key: "image",
+    render: (_) =>
+      !_ ? (
+        <span>-</span>
+      ) : (
+        <Image alt="img" src={_} width={60} height={60} unoptimized />
+      ),
   },
   {
     title: "Keywords",
     width: 240,
     dataIndex: "keywords",
     key: "keywords",
-    fixed: "left",
     render: (_) => {
       const keys = _ as IKeyWord[];
 
@@ -68,6 +68,15 @@ export const imageStorageActionColumns: TableColumnsType<IImageStorage> = [
           ))}
         </div>
       );
+    },
+  },
+  {
+    title: "Type",
+    width: 150,
+    dataIndex: "type",
+    key: "type",
+    render: (_) => {
+      return !_ ? <span>-</span> : <Text mark>{_}</Text>;
     },
   },
 ];

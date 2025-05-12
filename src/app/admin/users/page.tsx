@@ -6,8 +6,7 @@ import UserLayout from "@/layouts/private/user/User";
 import { handleSetDefaultQueries } from "@/utils/handleSetDefaultQueries";
 
 export default async function UsersPage({ searchParams }: IPropPage<IUser>) {
-  const { limit, page } = handleSetDefaultQueries(searchParams);
-  const resUsers = await findAll({ limit, page });
+  const resUsers = await findAll(handleSetDefaultQueries(searchParams));
 
   return (
     <UserLayout

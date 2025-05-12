@@ -5,8 +5,7 @@ import { SkillAdminLayout } from "@/layouts/private/skill/Skill";
 import { handleSetDefaultQueries } from "@/utils/handleSetDefaultQueries";
 
 export default async function SkillPage({ searchParams }: IPropPage<ISkill>) {
-  const { limit, page } = handleSetDefaultQueries(searchParams);
-  const resSkills = await findAll({ limit, page });
+  const resSkills = await findAll(handleSetDefaultQueries(searchParams));
 
   return (
     <SkillAdminLayout

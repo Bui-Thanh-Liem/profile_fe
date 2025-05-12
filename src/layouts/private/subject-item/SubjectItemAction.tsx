@@ -1,25 +1,27 @@
 "use client";
-import { create, update } from "@/apis/image-storage";
 import { findAll } from "@/apis/keyword";
+import { create, update } from "@/apis/subject-item.api";
 import { MyUpload } from "@/components/MyUpload";
-import { showToast } from "@/utils/show-toast.util";
-import { IImageStorage, IKeyWord } from "@/interfaces/model.interface";
+import { IKeyWord, ISubjectItem } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
+import { showToast } from "@/utils/show-toast.util";
 import { Button, Form, Input, Modal, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
+import { Enums } from "liemdev-profile-lib";
 import { useCallback, useEffect, useState, useTransition } from "react";
 import { v4 as uuidV4 } from "uuid";
 
-export default function ImageStorageAction({
+export default function SubjectItemActionAction({
   dataEdit,
   isOpen = false,
   setIsOpen,
   onClose,
-}: IPropBaseAction<IImageStorage>) {
-  const [imageStorageActionForm] = Form.useForm<Partial<IImageStorage>>();
+}: IPropBaseAction<ISubjectItem>) {
+  const [subjectItemActionForm] = Form.useForm<Partial<ISubjectItem>>();
   const [isPending, startTransition] = useTransition();
   const [keywords, setKeywords] = useState<IKeyWord[]>([]);
+  const [file, setFile] = useState<File | null>(null);
 
   //
   const fetchDataForForm = useCallback(async () => {
@@ -36,38 +38,40 @@ export default function ImageStorageAction({
   useEffect(() => {
     if (dataEdit?.id) {
       const keywordEdits = (dataEdit?.keywords as IKeyWord[]) || [];
-      imageStorageActionForm.setFieldsValue({
-        label: dataEdit?.label,
+      subjectItemActionForm.setFieldsValue({
+        name: dataEdit?.name,
         desc: dataEdit?.desc,
+        code: dataEdit?.code,
+        type: dataEdit?.type,
         keywords: keywordEdits?.map((key) => key.id),
       });
+      setFile(dataEdit.image as unknown as File);
       setKeywords((prev) => [...(prev || []), ...keywordEdits]);
     }
     fetchDataForForm();
     return () => {
       setKeywords([]);
     };
-  }, [dataEdit, fetchDataForForm, imageStorageActionForm]);
+  }, [dataEdit, fetchDataForForm, subjectItemActionForm]);
 
   //
   function onSubmitForm() {
     startTransition(async () => {
       try {
-        const formDataAntd = await imageStorageActionForm.validateFields();
-        const formdata = new FormData();
+        const formDataAntd = await subjectItemActionForm.validateFields();
 
-        // Fields images other
+        //
+        const formdata = new FormData();
         for (const [key, value] of Object.entries(formDataAntd)) {
-          if (key === "images" && Array.isArray(value)) {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            value.forEach((file: any) => formdata.append("images", file));
+          if (key !== "image") {
+            formdata.append(key, value as string);
           } else {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            formdata.append(key, value as any);
+            formdata.append(key, file as any);
           }
         }
 
-        let res: TResponse<IImageStorage>;
+        let res: TResponse<ISubjectItem>;
         if (dataEdit?.id) {
           res = await update(dataEdit?.id, formdata);
         } else {
@@ -81,7 +85,6 @@ export default function ImageStorageAction({
         }
         showToast(res);
         handleCancel();
-        imageStorageActionForm.resetFields();
       } catch (error) {
         console.log("Error::", error);
       }
@@ -92,7 +95,7 @@ export default function ImageStorageAction({
   function handleCancel() {
     if (setIsOpen) {
       setIsOpen(false);
-      imageStorageActionForm.resetFields();
+      subjectItemActionForm.resetFields();
       if (onClose) {
         onClose();
       }
@@ -104,9 +107,8 @@ export default function ImageStorageAction({
       open={isOpen}
       title={
         <div className="text-center">
-          <p className="my-4">{`${
-            dataEdit?.id ? "Edit" : "Create"
-          } image storage`}</p>
+          <p className="my-4">{`${dataEdit?.id ? "Edit" : "Create"} subject item
+          `}</p>
         </div>
       }
       onOk={onSubmitForm}
@@ -128,7 +130,7 @@ export default function ImageStorageAction({
       width={600}
     >
       <Form
-        form={imageStorageActionForm}
+        form={subjectItemActionForm}
         name="user-action"
         initialValues={{ remember: true }}
         onFinish={onSubmitForm}
@@ -136,15 +138,29 @@ export default function ImageStorageAction({
         layout="vertical"
         autoComplete="off"
       >
-        <Form.Item<IImageStorage>
-          label="Label"
-          name="label"
-          rules={[{ required: true, message: "Please input label!" }]}
+        <Form.Item<ISubjectItem>
+          label="Name"
+          name="name"
+          rules={[{ required: true, message: "Please input name !" }]}
         >
-          <Input size="large" placeholder="Enter label" />
+          <Input size="large" placeholder="Enter name" />
         </Form.Item>
 
-        <Form.Item<IImageStorage>
+        <Form.Item<ISubjectItem>
+          label="Type"
+          name="type"
+          rules={[{ required: true, message: "Please select type !" }]}
+        >
+          <Select size="large" placeholder="Select type" maxCount={2}>
+            {Object.values(Enums.ETypeSubject)?.map((item) => (
+              <Select.Option key={uuidV4()} value={item}>
+                {item}
+              </Select.Option>
+            ))}
+          </Select>
+        </Form.Item>
+
+        <Form.Item<ISubjectItem>
           label="Key word"
           name="keywords"
           rules={[{ required: true, message: "Please select key word!" }]}
@@ -163,21 +179,27 @@ export default function ImageStorageAction({
           </Select>
         </Form.Item>
 
-        <Form.Item<IImageStorage> label="Description" name="desc">
-          <TextArea rows={4} placeholder="Enter description" />
+        <Form.Item<ISubjectItem> label="Code" name="code">
+          <TextArea rows={4} placeholder="Enter code" />
         </Form.Item>
 
-        <Form.Item<IImageStorage>
+        <Form.Item<ISubjectItem> label="Description" name="desc">
+          <TextArea rows={2} placeholder="Enter description" />
+        </Form.Item>
+
+        <Form.Item<ISubjectItem>
           label="Upload Image"
-          name="images"
+          name="image"
           rules={[{ required: true, message: "Please upload an image!" }]}
         >
           <MyUpload
-            values={dataEdit?.images || []}
-            onChangeUpload={(files) =>
-              // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              imageStorageActionForm.setFieldsValue({ images: files as any })
-            }
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            values={file ? [file as any] : []}
+            onChangeUpload={([file]) => {
+              setFile(file);
+              subjectItemActionForm.setFieldValue("image", file);
+            }}
+            length={1}
           />
         </Form.Item>
       </Form>

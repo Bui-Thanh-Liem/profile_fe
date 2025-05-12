@@ -3,7 +3,7 @@ import Logo from "@/components/Logo";
 import {
   AlertOutlined,
   BarChartOutlined,
-  CustomerServiceOutlined,
+  HarmonyOSOutlined,
   FileImageOutlined,
   GroupOutlined,
   KeyOutlined,
@@ -11,6 +11,7 @@ import {
   TeamOutlined,
   UngroupOutlined,
   UserOutlined,
+  FieldStringOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Layout, Menu, theme } from "antd";
@@ -66,13 +67,13 @@ const items: MenuItem[] = [
     getItem(
       <Link href="/admin/about">About</Link>,
       "/admin/about",
-      <AlertOutlined />
+      <FieldStringOutlined />
     ),
   ]),
   getItem(
     <Link href="/admin/customers">Customers</Link>,
     "/admin/customers",
-    <CustomerServiceOutlined />
+    <HarmonyOSOutlined />
   ),
   { type: "divider" },
   getItem(

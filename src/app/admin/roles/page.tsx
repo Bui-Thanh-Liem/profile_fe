@@ -5,8 +5,7 @@ import RoleLayout from "@/layouts/private/role/Role";
 import { handleSetDefaultQueries } from "@/utils/handleSetDefaultQueries";
 
 export default async function RolesPage({ searchParams }: IPropPage<IRole>) {
-  const { limit, page } = handleSetDefaultQueries(searchParams);
-  const resRoles = await findAll({ limit, page });
+  const resRoles = await findAll(handleSetDefaultQueries(searchParams));
 
   return (
     <RoleLayout

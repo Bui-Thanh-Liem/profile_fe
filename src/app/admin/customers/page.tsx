@@ -7,8 +7,7 @@ import { handleSetDefaultQueries } from "@/utils/handleSetDefaultQueries";
 export default async function CustomerPage({
   searchParams,
 }: IPropPage<ICustomer>) {
-  const { limit, page } = handleSetDefaultQueries(searchParams);
-  const resUsers = await findAll({ limit, page });
+  const resUsers = await findAll(handleSetDefaultQueries(searchParams));
 
   return (
     <CustomerLayout

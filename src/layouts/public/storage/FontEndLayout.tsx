@@ -14,7 +14,7 @@ export default function FontEndLayoutLayout({
       <Row className="w-full relative min-h-content-storage" gutter={[24, 24]}>
         {items?.map((item, idx) => (
           <Col key={item.id} span={8} className={idx % 3 === 2 ? "pr-0" : ""}>
-            <CardImageStorage item={item} type="customer" />
+            <CardImageStorage item={item} />
           </Col>
         ))}
 

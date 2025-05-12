@@ -1,9 +1,10 @@
 "use client";
+import { ParagraphItemTable } from "@/components/table/ParagraphItemTable";
+import { TextAreaItemTable } from "@/components/table/TextAreaItemTable";
 import { IRoleDataResource } from "@/interfaces/common.interface";
 import { IRole } from "@/interfaces/model.interface";
 import { generatorColor } from "@/utils/generatorColorRole";
 import { TableColumnsType, Tag } from "antd";
-import TextArea from "antd/es/input/TextArea";
 import { v4 } from "uuid";
 
 export const RoleActionColumns: TableColumnsType<IRole> = [
@@ -13,15 +14,14 @@ export const RoleActionColumns: TableColumnsType<IRole> = [
     dataIndex: "name",
     key: "name",
     fixed: "left",
+    render: (_) => <ParagraphItemTable str={_} />,
   },
   {
     title: "Description",
     width: 250,
     dataIndex: "desc",
     key: "desc",
-    render: (_) => {
-      return <TextArea rows={3} readOnly value={_} />;
-    },
+    render: (_) => <TextAreaItemTable str={_} />,
   },
   {
     title: "DataSources",

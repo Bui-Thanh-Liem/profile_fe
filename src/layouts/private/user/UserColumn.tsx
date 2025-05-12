@@ -1,6 +1,7 @@
 "use client";
 import { MyAvatar } from "@/components/MyAvatar";
 import MyTag from "@/components/MyTag";
+import { ParagraphItemTable } from "@/components/table/ParagraphItemTable";
 import { IRole, IRoleGroup, IUser } from "@/interfaces/model.interface";
 import { TableColumnsType } from "antd";
 import { v4 } from "uuid";
@@ -28,6 +29,7 @@ export const userActionColumns: TableColumnsType<IUser> = [
     dataIndex: "fullName",
     key: "fullName",
     fixed: "left",
+    render: (_) => <ParagraphItemTable str={_} />,
   },
   {
     title: "Gender",

@@ -18,13 +18,19 @@ export const MyUpload = ({
   //
   useEffect(() => {
     if (values && values.length > 0) {
-      const files = values.map((url, index) => ({
-        uid: `-${index}`,
-        name: `image-${index}.jpg`,
-        status: "done",
-        url,
-        thumbUrl: url,
-      }));
+      const files = values.map((url, index) => {
+        if (typeof url === "string") {
+          return {
+            uid: `-${index}`,
+            name: `image-${index}.jpg`,
+            status: "done",
+            url,
+            thumbUrl: url,
+          };
+        } else {
+          return url;
+        }
+      });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       setFileList(files as any);
       // eslint-disable-next-line @typescript-eslint/no-explicit-any

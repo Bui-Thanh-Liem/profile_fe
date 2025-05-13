@@ -4,13 +4,12 @@ import { BenefitCustomer } from "@/layouts/public/storage/benefit-customer/Benef
 import PersonalCustomer from "@/layouts/public/storage/benefit-customer/PersonalCustomer";
 import FilterAndSearchStorage from "@/layouts/public/storage/general/FilterAndSearchStorage";
 import {
+  CalculatorOutlined,
+  CodeOutlined,
+  DatabaseOutlined,
   LayoutOutlined,
   PartitionOutlined,
-  CalculatorOutlined,
   RadarChartOutlined,
-  DatabaseOutlined,
-  CodeOutlined,
-  FileImageOutlined,
 } from "@ant-design/icons";
 import { Suspense } from "react";
 
@@ -54,11 +53,6 @@ export default function StorageLayout({
       icon: <CodeOutlined style={{ fontSize: "24px" }} />,
       name: "Command line",
       href: "/storage/command-line",
-    },
-    {
-      icon: <FileImageOutlined style={{ fontSize: "24px" }} />,
-      name: "Image storage",
-      href: "/storage/image-storage",
     },
   ];
 

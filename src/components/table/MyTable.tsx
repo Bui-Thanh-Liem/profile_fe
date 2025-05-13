@@ -2,13 +2,14 @@
 import { IBase, IUser } from "@/interfaces/model.interface";
 import IPropMyTable from "@/interfaces/propsComponent.interface";
 import type { TableColumnsType, TableProps } from "antd";
-import { Card, Table } from "antd";
+import { Card, Modal, Table } from "antd";
 import { createStyles } from "antd-style";
 import React, { useEffect, useState } from "react";
 import { Author } from "../Author";
 import MyTableAction from "./MyTableAction";
 import MyTableToolbar from "./MyTableToolbar";
 import { showToast } from "@/utils/show-toast.util";
+import { DeleteOutlined } from "@ant-design/icons";
 
 const useStyle = createStyles(({ css, token }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -131,18 +132,55 @@ export default function MyTable<T extends IBaseMyTable>({
 
   //
   async function onDeleteItem(id: string) {
-    const res = await deleteApi([id]);
-    showToast(res);
+    Modal.confirm({
+      title: "Are you sure ?",
+      content: `You are about to delete 1 item.`,
+      async onOk() {
+        try {
+          const res = await deleteApi([id]);
+          if (res.statusCode !== 200) {
+            showToast(res);
+            return;
+          }
+          showToast(res);
+        } catch (error) {
+          console.error("Deletion error:", error);
+        }
+      },
+      onClose() {},
+      okText: "Delete",
+      okButtonProps: { danger: true },
+      cancelButtonProps: { color: "primary", variant: "outlined" },
+      icon: <DeleteOutlined style={{ color: "red" }} />,
+    });
   }
 
   //
   async function onDeleteItems(ids: Array<string>) {
-    const res = await deleteApi(ids);
-    if (res.statusCode !== 200) {
-      showToast(res);
-      return;
-    }
-    setCheckedIds([]);
+    Modal.confirm({
+      title: "Are you sure ?",
+      content: `You are about to delete ${ids.length} item${
+        ids.length > 1 ? "s" : ""
+      }.`,
+      async onOk() {
+        try {
+          const res = await deleteApi(ids);
+          if (res.statusCode !== 200) {
+            showToast(res);
+            return;
+          }
+          showToast(res);
+          setCheckedIds([]);
+        } catch (error) {
+          console.error("Deletion error:", error);
+        }
+      },
+      onClose() {},
+      okText: "Delete",
+      okButtonProps: { danger: true },
+      cancelButtonProps: { color: "primary", variant: "outlined" },
+      icon: <DeleteOutlined style={{ color: "red" }} />,
+    });
   }
 
   return (

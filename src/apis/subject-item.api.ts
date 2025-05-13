@@ -41,7 +41,9 @@ export async function findOneById(id: string) {
   return response;
 }
 
-export async function findAll(queries: InterfaceCommon.IQueries<ISubjectItem>) {
+export async function findAll(
+  queries: InterfaceCommon.IQueries<Partial<ISubjectItem>>
+) {
   const response = await callApiServerCookie<
     InterfaceCommon.IGetMulti<ISubjectItem>
   >({

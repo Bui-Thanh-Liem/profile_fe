@@ -1,13 +1,14 @@
 "use client";
 import { deleteMulti } from "@/apis/role-group";
-import { CardRoleGroup } from "@/components/cards/CardRoleGroup";
+import { CardRoleGroupAdmin } from "@/components/cards/CardRoleGroupAdmin";
 import MyTableToolbar from "@/components/table/MyTableToolbar";
 import { showToast } from "@/utils/show-toast.util";
 import { IRoleGroup } from "@/interfaces/model.interface";
 import { IPropLayout } from "@/interfaces/propsLayout.interface";
-import { Checkbox, CheckboxChangeEvent, Col, Row } from "antd";
+import { Checkbox, CheckboxChangeEvent, Col, Modal, Row } from "antd";
 import { useState } from "react";
 import RoleGroupAction from "./RoleGroupAction";
+import { DeleteOutlined } from "@ant-design/icons";
 
 export default function RoleGroupLayout({
   items,
@@ -47,13 +48,30 @@ export default function RoleGroupLayout({
 
   //
   async function onDeleteMulti(ids: string[]) {
-    const res = await deleteMulti(ids);
-    if (res.statusCode !== 200) {
-      showToast(res);
-      return;
-    }
-    showToast(res);
-    setActiveIds([]);
+    Modal.confirm({
+      title: "Are you sure ?",
+      content: `You are about to delete ${ids.length} item${
+        ids.length > 1 ? "s" : ""
+      }.`,
+      async onOk() {
+        try {
+          const res = await deleteMulti(ids);
+          if (res.statusCode !== 200) {
+            showToast(res);
+            return;
+          }
+          showToast(res);
+          setActiveIds([]);
+        } catch (error) {
+          console.error("Deletion error:", error);
+        }
+      },
+      onClose() {},
+      okText: "Delete",
+      okButtonProps: { danger: true },
+      cancelButtonProps: { color: "primary", variant: "outlined" },
+      icon: <DeleteOutlined style={{ color: "red" }} />,
+    });
   }
 
   return (
@@ -85,7 +103,7 @@ export default function RoleGroupLayout({
       <Row gutter={[16, 24]}>
         {items?.map((item) => (
           <Col span={6} key={item.name}>
-            <CardRoleGroup
+            <CardRoleGroupAdmin
               item={item}
               actives={activeIds}
               onClickEdit={onEdit}

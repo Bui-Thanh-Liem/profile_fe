@@ -3,15 +3,14 @@ import Logo from "@/components/Logo";
 import {
   AlertOutlined,
   BarChartOutlined,
-  HarmonyOSOutlined,
-  FileImageOutlined,
+  FieldStringOutlined,
   GroupOutlined,
+  HarmonyOSOutlined,
   KeyOutlined,
   RadiusSettingOutlined,
   TeamOutlined,
   UngroupOutlined,
-  UserOutlined,
-  FieldStringOutlined,
+  UserOutlined
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Layout, Menu, theme } from "antd";
@@ -91,11 +90,6 @@ const items: MenuItem[] = [
     <Link href="/admin/subject-items">Subject items</Link>,
     "/admin/subject-item",
     <UngroupOutlined />
-  ),
-  getItem(
-    <Link href="/admin/images-storage">Images Storage</Link>,
-    "/admin/images-storage",
-    <FileImageOutlined />
   ),
 ];
 

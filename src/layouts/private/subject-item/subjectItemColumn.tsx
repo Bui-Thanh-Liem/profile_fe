@@ -1,4 +1,5 @@
 "use client";
+import { ModalCodeEditor } from "@/components/ModalCodeEditor";
 import { ParagraphItemTable } from "@/components/table/ParagraphItemTable";
 import { TextAreaItemTable } from "@/components/table/TextAreaItemTable";
 import { IKeyWord, ISubjectItem } from "@/interfaces/model.interface";
@@ -25,18 +26,10 @@ export const subjectItemActionColumns: TableColumnsType<ISubjectItem> = [
   },
   {
     title: "Code",
-    width: 350,
+    width: 150,
     dataIndex: "code",
     key: "code",
-    render: (_) => {
-      return !_ ? (
-        <span>-</span>
-      ) : (
-        <Text className="line-clamp-3" code>
-          {_}
-        </Text>
-      );
-    },
+    render: (_) => <ModalCodeEditor value={_} />,
   },
   {
     title: "Image",

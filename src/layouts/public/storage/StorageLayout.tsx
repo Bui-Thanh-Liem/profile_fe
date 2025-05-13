@@ -4,9 +4,9 @@ import { MyCarousel } from "@/components/carousel/MyCarousel";
 import HighlighText from "@/components/elements/HighlighText";
 import Logo from "@/components/Logo";
 import { MyAvatar } from "@/components/MyAvatar";
-import { showToast } from "@/utils/show-toast.util";
 import { ISendMail } from "@/interfaces/model.interface";
 import { generatorResourceMail } from "@/utils/generatorResourceMail";
+import { showToast } from "@/utils/show-toast.util";
 import { PlusOutlined } from "@ant-design/icons";
 import { Avatar, Button, Col, Form, Input, Modal, Row, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
@@ -209,6 +209,8 @@ export const StorageLayout = () => {
             >
               <Input size="large" placeholder="email" />
             </Form.Item>
+
+            {/*  */}
             <Form.Item<TForm>
               label="Type"
               name="type"
@@ -221,9 +223,6 @@ export const StorageLayout = () => {
                     {item}
                   </Select.Option>
                 ))}
-                <Select.Option value="image-storage">
-                  Image storage
-                </Select.Option>
               </Select>
             </Form.Item>
             <Form.Item<TForm> label="Description" name="desc">

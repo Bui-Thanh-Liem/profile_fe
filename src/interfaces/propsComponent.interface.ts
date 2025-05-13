@@ -7,8 +7,8 @@ import {
   TooltipProps,
 } from "antd";
 import { ChangeEvent, ReactElement, ReactNode } from "react";
-import { TResponse } from "./response.interface";
 import { IUser } from "./model.interface";
+import { TResponse } from "./response.interface";
 
 export interface IPropNavbarItemIcon {
   icon: ReactNode;

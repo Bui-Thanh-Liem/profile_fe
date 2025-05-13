@@ -32,7 +32,7 @@ function RoleItem({ role }: { role: IRole }) {
 }
 
 //
-export function CardRoleGroup({
+export function CardRoleGroupAdmin({
   actives,
   item,
   onClickActive,
@@ -58,8 +58,12 @@ export function CardRoleGroup({
               Checked
             </Tag>
             <ActionCard
-              onDelete={() => {if(onClickDelete) onClickDelete([id])}}
-              onEdit={() => {if(onClickEdit) onClickEdit(item)}}
+              onDelete={() => {
+                if (onClickDelete) onClickDelete([id]);
+              }}
+              onEdit={() => {
+                if (onClickEdit) onClickEdit(item);
+              }}
             />
           </Space>
         }

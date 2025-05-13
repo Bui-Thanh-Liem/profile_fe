@@ -1,12 +1,12 @@
 "use client";
 import { create, update } from "@/apis/skill";
 import { MyUpload } from "@/components/MyUpload";
-import { showToast } from "@/utils/show-toast.util";
 import { ISkill } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
+import { showToast } from "@/utils/show-toast.util";
 import { Button, Form, Input, Modal, Slider } from "antd";
-import { useEffect, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 export default function SkillAction({
   dataEdit,
@@ -16,15 +16,16 @@ export default function SkillAction({
 }: IPropBaseAction<ISkill>) {
   const [skillActionForm] = Form.useForm<Partial<ISkill>>();
   const [isPending, startTransition] = useTransition();
+  const [imageFile, setImageFile] = useState<File | string | null>(null);
 
   //
   useEffect(() => {
     if (dataEdit?.id) {
       skillActionForm.setFieldsValue({
         name: dataEdit?.name,
-        image: dataEdit?.image,
         progress: dataEdit?.progress,
       });
+      setImageFile(dataEdit.image);
     }
   }, [dataEdit, skillActionForm]);
 
@@ -37,17 +38,15 @@ export default function SkillAction({
         //
         const formdata = new FormData();
         for (const [key, value] of Object.entries(formDataAntd)) {
-          if (key === "image" && typeof value === "object") {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            formdata.append(key, (value as any)[0]);
-          } else {
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            formdata.append(key, value as any);
-          }
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+          formdata.append(key, value as any);
         }
 
         let res: TResponse<ISkill>;
         if (dataEdit?.id) {
+          if (imageFile && typeof imageFile === "object") {
+            formdata.set("image", imageFile);
+          }
           res = await update(dataEdit?.id, formdata);
         } else {
           res = await create(formdata);
@@ -108,7 +107,7 @@ export default function SkillAction({
       <Form
         form={skillActionForm}
         name="user-action"
-        initialValues={{ remember: true }}
+        initialValues={{ progress: 0 }}
         onFinish={onSubmitForm}
         onFinishFailed={() => {}}
         layout="vertical"
@@ -128,11 +127,12 @@ export default function SkillAction({
           rules={[{ required: true, message: "Please upload an image!" }]}
         >
           <MyUpload
-            values={dataEdit?.image ? [dataEdit.image] : []}
-            onChangeUpload={(files) =>
+            values={imageFile ? [imageFile as string] : []}
+            onChangeUpload={([file]) => {
+              setImageFile(file);
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
-              skillActionForm.setFieldsValue({ image: files as any })
-            }
+              skillActionForm.setFieldsValue({ image: file as any });
+            }}
             length={1}
           />
         </Form.Item>

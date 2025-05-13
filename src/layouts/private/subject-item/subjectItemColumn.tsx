@@ -1,5 +1,5 @@
 "use client";
-import { ModalCodeEditor } from "@/components/ModalCodeEditor";
+import { ModalCodeView } from "@/components/modals/ModalCodeView";
 import { ParagraphItemTable } from "@/components/table/ParagraphItemTable";
 import { TextAreaItemTable } from "@/components/table/TextAreaItemTable";
 import { IKeyWord, ISubjectItem } from "@/interfaces/model.interface";
@@ -29,7 +29,11 @@ export const subjectItemActionColumns: TableColumnsType<ISubjectItem> = [
     width: 150,
     dataIndex: "code",
     key: "code",
-    render: (_) => <ModalCodeEditor value={_} />,
+    render: (_) => (
+      <ModalCodeView value={_}>
+        <Text code>Code details</Text>
+      </ModalCodeView>
+    ),
   },
   {
     title: "Image",

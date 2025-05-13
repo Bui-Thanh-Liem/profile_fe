@@ -37,7 +37,6 @@ export const callApiServerCookie = async <T>({
     headers,
     credentials: "include",
   });
-  console.log("response::::", response);
 
   let result: TResponse<T> = await response.json();
 

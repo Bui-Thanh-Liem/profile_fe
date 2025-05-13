@@ -1,5 +1,5 @@
 import { CardSubjectItem } from "@/components/cards/CardSubjectItem";
-import PaginationStorage from "@/components/MyPagination";
+import { PaginationStorage } from "@/layouts/public/storage/general/PaginationStorage";
 import { ISubjectItem } from "@/interfaces/model.interface";
 import { IPropComponentLayout } from "@/interfaces/propsComponent.interface";
 import { Col, Row } from "antd";

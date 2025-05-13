@@ -1,11 +1,23 @@
+"use client";
 import { IKeyWord, ISubjectItem } from "@/interfaces/model.interface";
 import { setPrefixFile } from "@/utils/setPrefixFile";
 import { Card, Tag } from "antd";
 import Meta from "antd/es/card/Meta";
 import Image from "next/image";
+import {
+  CodepenOutlined,
+  SettingOutlined,
+  EllipsisOutlined,
+} from "@ant-design/icons";
+import { ModalCodeView } from "../modals/ModalCodeView";
+import { showToastByString } from "@/utils/show-toast.util";
 
 export function CardSubjectItem({ item }: { item: ISubjectItem }) {
-  const { name, desc, image, keywords } = item;
+  const { name, desc, image, keywords, code } = item;
+
+  function comingSoon() {
+    showToastByString("Upcoming Features", "info");
+  }
 
   return (
     <Card
@@ -21,7 +33,22 @@ export function CardSubjectItem({ item }: { item: ISubjectItem }) {
           />
         </div>
       }
-      className="shadow-md shadow-primary rounded-3xl"
+      className="shadow-md rounded-xl"
+      actions={[
+        <ModalCodeView value={code} key="code">
+          <CodepenOutlined style={{ fontSize: "24px" }} />
+        </ModalCodeView>,
+        <SettingOutlined
+          key="setting"
+          style={{ fontSize: "24px" }}
+          onClick={comingSoon}
+        />,
+        <EllipsisOutlined
+          key="ellipsis"
+          style={{ fontSize: "24px" }}
+          onClick={comingSoon}
+        />,
+      ]}
     >
       <Meta title={name} description={<p className="line-clamp-3">{desc}</p>} />
       {keywords.length > 0 && (

@@ -1,15 +1,16 @@
 "use client";
 import { usePushUrl } from "@/hooks/usePushUrl";
+import { ISubjectItem } from "@/interfaces/model.interface";
 import { Pagination } from "antd";
 
-export default function MyPagination({
+export function PaginationStorage({
   open = true,
   total,
 }: {
   open?: boolean;
   total: number;
 }) {
-  const { pushUrl } = usePushUrl();
+  const { pushUrl } = usePushUrl<Pick<ISubjectItem, "keywords">>();
 
   if (!open) return null;
 

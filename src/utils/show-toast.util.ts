@@ -25,7 +25,10 @@ export const showToast = ({ statusCode, message }: TResponse<any>) => {
   });
 };
 
-export const showToastByString = (str: string, status: "error" | "success") => {
+export const showToastByString = (
+  str: string,
+  status: "error" | "success" | "info"
+) => {
   notification[status]({
     message: status.toLocaleUpperCase(),
     description: str,

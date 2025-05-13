@@ -1,15 +1,19 @@
 "use client";
 
+import { showToastByString } from "@/utils/show-toast.util";
+import { CopyOutlined } from "@ant-design/icons";
 import { javascript } from "@codemirror/lang-javascript";
 import CodeMirror from "@uiw/react-codemirror";
-import { Button, Modal, Tooltip, Typography } from "antd";
-import { useState } from "react";
-import { CopyOutlined } from "@ant-design/icons";
-import { showToastByString } from "@/utils/show-toast.util";
+import { Button, Modal, Tooltip } from "antd";
+import { ReactNode, useState } from "react";
 
-const { Text } = Typography;
-
-export function ModalCodeEditor({ value }: { value: string }) {
+export function ModalCodeView({
+  value,
+  children,
+}: {
+  value: string;
+  children: ReactNode;
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   //
@@ -25,16 +29,12 @@ export function ModalCodeEditor({ value }: { value: string }) {
   //
   return (
     <>
-      <Text
-        onClick={() => setIsModalOpen(true)}
-        className="cursor-pointer"
-        code
-      >
-        Code editor
-      </Text>
+      <span onClick={() => setIsModalOpen(true)} className="cursor-pointer">
+        {children}
+      </span>
 
       <Modal
-        title="Full code"
+        title="Code views"
         closable={true}
         open={isModalOpen}
         centered
@@ -63,6 +63,7 @@ export function ModalCodeEditor({ value }: { value: string }) {
           theme={"dark"}
           extensions={[javascript()]}
           maxHeight="80vh"
+          minHeight="100px"
         />
       </Modal>
     </>

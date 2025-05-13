@@ -1,6 +1,5 @@
 "use client";
 import { usePushUrl } from "@/hooks/usePushUrl";
-import { IImageStorage } from "@/interfaces/model.interface";
 import { Pagination } from "antd";
 
 export default function MyPagination({
@@ -10,7 +9,7 @@ export default function MyPagination({
   open?: boolean;
   total: number;
 }) {
-  const { pushUrl } = usePushUrl<Pick<IImageStorage, "keywords">>();
+  const { pushUrl } = usePushUrl();
 
   if (!open) return null;
 

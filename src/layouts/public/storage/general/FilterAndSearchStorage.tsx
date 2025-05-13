@@ -4,7 +4,7 @@ import { CONSTANT_ROUTE } from "@/constants";
 import { useDebounce } from "@/hooks/useDebounce";
 import useFetch from "@/hooks/useFetch";
 import { usePushUrl } from "@/hooks/usePushUrl";
-import { IImageStorage, IKeyWord } from "@/interfaces/model.interface";
+import { IKeyWord } from "@/interfaces/model.interface";
 import { Breadcrumb, Input, Select } from "antd";
 import { InterfaceCommon } from "liemdev-profile-lib";
 import Link from "next/link";
@@ -22,7 +22,7 @@ export default function FilterAndSearchStorage() {
   const { data, loading } = useFetch<InterfaceCommon.IGetMulti<IKeyWord>>(
     `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.KEYWORD}/type/${endItem}`
   );
-  const { pushUrl } = usePushUrl<Pick<IImageStorage, "keywords">>();
+  const { pushUrl } = usePushUrl();
 
   //
   useEffect(() => {

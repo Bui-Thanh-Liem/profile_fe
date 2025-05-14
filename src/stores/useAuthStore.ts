@@ -5,6 +5,7 @@ import { persist, PersistOptions } from "zustand/middleware";
 type State = {
   currentUser: Partial<IUser> | null;
   isAuthenticated: boolean;
+  isAdmin: boolean;
 };
 
 type Action = {
@@ -21,10 +22,19 @@ export const useAuthStore = create<State & Action>()(
     (set) => ({
       currentUser: null,
       isAuthenticated: false,
+      isAdmin: false,
       loginUser: (userLogin) =>
-        set(() => ({ currentUser: userLogin, isAuthenticated: true })),
+        set(() => ({
+          currentUser: userLogin,
+          isAuthenticated: true,
+          isAdmin: userLogin.isAdmin || userLogin.isSubAdmin,
+        })),
       logoutUser: () =>
-        set(() => ({ currentUser: null, isAuthenticated: false })),
+        set(() => ({
+          currentUser: null,
+          isAuthenticated: false,
+          isAdmin: false,
+        })),
     }),
     persistConfig
   )

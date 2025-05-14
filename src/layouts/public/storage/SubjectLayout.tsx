@@ -1,5 +1,4 @@
 import { CardSubjectItem } from "@/components/cards/CardSubjectItem";
-import { PaginationStorage } from "@/layouts/public/storage/general/PaginationStorage";
 import { ISubjectItem } from "@/interfaces/model.interface";
 import { IPropComponentLayout } from "@/interfaces/propsComponent.interface";
 import { Col, Row } from "antd";
@@ -10,17 +9,40 @@ export function SubjectLayout({
   items,
   totalItems,
 }: IPropComponentLayout<ISubjectItem>) {
+  //
+  function mergeCouples(items: ISubjectItem[]): ISubjectItem[][] {
+    const results = [];
+
+    for (let i = 0; i < items.length; i += 2) {
+      const chunk = items.slice(i, i + 2);
+      results.push(chunk);
+    }
+
+    return results;
+  }
+
   return (
     <>
-      <Row className="w-full relative min-h-content-storage" gutter={[24, 24]}>
-        {items?.map((item, idx) => (
-          <Col key={item.id} span={8} className={idx % 3 === 2 ? "pr-0" : ""}>
-            <CardSubjectItem item={item} />
-          </Col>
-        ))}
-
-        {!items.length && (
-          <Col span={24} className="flex h-content-storage justify-center">
+      {items.length > 0 ? (
+        <Row
+          className="min-h-content-storage flex-nowrap overflow-x-auto px-2"
+          gutter={[24, 24]}
+        >
+          {mergeCouples(items)?.map((row, idx) => (
+            <Col key={idx} span={6}>
+              <Row gutter={[24, 24]} className="flex-col py-1">
+                {row?.map((col) => (
+                  <Col key={col.id} span={24}>
+                    <CardSubjectItem item={col} />
+                  </Col>
+                ))}
+              </Row>
+            </Col>
+          ))}
+        </Row>
+      ) : (
+        <Row>
+          <Col span={8} offset={8} className="mt-40">
             <Image
               width={200}
               height={200}
@@ -29,9 +51,8 @@ export function SubjectLayout({
               className="m-auto"
             />
           </Col>
-        )}
-      </Row>
-      <PaginationStorage open={Boolean(totalItems)} total={totalItems} />
+        </Row>
+      )}
     </>
   );
 }

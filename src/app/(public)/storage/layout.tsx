@@ -68,7 +68,7 @@ export default function StorageLayout({
           <FilterAndSearchStorage />
         </Suspense>
         <Suspense fallback={<div>Đang tải...</div>}>
-          <div className="mt-28">{children}</div>
+          <div className="mt-8">{children}</div>
         </Suspense>
         <div className="fixed top-1/2 right-[calc(50%-700px)] translate-x-1/2 -translate-y-1/2">
           {storageNavData.map((nav) => (

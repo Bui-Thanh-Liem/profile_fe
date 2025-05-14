@@ -10,7 +10,7 @@ import {
   RadiusSettingOutlined,
   TeamOutlined,
   UngroupOutlined,
-  UserOutlined
+  UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Layout, Menu, theme } from "antd";
@@ -18,6 +18,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { ReactNode, useState } from "react";
 import { HeaderAdmin } from "./HeaderAdmin";
+import useAuthStore from "@/stores/useAuthStore";
 
 const { Content, Sider, Header } = Layout;
 
@@ -39,67 +40,83 @@ function getItem(
   } as MenuItem;
 }
 
-const items: MenuItem[] = [
-  getItem(<Link href="/admin">Dashboard</Link>, "/admin", <BarChartOutlined />),
-  { type: "divider" },
-  getItem("Administrator", "administrator", <TeamOutlined />, [
-    getItem(
-      <Link href="/admin/users">Users</Link>,
-      "/admin/users",
-      <UserOutlined />
-    ),
-    getItem(
-      <Link href="/admin/roles">Roles</Link>,
-      "/admin/roles",
-      <RadiusSettingOutlined />
-    ),
-    getItem(
-      <Link href="/admin/role-groups">Role Groups</Link>,
-      "/admin/role-groups",
-      <RadiusSettingOutlined />
-    ),
-    getItem(
-      <Link href="/admin/skills">Skills</Link>,
-      "/admin/skills",
-      <AlertOutlined />
-    ),
-    getItem(
-      <Link href="/admin/about">About</Link>,
-      "/admin/about",
-      <FieldStringOutlined />
-    ),
-  ]),
-  getItem(
-    <Link href="/admin/customers">Customers</Link>,
-    "/admin/customers",
-    <HarmonyOSOutlined />
-  ),
-  { type: "divider" },
-  getItem(
-    <Link href="/admin/keywords">Keywords</Link>,
-    "/admin/keywords",
-    <KeyOutlined />
-  ),
-  { type: "divider" },
-  getItem(
-    <Link href="/admin/subject-groups">Subject groups</Link>,
-    "/admin/subject-group",
-    <GroupOutlined />
-  ),
-  getItem(
-    <Link href="/admin/subject-items">Subject items</Link>,
-    "/admin/subject-item",
-    <UngroupOutlined />
-  ),
-];
-
 export default function LayoutAdmin({ children }: { children: ReactNode }) {
   const pathname = usePathname();
+  const { isAdmin } = useAuthStore();
   const [collapsed, setCollapsed] = useState(false);
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  //
+  const items: MenuItem[] = [
+    getItem(
+      <Link href="/admin">Dashboard</Link>,
+      "/admin",
+      <BarChartOutlined />
+    ),
+    { type: "divider" },
+
+    //
+    getItem(
+      "Administrator",
+      "administrator",
+      <TeamOutlined />,
+      [
+        getItem(
+          <Link href="/admin/ad/users">Users</Link>,
+          "/admin/users",
+          <UserOutlined />
+        ),
+        getItem(
+          <Link href="/admin/ad/roles">Roles</Link>,
+          "/admin/roles",
+          <RadiusSettingOutlined />
+        ),
+        getItem(
+          <Link href="/admin/ad/role-groups">Role Groups</Link>,
+          "/admin/role-groups",
+          <RadiusSettingOutlined />
+        ),
+        getItem(
+          <Link href="/admin/ad/skills">Skills</Link>,
+          "/admin/skills",
+          <AlertOutlined />
+        ),
+        getItem(
+          <Link href="/admin/ad/about">About</Link>,
+          "/admin/about",
+          <FieldStringOutlined />
+        ),
+        getItem(
+          <Link href="/admin/ad/customers">Customers</Link>,
+          "/admin/customers",
+          <HarmonyOSOutlined />
+        ),
+      ],
+      !isAdmin
+    ),
+    { type: "divider" },
+
+    //
+    getItem(
+      <Link href="/admin/keywords">Keywords</Link>,
+      "/admin/keywords",
+      <KeyOutlined />
+    ),
+    getItem(
+      <Link href="/admin/subject-groups">Subject groups</Link>,
+      "/admin/subject-group",
+      <GroupOutlined />
+    ),
+    getItem(
+      <Link href="/admin/subject-items">Subject items</Link>,
+      "/admin/subject-item",
+      <UngroupOutlined />
+    ),
+  ];
+
+  //
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider

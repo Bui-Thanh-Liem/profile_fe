@@ -149,7 +149,14 @@ export default function SubjectItemActionAction({
               <Form.Item<ISubjectItem>
                 label="Name"
                 name="name"
-                rules={[{ required: true, message: "Please input name !" }]}
+                rules={[
+                  { required: true, message: "Please input name !" },
+                  {
+                    max: 36,
+                    message:
+                      "Max length 36 character (an easy-to-understand word or phrase)",
+                  },
+                ]}
               >
                 <Input size="large" placeholder="Enter name" />
               </Form.Item>

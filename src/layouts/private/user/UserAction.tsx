@@ -69,6 +69,8 @@ export default function UserAction({
     startTransition(async () => {
       try {
         const formData = await userActionForm.validateFields();
+        console.log("formData:::", formData);
+
         let res: TResponse<IUser>;
         if (idEdit) {
           res = await update(idEdit, formData);
@@ -131,7 +133,7 @@ export default function UserAction({
         <Form
           form={userActionForm}
           name="user-action"
-          initialValues={{ remember: true }}
+          initialValues={{ roles: [], roleGroups: [], isSubAdmin: false }}
           onFinish={onSubmitForm}
           onFinishFailed={() => {}}
           layout="vertical"

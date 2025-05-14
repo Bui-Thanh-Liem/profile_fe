@@ -5,7 +5,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 import useFetch from "@/hooks/useFetch";
 import { usePushUrl } from "@/hooks/usePushUrl";
 import { IKeyWord, ISubjectItem } from "@/interfaces/model.interface";
-import { Breadcrumb, Input, Select } from "antd";
+import { Breadcrumb, Input, Select, Tag } from "antd";
 import { InterfaceCommon } from "liemdev-profile-lib";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -76,7 +76,7 @@ export default function FilterAndSearchStorage() {
   }
 
   return (
-    <div className="h-20 w-[1200px] rounded-2xl bg-white shadow-sm shadow-primary fixed left-1/2 -translate-x-1/2 z-40">
+    <div className="h-16 w-[1200px] rounded-2xl border shadow-md bg-gray-second-app">
       <div className="flex justify-between items-center h-full px-8">
         <Breadcrumb items={items} />
         <div className="flex items-center gap-4">
@@ -91,10 +91,13 @@ export default function FilterAndSearchStorage() {
             showSearch
             placeholder="Select a keyword"
             filterOption={(input, option) =>
-              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
+              (option?.label ?? "")
+                .toString()
+                .toLowerCase()
+                .includes(input.toLowerCase())
             }
             options={data?.items?.map((item) => ({
-              label: item.name,
+              label: <Tag color={item.color}>{item.name}</Tag>,
               value: item.id,
             }))}
             className="min-w-40"

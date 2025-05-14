@@ -17,12 +17,7 @@ export function StorageNavItem({ icon, name, href }: IPropStorageNavItem) {
         }`}
       >
         <Link href={href}>
-          <MyTooltip
-            title={name}
-            placement="right"
-            color="#04befe"
-            open={isActive}
-          >
+          <MyTooltip title={name} placement="right" open={isActive}>
             <Button
               type={isActive ? "primary" : "text"}
               shape="circle"

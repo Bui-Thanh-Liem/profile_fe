@@ -73,7 +73,7 @@ export default function Login() {
               { type: "email", message: "Invalid email format!" },
             ]}
           >
-            <Input size="large" className="w-full" />
+            <Input size="large" />
           </Form.Item>
           <Form.Item<FieldTypeLogin>
             label="Password"

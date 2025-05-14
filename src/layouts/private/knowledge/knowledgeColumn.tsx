@@ -2,13 +2,14 @@
 import { ModalCodeView } from "@/components/modals/ModalCodeView";
 import { ParagraphItemTable } from "@/components/table/ParagraphItemTable";
 import { TextAreaItemTable } from "@/components/table/TextAreaItemTable";
-import { IKeyWord, ISubjectItem } from "@/interfaces/model.interface";
+import { IKeyWord, IKnowledge } from "@/interfaces/model.interface";
 import { setPrefixFile } from "@/utils/setPrefixFile";
 import { TableColumnsType, Tag, Typography } from "antd";
 import Image from "next/image";
 const { Text } = Typography;
+import { StarFilled, LikeFilled } from "@ant-design/icons";
 
-export const subjectItemActionColumns: TableColumnsType<ISubjectItem> = [
+export const knowledgeActionColumns: TableColumnsType<IKnowledge> = [
   {
     title: "Name",
     width: 200,
@@ -82,5 +83,27 @@ export const subjectItemActionColumns: TableColumnsType<ISubjectItem> = [
     render: (_) => {
       return !_ ? <span>-</span> : <Text mark>{_}</Text>;
     },
+  },
+  {
+    title: "Like",
+    width: 80,
+    dataIndex: "like",
+    key: "like",
+    render: (_) => (
+      <div className="flex items-center gap-x-2">
+        {_} <LikeFilled style={{ color: "blue" }} />
+      </div>
+    ),
+  },
+  {
+    title: "Rate",
+    width: 80,
+    dataIndex: "rate",
+    key: "rate",
+    render: (_) => (
+      <div className="flex items-center gap-x-2">
+        {_} <StarFilled style={{ color: "orange" }} />
+      </div>
+    ),
   },
 ];

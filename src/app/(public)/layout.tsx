@@ -1,4 +1,4 @@
-import Footer from "@/layouts/public/Footer";
+import Footer from "@/layouts/public/footer/Footer";
 import NavBar from "@/layouts/public/navbar/NavBar";
 import "./layout.css";
 

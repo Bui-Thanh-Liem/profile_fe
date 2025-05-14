@@ -13,6 +13,7 @@ export function middleware(request: NextRequest) {
     CONSTANT_TOKEN.TOKEN_NAME_CUSTOMER
   );
   const userCookie = request.cookies.get(CONSTANT_TOKEN.TOKEN_NAME_USER);
+  console.log("userCookie:::", userCookie);
 
   // const allCookies = request.cookies.getAll();
 
@@ -40,44 +41,44 @@ export function middleware(request: NextRequest) {
   if (pathname.startsWith("/admin")) {
     if (!userCookie) {
       return NextResponse.redirect(new URL("/login", request.url));
-    }
-
-    // check token
-    return callApiServerCookie<IUser>({
-      url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/protected`,
-      options: {
-        method: "GET",
-      },
-    })
-      .then((res) => {
-        //
-        if (res?.statusCode !== 200) {
-          response.cookies.set(CONSTANT_TOKEN.TOKEN_NAME_USER, "", {
-            maxAge: 0, // or expires: new Date(0)
-            // path: "/", // Đảm bảo xoá trên toàn bộ trang web
-            // httpOnly: true, // Bảo mật hơn (cookie không thể bị truy cập từ client-side JS)
-            // secure: process.env.NODE_ENV === "production", // Chỉ bật trên HTTPS khi production
-            // sameSite: "strict", // Đảm bảo cookie không bị gửi trong yêu cầu từ trang khác
-          });
-          NextResponse.redirect(new URL("/login", request.url));
-        }
-
-        //
-        const { data: user } = res;
-
-        if (
-          !user.isSubAdmin &&
-          !user.isAdmin &&
-          pathname.startsWith("/admin/ad/")
-        ) {
-          console.log("middleware user ko admin ::", user);
-          return NextResponse.redirect(new URL("/forbidden", request.url));
-        }
-
-        //
-        return NextResponse.next();
+    } else {
+      // check token
+      return callApiServerCookie<IUser>({
+        url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/protected`,
+        options: {
+          method: "GET",
+        },
       })
-      .catch(() => NextResponse.redirect(new URL("/login", request.url)));
+        .then((res) => {
+          //
+          if (res?.statusCode !== 200) {
+            response.cookies.set(CONSTANT_TOKEN.TOKEN_NAME_USER, "", {
+              maxAge: 0, // or expires: new Date(0)
+              // path: "/", // Đảm bảo xoá trên toàn bộ trang web
+              // httpOnly: true, // Bảo mật hơn (cookie không thể bị truy cập từ client-side JS)
+              // secure: process.env.NODE_ENV === "production", // Chỉ bật trên HTTPS khi production
+              // sameSite: "strict", // Đảm bảo cookie không bị gửi trong yêu cầu từ trang khác
+            });
+            return NextResponse.redirect(new URL("/login", request.url));
+          }
+
+          //
+          const { data: user } = res;
+
+          if (
+            !user.isSubAdmin &&
+            !user.isAdmin &&
+            pathname.startsWith("/admin/ad/")
+          ) {
+            console.log("middleware user ko admin ::", user);
+            return NextResponse.redirect(new URL("/forbidden", request.url));
+          }
+
+          //
+          return NextResponse.next();
+        })
+        .catch(() => NextResponse.redirect(new URL("/login", request.url)));
+    }
   }
 
   // logged

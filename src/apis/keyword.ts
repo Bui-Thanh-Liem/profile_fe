@@ -26,7 +26,7 @@ export async function update(id: string, payload: Partial<IKeyWord>) {
     },
   });
   revalidateTag(CONSTANT_TAG_CACHE.keywords);
-  revalidateTag(CONSTANT_TAG_CACHE.subject_items);
+  revalidateTag(CONSTANT_TAG_CACHE.knowledge_s);
   return response;
 }
 
@@ -69,6 +69,6 @@ export async function deleteMulti(payload: string[]) {
     },
   });
   revalidateTag(CONSTANT_TAG_CACHE.keywords);
-  revalidateTag(CONSTANT_TAG_CACHE.subject_items);
+  revalidateTag(CONSTANT_TAG_CACHE.knowledge_s);
   return response;
 }

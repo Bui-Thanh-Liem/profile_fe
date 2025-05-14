@@ -10,7 +10,6 @@ import Logo from "@/components/Logo";
 import { showToast } from "@/utils/show-toast.util";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
-import developerGIF from "../../../../public/web-developer.gif";
 import useAuthStore from "../../../stores/useAuthStore";
 
 type FieldTypeLogin = {
@@ -51,7 +50,12 @@ export default function Login() {
   return (
     <div className="h-screen flex">
       <div className="m-auto p-8 grid grid-cols-2 border border-primary shadow-lg shadow-primary rounded-tl-3xl rounded-br-3xl overflow-hidden">
-        <Image src={developerGIF} alt="developer" width={500} height={500} />
+        <Image
+          src="/web-developer.gif"
+          alt="developer"
+          width={500}
+          height={500}
+        />
         <Form
           form={loginForm}
           name="login"

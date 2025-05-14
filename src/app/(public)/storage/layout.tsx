@@ -1,3 +1,4 @@
+import LoadingPage from "@/app/loading";
 import { StorageNavItem } from "@/components/StoreageNavItem";
 import { IPropStorageNavItem } from "@/interfaces/propsComponent.interface";
 import { BenefitCustomer } from "@/layouts/public/storage/benefit-customer/BenefitCustomer";
@@ -60,14 +61,14 @@ export default function StorageLayout({
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="w-[1200px] min-h-screen pt-20">
-        <Suspense fallback={<div>Đang tải...</div>}>{requireLogin}</Suspense>
-        <Suspense fallback={<div>Đang tải...</div>}>
+        <Suspense fallback={<LoadingPage />}>{requireLogin}</Suspense>
+        <Suspense fallback={<LoadingPage />}>
           {notificationForCustomer}
         </Suspense>
-        <Suspense fallback={<div>Đang tải...</div>}>
+        <Suspense fallback={<LoadingPage />}>
           <FilterAndSearchStorage />
         </Suspense>
-        <Suspense fallback={<div>Đang tải...</div>}>
+        <Suspense fallback={<LoadingPage />}>
           <div className="mt-8">{children}</div>
         </Suspense>
         <div className="fixed top-1/2 right-[calc(50%-700px)] translate-x-1/2 -translate-y-1/2">

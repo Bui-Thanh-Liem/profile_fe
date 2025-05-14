@@ -1,10 +1,10 @@
 "use client";
 import Logo from "@/components/Logo";
+import useAuthStore from "@/stores/useAuthStore";
 import {
   AlertOutlined,
   BarChartOutlined,
   FieldStringOutlined,
-  GroupOutlined,
   HarmonyOSOutlined,
   KeyOutlined,
   RadiusSettingOutlined,
@@ -18,7 +18,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { ReactNode, useState } from "react";
 import { HeaderAdmin } from "./HeaderAdmin";
-import useAuthStore from "@/stores/useAuthStore";
 
 const { Content, Sider, Header } = Layout;
 
@@ -105,13 +104,8 @@ export default function LayoutAdmin({ children }: { children: ReactNode }) {
       <KeyOutlined />
     ),
     getItem(
-      <Link href="/admin/subject-groups">Subject groups</Link>,
-      "/admin/subject-group",
-      <GroupOutlined />
-    ),
-    getItem(
-      <Link href="/admin/subject-items">Subject items</Link>,
-      "/admin/subject-item",
+      <Link href="/admin/knowledge">Knowledge</Link>,
+      "/admin/knowledge",
       <UngroupOutlined />
     ),
   ];

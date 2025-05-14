@@ -1,16 +1,15 @@
-import { CardSubjectItem } from "@/components/cards/CardSubjectItem";
-import { ISubjectItem } from "@/interfaces/model.interface";
+import { CardKnowledge } from "@/components/cards/CardKnowledge";
+import { IKnowledge } from "@/interfaces/model.interface";
 import { IPropComponentLayout } from "@/interfaces/propsComponent.interface";
 import { Col, Row } from "antd";
 import Image from "next/image";
 
-// Bao gom subject-item, subject-group
-export function SubjectLayout({
+export function KnowledgeLayout({
   items,
   totalItems,
-}: IPropComponentLayout<ISubjectItem>) {
+}: IPropComponentLayout<IKnowledge>) {
   //
-  function mergeCouples(items: ISubjectItem[]): ISubjectItem[][] {
+  function mergeCouples(items: IKnowledge[]): IKnowledge[][] {
     const results = [];
 
     for (let i = 0; i < items.length; i += 2) {
@@ -35,7 +34,7 @@ export function SubjectLayout({
               <Row gutter={[24, 24]} className="flex-col py-1">
                 {row?.map((col) => (
                   <Col key={col.id} span={24}>
-                    <CardSubjectItem item={col} />
+                    <CardKnowledge item={col} />
                   </Col>
                 ))}
               </Row>

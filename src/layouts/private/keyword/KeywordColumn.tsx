@@ -1,5 +1,5 @@
 "use client";
-import { IKeyWord, ISubjectItem } from "@/interfaces/model.interface";
+import { IKeyWord, IKnowledge } from "@/interfaces/model.interface";
 import { Dropdown, MenuProps, TableColumnsType, Tag } from "antd";
 
 export const keywordActionColumns: TableColumnsType<IKeyWord> = [
@@ -14,12 +14,12 @@ export const keywordActionColumns: TableColumnsType<IKeyWord> = [
     },
   },
   {
-    title: "Subject items",
+    title: "Knowledge",
     width: 400,
-    dataIndex: "subjectItems",
-    key: "subjectItems",
+    dataIndex: "knowledge",
+    key: "knowledge",
     render: (_) => {
-      const items: MenuProps["items"] = (_ as ISubjectItem[])?.map((item) => ({
+      const items: MenuProps["items"] = (_ as IKnowledge[])?.map((item) => ({
         key: item.id,
         label: item.name,
       }));
@@ -29,7 +29,7 @@ export const keywordActionColumns: TableColumnsType<IKeyWord> = [
       return (
         <Dropdown menu={{ items }} placement="bottom" arrow>
           <p>
-            Have <strong>{items.length}</strong> subject items
+            Have <strong>{items.length}</strong> knowledge
           </p>
         </Dropdown>
       );

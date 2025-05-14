@@ -1,27 +1,27 @@
 "use client";
 import { findAll } from "@/apis/keyword";
-import { create, update } from "@/apis/subject-item.api";
+import { create, update } from "@/apis/knowledge.api";
 import { MyUpload } from "@/components/MyUpload";
-import { IKeyWord, ISubjectItem } from "@/interfaces/model.interface";
+import { IKeyWord, IKnowledge } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
 import { showToast } from "@/utils/show-toast.util";
-import { Button, Col, Form, Input, Modal, Row, Select, Tooltip } from "antd";
 import { ExpandAltOutlined, ExpandOutlined } from "@ant-design/icons";
+import { javascript } from "@codemirror/lang-javascript";
+import CodeMirror from "@uiw/react-codemirror";
+import { Button, Col, Form, Input, Modal, Row, Select, Tooltip } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { Enums } from "liemdev-profile-lib";
 import { useCallback, useEffect, useState, useTransition } from "react";
 import { v4 as uuidV4 } from "uuid";
-import CodeMirror from "@uiw/react-codemirror";
-import { javascript } from "@codemirror/lang-javascript";
 
-export default function SubjectItemActionAction({
+export function KnowledgeAction({
   dataEdit,
   isOpen = false,
   setIsOpen,
   onClose,
-}: IPropBaseAction<ISubjectItem>) {
-  const [subjectItemActionForm] = Form.useForm<Partial<ISubjectItem>>();
+}: IPropBaseAction<IKnowledge>) {
+  const [knowledgeActionForm] = Form.useForm<Partial<IKnowledge>>();
   const [isPending, startTransition] = useTransition();
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [keywords, setKeywords] = useState<IKeyWord[]>([]);
@@ -42,7 +42,7 @@ export default function SubjectItemActionAction({
   useEffect(() => {
     if (dataEdit?.id) {
       const keywordEdits = (dataEdit?.keywords as IKeyWord[]) || [];
-      subjectItemActionForm.setFieldsValue({
+      knowledgeActionForm.setFieldsValue({
         name: dataEdit?.name,
         desc: dataEdit?.desc,
         code: dataEdit?.code,
@@ -56,13 +56,13 @@ export default function SubjectItemActionAction({
     return () => {
       setKeywords([]);
     };
-  }, [dataEdit, fetchDataForForm, subjectItemActionForm]);
+  }, [dataEdit, fetchDataForForm, knowledgeActionForm]);
 
   //
   function onSubmitForm() {
     startTransition(async () => {
       try {
-        const formDataAntd = await subjectItemActionForm.validateFields();
+        const formDataAntd = await knowledgeActionForm.validateFields();
 
         //
         const formdata = new FormData();
@@ -71,7 +71,7 @@ export default function SubjectItemActionAction({
           formdata.append(key, value as any);
         }
 
-        let res: TResponse<ISubjectItem>;
+        let res: TResponse<IKnowledge>;
         if (dataEdit?.id) {
           if (imageFile && typeof imageFile === "object") {
             formdata.set("image", imageFile);
@@ -98,7 +98,7 @@ export default function SubjectItemActionAction({
   function handleCancel() {
     if (setIsOpen) {
       setIsOpen(false);
-      subjectItemActionForm.resetFields();
+      knowledgeActionForm.resetFields();
       if (onClose) {
         onClose();
       }
@@ -111,9 +111,7 @@ export default function SubjectItemActionAction({
         open={isOpen}
         title={
           <div className="text-center">
-            <p className="my-4">{`${
-              dataEdit?.id ? "Edit" : "Create"
-            } subject item
+            <p className="my-4">{`${dataEdit?.id ? "Edit" : "Create"} knowledge
           `}</p>
           </div>
         }
@@ -136,7 +134,7 @@ export default function SubjectItemActionAction({
         width={600}
       >
         <Form
-          form={subjectItemActionForm}
+          form={knowledgeActionForm}
           name="user-action"
           initialValues={{ remember: true }}
           onFinish={onSubmitForm}
@@ -146,7 +144,7 @@ export default function SubjectItemActionAction({
         >
           <Row gutter={[12, 12]}>
             <Col span={18}>
-              <Form.Item<ISubjectItem>
+              <Form.Item<IKnowledge>
                 label="Name"
                 name="name"
                 rules={[
@@ -162,13 +160,13 @@ export default function SubjectItemActionAction({
               </Form.Item>
             </Col>
             <Col span={6}>
-              <Form.Item<ISubjectItem>
+              <Form.Item<IKnowledge>
                 label="Type"
                 name="type"
                 rules={[{ required: true, message: "Please select type !" }]}
               >
                 <Select size="large" placeholder="Select type">
-                  {Object.values(Enums.ETypeSubject)?.map((item) => (
+                  {Object.values(Enums.ETypeKnowledge)?.map((item) => (
                     <Select.Option key={uuidV4()} value={item}>
                       {item}
                     </Select.Option>
@@ -178,7 +176,7 @@ export default function SubjectItemActionAction({
             </Col>
           </Row>
 
-          <Form.Item<ISubjectItem>
+          <Form.Item<IKnowledge>
             label="Key word"
             name="keywords"
             rules={[{ required: true, message: "Please select key word!" }]}
@@ -197,7 +195,7 @@ export default function SubjectItemActionAction({
             </Select>
           </Form.Item>
 
-          <Form.Item<ISubjectItem> label="Description" name="desc">
+          <Form.Item<IKnowledge> label="Description" name="desc">
             <TextArea rows={2} placeholder="Enter description" />
           </Form.Item>
 
@@ -213,19 +211,19 @@ export default function SubjectItemActionAction({
                 style={{ marginBottom: 10 }}
               />
             </Tooltip>
-            <Form.Item<ISubjectItem> label="Code" name="code">
+            <Form.Item<IKnowledge> label="Code" name="code">
               <CodeMirror
                 height="200px"
                 theme={"dark"}
                 extensions={[javascript()]}
                 onChange={(value) =>
-                  subjectItemActionForm.setFieldsValue({ code: value })
+                  knowledgeActionForm.setFieldsValue({ code: value })
                 }
               />
             </Form.Item>
           </div>
 
-          <Form.Item<ISubjectItem>
+          <Form.Item<IKnowledge>
             label="Upload Image"
             name="image"
             rules={[{ required: true, message: "Please upload an image!" }]}
@@ -234,7 +232,7 @@ export default function SubjectItemActionAction({
               values={dataEdit?.image ? [imageFile as string] : []}
               onChangeUpload={([file]) => {
                 setImageFile(file);
-                subjectItemActionForm.setFieldValue("image", file);
+                knowledgeActionForm.setFieldValue("image", file);
               }}
               length={1}
             />
@@ -255,12 +253,12 @@ export default function SubjectItemActionAction({
         closeIcon={<ExpandOutlined />}
       >
         <CodeMirror
-          value={subjectItemActionForm.getFieldValue("code")}
+          value={knowledgeActionForm.getFieldValue("code")}
           theme={"dark"}
           extensions={[javascript()]}
           height="80vh"
           onChange={(value) =>
-            subjectItemActionForm.setFieldsValue({ code: value })
+            knowledgeActionForm.setFieldsValue({ code: value })
           }
         />
       </Modal>

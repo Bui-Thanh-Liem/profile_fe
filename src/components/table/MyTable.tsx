@@ -11,24 +11,13 @@ import MyTableToolbar from "./MyTableToolbar";
 import { showToast } from "@/utils/show-toast.util";
 import { DeleteOutlined } from "@ant-design/icons";
 
-const useStyle = createStyles(({ css, token }) => {
+const useStyle = createStyles(({ css }) => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const { antCls } = token as any;
+  // const { antCls } = token as any;
   return {
     customTable: css`
-      ${antCls}-table {
-        ${antCls}-table-container {
-          ${antCls}-table-body,
-          ${antCls}-table-content {
-            scrollbar-width: thin;
-            scrollbar-color: #eaeaea transparent;
-            scrollbar-gutter: stable;
-          }
-          .${antCls}-table-cell-with-append {
-            display: flex;
-            align-items: center;
-          }
-        }
+      .ant-table-body {
+        min-height: 520px;
       }
     `,
   };

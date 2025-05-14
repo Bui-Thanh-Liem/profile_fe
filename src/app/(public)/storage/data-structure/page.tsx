@@ -1,17 +1,17 @@
-import { findAll } from "@/apis/subject-item.api";
-import { ISubjectItem } from "@/interfaces/model.interface";
+import { findAll } from "@/apis/knowledge.api";
+import { IKnowledge } from "@/interfaces/model.interface";
 import { IPropPage } from "@/interfaces/propsPage.interface";
-import { SubjectLayout } from "@/layouts/public/storage/SubjectLayout";
+import { KnowledgeLayout } from "@/layouts/public/storage/KnowledgeLayout";
 import { handleSetDefaultQueries } from "@/utils/handleSetDefaultQueries";
 import { Enums, Utils } from "liemdev-profile-lib";
 
 export default async function DataStructurePage({
   searchParams,
-}: IPropPage<ISubjectItem>) {
+}: IPropPage<IKnowledge>) {
   //
   let queryDefault = handleSetDefaultQueries(searchParams);
   queryDefault = Utils.UtilConvert.addFilterToQuery(queryDefault, {
-    type: Enums.ETypeSubject.DATA,
+    type: Enums.ETypeKnowledge.DATA,
   });
 
   //
@@ -21,7 +21,7 @@ export default async function DataStructurePage({
   return (
     <main className="flex">
       <div className="m-auto w-[1200px]">
-        <SubjectLayout items={items} totalItems={totalItems} />
+        <KnowledgeLayout items={items} totalItems={totalItems} />
       </div>
     </main>
   );

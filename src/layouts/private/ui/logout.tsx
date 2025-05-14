@@ -3,10 +3,10 @@ import { logout } from "@/apis/auth.api";
 import { sendMailAdmin } from "@/apis/send-mail";
 import { clearCookieBrowser } from "@/app/actions/clear-cookie";
 import ButtonPrimary from "@/components/elements/ButtonPrimary";
-import { showToast, showToastByString } from "@/utils/show-toast.util";
 import { ISendMail } from "@/interfaces/model.interface";
 import useAuthStore from "@/stores/useAuthStore";
 import { generatorResourceMail } from "@/utils/generatorResourceMail";
+import { showToast, showToastByString } from "@/utils/show-toast.util";
 import { RollbackOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Row } from "antd";
 import TextArea from "antd/es/input/TextArea";
@@ -19,7 +19,6 @@ import { useCallback, useEffect, useState, useTransition } from "react";
 export function LogoutLayout() {
   const router = useRouter();
   const { currentUser } = useAuthStore();
-  console.log("currentUser:::", currentUser);
   const [feedbackActionForm] = Form.useForm<ISendMail>();
   const [second, setSecond] = useState<number>(5);
   const [isPending, startTransition] = useTransition();
@@ -28,6 +27,7 @@ export function LogoutLayout() {
   //
   const handleLogout = useCallback(async () => {
     await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_USER);
+    await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_USER_RF);
     await logout();
     router.replace("login");
   }, [router]);

@@ -17,7 +17,7 @@ import { useState, useTransition } from "react";
 type TForm = {
   name: string;
   email: string;
-  type: Enums.ETypeSubject;
+  type: Enums.ETypeKnowledge;
   desc?: string;
 };
 
@@ -218,7 +218,7 @@ export const StorageLayout = () => {
             >
               <Select mode="multiple" size="large" placeholder="Select type">
                 <Select.Option value="all">All</Select.Option>
-                {Object.values(Enums.ETypeSubject)?.map((item) => (
+                {Object.values(Enums.ETypeKnowledge)?.map((item) => (
                   <Select.Option key={item} value={item}>
                     {item}
                   </Select.Option>

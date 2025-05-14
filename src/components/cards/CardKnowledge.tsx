@@ -1,5 +1,5 @@
 "use client";
-import { IKeyWord, ISubjectItem } from "@/interfaces/model.interface";
+import { IKeyWord, IKnowledge } from "@/interfaces/model.interface";
 import { setPrefixFile } from "@/utils/setPrefixFile";
 import {
   CodepenOutlined,
@@ -16,7 +16,7 @@ import { ModalCodeView } from "../modals/ModalCodeView";
 import { MyTooltip } from "../MyTooltip";
 
 //
-export function CardSubjectItem({ item }: { item: ISubjectItem }) {
+export function CardKnowledge({ item }: { item: IKnowledge }) {
   const { name, desc, image, keywords, code } = item;
 
   const customIcons: Record<number, React.ReactNode> = {

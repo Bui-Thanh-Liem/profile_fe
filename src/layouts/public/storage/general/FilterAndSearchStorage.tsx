@@ -4,7 +4,7 @@ import { CONSTANT_ROUTE } from "@/constants";
 import { useDebounce } from "@/hooks/useDebounce";
 import useFetch from "@/hooks/useFetch";
 import { usePushUrl } from "@/hooks/usePushUrl";
-import { IKeyWord, ISubjectItem } from "@/interfaces/model.interface";
+import { IKeyWord, IKnowledge } from "@/interfaces/model.interface";
 import { Breadcrumb, Input, Select, Tag } from "antd";
 import { InterfaceCommon } from "liemdev-profile-lib";
 import Link from "next/link";
@@ -26,7 +26,7 @@ export default function FilterAndSearchStorage() {
   );
 
   //
-  const { pushUrl } = usePushUrl<Pick<ISubjectItem, "keywords">>();
+  const { pushUrl } = usePushUrl<Pick<IKnowledge, "keywords">>();
 
   //
   useEffect(() => {

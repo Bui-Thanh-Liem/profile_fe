@@ -21,6 +21,8 @@ export function SubjectLayout({
     return results;
   }
 
+  console.log("totalItems:::", totalItems);
+
   return (
     <>
       {items.length > 0 ? (

@@ -36,7 +36,7 @@ export default function Login() {
         return;
       }
 
-      loginUser(res.data.user);
+      loginUser(res.data.user || {});
       showToast(res);
       loginForm.resetFields();
       router.replace("/admin", { scroll: true });

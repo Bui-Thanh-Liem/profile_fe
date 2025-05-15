@@ -3,7 +3,7 @@ import { logout } from "@/apis/auth.api";
 import { sendMailAdmin } from "@/apis/send-mail";
 import { clearCookieBrowser } from "@/app/actions/clear-cookie";
 import ButtonPrimary from "@/components/elements/ButtonPrimary";
-import { ISendMail } from "@/interfaces/model.interface";
+import { ISendMail } from "@/interfaces/common.interface";
 import useAuthStore from "@/stores/useAuthStore";
 import { generatorResourceMail } from "@/utils/generatorResourceMail";
 import { showToast, showToastByString } from "@/utils/show-toast.util";
@@ -38,7 +38,7 @@ export function LogoutLayout() {
 
     //
     router.replace("login");
-  }, [router]);
+  }, [logoutUser, router]);
 
   //
   // -1 stop second - feedback

@@ -7,3 +7,5 @@ export interface ErrorValidateFromServer {
   field: string;
   error: { [key: string]: string };
 }
+
+export type ISendMail = InterfaceCommon.ISendMail;

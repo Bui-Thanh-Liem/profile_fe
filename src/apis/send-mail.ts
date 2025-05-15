@@ -1,6 +1,6 @@
 import { CONSTANT_ROUTE } from "@/constants";
 import { callApiServerCookie } from "@/helper/api-server-cookie.helper";
-import { ISendMail } from "@/interfaces/model.interface";
+import { ISendMail } from "@/interfaces/common.interface";
 
 export async function sendMailAdmin(
   payload: Pick<ISendMail, "subject" | "source" | "type">

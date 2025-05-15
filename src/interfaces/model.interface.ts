@@ -7,7 +7,6 @@ export type IToken = InterfaceModel.IToken;
 export type IUser = InterfaceModel.IUser;
 export type ISkill = InterfaceModel.ISkill;
 export type IKeyWord = InterfaceModel.IKeyWord;
-export type ISendMail = InterfaceModel.ISendMail;
 export type IKnowledge = InterfaceModel.IKnowledge;
 export type IAbout = InterfaceModel.IAbout;
 export type ICustomer = InterfaceModel.ICustomer;

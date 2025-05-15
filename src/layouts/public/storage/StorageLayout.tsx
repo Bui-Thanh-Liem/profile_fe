@@ -4,7 +4,7 @@ import { MyCarousel } from "@/components/carousel/MyCarousel";
 import HighlighText from "@/components/elements/HighlighText";
 import Logo from "@/components/Logo";
 import { MyAvatar } from "@/components/MyAvatar";
-import { ISendMail } from "@/interfaces/model.interface";
+import { ISendMail } from "@/interfaces/common.interface";
 import { generatorResourceMail } from "@/utils/generatorResourceMail";
 import { showToast } from "@/utils/show-toast.util";
 import { PlusOutlined } from "@ant-design/icons";

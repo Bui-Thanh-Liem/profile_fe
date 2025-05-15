@@ -41,3 +41,15 @@ export async function findAll(queries: InterfaceCommon.IQueries<ICustomer>) {
   });
   return response;
 }
+
+export async function logout() {
+  const response = await callApiServerCookie<boolean>({
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${
+      CONSTANT_ROUTE.CUSTOMER
+    }/${"logout"}`,
+    options: {
+      method: "POST",
+    },
+  });
+  return response;
+}

@@ -1,5 +1,5 @@
 "use client";
-import { Checkbox, Form, Input } from "antd";
+import { Button, Checkbox, Form, Input } from "antd";
 import Image from "next/image";
 
 //
@@ -7,16 +7,12 @@ import { login } from "@/apis/auth.api";
 import Captcha from "@/components/Captcha";
 import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import Logo from "@/components/Logo";
+import { FieldTypeLoginUser } from "@/types";
 import { showToast } from "@/utils/show-toast.util";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
 import useAuthStore from "../../../stores/useAuthStore";
-
-type FieldTypeLogin = {
-  email?: string;
-  password?: string;
-  remember?: boolean;
-};
+import Link from "next/link";
 
 export default function Login() {
   const [loginForm] = Form.useForm();
@@ -29,7 +25,7 @@ export default function Login() {
   async function handleLogin() {
     const dataForm = await loginForm.validateFields();
     startTransition(async () => {
-      console.log("login nek");
+      //
       const res = await login({
         email: dataForm.email,
         password: dataForm.password,
@@ -69,7 +65,7 @@ export default function Login() {
           <div className="text-center mb-8">
             <Logo />
           </div>
-          <Form.Item<FieldTypeLogin>
+          <Form.Item<FieldTypeLoginUser>
             label="Email"
             name="email"
             rules={[
@@ -77,16 +73,20 @@ export default function Login() {
               { type: "email", message: "Invalid email format!" },
             ]}
           >
-            <Input size="large" />
+            <Input size="large" placeholder="Enter email" />
           </Form.Item>
-          <Form.Item<FieldTypeLogin>
+          <Form.Item<FieldTypeLoginUser>
             label="Password"
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
           >
-            <Input.Password size="large" />
+            <Input.Password
+              size="large"
+              autoComplete="current-password"
+              placeholder="Enter password"
+            />
           </Form.Item>
-          <Form.Item<FieldTypeLogin>
+          <Form.Item<FieldTypeLoginUser>
             name="remember"
             valuePropName="checked"
             label={null}
@@ -94,13 +94,22 @@ export default function Login() {
             <Checkbox>Remember me</Checkbox>
           </Form.Item>
           <Captcha handleCheck={setIsCheckCaptcha} />
-          <Form.Item>
-            <div className="mt-6 flex justify-end">
-              <ButtonPrimary disabled={!isCheckCaptcha} loading={isPending}>
-                Submit
-              </ButtonPrimary>
-            </div>
-          </Form.Item>
+          <div className="flex justify-between items-center">
+            <Link href="/forgot-password">
+              <Button type="text">forgot password</Button>
+            </Link>
+            <Form.Item>
+              <div className="mt-6 flex justify-end">
+                <ButtonPrimary
+                  disabled={!isCheckCaptcha}
+                  loading={isPending}
+                  size="large"
+                >
+                  Submit
+                </ButtonPrimary>
+              </div>
+            </Form.Item>
+          </div>
         </Form>
       </div>
     </div>

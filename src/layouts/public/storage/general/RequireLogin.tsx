@@ -14,27 +14,15 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 //
-import Image from "next/image";
 import Logo from "@/components/Logo";
 import useCustomerStore from "@/stores/useCustomerStore";
+import {
+  FieldTypeLoginCustomer,
+  FieldTypeOTPCustomer,
+  FieldTypeRegisterCustomer,
+} from "@/types";
+import Image from "next/image";
 const { Countdown } = Statistic;
-
-type FieldTypeLogin = {
-  username_email?: string;
-  password?: string;
-  remember?: string;
-};
-
-type FieldTypeRegister = {
-  username?: string;
-  email?: string;
-  password?: string;
-  passwordConfirm?: string;
-};
-
-type FieldTypeOTP = {
-  otp?: string;
-};
 
 // type OTPProps = GetProps<typeof Input.OTP>;
 
@@ -161,7 +149,7 @@ export function RequireLogin() {
   }
 
   //
-  const onFinish = () => {
+  const onFinishCountdown = () => {
     console.log("Countdown finished!");
     setDeadline(Date.now() + deadlineMinute * 60 * 1000);
   };
@@ -198,7 +186,6 @@ export function RequireLogin() {
         }
         onOk={handleLogin}
         onCancel={handleCancel}
-        centered
         footer={[
           <Button key="custom" type="link" onClick={handleClickRegister}>
             You can register here
@@ -211,11 +198,12 @@ export function RequireLogin() {
           </Button>,
         ]}
         wrapProps={{ tabIndex: -1 }} // Prevent modal content from being focusable
+        centered
       >
         <Form
           form={loginForm}
           name="login"
-          initialValues={{ remember: true }}
+          initialValues={{ username_email_phone: "", password: "" }}
           onFinish={handleLogin}
           onFinishFailed={() => {}}
           autoComplete="off"
@@ -230,9 +218,9 @@ export function RequireLogin() {
             <p>Google</p>
           </div>
           <Divider plain>Or</Divider>
-          <Form.Item<FieldTypeLogin>
-            label="Username or Email"
-            name="username_email"
+          <Form.Item<FieldTypeLoginCustomer>
+            label="Fullname or Email/Phone"
+            name="fullName_email_phone"
             rules={[
               {
                 required: true,
@@ -240,16 +228,16 @@ export function RequireLogin() {
               },
             ]}
           >
-            <Input size="large" className="w-full" />
+            <Input size="large" placeholder="enter username or email" />
           </Form.Item>
-          <Form.Item<FieldTypeLogin>
+          <Form.Item<FieldTypeLoginCustomer>
             label="Password"
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
           >
-            <Input.Password size="large" />
+            <Input.Password size="large" placeholder="enter password" />
           </Form.Item>
-          <Form.Item<FieldTypeLogin>
+          <Form.Item<FieldTypeLoginCustomer>
             name="remember"
             valuePropName="checked"
             label={null}
@@ -287,21 +275,26 @@ export function RequireLogin() {
         <Form
           form={registerForm}
           name="register"
-          initialValues={{ remember: true }}
+          initialValues={{
+            username: "",
+            email: "",
+            phone: "",
+            password: "",
+          }}
           onFinish={handleRegister}
           onFinishFailed={() => {}}
           layout="vertical"
           autoComplete="off"
           tabIndex={-1}
         >
-          <Form.Item<FieldTypeRegister>
-            label="Username"
-            name="username"
-            rules={[{ required: true, message: "Please input your username!" }]}
+          <Form.Item<FieldTypeRegisterCustomer>
+            label="Fullname"
+            name="fullName"
+            rules={[{ max: 12, message: "maximum 12 characters !" }]}
           >
-            <Input size="large" />
+            <Input size="large" placeholder="enter fullname" />
           </Form.Item>
-          <Form.Item<FieldTypeRegister>
+          <Form.Item<FieldTypeRegisterCustomer>
             label="Email"
             name="email"
             rules={[
@@ -309,16 +302,29 @@ export function RequireLogin() {
               { type: "email", message: "The input is note a valid email!" },
             ]}
           >
-            <Input size="large" />
+            <Input size="large" placeholder="enter email" />
           </Form.Item>
-          <Form.Item<FieldTypeRegister>
+          <Form.Item<FieldTypeRegisterCustomer>
+            label="Phone"
+            name="phone"
+            rules={[
+              {
+                pattern:
+                  /^(?:\+84|0)(3[2-9]|5[6|8|9]|7[0|6-9]|8[1-9]|9[0-9])[0-9]{7}$/,
+                message: "The input is not a valid Vietnamese phone number!",
+              },
+            ]}
+          >
+            <Input size="large" placeholder="enter email" />
+          </Form.Item>
+          <Form.Item<FieldTypeRegisterCustomer>
             label="Password"
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
           >
-            <Input.Password size="large" />
+            <Input.Password size="large" placeholder="enter password" />
           </Form.Item>
-          <Form.Item<FieldTypeRegister>
+          <Form.Item<FieldTypeRegisterCustomer>
             label="Password confirm"
             name="passwordConfirm"
             rules={[
@@ -337,7 +343,7 @@ export function RequireLogin() {
               }),
             ]}
           >
-            <Input.Password size="large" />
+            <Input.Password size="large" placeholder="enter username confirm" />
           </Form.Item>
         </Form>
       </Modal>
@@ -378,7 +384,7 @@ export function RequireLogin() {
           className="text-center"
           tabIndex={-1}
         >
-          <Form.Item<FieldTypeOTP>
+          <Form.Item<FieldTypeOTPCustomer>
             name="otp"
             rules={[{ required: true, message: "Please input your otp!" }]}
           >
@@ -399,7 +405,7 @@ export function RequireLogin() {
               }
               value={deadline}
               format="mm:ss"
-              onFinish={onFinish}
+              onFinish={onFinishCountdown}
             />
           </Form.Item>
         </Form>

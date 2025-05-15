@@ -18,7 +18,7 @@ import { useCallback, useEffect, useState, useTransition } from "react";
 
 export function LogoutLayout() {
   const router = useRouter();
-  const { currentUser } = useAuthStore();
+  const { currentUser, logoutUser } = useAuthStore();
   const [feedbackActionForm] = Form.useForm<ISendMail>();
   const [second, setSecond] = useState<number>(5);
   const [isPending, startTransition] = useTransition();
@@ -26,9 +26,17 @@ export function LogoutLayout() {
 
   //
   const handleLogout = useCallback(async () => {
+    // clean cookie browser
     await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_USER);
     await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_USER_RF);
+
+    // logout server
     await logout();
+
+    // clean storage
+    logoutUser();
+
+    //
     router.replace("login");
   }, [router]);
 

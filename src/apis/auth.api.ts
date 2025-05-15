@@ -44,7 +44,7 @@ export async function logout() {
 }
 
 export async function enterEmail(payload: { email: string }) {
-  const response = await callApiServerCookie<boolean>({
+  const response = await callApiServerCookie<{ token: string; otp: string }>({
     url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${
       CONSTANT_ROUTE.AUTH
     }/${"enter-email"}`,
@@ -82,6 +82,8 @@ export async function resetPassword({
   token: string;
   password: string;
 }) {
+  console.log("password::::", password);
+
   const response = await callApiServerCookie<boolean>({
     url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${
       CONSTANT_ROUTE.AUTH

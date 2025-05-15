@@ -7,16 +7,14 @@ import { IUser } from "./interfaces/model.interface";
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   const response = NextResponse.next();
-  console.log("pathname:::", pathname);
 
+  //
   const customerCookie = request.cookies.get(
     CONSTANT_TOKEN.TOKEN_NAME_CUSTOMER
   );
   const userCookie = request.cookies.get(CONSTANT_TOKEN.TOKEN_NAME_USER);
-  console.log("userCookie:::", userCookie);
 
   // const allCookies = request.cookies.getAll();
-
   // request.cookies.has("nextjs")
   // request.cookies.delete("nextjs");
   // request.cookies.has("nextjs");

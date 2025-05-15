@@ -3,10 +3,12 @@ import { NextResponse } from "next/server";
 import { CONSTANT_TOKEN } from "./constants";
 import { callApiServerCookie } from "./helper/api-server-cookie.helper";
 import { IUser } from "./interfaces/model.interface";
+import { Constants } from "liemdev-profile-lib";
+import { clearCookieBrowser } from "./app/actions/clear-cookie";
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
-  const response = NextResponse.next();
+  // const response = NextResponse.next();
 
   //
   const customerCookie = request.cookies.get(
@@ -47,16 +49,17 @@ export function middleware(request: NextRequest) {
           method: "GET",
         },
       })
-        .then((res) => {
+        .then(async (res) => {
           //
           if (res?.statusCode !== 200) {
-            response.cookies.set(CONSTANT_TOKEN.TOKEN_NAME_USER, "", {
-              maxAge: 0, // or expires: new Date(0)
-              // path: "/", // Đảm bảo xoá trên toàn bộ trang web
-              // httpOnly: true, // Bảo mật hơn (cookie không thể bị truy cập từ client-side JS)
-              // secure: process.env.NODE_ENV === "production", // Chỉ bật trên HTTPS khi production
-              // sameSite: "strict", // Đảm bảo cookie không bị gửi trong yêu cầu từ trang khác
-            });
+            //
+            console.log("Nếu vào đây là token gửi từ client có vấn để");
+            await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_USER);
+            await clearCookieBrowser(
+              Constants.CONSTANT_TOKEN.TOKEN_NAME_USER_RF
+            );
+
+            //
             return NextResponse.redirect(new URL("/login", request.url));
           }
 

@@ -1,12 +1,10 @@
 "use server";
-import { logout, refresh } from "@/apis/auth.api";
-import { clearCookieBrowser } from "@/app/actions/clear-cookie";
+import { refresh } from "@/apis/auth.api";
 import { CONSTANT_ENV } from "@/constants";
 import { TResponse } from "@/interfaces/response.interface";
 import { handleStringCookie } from "@/utils/handleString.util";
-import { Constants, Utils } from "liemdev-profile-lib";
+import { Utils } from "liemdev-profile-lib";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 interface IOptions {
   url: string;
@@ -60,8 +58,14 @@ export const callApiServerCookie = async <T>({
     }
   }
 
+  // 401 && 'Token is expired'  => refresh token
+  // 401, 406 && 'other'        => forbidden      => Thông báo bình thường
+  // 401 && 'other'             => binh thuong
+
   //
   if (result.statusCode === 401 && result.message === "Token is expired") {
+    console.log("Nếu vào đây là token hết hạn cần refresh token");
+
     // Refresh token rồi gọi lại fetch 1 lần nữa
     await refresh();
     const response = await fetch(url, {
@@ -90,21 +94,6 @@ export const callApiServerCookie = async <T>({
       }
     }
     result = await response.json();
-  }
-
-  //
-  if (result.statusCode === 403) {
-    // Call api logout
-    await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_USER);
-    await logout();
-    redirect("/auth/logout");
-  }
-
-  //
-  if (result.statusCode === 406) {
-    // Call api logout
-    await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_CUSTOMER);
-    redirect("/storage");
   }
 
   return result;

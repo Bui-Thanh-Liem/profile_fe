@@ -54,11 +54,12 @@ export function RoleItemResource({
   }, [onChangeResource, resource, valueAction]);
 
   //
-  const actionRoles: SelectProps["options"] = [
+  const optionRoles: SelectProps["options"] = [
     { value: Enums.EActions.VIEW, label: Enums.EActions.VIEW },
     { value: Enums.EActions.CREATE, label: Enums.EActions.CREATE },
     { value: Enums.EActions.UPDATE, label: Enums.EActions.UPDATE },
     { value: Enums.EActions.DELETE, label: Enums.EActions.DELETE },
+    { value: Enums.EActions.MANAGE, label: Enums.EActions.MANAGE },
   ];
 
   //
@@ -92,7 +93,7 @@ export function RoleItemResource({
           mode="multiple"
           tagRender={tagRender}
           value={valueAction}
-          options={actionRoles}
+          options={optionRoles}
           className="w-full"
           disabled={!valueSwitch}
           onChange={onChangeAction}

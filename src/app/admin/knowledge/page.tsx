@@ -1,18 +1,26 @@
-import { findAll } from "@/apis/knowledge.api";
+import { deleteMulti, findAll } from "@/apis/knowledge.api";
+import MyTable from "@/components/table/MyTable";
 import { IKnowledge } from "@/interfaces/model.interface";
 import { IPropPage } from "@/interfaces/propsPage.interface";
-import { KnowledgeLayout } from "@/layouts/private/knowledge/Knowledge";
+import { KnowledgeAction } from "@/layouts/private/knowledge/KnowledgeAction";
+import { knowledgeActionColumns } from "@/layouts/private/knowledge/knowledgeColumn";
 import { handleSetDefaultQueries } from "@/utils/handleSetDefaultQueries";
 
 export default async function KnowledgePage({
   searchParams,
 }: IPropPage<IKnowledge>) {
-  const resKnowledge = await findAll(handleSetDefaultQueries(searchParams));
+  const defaultQueries = handleSetDefaultQueries(searchParams);
+  const resKnowledge = await findAll(defaultQueries);
 
   return (
-    <KnowledgeLayout
-      items={resKnowledge?.data?.items || []}
-      totalItems={resKnowledge?.data?.totalItems || 0}
+    <MyTable
+      dataSource={resKnowledge?.data?.items || []}
+      totalDataSource={resKnowledge?.data?.totalItems || 0}
+      columns={knowledgeActionColumns}
+      actionDataSource={<KnowledgeAction />}
+      deleteApi={deleteMulti}
+      initialLimit={Number(defaultQueries.limit)}
+      initialPage={Number(defaultQueries.page)}
     />
   );
 }

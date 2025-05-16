@@ -1,23 +1,23 @@
 "use client";
+import { usePushUrl } from "@/hooks/usePushUrl";
 import { IBase, IUser } from "@/interfaces/model.interface";
 import IPropMyTable from "@/interfaces/propsComponent.interface";
-import type { TableColumnsType, TableProps } from "antd";
+import { showToast } from "@/utils/show-toast.util";
+import { DeleteOutlined } from "@ant-design/icons";
+import type { TableColumnsType, TablePaginationConfig, TableProps } from "antd";
 import { Card, Modal, Table } from "antd";
 import { createStyles } from "antd-style";
 import React, { useEffect, useState } from "react";
 import { Author } from "../Author";
 import MyTableAction from "./MyTableAction";
 import MyTableToolbar from "./MyTableToolbar";
-import { showToast } from "@/utils/show-toast.util";
-import { DeleteOutlined } from "@ant-design/icons";
+import { MyEmpty } from "../MyEmpty";
 
 const useStyle = createStyles(({ css }) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  // const { antCls } = token as any;
   return {
     customTable: css`
       .ant-table-body {
-        min-height: 520px;
+        min-height: calc(100vh - 420px);
       }
     `,
   };
@@ -33,12 +33,17 @@ export default function MyTable<T extends IBaseMyTable>({
   columns,
   actionDataSource,
   deleteApi,
+  initialPage = 1,
+  initialLimit = 20,
 }: IPropMyTable<T>) {
   const { styles } = useStyle();
   const [isOpenActionDataSource, setIsOpenActionDataSource] =
     useState<boolean>(false);
   const [dataEdit, setDataEdit] = useState<Partial<T> | null>(null);
   const [checkedIds, setCheckedIds] = useState<Array<string> | []>([]);
+  const [page, setPage] = useState(initialPage);
+  const [limit, setLimit] = useState(initialLimit);
+  const { pushUrl } = usePushUrl();
 
   //
   useEffect(() => {
@@ -126,6 +131,7 @@ export default function MyTable<T extends IBaseMyTable>({
       content: `You are about to delete 1 item.`,
       async onOk() {
         try {
+          if (!deleteApi) return;
           const res = await deleteApi([id]);
           if (res.statusCode !== 200) {
             showToast(res);
@@ -153,6 +159,7 @@ export default function MyTable<T extends IBaseMyTable>({
       }.`,
       async onOk() {
         try {
+          if (!deleteApi) return;
           const res = await deleteApi(ids);
           if (res.statusCode !== 200) {
             showToast(res);
@@ -172,6 +179,22 @@ export default function MyTable<T extends IBaseMyTable>({
     });
   }
 
+  //
+  function onChangeTable(config: TablePaginationConfig) {
+    const { current, pageSize } = config;
+    console.log("page:::", current);
+    console.log("limit:::", pageSize);
+
+    //
+    setPage(current || 0);
+    setLimit(pageSize || 0);
+
+    //
+    if (current || pageSize) {
+      pushUrl({ page: `${current}`, limit: `${pageSize}` });
+    }
+  }
+
   return (
     <>
       <MyTableToolbar
@@ -180,23 +203,34 @@ export default function MyTable<T extends IBaseMyTable>({
         onClickDeleteItems={() => onDeleteItems(checkedIds)}
         totalItems={totalDataSource}
       />
-      <Card>
-        <Table<T>
-          rowKey="id"
-          columns={baseColumns}
-          dataSource={dataSource}
-          className={styles.customTable}
-          scroll={{ x: "max-content", y: "calc(100vh - 420px)" }}
-          rowSelection={rowSelection}
-          pagination={{
-            pageSize: 20,
-            showSizeChanger: true,
-            pageSizeOptions: [20, 40, 60, 80, 100],
-            showTotal: (total, range) =>
-              `Display ${range[0]}-${range[1]} on total record ${total}`,
-          }}
-        />
-      </Card>
+
+      <div style={{ minHeight: "calc(100vh - 320px)" }}>
+        {totalDataSource ? (
+          <Card>
+            <Table<T>
+              rowKey="id"
+              columns={baseColumns}
+              dataSource={dataSource}
+              className={styles.customTable}
+              scroll={{ x: "max-content", y: "calc(100vh - 420px)" }}
+              rowSelection={rowSelection}
+              pagination={{
+                current: page,
+                pageSize: limit,
+                total: totalDataSource,
+                showSizeChanger: true,
+                pageSizeOptions: [20, 40, 60, 80, 100],
+                showTotal: (total, range) =>
+                  `Display ${range[0]}-${range[1]} on total record ${total}`,
+              }}
+              onChange={onChangeTable}
+            />
+          </Card>
+        ) : (
+          <MyEmpty />
+        )}
+      </div>
+
       {React.cloneElement(actionDataSource || <></>, {
         isOpen: isOpenActionDataSource,
         setIsOpen: setIsOpenActionDataSource,

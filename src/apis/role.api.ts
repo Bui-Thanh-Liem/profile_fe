@@ -65,5 +65,6 @@ export async function deleteMulti(payload: string[]) {
     },
   });
   revalidateTag(CONSTANT_TAG_CACHE.roles);
+  revalidateTag(CONSTANT_TAG_CACHE.roleGroups);
   return response;
 }

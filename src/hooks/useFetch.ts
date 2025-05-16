@@ -1,5 +1,5 @@
 import { TResponse } from "@/interfaces/response.interface";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function useFetch<T>(url: string) {
   const [loading, setLoading] = useState<boolean>(false);
@@ -14,7 +14,13 @@ export default function useFetch<T>(url: string) {
       setError(null); // Reset error
 
       try {
-        const response = await fetch(url, { signal: controller.signal });
+        const response = await fetch(url, {
+          signal: controller.signal,
+          credentials: "include",
+          headers: {
+            "User-Agent": "Next.js Server", // // Thêm nếu BE yêu cầu
+          },
+        });
         const result = (await response.json()) as TResponse<T>;
         if (result.statusCode !== 200) {
           throw new Error(`HTTP error! status: ${response.status}`);

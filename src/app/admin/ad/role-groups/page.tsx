@@ -1,7 +1,7 @@
 import { findAll } from "@/apis/role-group";
 import { IRoleGroup } from "@/interfaces/model.interface";
 import { IPropPage } from "@/interfaces/propsPage.interface";
-import RoleGroupLayout from "@/layouts/private/role-group/RoleGroup";
+import RoleGroupLayout from "@/layouts/private/ad/role-group/RoleGroup";
 import { handleSetDefaultQueries } from "@/utils/handleSetDefaultQueries";
 
 export default async function RoleGroupsPage({

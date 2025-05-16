@@ -2,10 +2,10 @@
 import { useDebounce } from "@/hooks/useDebounce";
 import { usePushUrl } from "@/hooks/usePushUrl";
 import { IPropsMyTableToolbar } from "@/interfaces/propsComponent.interface";
-import { Button, Card, Input, Select } from "antd";
+import { PlusOutlined } from "@ant-design/icons";
+import { Button, Card, Input } from "antd";
 import { useEffect, useState } from "react";
 import ButtonPrimary from "../elements/ButtonPrimary";
-import { PlusOutlined } from "@ant-design/icons";
 const { Search } = Input;
 
 export default function MyTableToolbar({
@@ -20,11 +20,7 @@ export default function MyTableToolbar({
 
   //
   useEffect(() => {
-    if (searchValueDebounce) {
-      pushUrl({ search: searchValueDebounce });
-    } else {
-      pushUrl({});
-    }
+    pushUrl({ search: searchValueDebounce });
   }, [searchValueDebounce, pushUrl]);
 
   return (
@@ -51,7 +47,7 @@ export default function MyTableToolbar({
           )}
         </div>
         <div className="flex items-center gap-4">
-          <Select
+          {/* <Select
             showSearch
             placeholder="Select a status"
             filterOption={(input, option) =>
@@ -78,7 +74,7 @@ export default function MyTableToolbar({
               { value: "1", label: "Low" },
             ]}
             className="min-w-40"
-          />
+          /> */}
 
           <Search
             addonBefore="Name'"

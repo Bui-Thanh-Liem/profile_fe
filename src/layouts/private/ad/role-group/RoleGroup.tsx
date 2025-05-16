@@ -82,6 +82,7 @@ export default function RoleGroupLayout({
         onClickDeleteItems={onDeleteMulti}
         totalItems={totalItems}
       />
+
       {!!items.length && (
         <div className="mb-2">
           <Checkbox
@@ -92,6 +93,7 @@ export default function RoleGroupLayout({
           </Checkbox>
         </div>
       )}
+
       {open && (
         <RoleGroupAction
           isOpen={open}
@@ -100,6 +102,7 @@ export default function RoleGroupLayout({
           dataEdit={dataEdit}
         />
       )}
+
       <Row gutter={[16, 24]}>
         {items?.map((item) => (
           <Col span={6} key={item.name}>

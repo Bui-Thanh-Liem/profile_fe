@@ -13,7 +13,7 @@ function RoleItem({ role }: { role: IRole }) {
   return (
     <div className="mb-2">
       <Badge color="blue" text={role.name} className="line-clamp-1" />
-      <div className="ml-3">
+      <div className="ml-3 mt-1">
         {dataSources?.map((dataSource) => (
           <div key={v4()} className="mb-2 flex justify-between items-center">
             <p className="bg-gray-second-app w-full">{dataSource.resource}</p>

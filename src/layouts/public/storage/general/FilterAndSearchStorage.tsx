@@ -18,11 +18,11 @@ export default function FilterAndSearchStorage() {
   const searchValueDebounce = useDebounce(searchValue, 1200);
   const [keyword, setKeyword] = useState<string | undefined>(undefined);
   const pathnameSplit = pathname.split("/")?.filter(Boolean);
-  const endItem = pathnameSplit[pathnameSplit.length - 1];
+  const type = pathnameSplit[pathnameSplit.length - 1];
 
   //
   const { data, loading } = useFetch<InterfaceCommon.IGetMulti<IKeyWord>>(
-    `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.KEYWORD}/type/${endItem}`
+    `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.KEYWORD}/type/${type}`
   );
 
   //
@@ -37,7 +37,7 @@ export default function FilterAndSearchStorage() {
   const items = [
     { title: <Link href="/">HOME</Link> },
     ...pathnameSplit?.map((item, idx, arr) => {
-      const isEnd = endItem === item;
+      const isEnd = type === item;
       const path = pathnameSplit
         .slice(0, arr.findIndex((x) => x === item) + 1)
         .join("/");

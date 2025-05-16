@@ -1,13 +1,14 @@
 "use client";
-import { findAll } from "@/apis/role.api";
 import { create, update } from "@/apis/user.api";
-import { showToast } from "@/utils/show-toast.util";
+import { CONSTANT_ROUTE } from "@/constants";
+import useFetch from "@/hooks/useFetch";
 import { IRole, IRoleGroup, IUser } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
+import { showToast } from "@/utils/show-toast.util";
 import { Button, Col, Form, Input, Modal, Row, Select } from "antd";
-import { Enums } from "liemdev-profile-lib";
-import { useEffect, useState, useTransition } from "react";
+import { Enums, InterfaceCommon } from "liemdev-profile-lib";
+import { useEffect, useTransition } from "react";
 import { v4 as uuidV4 } from "uuid";
 
 interface IFormAction extends IUser {
@@ -23,9 +24,19 @@ export default function UserAction({
   const idEdit = dataEdit?.id;
   const [userActionForm] = Form.useForm<Partial<IUser>>();
   const subAdminValue = Form.useWatch("subAdmin", userActionForm);
-  const [roles, setRoles] = useState<Array<IRole>>([]);
-  const [roleGroups, setRoleGroups] = useState<Array<IRoleGroup>>([]);
   const [isPending, startTransition] = useTransition();
+
+  //
+  const { data: roles, loading: loadingRole } = useFetch<
+    InterfaceCommon.IGetMulti<IRole>
+  >(`${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.ROLE}`);
+
+  //
+  const { data: roleGroups, loading: loadingRoleGroup } = useFetch<
+    InterfaceCommon.IGetMulti<IRole>
+  >(
+    `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.ROLE_GROUP}`
+  );
 
   //
   useEffect(() => {
@@ -49,20 +60,7 @@ export default function UserAction({
         roleGroups: editRoleGroups?.map((role) => role.id),
       });
     }
-
-    fetchDataForForm();
   }, [dataEdit, idEdit, subAdminValue, userActionForm, onClose]);
-
-  //
-  async function fetchDataForForm() {
-    const [resRole] = await Promise.all([findAll({ limit: "1e9", page: "1" })]);
-
-    if (resRole.statusCode === 200) {
-      setRoles(resRole.data.items);
-    }
-
-    setRoleGroups([]);
-  }
 
   //
   function onSubmitForm() {
@@ -237,8 +235,9 @@ export default function UserAction({
                   size="large"
                   placeholder="Select role groups"
                   disabled={subAdminValue}
+                  loading={loadingRoleGroup}
                 >
-                  {roleGroups?.map((role) => (
+                  {roleGroups?.items.map((role) => (
                     <Select.Option key={uuidV4()} value={role.id}>
                       {role.name}
                     </Select.Option>
@@ -258,8 +257,9 @@ export default function UserAction({
                   size="large"
                   placeholder="Select roles"
                   disabled={subAdminValue}
+                  loading={loadingRole}
                 >
-                  {roles?.map((role) => (
+                  {roles?.items.map((role) => (
                     <Select.Option key={uuidV4()} value={role.id}>
                       {role.name}
                     </Select.Option>

@@ -1,18 +1,23 @@
 import { findAll } from "@/apis/customer.api";
+import MyTable from "@/components/table/MyTable";
 import { ICustomer } from "@/interfaces/model.interface";
 import { IPropPage } from "@/interfaces/propsPage.interface";
-import CustomerLayout from "@/layouts/private/customer/Customer";
+import { customerActionColumns } from "@/layouts/private/ad/customer/CustomerColumn";
 import { handleSetDefaultQueries } from "@/utils/handleSetDefaultQueries";
 
 export default async function CustomerPage({
   searchParams,
 }: IPropPage<ICustomer>) {
-  const resUsers = await findAll(handleSetDefaultQueries(searchParams));
+  const defaultQueries = handleSetDefaultQueries(searchParams);
+  const resUsers = await findAll(defaultQueries);
 
   return (
-    <CustomerLayout
-      items={resUsers?.data?.items || []}
-      totalItems={resUsers?.data?.totalItems || 0}
+    <MyTable
+      dataSource={resUsers?.data?.items || []}
+      totalDataSource={resUsers?.data?.totalItems || 0}
+      columns={customerActionColumns}
+      initialPage={Number(defaultQueries.page)}
+      initialLimit={Number(defaultQueries.limit)}
     />
   );
 }

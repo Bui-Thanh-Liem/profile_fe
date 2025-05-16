@@ -79,7 +79,9 @@ export default interface IPropMyTable<T> {
   totalDataSource: number;
   actionDataSource?: ReactElement;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  deleteApi: (ids: string[]) => Promise<TResponse<any>>;
+  deleteApi?: (ids: string[]) => Promise<TResponse<any>>;
+  initialPage: number;
+  initialLimit: number;
 }
 
 export interface IPropTableAction {

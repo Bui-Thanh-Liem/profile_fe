@@ -21,7 +21,7 @@ export default function RoleAction({
 }: IPropBaseAction<IRole>) {
   const idEdit = dataEdit?.id;
   const [roleActionForm] = Form.useForm<Partial<IRole>>();
-  const resources = Object.values(Enums.ERoleResources);
+  const resources = Object.values(Enums.EResources);
   const [isPending, startTransition] = useTransition();
 
   //
@@ -128,7 +128,7 @@ export default function RoleAction({
           OK
         </Button>,
       ]}
-      width={600}
+      width={700}
     >
       <Form
         form={roleActionForm}
@@ -144,7 +144,7 @@ export default function RoleAction({
           name="name"
           rules={[{ required: true, message: "Please input name!" }]}
         >
-          <Input size="large" />
+          <Input size="large" placeholder="Enter name" />
         </Form.Item>
 
         {/*  */}
@@ -153,7 +153,7 @@ export default function RoleAction({
           name="desc"
           rules={[{ required: true, message: "Please input description!" }]}
         >
-          <TextArea rows={4} />
+          <TextArea rows={4} placeholder="Enter description" />
         </Form.Item>
 
         {/*  */}
@@ -163,13 +163,13 @@ export default function RoleAction({
           rules={[{ required: true, message: "Please input resource!" }]}
         >
           <span>
-            {resources.map((resource) => (
+            {resources.map((_) => (
               <RoleItemResource
-                key={resource}
+                key={_}
                 value={(dataEdit?.dataSources as IRoleDataResource[])?.find(
-                  (item) => item.resource === resource
+                  (item) => item.resource === _
                 )}
-                resource={resource}
+                resource={_}
                 onChangeResource={handleChangeResource}
               />
             ))}

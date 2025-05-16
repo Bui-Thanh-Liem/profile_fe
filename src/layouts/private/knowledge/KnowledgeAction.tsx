@@ -1,7 +1,8 @@
 "use client";
-import { findAll } from "@/apis/keyword";
 import { create, update } from "@/apis/knowledge.api";
 import { MyUpload } from "@/components/MyUpload";
+import { CONSTANT_ROUTE } from "@/constants";
+import useFetch from "@/hooks/useFetch";
 import { IKeyWord, IKnowledge } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
@@ -11,8 +12,8 @@ import { javascript } from "@codemirror/lang-javascript";
 import CodeMirror from "@uiw/react-codemirror";
 import { Button, Col, Form, Input, Modal, Row, Select, Tooltip } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { Enums } from "liemdev-profile-lib";
-import { useCallback, useEffect, useState, useTransition } from "react";
+import { Enums, InterfaceCommon } from "liemdev-profile-lib";
+import { useEffect, useState, useTransition } from "react";
 import { v4 as uuidV4 } from "uuid";
 
 export function KnowledgeAction({
@@ -24,19 +25,12 @@ export function KnowledgeAction({
   const [knowledgeActionForm] = Form.useForm<Partial<IKnowledge>>();
   const [isPending, startTransition] = useTransition();
   const [isEditorOpen, setIsEditorOpen] = useState(false);
-  const [keywords, setKeywords] = useState<IKeyWord[]>([]);
   const [imageFile, setImageFile] = useState<File | string | null>(null);
 
   //
-  const fetchDataForForm = useCallback(async () => {
-    const resKeyWords = await findAll({
-      limit: "1e9",
-      page: "1",
-    });
-    if (resKeyWords.statusCode === 200) {
-      setKeywords(resKeyWords.data.items);
-    }
-  }, []);
+  const { data: keywords, loading } = useFetch<
+    InterfaceCommon.IGetMulti<IKeyWord>
+  >(`${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.KEYWORD}`);
 
   //
   useEffect(() => {
@@ -50,13 +44,8 @@ export function KnowledgeAction({
         keywords: keywordEdits?.map((key) => key.id),
       });
       setImageFile(dataEdit.image);
-      setKeywords((prev) => [...(prev || []), ...keywordEdits]);
     }
-    fetchDataForForm();
-    return () => {
-      setKeywords([]);
-    };
-  }, [dataEdit, fetchDataForForm, knowledgeActionForm]);
+  }, [dataEdit, knowledgeActionForm]);
 
   //
   function onSubmitForm() {
@@ -186,8 +175,9 @@ export function KnowledgeAction({
               mode="multiple"
               placeholder="Select key word"
               maxCount={2}
+              loading={loading}
             >
-              {keywords?.map((item) => (
+              {keywords?.items?.map((item) => (
                 <Select.Option key={uuidV4()} value={item.id}>
                   {item.name}
                 </Select.Option>

@@ -1,13 +1,15 @@
 "use client";
 import { create, update } from "@/apis/role-group";
-import { findAll } from "@/apis/role.api";
-import { showToast } from "@/utils/show-toast.util";
+import { CONSTANT_ROUTE } from "@/constants";
+import useFetch from "@/hooks/useFetch";
 import { IRole, IRoleGroup } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
+import { showToast } from "@/utils/show-toast.util";
 import { Button, Form, Input, Modal, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { useEffect, useState, useTransition } from "react";
+import { InterfaceCommon } from "liemdev-profile-lib";
+import { useEffect, useTransition } from "react";
 import { v4 as uuidV4 } from "uuid";
 
 export default function RoleGroupAction({
@@ -18,8 +20,13 @@ export default function RoleGroupAction({
 }: IPropBaseAction<IRoleGroup>) {
   const idEdit = dataEdit?.id;
   const [roleGroupActionForm] = Form.useForm<Partial<IRoleGroup>>();
-  const [roles, setRoles] = useState<IRole[]>();
   const [isPending, startTransition] = useTransition();
+
+  //
+  const { data: roles, loading } = useFetch<InterfaceCommon.IGetMulti<IRole>>(
+    `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.ROLE}`
+  );
+  console.log("roles::", roles);
 
   //
   useEffect(() => {
@@ -31,17 +38,7 @@ export default function RoleGroupAction({
         roles: roles?.map((role) => role.id),
       });
     }
-
-    fetchDataForForm();
   }, [dataEdit, idEdit, roleGroupActionForm]);
-
-  //
-  async function fetchDataForForm() {
-    const [resRole] = await Promise.all([findAll({ limit: "1e9", page: "1" })]);
-    if (resRole.statusCode === 200) {
-      setRoles(resRole.data.items);
-    }
-  }
 
   //
   function onSubmitForm() {
@@ -120,14 +117,14 @@ export default function RoleGroupAction({
           name="name"
           rules={[{ required: true, message: "Please input name!" }]}
         >
-          <Input size="large" />
+          <Input size="large" placeholder="Enter name" />
         </Form.Item>
         <Form.Item<IRoleGroup>
           label="Description"
           name="desc"
           rules={[{ required: true, message: "Please input description!" }]}
         >
-          <TextArea rows={4} />
+          <TextArea rows={4} placeholder="Enter description" />
         </Form.Item>
 
         <Form.Item<IRoleGroup>
@@ -140,8 +137,9 @@ export default function RoleGroupAction({
             maxCount={3}
             size="large"
             placeholder="Select roles"
+            loading={loading}
           >
-            {roles?.map((role) => (
+            {roles?.items?.map((role) => (
               <Select.Option key={uuidV4()} value={role.id}>
                 {role.name}
               </Select.Option>

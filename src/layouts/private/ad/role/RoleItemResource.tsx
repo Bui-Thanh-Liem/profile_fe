@@ -30,13 +30,14 @@ export function RoleItemResource({
   value,
   onChangeResource,
 }: {
-  resource: Enums.ERoleResources;
+  resource: Enums.EResources;
   value?: IRoleDataResource;
   onChangeResource: (resource: IRoleDataResource) => void;
 }) {
   const [valueSwitch, setValueSwitch] = useState<boolean>(false);
-  const [valueAction, setValueAction] =
-    useState<Array<Enums.ERoleActions> | null>(null);
+  const [valueAction, setValueAction] = useState<Array<Enums.EActions> | null>(
+    null
+  );
 
   //
   useEffect(() => {
@@ -54,17 +55,17 @@ export function RoleItemResource({
 
   //
   const actionRoles: SelectProps["options"] = [
-    { value: Enums.ERoleActions.VIEW, label: Enums.ERoleActions.VIEW },
-    { value: Enums.ERoleActions.CREATE, label: Enums.ERoleActions.CREATE },
-    { value: Enums.ERoleActions.UPDATE, label: Enums.ERoleActions.UPDATE },
-    { value: Enums.ERoleActions.DELETE, label: Enums.ERoleActions.DELETE },
+    { value: Enums.EActions.VIEW, label: Enums.EActions.VIEW },
+    { value: Enums.EActions.CREATE, label: Enums.EActions.CREATE },
+    { value: Enums.EActions.UPDATE, label: Enums.EActions.UPDATE },
+    { value: Enums.EActions.DELETE, label: Enums.EActions.DELETE },
   ];
 
   //
   function onChangeSwitch(val: boolean) {
     setValueSwitch(val);
     if (val) {
-      const actions = Object.values(Enums.ERoleActions);
+      const actions = Object.values(Enums.EActions);
       setValueAction(actions);
     } else {
       setValueAction(null);
@@ -72,7 +73,7 @@ export function RoleItemResource({
   }
 
   //
-  function onChangeAction(value: Array<Enums.ERoleActions>) {
+  function onChangeAction(value: Array<Enums.EActions>) {
     setValueAction(value);
   }
 
@@ -86,7 +87,7 @@ export function RoleItemResource({
           {resource}
         </label>
       </div>
-      <div className="w-[300px]">
+      <div className="w-[400px]">
         <Select
           mode="multiple"
           tagRender={tagRender}

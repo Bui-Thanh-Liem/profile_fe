@@ -5,6 +5,9 @@ export default function useLocalStorage<T>(
   initialValue: T
 ) {
   const [storedValue, setStoredValue] = useState(() => {
+    if (typeof window === "undefined") {
+      return initialValue;
+    }
     try {
       const item = window.localStorage.getItem(initialKey);
       return item ? JSON.parse(item) : initialValue;
@@ -15,19 +18,23 @@ export default function useLocalStorage<T>(
   });
 
   const setValue = (value: T) => {
-    try {
-      setStoredValue(value);
-      window.localStorage.setItem(initialKey, JSON.stringify(value));
-    } catch (error) {
-      console.log("Error writing localStorage", error);
+    setStoredValue(value);
+    if (typeof window !== "undefined") {
+      try {
+        window.localStorage.setItem(initialKey, JSON.stringify(value));
+      } catch (error) {
+        console.log("Error writing localStorage", error);
+      }
     }
   };
 
   const remoteItem = () => {
-    try {
-      window.localStorage.removeItem(initialKey);
-    } catch (error) {
-      console.log("Error remoting localStorage", error);
+    if (typeof window !== "undefined") {
+      try {
+        window.localStorage.removeItem(initialKey);
+      } catch (error) {
+        console.log("Error removing localStorage", error);
+      }
     }
   };
 

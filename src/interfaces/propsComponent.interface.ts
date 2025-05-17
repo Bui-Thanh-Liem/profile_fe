@@ -86,6 +86,7 @@ export default interface IPropMyTable<T> {
 
 export interface IPropTableAction {
   isEdit?: boolean;
+  isDelete?: boolean;
   onEdit: () => void;
   onDelete: () => void;
 }

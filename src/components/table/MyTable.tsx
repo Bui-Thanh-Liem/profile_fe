@@ -91,6 +91,7 @@ export default function MyTable<T extends IBaseMyTable>({
         return (
           <MyTableAction
             isEdit={Boolean(actionDataSource)}
+            isDelete={Boolean(deleteApi)}
             onEdit={() => onEditItem(record)}
             onDelete={() => onDeleteItem(record.id)}
           />

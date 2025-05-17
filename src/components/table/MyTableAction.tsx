@@ -6,6 +6,7 @@ export default function MyTableAction({
   onEdit,
   onDelete,
   isEdit = false,
+  isDelete = false,
 }: IPropTableAction) {
   //
   function onConfirmEdit() {
@@ -39,7 +40,7 @@ export default function MyTableAction({
         okButtonProps={{ danger: true }}
         onConfirm={onConfirmDelete}
       >
-        <Button size="small" danger>
+        <Button size="small" danger disabled={!isDelete}>
           <DeleteOutlined />
         </Button>
       </Popconfirm>

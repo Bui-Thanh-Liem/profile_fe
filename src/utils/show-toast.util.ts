@@ -4,8 +4,11 @@ import { notification } from "antd";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const showToast = ({ statusCode, message }: TResponse<any>) => {
+  let title = "";
   const type =
     statusCode !== 200 ? (statusCode === 422 ? "warning" : "error") : "success";
+
+  title = statusCode === 403 ? "forbidden" : type;
 
   let mess = "";
   if (typeof message !== "string") {
@@ -20,7 +23,7 @@ export const showToast = ({ statusCode, message }: TResponse<any>) => {
   }
 
   notification[type]({
-    message: type.toLocaleUpperCase(),
+    message: title.toLocaleUpperCase(),
     description: mess,
   });
 };

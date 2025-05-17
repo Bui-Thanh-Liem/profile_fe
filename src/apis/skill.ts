@@ -42,11 +42,6 @@ export async function findOneById(id: string) {
 }
 
 export async function findAll(queries: InterfaceCommon.IQueries<ISkill>) {
-  console.log(
-    "process.env.NEXT_PUBLIC_SERVER_HOST:::",
-    process.env.NEXT_PUBLIC_SERVER_HOST
-  );
-
   const response = await callApiServerCookie<InterfaceCommon.IGetMulti<ISkill>>(
     {
       url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${

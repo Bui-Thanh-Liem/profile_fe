@@ -5,8 +5,7 @@ import { ICustomer } from "@/interfaces/model.interface";
 import { InterfaceCommon, Utils } from "liemdev-profile-lib";
 
 export async function verifyLoginGoogle() {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const response = await callApiServerCookie<any>({
+  const response = await callApiServerCookie<ICustomer>({
     url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.CUSTOMER}/verify-login-google`,
     options: {
       method: "GET",

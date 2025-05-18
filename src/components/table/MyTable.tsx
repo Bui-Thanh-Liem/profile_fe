@@ -64,7 +64,7 @@ export default function MyTable<T extends IBaseMyTable>({
     {
       title: "Created",
       key: "created",
-      width: 200,
+      width: 180,
       render: (record) => {
         const creator = record.createdBy as IUser;
         const createdAt = record.createdAt;
@@ -74,7 +74,7 @@ export default function MyTable<T extends IBaseMyTable>({
     {
       title: "Updated",
       key: "updated",
-      width: 200,
+      width: 180,
       render: (record) => {
         const editor = record.updatedBy as IUser;
         const updatedAt = record.updatedAt;

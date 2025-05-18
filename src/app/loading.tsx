@@ -1,9 +1,9 @@
-import Image from "next/image";
+import { Spin } from "antd";
 
 export default function LoadingPage() {
   return (
-    <div className="h-full flex justify-center items-center">
-      <Image src="/loading.gif" alt="developer" width={320} height={320} />
+    <div className="min-h-[660px] flex justify-center items-center">
+      <Spin size="large" />
     </div>
   );
 }

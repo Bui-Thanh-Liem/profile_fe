@@ -67,7 +67,7 @@ export function ContactMe() {
       <Modal
         open={openModal}
         title={
-          <div className="text-center">
+          <div className="text-center mt-6">
             <Logo />
             <p className="mt-4">Contact</p>
           </div>

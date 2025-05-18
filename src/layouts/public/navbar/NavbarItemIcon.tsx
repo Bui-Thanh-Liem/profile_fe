@@ -1,6 +1,6 @@
 import { IPropNavbarItemIcon } from "@/interfaces/propsComponent.interface";
 import { Button } from "antd";
-export function NavbarItemIcon({ icon }: IPropNavbarItemIcon) {
+export function NavbarItemIcon({ icon, href }: IPropNavbarItemIcon) {
   return (
     <Button
       className="hover:scale-125 transition-all ease-linear duration-150 bg-gray-second-app"
@@ -8,6 +8,8 @@ export function NavbarItemIcon({ icon }: IPropNavbarItemIcon) {
       shape="circle"
       size="middle"
       icon={icon}
+      href={href}
+      target="_blank"
     />
   );
 }

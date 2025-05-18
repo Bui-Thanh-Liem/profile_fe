@@ -1,9 +1,9 @@
-import { IUser } from "@/interfaces/model.interface";
+import { ICustomer, IUser } from "@/interfaces/model.interface";
 import { create } from "zustand";
 import { persist, PersistOptions } from "zustand/middleware";
 
 type State = {
-  currentCustomer: Partial<IUser> | null;
+  currentCustomer: Partial<ICustomer> | null;
   isLoggedCustomer: boolean;
 };
 

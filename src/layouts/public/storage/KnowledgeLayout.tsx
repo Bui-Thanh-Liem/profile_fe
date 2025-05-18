@@ -1,13 +1,20 @@
+"use client";
 import { CardKnowledge } from "@/components/cards/CardKnowledge";
+import { usePushUrl } from "@/hooks/usePushUrl";
 import { IKnowledge } from "@/interfaces/model.interface";
 import { IPropComponentLayout } from "@/interfaces/propsComponent.interface";
-import { Col, Row } from "antd";
+import { Button, Col, Row } from "antd";
 import Image from "next/image";
+import { PlusOutlined } from "@ant-design/icons";
+import { useSearchParams } from "next/navigation";
 
 export function KnowledgeLayout({
   items,
   totalItems,
 }: IPropComponentLayout<IKnowledge>) {
+  const { pushUrl } = usePushUrl();
+  const searchParams = useSearchParams();
+
   //
   function mergeCouples(items: IKnowledge[]): IKnowledge[][] {
     const results = [];
@@ -20,7 +27,11 @@ export function KnowledgeLayout({
     return results;
   }
 
-  console.log("totalItems:::", totalItems);
+  //
+  function onMoreItems() {
+    const _limit = searchParams.get("limit") || 0;
+    pushUrl({ limit: String(Number(_limit) + 20) });
+  }
 
   return (
     <>
@@ -40,6 +51,18 @@ export function KnowledgeLayout({
               </Row>
             </Col>
           ))}
+          {!(totalItems <= items.length) && (
+            <Col className="self-center">
+              <Button
+                type="text"
+                onClick={onMoreItems}
+                icon={<PlusOutlined />}
+                iconPosition="end"
+              >
+                Load more
+              </Button>
+            </Col>
+          )}
         </Row>
       ) : (
         <Row>

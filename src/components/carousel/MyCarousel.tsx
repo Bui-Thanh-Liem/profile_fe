@@ -60,7 +60,7 @@ export function MyCarousel({ children }: { children: ReactNode }) {
       autoplay
       autoplaySpeed={3000}
       draggable
-      className="h-[70vh]"
+      className="min-h-[76vh]"
       prevArrow={<CustomPrevArrow />}
       nextArrow={<CustomNextArrow />}
       // dots={{ className: "custom-dots" }}

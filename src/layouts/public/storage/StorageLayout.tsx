@@ -64,7 +64,7 @@ export const StorageLayout = () => {
     <>
       <MyCarousel>
         {/*  */}
-        <Row>
+        <Row className="mt-12">
           <Col span={14} offset={5} className="flex flex-col gap-6">
             <Image
               width={400}
@@ -91,13 +91,13 @@ export const StorageLayout = () => {
                 />
                 <MyAvatar
                   // src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                  alt="liem"
-                  fallbackText={"liem"}
+                  alt="son"
+                  fallbackText={"son"}
                 />
                 <MyAvatar
                   // src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                  alt="liem"
-                  fallbackText={"liem"}
+                  alt="dat"
+                  fallbackText={"dat"}
                 />
               </Avatar.Group>
               <Button
@@ -112,7 +112,7 @@ export const StorageLayout = () => {
         </Row>
 
         {/*  */}
-        <Row>
+        <Row className="mt-12">
           <Col span={14} offset={5} className="flex flex-col gap-6">
             <Image
               width={200}
@@ -134,7 +134,7 @@ export const StorageLayout = () => {
         </Row>
 
         {/*  */}
-        <Row>
+        <Row className="mt-12">
           <Col span={14} offset={5} className="flex flex-col gap-6">
             <Image
               width={200}
@@ -178,7 +178,7 @@ export const StorageLayout = () => {
       >
         <div className="pt-4">
           <div className="text-center mb-6">
-            <Logo size="small" />
+            <Logo />
           </div>
           <Form
             form={actionForm}
@@ -226,7 +226,7 @@ export const StorageLayout = () => {
               </Select>
             </Form.Item>
             <Form.Item<TForm> label="Description" name="desc">
-              <TextArea rows={2} placeholder="description" />
+              <TextArea rows={4} placeholder="description" />
             </Form.Item>
           </Form>
         </div>

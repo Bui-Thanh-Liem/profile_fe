@@ -1,9 +1,9 @@
 import LoadingPage from "@/app/loading";
 import { StorageNavItem } from "@/components/StoreageNavItem";
 import { IPropStorageNavItem } from "@/interfaces/propsComponent.interface";
-import { BenefitCustomer } from "@/layouts/public/storage/benefit-customer/BenefitCustomer";
-import PersonalCustomer from "@/layouts/public/storage/benefit-customer/PersonalCustomer";
 import FilterAndSearchStorage from "@/layouts/public/storage/general/FilterAndSearchStorage";
+import { BenefitCustomer } from "@/layouts/public/storage/personal-customer/benefit/BenefitCustomer";
+import PersonalCustomer from "@/layouts/public/storage/personal-customer/personal/PersonalCustomer";
 import {
   CalculatorOutlined,
   CodeOutlined,
@@ -17,10 +17,10 @@ import { Suspense } from "react";
 export default function StorageLayout({
   children,
   requireLogin,
-  notificationForCustomer,
+  storageUserGuide,
 }: {
   children: React.ReactNode;
-  notificationForCustomer: React.ReactNode;
+  storageUserGuide: React.ReactNode;
   requireLogin: React.ReactNode;
 }) {
   //
@@ -61,11 +61,9 @@ export default function StorageLayout({
   return (
     <div className="flex justify-center items-center min-h-screen">
       <div className="w-[1200px] min-h-screen pt-20">
-        <Suspense fallback={<LoadingPage />}>{requireLogin}</Suspense>
-        <Suspense fallback={<LoadingPage />}>
-          {notificationForCustomer}
-        </Suspense>
-        <Suspense fallback={<LoadingPage />}>
+        <Suspense fallback={<></>}>{requireLogin}</Suspense>
+        <Suspense fallback={<></>}>{storageUserGuide}</Suspense>
+        <Suspense fallback={<></>}>
           <FilterAndSearchStorage />
         </Suspense>
         <Suspense fallback={<LoadingPage />}>

@@ -1,9 +1,6 @@
 "use client";
 import { useBreakpoints } from "@/hooks/useBreakpoints";
-import {
-  FacebookOutlined,
-  GithubOutlined
-} from "@ant-design/icons";
+import { FacebookOutlined, GithubOutlined } from "@ant-design/icons";
 import { useEffect } from "react";
 import Logo from "../../../components/Logo";
 import { NavbarItemIcon } from "./NavbarItemIcon";
@@ -86,9 +83,7 @@ export default function NavBar() {
       <ul className="flex gap-8 justify-end">
         {socialLinks?.map((nav) => (
           <li key={nav.href}>
-            <a href="#" target="">
-              <NavbarItemIcon icon={nav.icon} />
-            </a>
+            <NavbarItemIcon icon={nav.icon} href={nav.href} />
           </li>
         ))}
       </ul>

@@ -12,6 +12,7 @@ import { TResponse } from "./response.interface";
 
 export interface IPropNavbarItemIcon {
   icon: ReactNode;
+  href: string;
 }
 
 export interface IPropNavbarItemLink {

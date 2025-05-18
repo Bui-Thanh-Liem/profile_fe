@@ -13,14 +13,14 @@ export function usePushUrl<T>() {
       console.log("queryParams:::", queryParams);
 
       // Nếu queryParams rỗng, push về pathname mà không có query
-      // if (Object.keys(queryParams).length === 0) {
-      //   console.log("queryParams::: khong co");
+      if (Object.keys(queryParams).length === 0) {
+        console.log("queryParams::: khong co");
 
-      //   const newUrl = pathname;
-      //   console.log("newUrl:::", newUrl);
-      //   router.push(newUrl);
-      //   return;
-      // }
+        const newUrl = pathname;
+        console.log("newUrl:::", newUrl);
+        router.push(newUrl);
+        return;
+      }
 
       // Tạo một bản sao của searchParams hiện tại
       const currentParams = new URLSearchParams(searchParams.toString());

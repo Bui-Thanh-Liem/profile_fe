@@ -55,7 +55,7 @@ export function ExperienceLayout() {
     },
     {
       date: ["03/2024", "05/2024"],
-      title: "Internship Internship at Sea Dragon Technology Company",
+      title: "Internship   at Sea Dragon Technology Company",
       description: (
         <Paragraph className="text-base mt-2">
           Gain hands-on experience in projects, <Text code>front-end</Text>{" "}

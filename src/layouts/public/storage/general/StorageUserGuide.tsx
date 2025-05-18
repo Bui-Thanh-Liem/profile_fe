@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { verifyLoginGoogle } from "@/apis/customer.api";
@@ -49,7 +50,7 @@ function Instruct() {
   return (
     <div className="min-h-96">
       <Title level={4}>Storage user guide</Title>
-      <Divider />
+      <Divider />      
       <Tabs tabPosition="left" items={instructItems as any} />
     </div>
   );

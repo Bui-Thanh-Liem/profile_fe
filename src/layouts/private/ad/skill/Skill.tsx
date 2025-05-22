@@ -1,20 +1,22 @@
 "use client";
 import { deleteMulti } from "@/apis/skill";
 import { CardSkillAdmin } from "@/components/cards/CardSkillAdmin";
+import { MyEmpty } from "@/components/MyEmpty";
 import MyTableToolbar from "@/components/table/MyTableToolbar";
-import { showToast } from "@/utils/show-toast.util";
 import { ISkill } from "@/interfaces/model.interface";
 import { IPropLayout } from "@/interfaces/propsLayout.interface";
+import { showToast } from "@/utils/show-toast.util";
+import { DeleteOutlined } from "@ant-design/icons";
 import { Checkbox, CheckboxChangeEvent, Col, Modal, Row } from "antd";
 import { useState } from "react";
 import SkillAction from "./SkillAction";
-import { DeleteOutlined } from "@ant-design/icons";
 
 export function SkillAdminLayout({ items, totalItems }: IPropLayout<ISkill>) {
   const [open, setOpen] = useState<boolean>(false);
   const [activeIds, setActiveIds] = useState<string[]>([]);
   const [dataEdit, setDataEdit] = useState<ISkill | undefined>(undefined);
   const ids = items.map((item) => item.id);
+  const isLength = items.length || 0;
 
   //
   function onEdit(data: ISkill) {
@@ -79,7 +81,7 @@ export function SkillAdminLayout({ items, totalItems }: IPropLayout<ISkill>) {
         onClickDeleteItems={onDeleteMulti}
         totalItems={totalItems}
       />
-      {!!items.length && (
+      {!!isLength && (
         <div className="mb-2">
           <Checkbox
             onChange={handleCheckAll}
@@ -99,19 +101,23 @@ export function SkillAdminLayout({ items, totalItems }: IPropLayout<ISkill>) {
           dataEdit={dataEdit}
         />
       )}
-      <Row gutter={[16, 16]}>
-        {items?.map((item) => (
-          <Col span={4} key={item.name}>
-            <CardSkillAdmin
-              item={item}
-              actives={activeIds}
-              onClickEdit={onEdit}
-              onClickDelete={onDeleteMulti}
-              onClickActive={() => handleClickActive(item.id)}
-            />
-          </Col>
-        ))}
-      </Row>
+      {!!isLength ? (
+        <Row gutter={[16, 16]}>
+          {items?.map((item) => (
+            <Col span={4} key={item.name}>
+              <CardSkillAdmin
+                item={item}
+                actives={activeIds}
+                onClickEdit={onEdit}
+                onClickDelete={onDeleteMulti}
+                onClickActive={() => handleClickActive(item.id)}
+              />
+            </Col>
+          ))}
+        </Row>
+      ) : (
+        <MyEmpty />
+      )}
     </>
   );
 }

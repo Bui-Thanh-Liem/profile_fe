@@ -9,9 +9,9 @@ import { Card, Modal, Table } from "antd";
 import { createStyles } from "antd-style";
 import React, { useEffect, useState } from "react";
 import { Author } from "../Author";
+import { MyEmpty } from "../MyEmpty";
 import MyTableAction from "./MyTableAction";
 import MyTableToolbar from "./MyTableToolbar";
-import { MyEmpty } from "../MyEmpty";
 
 const useStyle = createStyles(({ css }) => {
   return {
@@ -25,6 +25,7 @@ const useStyle = createStyles(({ css }) => {
 
 interface IBaseMyTable extends IBase {
   isAdmin?: boolean;
+  fullname?: string;
 }
 
 export default function MyTable<T extends IBaseMyTable>({
@@ -88,12 +89,15 @@ export default function MyTable<T extends IBaseMyTable>({
       width: 100,
       render: (_, record) => {
         if (record.isAdmin) return null;
+        const isUserPage = Boolean(record?.fullname || "");
         return (
           <MyTableAction
             isEdit={Boolean(actionDataSource)}
             isDelete={Boolean(deleteApi)}
+            isUserPage={isUserPage}
             onEdit={() => onEditItem(record)}
             onDelete={() => onDeleteItem(record.id)}
+            onRevoke={() => onRevokeUser(record.id)}
           />
         );
       },
@@ -178,6 +182,11 @@ export default function MyTable<T extends IBaseMyTable>({
       cancelButtonProps: { color: "primary", variant: "outlined" },
       icon: <DeleteOutlined style={{ color: "red" }} />,
     });
+  }
+
+  //
+  async function onRevokeUser(id: string) {
+    console.log("revoke user:::", id);
   }
 
   //

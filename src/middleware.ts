@@ -3,18 +3,16 @@ import { NextResponse } from "next/server";
 import { CONSTANT_TOKEN } from "./constants";
 import { callApiServerCookie } from "./helper/api-server-cookie.helper";
 import { IUser } from "./interfaces/model.interface";
-import { Constants } from "liemdev-profile-lib";
-import { clearCookieBrowser } from "./app/actions/clear-cookie";
 
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   // const response = NextResponse.next();
 
   //
+  const userCookie = request.cookies.get(CONSTANT_TOKEN.TOKEN_NAME_USER);
   const customerCookie = request.cookies.get(
     CONSTANT_TOKEN.TOKEN_NAME_CUSTOMER
   );
-  const userCookie = request.cookies.get(CONSTANT_TOKEN.TOKEN_NAME_USER);
 
   // const allCookies = request.cookies.getAll();
   // request.cookies.has("nextjs")
@@ -52,15 +50,8 @@ export function middleware(request: NextRequest) {
         .then(async (res) => {
           //
           if (res?.statusCode !== 200) {
-            //
             console.log("Nếu vào đây là token gửi từ client có vấn để");
-            await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_USER);
-            await clearCookieBrowser(
-              Constants.CONSTANT_TOKEN.TOKEN_NAME_USER_RF
-            );
-
-            //
-            return NextResponse.redirect(new URL("/login", request.url));
+            return NextResponse.redirect(new URL("/logout", request.url));
           }
 
           //
@@ -71,14 +62,16 @@ export function middleware(request: NextRequest) {
             !user.isAdmin &&
             pathname.startsWith("/admin/ad/")
           ) {
-            console.log("middleware user ko admin ::", user);
             return NextResponse.redirect(new URL("/forbidden", request.url));
           }
 
           //
           return NextResponse.next();
         })
-        .catch(() => NextResponse.redirect(new URL("/login", request.url)));
+        .catch(async () => {
+          console.log("Nếu vào đây là token gửi từ client có vấn để");
+          NextResponse.redirect(new URL("/logout", request.url));
+        });
     }
   }
 

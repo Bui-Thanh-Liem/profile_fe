@@ -1,5 +1,5 @@
 "use server";
-import { refresh } from "@/apis/auth.api";
+// import { refresh } from "@/apis/auth.api";
 import { CONSTANT_ENV } from "@/constants";
 import { TResponse } from "@/interfaces/response.interface";
 import { handleStringCookie } from "@/utils/handleString.util";
@@ -36,8 +36,9 @@ export const callApiServerCookie = async <T>({
     credentials: "include",
   });
 
-  let result: TResponse<T> = await response.json();
+  const result: TResponse<T> = await response.json();
 
+  // Tại vì hàm này để gọi api trong component server
   // Chuyển tiếp cookie từ nest server -> next server -> client (trình duyệt)
   const cookieFromServer = response.headers.get("set-cookie");
   if (cookieFromServer) {
@@ -60,46 +61,46 @@ export const callApiServerCookie = async <T>({
 
   // 401 && 'Token is expired'  => refresh token
   // 401, 406 && 'other'        => forbidden      => Thông báo bình thường
-  // 401 && 'other'             => binh thuong
+  // 401 && 'other'             => bình thường
 
-  //
-  if (result.statusCode === 401 && result.message === "Token is expired") {
-    console.log("Nếu vào đây là token hết hạn cần refresh token");
+  // Logic refresh token tự động
+  // if (result.statusCode === 401 && result.message === "Token is expired") {
+  //   console.log("Nếu vào đây là token hết hạn cần refresh token");
 
-    // Refresh token rồi gọi lại fetch 1 lần nữa
-    await refresh();
-    const response = await fetch(url, {
-      ...options,
-      headers,
-      credentials: "include",
-    });
+  //   // Refresh token rồi gọi lại fetch 1 lần nữa
+  //   await refresh();
+  //   const response = await fetch(url, {
+  //     ...options,
+  //     headers,
+  //     credentials: "include",
+  //   });
 
-    //
-    const cookieFromServer = response.headers.get("set-cookie");
-    if (cookieFromServer) {
-      const { access, refresh } = handleStringCookie(cookieFromServer);
-      if (access && refresh) {
-        cookies().set(access[0], access[1], {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === CONSTANT_ENV.NODE_ENV.PROD,
-          sameSite: "lax", // Khớp với BE
-          maxAge: Utils.UtilConvert.convertToSecond("DAY", 3),
-        });
-        cookies().set(refresh[0], refresh[1], {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === CONSTANT_ENV.NODE_ENV.PROD,
-          sameSite: "lax", // Khớp với BE
-          maxAge: Utils.UtilConvert.convertToSecond("DAY", 7),
-        });
-      }
-    }
-    result = await response.json();
-  }
+  //   //
+  //   const cookieFromServer = response.headers.get("set-cookie");
+  //   if (cookieFromServer) {
+  //     const { access, refresh } = handleStringCookie(cookieFromServer);
+  //     if (access && refresh) {
+  //       cookies().set(access[0], access[1], {
+  //         httpOnly: true,
+  //         secure: process.env.NODE_ENV === CONSTANT_ENV.NODE_ENV.PROD,
+  //         sameSite: "lax", // Khớp với BE
+  //         maxAge: Utils.UtilConvert.convertToSecond("DAY", 3),
+  //       });
+  //       cookies().set(refresh[0], refresh[1], {
+  //         httpOnly: true,
+  //         secure: process.env.NODE_ENV === CONSTANT_ENV.NODE_ENV.PROD,
+  //         sameSite: "lax", // Khớp với BE
+  //         maxAge: Utils.UtilConvert.convertToSecond("DAY", 7),
+  //       });
+  //     }
+  //   }
+  //   result = await response.json();
+  // }
 
   return result;
 };
 
-// khi gọi api trên server component thì phải check hết hạn token hoặc ở middleware
+// khi gọi api trên server component thì phải check hết hạn token ở guard
 // Chuyển hướng tới trang logout rồi xoá cookie
 
 // Khi gọi api tới nestjs từ use server của next thì resquest thực hiện từ server-side không phải từ trình duyệt

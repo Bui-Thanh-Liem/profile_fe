@@ -39,13 +39,6 @@ export interface IPropCardSkill {
   link?: string;
 }
 
-export interface IPropCardPercentAdmin {
-  value: number;
-  title: string;
-  percent: number;
-  link?: string;
-}
-
 export interface IPropCardItemAdmin<T> {
   item: T;
   actives?: string[];
@@ -88,8 +81,10 @@ export default interface IPropMyTable<T> {
 export interface IPropTableAction {
   isEdit?: boolean;
   isDelete?: boolean;
+  isUserPage?: boolean;
   onEdit: () => void;
   onDelete: () => void;
+  onRevoke?: () => void;
 }
 
 export interface IPropsMyTableToolbar {

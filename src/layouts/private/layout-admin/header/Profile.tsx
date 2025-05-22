@@ -1,38 +1,22 @@
-"use client";
 import { MyAvatar } from "@/components/MyAvatar";
 import { MyDrawer } from "@/components/MyDrawer";
 import useAuthStore from "@/stores/useAuthStore";
-import { Dropdown, MenuProps, Space } from "antd";
-import { useRouter } from "next/navigation";
-import { useRef } from "react";
-import { ProfileCurrentUser } from "./ProfileCurrentUser";
-import { SettingCurrentUser } from "./SettingCurrentUser";
 import {
   LogoutOutlined,
   SettingOutlined,
   UserOutlined,
 } from "@ant-design/icons";
-export function HeaderAdmin() {
-  //
+import { Dropdown, MenuProps, Space } from "antd";
+import { useRouter } from "next/navigation";
+import { useRef } from "react";
+import { ProfileCurrentUser } from "../ProfileCurrentUser";
+import { SettingCurrentUser } from "../SettingCurrentUser";
+
+export function ProfileHeaderAdmin() {
   const router = useRouter();
   const { currentUser } = useAuthStore();
   const iconProfileRef = useRef<HTMLButtonElement>(null);
   const iconSettingRef = useRef<HTMLButtonElement>(null);
-
-  //
-  function onClickProfile() {
-    iconProfileRef.current?.click();
-  }
-
-  //
-  function onClickSetting() {
-    iconSettingRef.current?.click();
-  }
-
-  //
-  async function onClickLogout() {
-    router.replace("/logout");
-  }
 
   //
   const items: MenuProps["items"] = [
@@ -64,9 +48,22 @@ export function HeaderAdmin() {
   ];
 
   //
+  function onClickProfile() {
+    iconProfileRef.current?.click();
+  }
+
+  //
+  function onClickSetting() {
+    iconSettingRef.current?.click();
+  }
+
+  //
+  async function onClickLogout() {
+    router.replace("/logout");
+  }
+
   return (
     <>
-      <h2 className="leading-none m-0 text-xl font-bold">Analytics</h2>
       <div className="flex items-center gap-6">
         <div>
           <p className="leading-none font-bold text-lg mb-1">
@@ -74,10 +71,9 @@ export function HeaderAdmin() {
           </p>
           <p className="leading-none text-gray-app">{currentUser?.email}</p>
         </div>
-        <Dropdown menu={{ items }} arrow={true} trigger={["click"]}>
+        <Dropdown menu={{ items }} arrow={true} trigger={["hover"]}>
           <Space>
             <MyAvatar
-              className="cursor-pointer"
               src={currentUser?.avatar || ""}
               alt={currentUser?.fullName || ""}
               fallbackText={currentUser?.fullName || ""}

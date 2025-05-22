@@ -17,7 +17,7 @@ import { Layout, Menu, theme } from "antd";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { ReactNode, useState } from "react";
-import { HeaderAdmin } from "./HeaderAdmin";
+import { HeaderAdmin } from "./header/HeaderAdmin";
 
 const { Content, Sider, Header } = Layout;
 
@@ -145,7 +145,7 @@ export default function LayoutAdmin({ children }: { children: ReactNode }) {
         />
       </Sider>
       <Layout>
-        <Header className="bg-white flex items-center justify-between">
+        <Header className="bg-white">
           <HeaderAdmin />
         </Header>
         <Content style={{ margin: "16px" }}>

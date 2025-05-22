@@ -23,34 +23,74 @@ function Instruct() {
     {
       label: "Choose category",
       key: 1,
-      children: <Image src="/instruct_1.png" alt="tour-1" width={600} height={400} quality={100}/>,
+      children: (
+        <Image
+          src="/instruct_1.png"
+          alt="tour-1"
+          width={600}
+          height={400}
+          quality={100}
+        />
+      ),
     },
     {
       label: "Filter items by keyword",
       key: 2,
-      children: <Image src="/instruct_2.png" alt="tour-2" width={600} height={400} quality={100}/>,
+      children: (
+        <Image
+          src="/instruct_2.png"
+          alt="tour-2"
+          width={600}
+          height={400}
+          quality={100}
+        />
+      ),
     },
     {
       label: "Search items by name",
       key: 3,
-      children: <Image src="/instruct_3.png" alt="tour-3" width={600} height={400} quality={100}/>,
+      children: (
+        <Image
+          src="/instruct_3.png"
+          alt="tour-3"
+          width={600}
+          height={400}
+          quality={100}
+        />
+      ),
     },
     {
       label: "Hover to show description",
       key: 4,
-      children: <Image src="/instruct_4.png" alt="tour-4" width={600} height={400} quality={100}/>,
+      children: (
+        <Image
+          src="/instruct_4.png"
+          alt="tour-4"
+          width={600}
+          height={400}
+          quality={100}
+        />
+      ),
     },
     {
       label: "Click the sandbox icon to display the code",
       key: 5,
-      children: <Image src="/instruct_5.png" alt="tour-5" width={600} height={400} quality={100}/>,
+      children: (
+        <Image
+          src="/instruct_5.png"
+          alt="tour-5"
+          width={600}
+          height={400}
+          quality={100}
+        />
+      ),
     },
   ];
 
   return (
     <div className="min-h-96">
       <Title level={4}>Storage user guide</Title>
-      <Divider />      
+      <Divider />
       <Tabs tabPosition="left" items={instructItems as any} />
     </div>
   );

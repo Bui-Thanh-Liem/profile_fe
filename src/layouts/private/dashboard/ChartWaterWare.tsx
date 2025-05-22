@@ -8,11 +8,12 @@ const ChartWaterWare = ({ percent }: { percent: number }) => {
       outlineBorder: 4,
       outlineDistance: 8,
       waveLength: 128,
+      height: 34,
     },
   };
   return (
-    <div className="w-1/2">
-      <Liquid {...config} />
+    <div>
+      <Liquid {...config} height={200} width={200} />
     </div>
   );
 };

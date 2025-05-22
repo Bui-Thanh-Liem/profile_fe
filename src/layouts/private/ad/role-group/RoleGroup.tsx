@@ -9,6 +9,7 @@ import { Checkbox, CheckboxChangeEvent, Col, Modal, Row } from "antd";
 import { useState } from "react";
 import RoleGroupAction from "./RoleGroupAction";
 import { DeleteOutlined } from "@ant-design/icons";
+import { MyEmpty } from "@/components/MyEmpty";
 
 export default function RoleGroupLayout({
   items,
@@ -18,6 +19,7 @@ export default function RoleGroupLayout({
   const [activeIds, setActiveIds] = useState<string[]>([]);
   const [dataEdit, setDataEdit] = useState<IRoleGroup | undefined>(undefined);
   const ids = items.map((item) => item.id);
+  const isLength = items.length || 0;
 
   //
   function onEdit(data: IRoleGroup) {
@@ -83,7 +85,7 @@ export default function RoleGroupLayout({
         totalItems={totalItems}
       />
 
-      {!!items.length && (
+      {!!isLength && (
         <div className="mb-2">
           <Checkbox
             onChange={handleCheckAll}
@@ -103,19 +105,23 @@ export default function RoleGroupLayout({
         />
       )}
 
-      <Row gutter={[16, 24]}>
-        {items?.map((item) => (
-          <Col span={6} key={item.name}>
-            <CardRoleGroupAdmin
-              item={item}
-              actives={activeIds}
-              onClickEdit={onEdit}
-              onClickDelete={onDeleteMulti}
-              onClickActive={() => handleClickActive(item.id)}
-            />
-          </Col>
-        ))}
-      </Row>
+      {!!isLength ? (
+        <Row gutter={[16, 24]}>
+          {items?.map((item) => (
+            <Col span={6} key={item.name}>
+              <CardRoleGroupAdmin
+                item={item}
+                actives={activeIds}
+                onClickEdit={onEdit}
+                onClickDelete={onDeleteMulti}
+                onClickActive={() => handleClickActive(item.id)}
+              />
+            </Col>
+          ))}
+        </Row>
+      ) : (
+        <MyEmpty />
+      )}
     </>
   );
 }

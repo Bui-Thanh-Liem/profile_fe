@@ -24,7 +24,7 @@ export default function MyTableToolbar({
   }, [searchValueDebounce, pushUrl]);
 
   return (
-    <Card className="mb-4">
+    <Card className="mb-4 rounded-xl">
       <div className="flex justify-between items-center">
         <div className="flex items-center gap-4">
           <ButtonPrimary onClick={onClickAddItem}>

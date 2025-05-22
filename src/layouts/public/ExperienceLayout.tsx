@@ -1,9 +1,9 @@
 "use client";
 
-import { ReactNode } from "react";
-import { Col, Row, Typography } from "antd";
-const { Paragraph, Text } = Typography;
 import { SwapRightOutlined } from "@ant-design/icons";
+import { Col, Row, Tag, Typography } from "antd";
+import { ReactNode } from "react";
+const { Paragraph, Text } = Typography;
 
 interface IExperienceItem {
   date: [string, string];
@@ -19,10 +19,14 @@ function ExperienceItem({
 }: IExperienceItem) {
   return (
     <div className="flex">
-      <div className="min-w-48 text-base">
-        {start}
+      <div className="min-w-52">
+        <Tag color="gold" className="text-base">
+          {start}
+        </Tag>
         <SwapRightOutlined className="mx-2" />
-        {end}
+        <Tag color="gold" className="text-base">
+          {end}
+        </Tag>
       </div>
       <div className="flex flex-col items-center mr-4">
         <div className="bg-primary rounded-tl-2xl rounded-br-2xl py-2 px-2">

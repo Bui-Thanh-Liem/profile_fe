@@ -5,7 +5,7 @@ import { verifyLoginGoogle } from "@/apis/customer.api";
 import { clearCookieBrowser } from "@/app/actions/clear-cookie";
 import useCustomerStore from "@/stores/useCustomerStore";
 import { showToast } from "@/utils/show-toast.util";
-import { Button, Divider, Tabs, Typography } from "antd";
+import { Alert, Button, Tabs, Typography } from "antd";
 import { Constants } from "liemdev-profile-lib";
 import dynamic from "next/dynamic";
 import Image from "next/image";
@@ -18,7 +18,7 @@ const DynamicModal = dynamic(() => import("antd").then((mod) => mod.Modal), {
   ssr: false,
 });
 
-function Instruct() {
+function Guide() {
   const instructItems = [
     {
       label: "Choose category",
@@ -88,9 +88,17 @@ function Instruct() {
   ];
 
   return (
-    <div className="min-h-96">
+    <div className="min-h-[500px]">
       <Title level={4}>Storage user guide</Title>
-      <Divider />
+      <div className="text-left my-10">
+        <Alert
+          message="Warning"
+          description="Please read the instructions to be able to use all the features."
+          type="warning"
+          showIcon
+          closable
+        />
+      </div>
       <Tabs tabPosition="left" items={instructItems as any} />
     </div>
   );
@@ -152,7 +160,7 @@ export function StorageUserGuide() {
         closable={false}
       >
         <div className="text-center">
-          <Instruct />
+          <Guide />
           {isSuccessLogin && (
             <Button type="primary" onClick={onOkNotification}>
               Ok, I get it

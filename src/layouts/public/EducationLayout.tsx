@@ -1,7 +1,7 @@
 "use client";
 
 import { AwardEducation } from "@/components/AwardEducation";
-import { Col, Row } from "antd";
+import { Col, Row, Tag } from "antd";
 import { ReactNode } from "react";
 
 interface IEducationItem {
@@ -22,7 +22,9 @@ function EducationItem({ date, title, description }: IEducationItem) {
         </div>
       </Col>
       <Col span={20}>
-        <p className="min-w-48 text-base">{date}</p>
+        <Tag color="gold" className="text-base">
+          {date}
+        </Tag>
         <div className="pb-8">
           <p className="font-bold text-gray-700 text-lg">{title}</p>
           {description}

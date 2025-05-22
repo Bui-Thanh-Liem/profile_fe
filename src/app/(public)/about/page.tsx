@@ -43,19 +43,19 @@ async function AboutPage() {
             <ButtonPrimary
               size="large"
               icon={<FileJpgOutlined />}
-              className="mt-2"
+              className="mt-4"
             >
               Resume
             </ButtonPrimary>
           </a>
         </Col>
-        <Col className="border-2 rounded-tl-[80px] rounded-br-[80px] border-solid border-primary shadow-xl shadow-primary overflow-hidden">
+        <Col className="border-2 rounded-tl-[80px] rounded-br-[80px] border-solid border-primary shadow-xl shadow-primary overflow-hidden hover:shadow-none transition-all duration-500">
           <Image
-            width={433}
-            height={577}
+            width={343}
+            height={487}
             src={setPrefixFile(image)}
             alt="LiemDev"
-            className="w-full h-auto rounded-2xl"
+            className="w-full h-auto"
             unoptimized
           />
         </Col>

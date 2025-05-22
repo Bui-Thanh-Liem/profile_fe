@@ -1,6 +1,6 @@
 "use client";
 import useCustomerStore from "@/stores/useCustomerStore";
-import { CalendarOutlined, CustomerServiceOutlined } from "@ant-design/icons";
+import { BarsOutlined, CalendarOutlined } from "@ant-design/icons";
 import { FloatButton } from "antd";
 import { useRouter } from "next/navigation";
 import { Message } from "./Message";
@@ -19,7 +19,7 @@ export function BenefitCustomer() {
         trigger="hover"
         type="primary"
         style={{ insetInlineEnd: 44 }}
-        icon={<CustomerServiceOutlined />}
+        icon={<BarsOutlined />}
       >
         <Notification />
         <Message />

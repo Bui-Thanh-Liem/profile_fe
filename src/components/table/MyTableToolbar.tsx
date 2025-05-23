@@ -133,9 +133,12 @@ export default function MyTableToolbar({
     });
   }
 
-  const onSearch = useCallback((val: string | undefined) => {
-    pushUrl({ search: val });
-  }, []);
+  const onSearch = useCallback(
+    (val: string | undefined) => {
+      pushUrl({ search: val });
+    },
+    [pushUrl]
+  );
 
   //
   function handleAll() {

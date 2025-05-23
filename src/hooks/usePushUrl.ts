@@ -14,8 +14,6 @@ export function usePushUrl<T>() {
 
       // Nếu queryParams rỗng, push về pathname mà không có query
       if (Object.keys(queryParams).length === 0) {
-        console.log("queryParams::: khong co");
-
         const newUrl = pathname;
         console.log("newUrl:::", newUrl);
         router.push(newUrl);

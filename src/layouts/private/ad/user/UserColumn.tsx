@@ -83,8 +83,8 @@ export const userActionColumns: TableColumnsType<IUser> = [
   {
     title: "Sub Admin",
     width: 150,
-    dataIndex: "subAdmin",
-    key: "subAdmin",
+    dataIndex: "isSubAdmin",
+    key: "isSubAdmin",
     render: (_) => {
       return <MyTag tagName={_ ? "YES" : "NO"} />;
     },
@@ -95,7 +95,7 @@ export const userActionColumns: TableColumnsType<IUser> = [
     dataIndex: "block",
     key: "block",
     render: (_) => {
-      return <MyTag tagName={_ ? "YES" : "NO"} />;
+      return <MyTag tagName={_ ? "BLOCKED" : "ACTIVE"} />;
     },
   },
 ];

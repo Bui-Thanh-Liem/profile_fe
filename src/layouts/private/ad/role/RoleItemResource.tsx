@@ -78,8 +78,6 @@ export function RoleItemResource({
     setValueAction(value);
   }
 
-  console.log("re-render role resources ");
-
   return (
     <div className="flex items-center justify-between mb-4">
       <div className="flex items-center gap-3">

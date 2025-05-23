@@ -64,32 +64,32 @@ export default function LayoutAdmin({ children }: { children: ReactNode }) {
       [
         getItem(
           <Link href="/admin/ad/users">Users</Link>,
-          "/admin/users",
+          "/admin/ad/users",
           <UserOutlined />
         ),
         getItem(
           <Link href="/admin/ad/roles">Roles</Link>,
-          "/admin/roles",
+          "/admin/ad/roles",
           <RadiusSettingOutlined />
         ),
         getItem(
           <Link href="/admin/ad/role-groups">Role Groups</Link>,
-          "/admin/role-groups",
+          "/admin/ad/role-groups",
           <RadiusSettingOutlined />
         ),
         getItem(
           <Link href="/admin/ad/skills">Skills</Link>,
-          "/admin/skills",
+          "/admin/ad/skills",
           <AlertOutlined />
         ),
         getItem(
           <Link href="/admin/ad/about">About</Link>,
-          "/admin/about",
+          "/admin/ad/about",
           <FieldStringOutlined />
         ),
         getItem(
           <Link href="/admin/ad/customers">Customers</Link>,
-          "/admin/customers",
+          "/admin/ad/customers",
           <HarmonyOSOutlined />
         ),
       ],

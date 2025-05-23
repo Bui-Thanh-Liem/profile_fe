@@ -1,17 +1,17 @@
 "use client";
 import { create, update } from "@/apis/role.api";
-import { showToast } from "@/utils/show-toast.util";
 import { IRoleDataResource } from "@/interfaces/common.interface";
 import { IRole } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
+import { customerMessageErrorAntd } from "@/utils/customerMessageErrorAntd";
+import { showToast } from "@/utils/show-toast.util";
 import { Button, Form, Input, Modal } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { Enums } from "liemdev-profile-lib";
+import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 import { useEffect, useTransition } from "react";
 import { RoleItemResource } from "./RoleItemResource";
-import { customerMessageErrorAntd } from "@/utils/customerMessageErrorAntd";
-import { ValidateErrorEntity } from "rc-field-form/lib/interface";
 
 export default function RoleAction({
   dataEdit,
@@ -47,7 +47,14 @@ export default function RoleAction({
 
     roleActionForm.setFieldValue(
       "dataSources",
-      result.filter((item) => item.actions.length)
+      result
+        .filter((item) => item.actions.length)
+        .map((item): IRoleDataResource => {
+          const isManage = item.actions.includes(Enums.EActions.MANAGE);
+          return isManage
+            ? { ...item, actions: [Enums.EActions.MANAGE] }
+            : item;
+        })
     );
   }
 
@@ -101,8 +108,6 @@ export default function RoleAction({
       }
     }
   }
-
-  console.log("re-render role action");
 
   return (
     <Modal

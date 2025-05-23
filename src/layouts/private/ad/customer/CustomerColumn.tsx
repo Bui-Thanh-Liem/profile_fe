@@ -53,7 +53,7 @@ export const customerActionColumns: TableColumnsType<ICustomer> = [
     dataIndex: "block",
     key: "block",
     render: (_) => {
-      return <MyTag tagName={_ ? "YES" : "NO"} />;
+      return <MyTag tagName={_ ? "BLOCKED" : "ACTIVE"} />;
     },
   },
 ];

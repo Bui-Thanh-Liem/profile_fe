@@ -1,9 +1,12 @@
 "use client";
 import { useDebounce } from "@/hooks/useDebounce";
+import useFetch from "@/hooks/useFetch";
 import { usePushUrl } from "@/hooks/usePushUrl";
+import { IKeyWord } from "@/interfaces/model.interface";
 import { IPropsMyTableToolbar } from "@/interfaces/propsComponent.interface";
 import { PlusOutlined } from "@ant-design/icons";
-import { Button, Card, Input } from "antd";
+import { Button, Card, Input, Select, Tag } from "antd";
+import { Enums, InterfaceCommon } from "liemdev-profile-lib";
 import { useEffect, useState } from "react";
 import ButtonPrimary from "../elements/ButtonPrimary";
 const { Search } = Input;
@@ -15,13 +18,53 @@ export default function MyTableToolbar({
   totalItems,
 }: IPropsMyTableToolbar) {
   const { pushUrl } = usePushUrl();
+  const typeOptions = Object.values(Enums.ETypeKnowledge) || [];
+
+  //
+  const [type, setType] = useState<string | undefined>(undefined);
   const [searchValue, setSearchValue] = useState<string>();
   const searchValueDebounce = useDebounce(searchValue, 1200);
+  const [keyword, setKeyword] = useState<string | undefined>(undefined);
+
+  //
+  const { data, loading } = useFetch<InterfaceCommon.IGetMulti<IKeyWord>>(
+    `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/`
+  );
 
   //
   useEffect(() => {
     pushUrl({ search: searchValueDebounce });
   }, [searchValueDebounce, pushUrl]);
+
+  //
+  function handleChangeKeyword(value: string) {
+    console.log("value select keyword::::", value);
+    setKeyword(value);
+    pushUrl({
+      filters: {
+        keywords: value,
+      },
+    });
+  }
+
+  //
+  function handleChangeType(value: string) {
+    console.log("value select type::::", value);
+    setType(value);
+    pushUrl({
+      filters: {
+        type: value,
+      },
+    });
+  }
+
+  //
+  function handleAll() {
+    pushUrl();
+    setSearchValue(undefined);
+    setKeyword(undefined);
+    setType(undefined);
+  }
 
   return (
     <Card className="mb-4 rounded-xl">
@@ -47,34 +90,46 @@ export default function MyTableToolbar({
           )}
         </div>
         <div className="flex items-center gap-4">
-          {/* <Select
-            showSearch
-            placeholder="Select a status"
-            filterOption={(input, option) =>
-              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
-            }
-            options={[
-              { value: "success", label: "Success" },
-              { value: "pending", label: "Pending" },
-              { value: "waiting", label: "Waiting" },
-              { value: "error", label: "Error" },
-            ]}
-            className="min-w-40"
-          />
+          <ButtonPrimary
+            onClick={handleAll}
+            disabled={!(Boolean(searchValue) || Boolean(keyword))}
+          >
+            All
+          </ButtonPrimary>
 
           <Select
             showSearch
-            placeholder="Select a priority"
+            placeholder="Select a type"
             filterOption={(input, option) =>
               (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
             }
-            options={[
-              { value: "3", label: "High" },
-              { value: "2", label: "Medium" },
-              { value: "1", label: "Low" },
-            ]}
+            options={typeOptions.map((t) => ({
+              label: t,
+              value: t,
+            }))}
             className="min-w-40"
-          /> */}
+            value={type}
+            onChange={handleChangeType}
+          />
+
+          <Select
+            loading={loading}
+            showSearch
+            placeholder="Select a keyword"
+            filterOption={(input, option) =>
+              (option?.label ?? "")
+                .toString()
+                .toLowerCase()
+                .includes(input.toLowerCase())
+            }
+            options={data?.items?.map((item) => ({
+              label: <Tag color={item.color}>{item.name}</Tag>,
+              value: item.id,
+            }))}
+            className="min-w-40"
+            value={keyword}
+            onChange={handleChangeKeyword}
+          />
 
           <Search
             addonBefore="Name'"

@@ -22,7 +22,7 @@ export default function MyTableAction({
 
   //
   function onConfirmRevoke() {
-    onRevoke();
+    if (onRevoke) onRevoke();
   }
 
   return (

@@ -1,5 +1,8 @@
+"use client";
+import { useBreakpoints } from "@/hooks/useBreakpoints";
 import Footer from "@/layouts/public/footer/Footer";
 import NavBar from "@/layouts/public/navbar/NavBar";
+import { NotCompatibleLayout } from "@/layouts/public/storage/NotCompatible";
 import "./layout.css";
 
 export default function PublicLayout({
@@ -7,6 +10,12 @@ export default function PublicLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { isMobileSmall, isMobileLarge, isDesktopSmall, isTablet } =
+    useBreakpoints();
+
+  if (isMobileSmall || isMobileLarge || isTablet || isDesktopSmall)
+    return <NotCompatibleLayout />;
+
   return (
     <main>
       <div className={`antialiased bg`}>

@@ -1,4 +1,5 @@
 "use client";
+import { CONSTANT_ROUTE } from "@/constants";
 import { useDebounce } from "@/hooks/useDebounce";
 import useFetch from "@/hooks/useFetch";
 import { usePushUrl } from "@/hooks/usePushUrl";
@@ -28,7 +29,7 @@ export default function MyTableToolbar({
 
   //
   const { data, loading } = useFetch<InterfaceCommon.IGetMulti<IKeyWord>>(
-    `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/`
+    `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.KEYWORD}`
   );
 
   //
@@ -92,7 +93,9 @@ export default function MyTableToolbar({
         <div className="flex items-center gap-4">
           <ButtonPrimary
             onClick={handleAll}
-            disabled={!(Boolean(searchValue) || Boolean(keyword))}
+            disabled={
+              !(Boolean(searchValue) || Boolean(keyword) || Boolean(type))
+            }
           >
             All
           </ButtonPrimary>

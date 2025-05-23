@@ -44,7 +44,7 @@ export function CardKnowledge({ item }: { item: IKnowledge }) {
         }
         className="shadow-md rounded-xl cursor-default"
         actions={[
-          <ModalCodeView value={code} key="code-view">
+          <ModalCodeView code={code} name={name} key="code-view">
             <CodepenOutlined
               style={{ fontSize: "24px" }}
               className="hover:scale-125 hover:rotate-180 transition-transform duration-200"

@@ -239,7 +239,7 @@ export function KnowledgeAction({
         footer={null}
         onCancel={() => setIsEditorOpen(false)}
         maskClosable={true}
-        width={900}
+        width={1100}
         closeIcon={<ExpandOutlined />}
       >
         <CodeMirror

@@ -30,8 +30,8 @@ export const knowledgeActionColumns: TableColumnsType<IKnowledge> = [
     width: 150,
     dataIndex: "code",
     key: "code",
-    render: (_) => (
-      <ModalCodeView value={_}>
+    render: (_, record) => (
+      <ModalCodeView code={_} name={record.name}>
         <Text code>Code details</Text>
       </ModalCodeView>
     ),

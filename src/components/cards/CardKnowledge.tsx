@@ -17,7 +17,7 @@ import { MyTooltip } from "../MyTooltip";
 
 //
 export function CardKnowledge({ item }: { item: IKnowledge }) {
-  const { name, desc, image, keywords, code } = item;
+  const { name, desc, image, keywords, code, likeCount } = item;
 
   const customIcons: Record<number, React.ReactNode> = {
     1: <FrownOutlined />,
@@ -50,7 +50,10 @@ export function CardKnowledge({ item }: { item: IKnowledge }) {
               className="hover:scale-125 hover:rotate-180 transition-transform duration-200"
             />
           </ModalCodeView>,
-          <LikeOutlined key="like" disabled />,
+          <>
+            <LikeOutlined key="like" disabled />
+            <span>{likeCount}</span>
+          </>,
           <MessageOutlined key="comment" disabled />,
         ]}
       >

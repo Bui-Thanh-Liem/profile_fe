@@ -29,6 +29,17 @@ export async function update(id: string, payload: FormData) {
   return response;
 }
 
+export async function like(id: string) {
+  const response = await callApiServerCookie<IKnowledge>({
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.KNOWLEDGE}/${id}/like`,
+    options: {
+      method: "PATCH",
+    },
+  });
+  revalidateTag(CONSTANT_TAG_CACHE.knowledge_s);
+  return response;
+}
+
 export async function findOneById(id: string) {
   const response = await callApiServerCookie<IKnowledge>({
     url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.KNOWLEDGE}/${id}`,

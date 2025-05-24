@@ -4,10 +4,10 @@ import { ParagraphItemTable } from "@/components/table/ParagraphItemTable";
 import { TextAreaItemTable } from "@/components/table/TextAreaItemTable";
 import { IKeyWord, IKnowledge } from "@/interfaces/model.interface";
 import { setPrefixFile } from "@/utils/setPrefixFile";
+import { LikeFilled, StarFilled } from "@ant-design/icons";
 import { TableColumnsType, Tag, Typography } from "antd";
 import Image from "next/image";
 const { Text } = Typography;
-import { StarFilled, LikeFilled } from "@ant-design/icons";
 
 export const knowledgeActionColumns: TableColumnsType<IKnowledge> = [
   {
@@ -85,24 +85,26 @@ export const knowledgeActionColumns: TableColumnsType<IKnowledge> = [
     },
   },
   {
-    title: "Like",
-    width: 80,
-    dataIndex: "like",
+    title: "Likes",
+    width: 120,
+    dataIndex: "likeCount",
     key: "like",
     render: (_) => (
       <div className="flex items-center gap-x-2">
-        {_} <LikeFilled style={{ color: "blue" }} />
+        <LikeFilled style={{ color: "blue" }} />
+        <span>{_}</span>
       </div>
     ),
   },
   {
     title: "Rate",
-    width: 80,
+    width: 120,
     dataIndex: "rate",
     key: "rate",
     render: (_) => (
       <div className="flex items-center gap-x-2">
-        {_} <StarFilled style={{ color: "orange" }} />
+        <StarFilled style={{ color: "orange" }} />
+        <span>{_}</span>
       </div>
     ),
   },

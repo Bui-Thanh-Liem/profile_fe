@@ -1,4 +1,4 @@
-import { findAll } from "@/apis/knowledge.api";
+import { findAllForCustomer } from "@/apis/knowledge.api";
 import { IKnowledge } from "@/interfaces/model.interface";
 import { IPropPage } from "@/interfaces/propsPage.interface";
 import { KnowledgeLayout } from "@/layouts/public/storage/KnowledgeLayout";
@@ -15,7 +15,7 @@ export default async function DataStructurePage({
   });
 
   //
-  const res = await findAll(queryDefault);
+  const res = await findAllForCustomer(queryDefault);
   const { items, totalItems } = res.data;
 
   return (

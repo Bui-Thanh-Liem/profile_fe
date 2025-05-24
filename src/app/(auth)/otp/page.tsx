@@ -1,5 +1,5 @@
 import { IPropPage } from "@/interfaces/propsPage.interface";
-import { Otp } from "@/layouts/private/ui/otp";
+import { Otp } from "@/layouts/private/ui/Otp";
 
 export default function OtpPage({
   searchParams,

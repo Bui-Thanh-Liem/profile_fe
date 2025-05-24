@@ -31,7 +31,7 @@ export async function update(id: string, payload: FormData) {
 
 export async function like(id: string) {
   const response = await callApiServerCookie<IKnowledge>({
-    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.KNOWLEDGE}/${id}/like`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.KNOWLEDGE}/like/${id}`,
     options: {
       method: "PATCH",
     },
@@ -52,6 +52,18 @@ export async function findOneById(id: string) {
   return response;
 }
 
+export async function findOneByIdForCustomer(id: string) {
+  const response = await callApiServerCookie<IKnowledge>({
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.KNOWLEDGE}/for-customer/${id}`,
+    options: {
+      method: "GET",
+      cache: "force-cache",
+      next: { tags: [CONSTANT_TAG_CACHE.knowledge] },
+    },
+  });
+  return response;
+}
+
 export async function findAll(
   queries: InterfaceCommon.IQueries<Partial<IKnowledge>>
 ) {
@@ -61,6 +73,24 @@ export async function findAll(
     url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${
       CONSTANT_ROUTE.KNOWLEDGE
     }${Utils.UtilConvert.convertObjectToString(queries)}`,
+    options: {
+      method: "GET",
+      cache: "force-cache",
+      next: { tags: [CONSTANT_TAG_CACHE.knowledge_s] },
+    },
+  });
+  return response;
+}
+
+export async function findAllForCustomer(
+  queries: InterfaceCommon.IQueries<Partial<IKnowledge>>
+) {
+  const response = await callApiServerCookie<
+    InterfaceCommon.IGetMulti<IKnowledge>
+  >({
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${
+      CONSTANT_ROUTE.KNOWLEDGE
+    }/for-customer${Utils.UtilConvert.convertObjectToString(queries)}`,
     options: {
       method: "GET",
       cache: "force-cache",

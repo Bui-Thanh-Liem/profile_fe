@@ -1,5 +1,4 @@
 "use client";
-import { clearCookieBrowser } from "@/app/actions/clear-cookie";
 import { MyAvatar } from "@/components/MyAvatar";
 import { MyDrawer } from "@/components/MyDrawer";
 import {
@@ -8,7 +7,6 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Dropdown, FloatButton, MenuProps } from "antd";
-import { Constants } from "liemdev-profile-lib";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import useCustomerStore from "../../../../../stores/useCustomerStore";
@@ -53,18 +51,13 @@ export default function PersonalCustomer() {
   const iconSettingRef = useRef<HTMLButtonElement>(null);
 
   //
-  const { isLoggedCustomer, logoutCustomer, currentCustomer } =
+  const { isLoggedCustomer, currentCustomer } =
     useCustomerStore();
 
   //
   const onClickItemMenu: MenuProps["onClick"] = async (info) => {
     if (info.key === "customer/logout") {
-      // clean cookie browser
-      await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_CUSTOMER);
-      await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_CUSTOMER_RF);
-
-      logoutCustomer();
-      router.replace("/");
+      router.push("/logout/customer");
     }
 
     if (info.key === "customer/settings") {

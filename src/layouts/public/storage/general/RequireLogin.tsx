@@ -228,7 +228,11 @@ export function RequireLogin() {
               },
             ]}
           >
-            <Input size="large" placeholder="enter username or email" />
+            <Input
+              size="large"
+              placeholder="enter username or email"
+              autoComplete="username"
+            />
           </Form.Item>
           <Form.Item<FieldTypeLoginCustomer>
             label="Password"

@@ -59,7 +59,7 @@ export function ProfileHeaderAdmin() {
 
   //
   async function onClickLogout() {
-    router.replace("/logout");
+    router.replace("/logout/user");
   }
 
   return (

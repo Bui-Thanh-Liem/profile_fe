@@ -1,9 +1,12 @@
 "use client";
-import { IKeyWord, IKnowledge } from "@/interfaces/model.interface";
+import { like } from "@/apis/knowledge.api";
+import { ICustomer, IKeyWord, IKnowledge } from "@/interfaces/model.interface";
+import useCustomerStore from "@/stores/useCustomerStore";
 import { setPrefixFile } from "@/utils/setPrefixFile";
 import {
   CodepenOutlined,
   FrownOutlined,
+  LikeFilled,
   LikeOutlined,
   MehOutlined,
   MessageOutlined,
@@ -15,9 +18,41 @@ import Image from "next/image";
 import { ModalCodeView } from "../modals/ModalCodeView";
 import { MyTooltip } from "../MyTooltip";
 
+function LikeItem({
+  customer,
+  knowledge,
+}: {
+  customer: Partial<ICustomer>;
+  knowledge: IKnowledge;
+}) {
+  if (!customer) return <LikeOutlined />;
+  const { id } = customer;
+  const isLiked = (knowledge?.likes as ICustomer[])?.some(
+    (like) => like.id === id
+  );
+
+  //
+  async function onLike() {
+    await like(knowledge.id);
+  }
+
+  return (
+    <div
+      className={`flex items-center justify-center gap-2 mt-1 ${
+        isLiked && "text-blue-700"
+      }`}
+      onClick={onLike}
+    >
+      {isLiked ? <LikeFilled /> : <LikeOutlined />}
+      <span>{knowledge?.likeCount}</span>
+    </div>
+  );
+}
+
 //
 export function CardKnowledge({ item }: { item: IKnowledge }) {
-  const { name, desc, image, keywords, code, likeCount } = item;
+  const { name, desc, image, keywords, code } = item;
+  const { currentCustomer } = useCustomerStore();
 
   const customIcons: Record<number, React.ReactNode> = {
     1: <FrownOutlined />,
@@ -50,10 +85,11 @@ export function CardKnowledge({ item }: { item: IKnowledge }) {
               className="hover:scale-125 hover:rotate-180 transition-transform duration-200"
             />
           </ModalCodeView>,
-          <>
-            <LikeOutlined key="like" disabled />
-            <span>{likeCount}</span>
-          </>,
+          <LikeItem
+            key="like"
+            customer={currentCustomer as Partial<ICustomer>}
+            knowledge={item}
+          />,
           <MessageOutlined key="comment" disabled />,
         ]}
       >

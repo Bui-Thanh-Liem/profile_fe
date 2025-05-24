@@ -1,10 +1,12 @@
 "use client";
-import { logout } from "@/apis/auth.api";
+import { logout as logoutUserApi } from "@/apis/auth.api";
+import { logout as logoutCustomerApi } from "@/apis/customer.api";
 import { sendMailAdmin } from "@/apis/send-mail";
 import { clearCookieBrowser } from "@/app/actions/clear-cookie";
 import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import { ISendMail } from "@/interfaces/common.interface";
 import useAuthStore from "@/stores/useAuthStore";
+import useCustomerStore from "@/stores/useCustomerStore";
 import { generatorResourceMail } from "@/utils/generatorResourceMail";
 import { showToast, showToastByString } from "@/utils/show-toast.util";
 import { RollbackOutlined } from "@ant-design/icons";
@@ -16,8 +18,9 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useState, useTransition } from "react";
 
-export function LogoutLayout() {
+export function LogoutLayout({ type }: { type: "user" | "customer" }) {
   const router = useRouter();
+  const { currentCustomer, logoutCustomer } = useCustomerStore();
   const { currentUser, logoutUser } = useAuthStore();
   const [feedbackActionForm] = Form.useForm<ISendMail>();
   const [second, setSecond] = useState<number>(5);
@@ -26,19 +29,36 @@ export function LogoutLayout() {
 
   //
   const handleLogout = useCallback(async () => {
-    // clean cookie browser
-    await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_USER);
-    await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_USER_RF);
+    if (type === "customer") {
+      // logout server
+      await logoutCustomerApi();
 
-    // logout server
-    await logout();
+      // clean cookie browser
+      await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_CUSTOMER);
+      await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_CUSTOMER_RF);
 
-    // clean storage
-    logoutUser();
+      // clean storage
+      logoutCustomer();
 
-    //
-    router.replace("login");
-  }, [logoutUser, router]);
+      //
+      router.replace("/storage");
+    }
+
+    if (type === "user") {
+      // logout server
+      await logoutUserApi();
+
+      // clean cookie browser
+      await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_USER);
+      await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_USER_RF);
+
+      // clean storage
+      logoutUser();
+
+      //
+      router.replace("/login");
+    }
+  }, [logoutCustomer, logoutUser, router, type]);
 
   //
   // -1 stop second - feedback
@@ -56,7 +76,7 @@ export function LogoutLayout() {
     }, 1000);
 
     return () => clearInterval(idInterval);
-  }, [handleLogout, second]);
+  }, [handleLogout, second, type]);
 
   //
   function handleFeedback() {
@@ -71,16 +91,18 @@ export function LogoutLayout() {
     startTransition(async () => {
       try {
         //
-        if (!currentUser?.email) {
+        if (!currentCustomer?.email) {
           showToastByString("Please login again !", "error");
           return;
         }
 
         //
         const formData = await feedbackActionForm.validateFields();
+        const email =
+          type === "customer" ? currentCustomer.email : currentUser?.email;
         formData.type = Enums.ETypeMail.FORM_LOGOUT;
         formData.source = generatorResourceMail(
-          currentUser.email,
+          email || "",
           formData.source || ""
         );
         formData.subject = "This is mail form Feedback logout";

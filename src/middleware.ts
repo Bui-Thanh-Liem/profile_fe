@@ -34,6 +34,25 @@ export function middleware(request: NextRequest) {
   if (pathname.startsWith(pathStorage) && !customerCookie) {
     return NextResponse.redirect(new URL(pathStorage, request.url));
   }
+  if (pathname.startsWith(pathStorage) && customerCookie) {
+    return callApiServerCookie<IUser>({
+      url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/protected-customer`,
+      options: {
+        method: "GET",
+      },
+    })
+      .then(async (res) => {
+        if (res?.statusCode !== 200) {
+          return NextResponse.redirect(
+            new URL("/logout/customer", request.url)
+          );
+        }
+        return NextResponse.next();
+      })
+      .catch(async () => {
+        NextResponse.redirect(new URL("/logout/customer", request.url));
+      });
+  }
 
   // user
   if (pathname.startsWith("/admin")) {
@@ -42,21 +61,18 @@ export function middleware(request: NextRequest) {
     } else {
       // check token
       return callApiServerCookie<IUser>({
-        url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/protected`,
+        url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/protected-user`,
         options: {
           method: "GET",
         },
       })
         .then(async (res) => {
-          //
           if (res?.statusCode !== 200) {
-            console.log("Nếu vào đây là token gửi từ client có vấn để");
-            return NextResponse.redirect(new URL("/logout", request.url));
+            return NextResponse.redirect(new URL("/logout/user", request.url));
           }
 
           //
           const { data: user } = res;
-
           if (
             !user.isSubAdmin &&
             !user.isAdmin &&
@@ -69,8 +85,7 @@ export function middleware(request: NextRequest) {
           return NextResponse.next();
         })
         .catch(async () => {
-          console.log("Nếu vào đây là token gửi từ client có vấn để");
-          NextResponse.redirect(new URL("/logout", request.url));
+          NextResponse.redirect(new URL("/logout/user", request.url));
         });
     }
   }

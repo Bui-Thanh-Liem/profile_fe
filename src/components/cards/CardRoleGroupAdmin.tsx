@@ -64,6 +64,7 @@ export function CardRoleGroupAdmin({
               onEdit={() => {
                 if (onClickEdit) onClickEdit(item);
               }}
+              record={false}
             />
           </Space>
         }

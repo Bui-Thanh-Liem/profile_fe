@@ -1,15 +1,33 @@
-import { Button, Popconfirm } from "antd";
+import { block, revoke } from "@/apis/user.api";
+import { IBaseMyTable } from "@/interfaces/common.interface";
 import { IPropTableAction } from "@/interfaces/propsComponent.interface";
-import { EditOutlined, DeleteOutlined, StopOutlined } from "@ant-design/icons";
+import useAuthStore from "@/stores/useAuthStore";
+import { showToast } from "@/utils/show-toast.util";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  MinusCircleOutlined,
+  StopOutlined,
+} from "@ant-design/icons";
+import { Button, Popconfirm } from "antd";
 
-export default function MyTableAction({
+export default function MyTableAction<T extends IBaseMyTable>({
+  record,
   onEdit,
   onDelete,
-  onRevoke,
   isEdit = false,
   isDelete = false,
-  isUserPage = false,
-}: IPropTableAction) {
+}: IPropTableAction<T>) {
+  const { currentUser } = useAuthStore();
+  const isUserAndCustomer = Boolean(record.fullName || "");
+  const isAdmin = currentUser?.isAdmin
+    ? false
+    : record.isAdmin || record.isSubAdmin; // user page
+
+  //
+  if (isAdmin || (currentUser?.isAdmin && currentUser.id === record.id))
+    return null;
+
   //
   function onConfirmEdit() {
     onEdit();
@@ -21,8 +39,21 @@ export default function MyTableAction({
   }
 
   //
-  function onConfirmRevoke() {
-    if (onRevoke) onRevoke();
+  async function onConfirmRevoke() {
+    if (record?.id) {
+      const res = await revoke({ userIds: [record?.id] });
+      showToast(res);
+      if (res.statusCode !== 200) return;
+    }
+  }
+
+  //
+  async function onConfirmToggleBlock() {
+    if (record?.id) {
+      const res = await block(record.id);
+      showToast(res);
+      if (res.statusCode !== 200) return;
+    }
   }
 
   return (
@@ -41,6 +72,7 @@ export default function MyTableAction({
           <EditOutlined />
         </Button>
       </Popconfirm>
+
       <Popconfirm
         title="Sure to delete?"
         icon={<DeleteOutlined style={{ color: "red" }} />}
@@ -52,7 +84,7 @@ export default function MyTableAction({
         </Button>
       </Popconfirm>
 
-      {isUserPage && (
+      {isUserAndCustomer && !isAdmin && (
         <>
           <Popconfirm
             title="Sure to revoke?"
@@ -60,10 +92,34 @@ export default function MyTableAction({
             okButtonProps={{ danger: true }}
             onConfirm={onConfirmRevoke}
           >
-            <Button size="small" danger disabled={!isDelete}>
-              <StopOutlined />
+            <Button size="small" danger>
+              <MinusCircleOutlined />
             </Button>
           </Popconfirm>
+
+          {record?.block ? (
+            <Popconfirm
+              title="Sure to unblock?"
+              icon={<DeleteOutlined style={{ color: "red" }} />}
+              okButtonProps={{ danger: true }}
+              onConfirm={onConfirmToggleBlock}
+            >
+              <Button size="small" color="primary" variant="outlined">
+                <StopOutlined />
+              </Button>
+            </Popconfirm>
+          ) : (
+            <Popconfirm
+              title="Sure to block?"
+              icon={<DeleteOutlined style={{ color: "red" }} />}
+              okButtonProps={{ danger: true }}
+              onConfirm={onConfirmToggleBlock}
+            >
+              <Button size="small" danger>
+                <StopOutlined />
+              </Button>
+            </Popconfirm>
+          )}
         </>
       )}
     </div>

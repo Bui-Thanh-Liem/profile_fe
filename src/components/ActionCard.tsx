@@ -2,7 +2,7 @@ import { IPropTableAction } from "@/interfaces/propsComponent.interface";
 import { Button, Dropdown, MenuProps } from "antd";
 import { MoreOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
 
-export function ActionCard({ onDelete, onEdit }: IPropTableAction) {
+export function ActionCard({ onDelete, onEdit }: IPropTableAction<boolean>) {
   //
   const items: MenuProps["items"] = [
     {

@@ -1,6 +1,7 @@
 "use client";
 import { usePushUrl } from "@/hooks/usePushUrl";
-import { IBase, IUser } from "@/interfaces/model.interface";
+import { IBaseMyTable } from "@/interfaces/common.interface";
+import { IUser } from "@/interfaces/model.interface";
 import IPropMyTable from "@/interfaces/propsComponent.interface";
 import { showToast } from "@/utils/show-toast.util";
 import { DeleteOutlined } from "@ant-design/icons";
@@ -22,11 +23,6 @@ const useStyle = createStyles(({ css }) => {
     `,
   };
 });
-
-interface IBaseMyTable extends IBase {
-  isAdmin?: boolean;
-  fullname?: string;
-}
 
 export default function MyTable<T extends IBaseMyTable>({
   dataSource,
@@ -88,16 +84,13 @@ export default function MyTable<T extends IBaseMyTable>({
       fixed: "right",
       width: 100,
       render: (_, record) => {
-        if (record.isAdmin) return null;
-        const isUserPage = Boolean(record?.fullname || "");
         return (
           <MyTableAction
+            record={record}
             isEdit={Boolean(actionDataSource)}
             isDelete={Boolean(deleteApi)}
-            isUserPage={isUserPage}
             onEdit={() => onEditItem(record)}
             onDelete={() => onDeleteItem(record.id)}
-            onRevoke={() => onRevokeUser(record.id)}
           />
         );
       },
@@ -138,11 +131,8 @@ export default function MyTable<T extends IBaseMyTable>({
         try {
           if (!deleteApi) return;
           const res = await deleteApi([id]);
-          if (res.statusCode !== 200) {
-            showToast(res);
-            return;
-          }
           showToast(res);
+          if (res.statusCode !== 200) return;
         } catch (error) {
           console.error("Deletion error:", error);
         }
@@ -166,11 +156,8 @@ export default function MyTable<T extends IBaseMyTable>({
         try {
           if (!deleteApi) return;
           const res = await deleteApi(ids);
-          if (res.statusCode !== 200) {
-            showToast(res);
-            return;
-          }
           showToast(res);
+          if (res.statusCode !== 200) return;
           setCheckedIds([]);
         } catch (error) {
           console.error("Deletion error:", error);
@@ -182,11 +169,6 @@ export default function MyTable<T extends IBaseMyTable>({
       cancelButtonProps: { color: "primary", variant: "outlined" },
       icon: <DeleteOutlined style={{ color: "red" }} />,
     });
-  }
-
-  //
-  async function onRevokeUser(id: string) {
-    console.log("revoke user:::", id);
   }
 
   //

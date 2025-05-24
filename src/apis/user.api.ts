@@ -30,6 +30,29 @@ export async function update(id: string, payload: Partial<IUser>) {
   return response;
 }
 
+export async function block(id: string) {
+  const response = await callApiServerCookie<IUser>({
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.USER}/block/${id}`,
+    options: {
+      method: "PATCH",
+    },
+  });
+  revalidateTag(CONSTANT_TAG_CACHE.users);
+  return response;
+}
+
+export async function revoke(payload: { userIds: string[] }) {
+  const response = await callApiServerCookie<IUser>({
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.USER}/revoke`,
+    options: {
+      method: "PATCH",
+      body: JSON.stringify(payload),
+    },
+  });
+  revalidateTag(CONSTANT_TAG_CACHE.users);
+  return response;
+}
+
 export async function findOneById(id: string) {
   const response = await callApiServerCookie<IUser>({
     url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.USER}/${id}`,

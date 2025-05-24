@@ -56,6 +56,7 @@ export default function UserAction({
         email: dataEdit?.email,
         phone: dataEdit?.phone,
         gender: dataEdit?.gender,
+        isSubAdmin: dataEdit?.isSubAdmin,
         roles: editRoles?.map((role) => role.id),
         roleGroups: editRoleGroups?.map((role) => role.id),
       });

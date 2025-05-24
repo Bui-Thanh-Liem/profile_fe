@@ -40,7 +40,6 @@ function filterItem(pathname: string): {
 
   // Find matching page configuration
   const matchedConfig = pageConfigs.find((config) => config.page === _pathname);
-  console.log("matchedConfig:::", matchedConfig);
 
   // If no page matches, return with other: true
   if (!matchedConfig) {
@@ -69,8 +68,6 @@ export default function MyTableToolbar({
   const typeOptions = Object.values(Enums.ETypeKnowledge) || [];
   const { isOther, isBlock, isKeyword, isSubAdmin, isType } =
     filterItem(pathname);
-
-  console.log({ isOther, isBlock, isKeyword, isSubAdmin, isType });
 
   //
   const [type, setType] = useState<string | undefined>(undefined);

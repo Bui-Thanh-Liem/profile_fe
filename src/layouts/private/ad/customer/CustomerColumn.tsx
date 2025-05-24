@@ -48,8 +48,8 @@ export const customerActionColumns: TableColumnsType<ICustomer> = [
     },
   },
   {
-    title: "Block",
-    width: 100,
+    title: "Block & Active",
+    width: 120,
     dataIndex: "block",
     key: "block",
     render: (_) => {

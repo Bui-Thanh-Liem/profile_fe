@@ -45,6 +45,7 @@ export function CardSkillAdmin({
             onDelete={() => {
               if (onClickDelete) onClickDelete([id]);
             }}
+            record={false}
           />
         </Space>
       }

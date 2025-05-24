@@ -78,13 +78,12 @@ export default interface IPropMyTable<T> {
   initialLimit: number;
 }
 
-export interface IPropTableAction {
+export interface IPropTableAction<T> {
   isEdit?: boolean;
   isDelete?: boolean;
-  isUserPage?: boolean;
   onEdit: () => void;
   onDelete: () => void;
-  onRevoke?: () => void;
+  record: T;
 }
 
 export interface IPropsMyTableToolbar {

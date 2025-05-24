@@ -1,14 +1,12 @@
 "use client";
 import { sendMailAdmin } from "@/apis/send-mail";
 import { MyCarousel } from "@/components/carousel/MyCarousel";
-import HighlighText from "@/components/elements/HighlighText";
+import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import Logo from "@/components/Logo";
-import { MyAvatar } from "@/components/MyAvatar";
 import { ISendMail } from "@/interfaces/common.interface";
 import { generatorResourceMail } from "@/utils/generatorResourceMail";
 import { showToast } from "@/utils/show-toast.util";
-import { PlusOutlined } from "@ant-design/icons";
-import { Avatar, Button, Col, Form, Input, Modal, Row, Select } from "antd";
+import { Button, Form, Input, Modal, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { Enums } from "liemdev-profile-lib";
 import Image from "next/image";
@@ -60,99 +58,121 @@ export const StorageLayout = () => {
     actionForm.resetFields();
   }
 
+  const categories = [
+    "All features",
+    "Dashboard",
+    "Keywords",
+    "Knowledge",
+    "Codes",
+  ];
+  const [activeFilter, setActiveFilter] = useState(categories[0]);
+  const portfolioItems = [
+    {
+      id: 1,
+      title: "Keyword management",
+      category: "Keywords",
+      image: "/keyword.png",
+    },
+    {
+      id: 2,
+      title: "Knowledge management",
+      category: "Knowledge",
+      image: "/knowledge.png",
+    },
+    {
+      id: 3,
+      title: "Dashboard management",
+      category: "Dashboard",
+      image: "/dashboard.png",
+    },
+    {
+      id: 4,
+      title: "Dashboard management",
+      category: "Dashboard",
+      image: "/dashboard2.png",
+    },
+    {
+      id: 5,
+      title: "Action knowledge",
+      category: "Knowledge",
+      image: "/action-knowledge.png",
+    },
+    {
+      id: 6,
+      title: "Add new features",
+      category: "Codes",
+      image: "/code.png",
+    },
+  ];
+  const filteredPortfolio =
+    activeFilter === categories[0]
+      ? portfolioItems
+      : portfolioItems.filter((item) => item.category === activeFilter);
+
   return (
     <>
       <MyCarousel>
         {/*  */}
-        <Row className="mt-12">
-          <Col span={14} offset={5} className="flex flex-col gap-6">
-            <Image
-              width={400}
-              height={400}
-              src="/launching.png"
-              alt="intro"
-              className="m-auto"
-            />
-            <h1 className="text-2xl font-bold text-foreground text-center">
-              If you are interested in this <HighlighText text="Storage" />,
-              please join us.
-            </h1>
-            <p className="text-lg text-gray-500 text-center">
-              Has this amazing Storage caught your eye yet? Join us now to
-              unlock a world of exclusive features, smarter solutions, and so
-              much more!
-            </p>
-            <div className="text-center">
-              <Avatar.Group>
-                <MyAvatar
-                  // src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                  alt="liem"
-                  fallbackText={"liem"}
-                />
-                <MyAvatar
-                  // src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                  alt="son"
-                  fallbackText={"son"}
-                />
-                <MyAvatar
-                  // src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png"
-                  alt="dat"
-                  fallbackText={"dat"}
-                />
-              </Avatar.Group>
-              <Button
-                size="large"
-                shape="circle"
-                className="-ml-2"
-                icon={<PlusOutlined />}
-                onClick={() => setIsOpen(true)}
-              />
+        <section className="py-10 pt-0">
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Our Features
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Discover our rich collection of unique features, while
+                empowering you to create and manage personalized repositories
+                that truly reflect your individual style and vision.
+              </p>
+
+              <div className="flex flex-wrap justify-center gap-4 mt-8">
+                {categories?.map((cate) => (
+                  <button
+                    key={cate}
+                    onClick={() => setActiveFilter(cate)}
+                    className={`px-6 py-2 rounded-button transition duration-300 whitespace-nowrap cursor-pointer ${
+                      activeFilter === cate
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                    }`}
+                  >
+                    {cate}
+                  </button>
+                ))}
+              </div>
             </div>
-          </Col>
-        </Row>
 
-        {/*  */}
-        <Row className="mt-12">
-          <Col span={14} offset={5} className="flex flex-col gap-6">
-            <Image
-              width={200}
-              height={200}
-              src="/note.png"
-              alt="intro"
-              className="m-auto mb-20"
-            />
-            <h1 className="text-2xl font-bold text-foreground text-center">
-              Want full control of <HighlighText text="your Storage" />? Join us
-              now.
-            </h1>
-            <p className="text-lg text-gray-500 text-center">
-              Unlock editing access, manage your own resources, and enjoy a
-              seamless, smarter experience designed to give you total creative
-              freedom.
-            </p>
-          </Col>
-        </Row>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredPortfolio.map((item) => (
+                <div
+                  key={item.id}
+                  className="group relative overflow-hidden rounded-lg shadow-lg cursor-pointer h-64"
+                >
+                  <Image
+                    src={item.image}
+                    alt={item.title}
+                    fill
+                    className="w-full h-64 object-cover transition duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col justify-end p-6">
+                    <h3 className="text-white text-xl font-bold">
+                      {item.title}
+                    </h3>
+                    <p className="text-blue-200 capitalize">
+                      {item.category.replace("-", " ")}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
 
-        {/*  */}
-        <Row className="mt-12">
-          <Col span={14} offset={5} className="flex flex-col gap-6">
-            <Image
-              width={200}
-              height={200}
-              src="/development.png"
-              alt="intro"
-              className="m-auto mb-20"
-            />
-            <h1 className="text-2xl font-bold text-foreground text-center">
-              This Storage is better with <HighlighText text="You" /> — become a
-              member today.
-            </h1>
-            <p className="text-lg text-gray-500 text-center">
-              Get exclusive editing rights, organize and update resources your
-              way, and make the most of every feature we have to offer.
-            </p>
-          </Col>
-        </Row>
+            <div className="text-center mt-12">
+              <ButtonPrimary size="large" onClick={() => setIsOpen(true)}>
+                <span className="inline-block w-44">Join now</span>
+              </ButtonPrimary>
+            </div>
+          </div>
+        </section>
       </MyCarousel>
 
       {/*  */}

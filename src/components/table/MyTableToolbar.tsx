@@ -134,11 +134,12 @@ export default function MyTableToolbar({
     (val: string | undefined) => {
       pushUrl({ search: val });
     },
-    [pushUrl]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
   );
 
   //
-  function handleAll() {
+  function handleResetFilter() {
     pushUrl();
     setSearchValue(undefined);
     setKeyword(undefined);
@@ -177,14 +178,14 @@ export default function MyTableToolbar({
         </div>
         <div className="flex items-center gap-4">
           <ButtonPrimary
-            onClick={handleAll}
+            onClick={handleResetFilter}
             disabled={
               !(
                 Boolean(searchValue) ||
                 Boolean(keyword) ||
                 Boolean(type) ||
-                Boolean(isBlockVal) ||
-                Boolean(isSubAdminVal)
+                isBlockVal !== undefined ||
+                isSubAdminVal !== undefined
               )
             }
           >

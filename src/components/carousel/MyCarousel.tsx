@@ -9,7 +9,7 @@ const CustomPrevArrow = ({ onClick }: { onClick?: () => void }) => (
     onClick={onClick}
     style={{
       position: "absolute",
-      left: 10,
+      left: -40,
       top: "50%",
       transform: "translateY(-50%)",
       zIndex: 1,
@@ -34,7 +34,7 @@ const CustomNextArrow = ({ onClick }: { onClick?: () => void }) => (
     onClick={onClick}
     style={{
       position: "absolute",
-      right: 10,
+      right: -40,
       top: "50%",
       transform: "translateY(-50%)",
       zIndex: 1,
@@ -58,7 +58,7 @@ export function MyCarousel({ children }: { children: ReactNode }) {
     <Carousel
       arrows
       autoplay
-      autoplaySpeed={3000}
+      autoplaySpeed={5000}
       draggable
       className="min-h-[76vh]"
       prevArrow={<CustomPrevArrow />}

@@ -18,7 +18,7 @@ const useStyle = createStyles(({ css }) => {
   return {
     customTable: css`
       .ant-table-body {
-        min-height: calc(100vh - 420px);
+        min-height: calc(100vh - 440px);
       }
     `,
   };
@@ -204,7 +204,7 @@ export default function MyTable<T extends IBaseMyTable>({
               columns={baseColumns}
               dataSource={dataSource}
               className={styles.customTable}
-              scroll={{ x: "max-content", y: "calc(100vh - 420px)" }}
+              scroll={{ x: "max-content", y: "calc(100vh - 440px)" }}
               rowSelection={rowSelection}
               pagination={{
                 current: page,

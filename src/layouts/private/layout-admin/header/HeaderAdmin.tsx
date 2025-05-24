@@ -1,8 +1,9 @@
 "use client";
-import { BellOutlined, SunOutlined } from "@ant-design/icons";
-import { Badge, Button } from "antd";
-import { ProfileHeaderAdmin } from "./Profile";
+import { SunOutlined } from "@ant-design/icons";
+import { Button } from "antd";
 import NetworkSpeed from "./NetworkSpeed";
+import { NotificationHeaderAdmin } from "./Notification";
+import { ProfileHeaderAdmin } from "./Profile";
 
 export function HeaderAdmin() {
   //
@@ -14,11 +15,7 @@ export function HeaderAdmin() {
         <Button shape="circle" type="text">
           <SunOutlined style={{ fontSize: 24 }} />
         </Button>
-        <Badge count={5}>
-          <Button shape="circle" type="text">
-            <BellOutlined style={{ fontSize: 24 }} />
-          </Button>
-        </Badge>
+        <NotificationHeaderAdmin />
         <ProfileHeaderAdmin />
       </div>
     </div>

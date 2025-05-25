@@ -1,27 +1,18 @@
 "use client";
+import { sendMailAdmin } from "@/apis/send-mail";
 import { MyTooltip } from "@/components/MyTooltip";
+import { generatorResourceMail } from "@/utils/generatorResourceMail";
+import { showToast } from "@/utils/show-toast.util";
 import { Button, Form, Input, Modal, notification } from "antd";
+import { Enums } from "liemdev-profile-lib";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Logo from "../../components/Logo";
 
 export function ContactMe() {
-  const [open, setOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [contactForm] = Form.useForm();
-
-  useEffect(() => {
-    const showTooltip = () => {
-      setOpen(true);
-      setTimeout(() => {
-        setOpen(false);
-      }, 5000);
-    };
-    showTooltip();
-    const interval = setInterval(showTooltip, 15000);
-    return () => clearInterval(interval);
-  }, []);
 
   function handleClick() {
     setOpenModal(true);
@@ -35,13 +26,21 @@ export function ContactMe() {
     setLoading(true);
     try {
       const formData = await contactForm.validateFields();
-      console.log("formData:::", formData);
-      contactForm.resetFields();
-      notification.info({
-        message: "Sent email",
-        description: `Hi ${nameVisitor}, I'm glad you're interested in my information. I will respond to you as soon as possible, thank you.`,
-      });
-      setOpenModal(false);
+      formData.type = Enums.ETypeMail.FORM_CONTACT_ME;
+      formData.source = generatorResourceMail(formData.email, formData.content);
+      formData.subject = "This is mail form Contact Me";
+      const res = await sendMailAdmin(formData);
+
+      if (res.statusCode === 200) {
+        contactForm.resetFields();
+        notification.info({
+          message: "Sent email",
+          description: `Hi ${nameVisitor}, I'm glad you're interested in my information. I will respond to you as soon as possible, thank you.`,
+        });
+        setOpenModal(false);
+      } else {
+        showToast(res);
+      }
     } catch (error) {
       console.error("Validation failed:", error);
     }
@@ -54,7 +53,7 @@ export function ContactMe() {
 
   return (
     <>
-      <MyTooltip title="Contact me!" placement="topRight" open={open} fresh>
+      <MyTooltip title="Contact me!" placement="topRight" open>
         <Image
           src="/contactMe.png"
           alt="contact me"
@@ -64,12 +63,14 @@ export function ContactMe() {
           onClick={handleClick}
         />
       </MyTooltip>
+
+      {/*  */}
       <Modal
         open={openModal}
         title={
           <div className="text-center mt-6">
             <Logo />
-            <p className="mt-4">Contact</p>
+            <p className="mt-4">Contact me</p>
           </div>
         }
         onOk={handleOk}
@@ -105,14 +106,14 @@ export function ContactMe() {
               { type: "email", message: "The input is not a valid email!" },
             ]}
           >
-            <Input />
+            <Input placeholder="Enter your email" autoComplete="username" />
           </Form.Item>
           <Form.Item
             name="content"
             label="Content"
             rules={[{ required: true, message: "Please input your content!" }]}
           >
-            <Input.TextArea rows={6} />
+            <Input.TextArea rows={6} placeholder="Enter content" />
           </Form.Item>
         </Form>
       </Modal>

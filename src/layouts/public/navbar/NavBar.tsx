@@ -1,37 +1,11 @@
 "use client";
-import { useBreakpoints } from "@/hooks/useBreakpoints";
 import { FacebookOutlined, GithubOutlined } from "@ant-design/icons";
-import { useEffect } from "react";
 import Logo from "../../../components/Logo";
 import { NavbarItemIcon } from "./NavbarItemIcon";
 import { NavbarItemLink } from "./NavbarItemLink";
 
 //
 export default function NavBar() {
-  const {
-    isMobileSmall,
-    isMobileLarge,
-    isTablet,
-    isDesktopSmall,
-    isDesktop,
-    isDesktopLarge,
-  } = useBreakpoints();
-
-  useEffect(() => {
-    console.log("isMobileSmall::::", isMobileSmall);
-    console.log("isMobileLarge::::", isMobileLarge);
-    console.log("isTablet::::", isTablet);
-    console.log("isDesktopSmall::::", isDesktopSmall);
-    console.log("isDesktop::::", isDesktop);
-    console.log("isDesktopLarge::::", isDesktopLarge);
-  }, [
-    isDesktop,
-    isDesktopLarge,
-    isDesktopSmall,
-    isMobileLarge,
-    isMobileSmall,
-    isTablet,
-  ]);
 
   //
   const navLinks = [

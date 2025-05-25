@@ -31,8 +31,8 @@ export const StorageLayout = () => {
       try {
         const formData = await actionForm.validateFields();
         const payloadSendMail: ISendMail = {
-          type: Enums.ETypeMail.FORM_INTRO_STORAGE,
-          subject: "This is mail form intro storage",
+          type: Enums.ETypeMail.FORM_WISH_REGISTER_USER,
+          subject: "This is mail form wish register user",
           source: generatorResourceMail(
             `${formData.email}`,
             `${formData.name} - ${formData.desc} - ${formData.type}`
@@ -150,7 +150,6 @@ export const StorageLayout = () => {
                 >
                   <Image
                     fill
-                    priority
                     src={item.image}
                     alt={item.title}
                     className="w-full h-64 object-cover transition duration-500 group-hover:scale-110"

@@ -100,7 +100,10 @@ export function LogoutLayout({ type }: { type: "user" | "customer" }) {
         const formData = await feedbackActionForm.validateFields();
         const email =
           type === "customer" ? currentCustomer.email : currentUser?.email;
-        formData.type = Enums.ETypeMail.FORM_LOGOUT;
+        formData.type =
+          type === "customer"
+            ? Enums.ETypeMail.FORM_LOGOUT_CUSTOMER
+            : Enums.ETypeMail.FORM_LOGOUT_USER;
         formData.source = generatorResourceMail(
           email || "",
           formData.source || ""

@@ -11,6 +11,7 @@ import {
   LayoutOutlined,
   PartitionOutlined,
   RadarChartOutlined,
+  BugOutlined,
 } from "@ant-design/icons";
 import { Suspense } from "react";
 
@@ -54,6 +55,11 @@ export default function StorageLayout({
       icon: <CodeOutlined style={{ fontSize: "24px" }} />,
       name: "Command line",
       href: "/storage/command-line",
+    },
+    {
+      icon: <BugOutlined style={{ fontSize: "24px" }} />,
+      name: "Errors",
+      href: "/storage/error",
     },
   ];
 

@@ -71,7 +71,7 @@ export default function FilterAndSearchStorage() {
   }
 
   //
-  if (pathname.endsWith("/storage") || pathname.endsWith("calendar")) {
+  if (pathname.endsWith("/storage") || pathname.endsWith("note")) {
     return null;
   }
 

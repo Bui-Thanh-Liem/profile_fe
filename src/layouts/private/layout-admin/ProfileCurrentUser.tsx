@@ -37,7 +37,7 @@ import { useState } from "react";
 const { Title, Text } = Typography;
 const { TabPane } = Tabs;
 
-export function CustomerProfile() {
+export function ProfileCurrentUser() {
   const router = useRouter();
   const { currentCustomer } = useCustomerStore();
   const [isEditing, setIsEditing] = useState(false);
@@ -68,6 +68,8 @@ export function CustomerProfile() {
       setIsEditing(false);
       message.success("Cập nhật thông tin thành công!");
     } catch (error) {
+      console.log("error:::", error);
+
       message.error("Vui lòng kiểm tra lại thông tin!");
     }
   };

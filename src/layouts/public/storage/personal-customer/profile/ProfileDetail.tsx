@@ -31,23 +31,27 @@ import {
   Tag,
   Typography,
 } from "antd";
+import dayjs from "dayjs";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import dayjs from 'dayjs';
+import { memo, useState } from "react";
 
 const { Title, Text } = Typography;
 const { TabPane } = Tabs;
 
-export function CustomerProfile() {
+function ProfileDetail() {
   const router = useRouter();
-  const { currentCustomer } = useCustomerStore();
+  const { currentCustomer, loginCustomer } = useCustomerStore();
   const [isEditing, setIsEditing] = useState(false);
   const [form] = Form.useForm();
 
   const handleEdit = () => {
     setIsEditing(true);
-
-    form.setFieldsValue(currentCustomer);
+    form.setFieldsValue({
+      ...currentCustomer,
+      birthday: currentCustomer?.birthday
+        ? dayjs(currentCustomer.birthday, "MM-DD-YYYY") // 👈 convert lại từ string
+        : null,
+    });
   };
 
   const handleSave = async () => {
@@ -57,10 +61,17 @@ export function CustomerProfile() {
       const values = await form.validateFields();
       console.log("values :::", values);
 
+      // 👇 Convert birthday to MM/DD/YYYY
+      if (values.birthday) {
+        values.birthday = values.birthday.format("MM-DD-YYYY");
+      }
+      console.log("values :::", values);
+
       const res = await updateMe(currentCustomer?.id, values);
       showMessage(res);
       if (res.statusCode !== 200) return;
       setIsEditing(false);
+      loginCustomer(res.data);
     } catch (error) {
       console.log(error);
       showMessageByString("Error, please login again!", "error");
@@ -95,7 +106,7 @@ export function CustomerProfile() {
               </Title>
 
               <Space>
-                {currentCustomer?.status ? (
+                {currentCustomer?.active ? (
                   <Tag color="green">active</Tag>
                 ) : (
                   <>
@@ -167,7 +178,7 @@ export function CustomerProfile() {
                     <Form.Item label="Birthday" name="birthday">
                       <DatePicker
                         size="large"
-                        format="MM/DD/YYYY"
+                        format="MM-DD-YYYY"
                         placeholder="Select birthday"
                       />
                     </Form.Item>
@@ -183,12 +194,14 @@ export function CustomerProfile() {
 
                 <Descriptions.Item label="Birthday" span={1}>
                   <CalendarOutlined style={{ marginRight: 8 }} />
-                  {currentCustomer?.birthday || "##/##/####"}
+                  {currentCustomer?.birthday || "##-##-####"}
                 </Descriptions.Item>
 
                 <Descriptions.Item label="Account creation date" span={1}>
                   <CalendarOutlined style={{ marginRight: 8 }} />
-                  {convertToMDY(currentCustomer?.createdAt as any)}
+                  {convertToMDY(
+                    currentCustomer?.createdAt as unknown as string
+                  )}
                 </Descriptions.Item>
               </Descriptions>
             )}
@@ -374,3 +387,5 @@ export function CustomerProfile() {
     </div>
   );
 }
+
+export default memo(ProfileDetail);

@@ -5,9 +5,9 @@ import { UserOutlined } from "@ant-design/icons";
 import { FloatButton } from "antd";
 import { useRef } from "react";
 import useCustomerStore from "../../../../../stores/useCustomerStore";
-import { CustomerProfile } from "./Profile";
+import CustomerProfile from "./ProfileDetail";
 
-export default function PersonalCustomer() {
+export default function ProfileCustomer() {
   const iconProfileRef = useRef<HTMLButtonElement>(null);
 
   //

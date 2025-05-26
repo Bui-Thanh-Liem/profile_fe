@@ -10,3 +10,4 @@ export type IKeyWord = InterfaceModel.IKeyWord;
 export type IKnowledge = InterfaceModel.IKnowledge;
 export type IAbout = InterfaceModel.IAbout;
 export type ICustomer = InterfaceModel.ICustomer;
+export type INote = InterfaceModel.INote;

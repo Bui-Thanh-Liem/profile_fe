@@ -1,4 +1,4 @@
-import { ICustomer, IUser } from "@/interfaces/model.interface";
+import { ICustomer } from "@/interfaces/model.interface";
 import { create } from "zustand";
 import { persist, PersistOptions } from "zustand/middleware";
 
@@ -8,7 +8,7 @@ type State = {
 };
 
 type Action = {
-  loginCustomer: (userLogin: Partial<IUser>) => void;
+  loginCustomer: (userLogin: Partial<ICustomer>) => void;
   logoutCustomer: () => void;
 };
 

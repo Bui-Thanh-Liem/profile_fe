@@ -8,7 +8,7 @@ import { ISendMail } from "@/interfaces/common.interface";
 import useAuthStore from "@/stores/useAuthStore";
 import useCustomerStore from "@/stores/useCustomerStore";
 import { generatorResourceMail } from "@/utils/generatorResourceMail";
-import { showMessage, showToastByString } from "@/utils/show-message.util";
+import { showMessage, showMessageByString } from "@/utils/show-message.util";
 import { RollbackOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Row } from "antd";
 import TextArea from "antd/es/input/TextArea";
@@ -92,7 +92,7 @@ export function LogoutLayout({ type }: { type: "user" | "customer" }) {
       try {
         //
         if (!currentCustomer?.email) {
-          showToastByString("Please login again !", "error");
+          showMessageByString("Please login again !", "error");
           return;
         }
 
@@ -120,7 +120,7 @@ export function LogoutLayout({ type }: { type: "user" | "customer" }) {
         feedbackActionForm.resetFields();
       } catch (error) {
         console.log("Error::", error);
-        showToastByString("This is form feedback logout", "error");
+        showMessageByString("This is form feedback logout", "error");
       }
     });
   }

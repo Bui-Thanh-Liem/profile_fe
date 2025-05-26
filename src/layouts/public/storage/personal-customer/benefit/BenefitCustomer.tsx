@@ -24,7 +24,7 @@ export function BenefitCustomer() {
         <Notification />
         <Message />
         <FloatButton
-          onClick={() => router.push("/storage/calendar")}
+          onClick={() => router.push("/storage/note")}
           icon={<CalendarOutlined />}
         />
       </FloatButton.Group>

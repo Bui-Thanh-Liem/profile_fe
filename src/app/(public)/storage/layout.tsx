@@ -3,7 +3,7 @@ import { StorageNavItem } from "@/components/StoreageNavItem";
 import { IPropStorageNavItem } from "@/interfaces/propsComponent.interface";
 import FilterAndSearchStorage from "@/layouts/public/storage/general/FilterAndSearchStorage";
 import { BenefitCustomer } from "@/layouts/public/storage/personal-customer/benefit/BenefitCustomer";
-import PersonalCustomer from "@/layouts/public/storage/personal-customer/personal/PersonalCustomer";
+import PersonalCustomer from "@/layouts/public/storage/personal-customer/profile/ProfileCustomer";
 import {
   CalculatorOutlined,
   CodeOutlined,

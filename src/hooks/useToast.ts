@@ -12,12 +12,12 @@ export const useToast = () => {
   // };
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const showToast = ({ statusCode, message }: TResponse<any>) => {
+  const showMessage = ({ statusCode, message }: TResponse<any>) => {
     const type = statusCode !== 200 ? "error" : "success";
     api[type]({
       message: type.toLocaleUpperCase(),
       description: message,
     });
   };
-  return { showToast, contextHolder };
+  return { showMessage, contextHolder };
 };

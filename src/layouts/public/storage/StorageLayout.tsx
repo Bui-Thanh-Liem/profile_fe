@@ -5,7 +5,7 @@ import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import Logo from "@/components/Logo";
 import { ISendMail } from "@/interfaces/common.interface";
 import { generatorResourceMail } from "@/utils/generatorResourceMail";
-import { showToast } from "@/utils/show-toast.util";
+import { showMessage } from "@/utils/show-message.util";
 import { Button, Form, Input, Modal, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { Enums } from "liemdev-profile-lib";
@@ -41,10 +41,10 @@ export const StorageLayout = () => {
         const res = await sendMailAdmin(payloadSendMail);
         //
         if (res.statusCode !== 200) {
-          showToast(res);
+          showMessage(res);
           return;
         }
-        showToast(res);
+        showMessage(res);
         actionForm.resetFields();
       } catch (error) {
         console.log("Error::", error);

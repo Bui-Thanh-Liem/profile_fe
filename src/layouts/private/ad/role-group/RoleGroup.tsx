@@ -2,7 +2,7 @@
 import { deleteMulti } from "@/apis/role-group";
 import { CardRoleGroupAdmin } from "@/components/cards/CardRoleGroupAdmin";
 import MyTableToolbar from "@/components/table/MyTableToolbar";
-import { showToast } from "@/utils/show-toast.util";
+import { showMessage } from "@/utils/show-message.util";
 import { IRoleGroup } from "@/interfaces/model.interface";
 import { IPropLayout } from "@/interfaces/propsLayout.interface";
 import { Checkbox, CheckboxChangeEvent, Col, Modal, Row } from "antd";
@@ -59,10 +59,10 @@ export default function RoleGroupLayout({
         try {
           const res = await deleteMulti(ids);
           if (res.statusCode !== 200) {
-            showToast(res);
+            showMessage(res);
             return;
           }
-          showToast(res);
+          showMessage(res);
           setActiveIds([]);
         } catch (error) {
           console.error("Deletion error:", error);

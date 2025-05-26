@@ -4,7 +4,7 @@ import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import Logo from "@/components/Logo";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { FieldTypeOtp } from "@/types";
-import { showToast } from "@/utils/show-toast.util";
+import { showMessage } from "@/utils/show-message.util";
 import { Button, Form, Input, Statistic } from "antd";
 import Image from "next/image";
 import Link from "next/link";
@@ -36,7 +36,7 @@ export function Otp({ token }: { token: string }) {
         email: valueStorage,
       });
 
-      showToast(res);
+      showMessage(res);
       if (res.statusCode !== 200) return;
 
       remoteStorage();
@@ -57,7 +57,7 @@ export function Otp({ token }: { token: string }) {
         token,
       });
 
-      showToast(res);
+      showMessage(res);
       if (res.statusCode !== 200) return;
 
       otpForm.resetFields();

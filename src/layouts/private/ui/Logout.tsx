@@ -8,7 +8,7 @@ import { ISendMail } from "@/interfaces/common.interface";
 import useAuthStore from "@/stores/useAuthStore";
 import useCustomerStore from "@/stores/useCustomerStore";
 import { generatorResourceMail } from "@/utils/generatorResourceMail";
-import { showToast, showToastByString } from "@/utils/show-toast.util";
+import { showMessage, showToastByString } from "@/utils/show-message.util";
 import { RollbackOutlined } from "@ant-design/icons";
 import { Button, Col, Form, Row } from "antd";
 import TextArea from "antd/es/input/TextArea";
@@ -113,10 +113,10 @@ export function LogoutLayout({ type }: { type: "user" | "customer" }) {
 
         //
         if (res.statusCode !== 200) {
-          showToast(res);
+          showMessage(res);
           return;
         }
-        showToast(res);
+        showMessage(res);
         feedbackActionForm.resetFields();
       } catch (error) {
         console.log("Error::", error);

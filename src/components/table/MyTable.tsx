@@ -3,7 +3,7 @@ import { usePushUrl } from "@/hooks/usePushUrl";
 import { IBaseMyTable } from "@/interfaces/common.interface";
 import { IUser } from "@/interfaces/model.interface";
 import IPropMyTable from "@/interfaces/propsComponent.interface";
-import { showToast } from "@/utils/show-toast.util";
+import { showMessage } from "@/utils/show-message.util";
 import { DeleteOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TablePaginationConfig, TableProps } from "antd";
 import { Card, Modal, Table } from "antd";
@@ -131,7 +131,7 @@ export default function MyTable<T extends IBaseMyTable>({
         try {
           if (!deleteApi) return;
           const res = await deleteApi([id]);
-          showToast(res);
+          showMessage(res);
           if (res.statusCode !== 200) return;
         } catch (error) {
           console.error("Deletion error:", error);
@@ -156,7 +156,7 @@ export default function MyTable<T extends IBaseMyTable>({
         try {
           if (!deleteApi) return;
           const res = await deleteApi(ids);
-          showToast(res);
+          showMessage(res);
           if (res.statusCode !== 200) return;
           setCheckedIds([]);
         } catch (error) {

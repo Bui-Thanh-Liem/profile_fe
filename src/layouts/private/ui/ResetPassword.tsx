@@ -3,7 +3,7 @@ import { resetPassword } from "@/apis/auth.api";
 import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import Logo from "@/components/Logo";
 import { FieldTypeResetPassword } from "@/types";
-import { showToast } from "@/utils/show-toast.util";
+import { showMessage } from "@/utils/show-message.util";
 import { Button, Form, Input } from "antd";
 import Image from "next/image";
 import Link from "next/link";
@@ -26,7 +26,7 @@ export function ResetPassword({ token }: { token: string }) {
         token,
       });
 
-      showToast(res);
+      showMessage(res);
       if (res.statusCode !== 200) return;
 
       resetPasswordForm.resetFields();

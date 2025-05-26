@@ -3,6 +3,7 @@ import { CONSTANT_ROUTE, CONSTANT_TAG_CACHE } from "@/constants";
 import { callApiServerCookie } from "@/helper/api-server-cookie.helper";
 import { ICustomer } from "@/interfaces/model.interface";
 import { InterfaceCommon, Utils } from "liemdev-profile-lib";
+import { revalidateTag } from "next/cache";
 
 export async function verifyLoginGoogle() {
   const response = await callApiServerCookie<ICustomer>({
@@ -50,5 +51,17 @@ export async function logout() {
       method: "POST",
     },
   });
+  return response;
+}
+
+export async function updateMe(id: string, payload: Partial<ICustomer>) {
+  const response = await callApiServerCookie<ICustomer>({
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.CUSTOMER}/${id}`,
+    options: {
+      method: "PATCH",
+      body: JSON.stringify(payload),
+    },
+  });
+  revalidateTag(CONSTANT_TAG_CACHE.customers);
   return response;
 }

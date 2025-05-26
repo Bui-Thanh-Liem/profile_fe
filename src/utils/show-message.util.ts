@@ -1,14 +1,12 @@
 import { ErrorValidateFromServer } from "@/interfaces/common.interface";
 import { TResponse } from "@/interfaces/response.interface";
-import { notification } from "antd";
+import { message as messageANTD } from "antd";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const showToast = ({ statusCode, message }: TResponse<any>) => {
-  let title = "";
+export const showMessage = ({ statusCode, message }: TResponse<any>) => {
   const type =
     statusCode !== 200 ? (statusCode === 422 ? "warning" : "error") : "success";
-
-  title = statusCode === 403 ? "forbidden" : type;
+  const title = statusCode === 403 ? "forbidden" : type;
 
   let mess = "";
   if (typeof message !== "string") {
@@ -22,18 +20,12 @@ export const showToast = ({ statusCode, message }: TResponse<any>) => {
     mess = message;
   }
 
-  notification[type]({
-    message: title.toLocaleUpperCase(),
-    description: mess,
-  });
+  messageANTD[type](`${mess} (${title})`);
 };
 
-export const showToastByString = (
+export const showMessageByString = (
   str: string,
   status: "error" | "success" | "info"
 ) => {
-  notification[status]({
-    message: status.toLocaleUpperCase(),
-    description: str,
-  });
+  messageANTD[status](str);
 };

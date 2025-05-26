@@ -10,7 +10,7 @@ import Logo from "@/components/Logo";
 import { useBreakpoints } from "@/hooks/useBreakpoints";
 import { NotCompatibleLayout } from "@/layouts/public/storage/NotCompatible";
 import { FieldTypeLoginUser } from "@/types";
-import { showToast } from "@/utils/show-toast.util";
+import { showMessage } from "@/utils/show-message.util";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState, useTransition } from "react";
@@ -36,12 +36,12 @@ export default function Login() {
       });
 
       if (res.statusCode !== 200) {
-        showToast(res);
+        showMessage(res);
         return;
       }
 
       loginUser(res.data.user || {});
-      showToast(res);
+      showMessage(res);
       loginForm.resetFields();
       router.replace("/admin", { scroll: true });
     });

@@ -4,7 +4,7 @@ import { MyUpload } from "@/components/MyUpload";
 import { ISkill } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
-import { showToast } from "@/utils/show-toast.util";
+import { showMessage } from "@/utils/show-message.util";
 import { Button, Form, Input, Modal, Slider } from "antd";
 import { useEffect, useState, useTransition } from "react";
 
@@ -54,10 +54,10 @@ export default function SkillAction({
 
         //
         if (res.statusCode !== 200) {
-          showToast(res);
+          showMessage(res);
           return;
         }
-        showToast(res);
+        showMessage(res);
         handleCancel();
         skillActionForm.resetFields();
       } catch (error) {

@@ -2,7 +2,7 @@
 import { update } from "@/apis/about.api";
 import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import { MyUpload } from "@/components/MyUpload";
-import { showToast } from "@/utils/show-toast.util";
+import { showMessage } from "@/utils/show-message.util";
 import { IAbout } from "@/interfaces/model.interface";
 import { Button, Col, Form, Input, Row } from "antd";
 import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
@@ -60,10 +60,10 @@ export function AboutAdminLayout({ item }: { item: IAbout }) {
         //
         const res = await update(formdata);
         if (res.statusCode !== 200) {
-          showToast(res);
+          showMessage(res);
           return;
         }
-        showToast(res);
+        showMessage(res);
       } catch (error) {
         console.log("Error::", error);
       }

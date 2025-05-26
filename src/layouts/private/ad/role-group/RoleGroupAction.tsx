@@ -5,7 +5,7 @@ import useFetch from "@/hooks/useFetch";
 import { IRole, IRoleGroup } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
-import { showToast } from "@/utils/show-toast.util";
+import { showMessage } from "@/utils/show-message.util";
 import { Button, Form, Input, Modal, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { InterfaceCommon } from "liemdev-profile-lib";
@@ -54,10 +54,10 @@ export default function RoleGroupAction({
 
         //
         if (res.statusCode !== 200) {
-          showToast(res);
+          showMessage(res);
           return;
         }
-        showToast(res);
+        showMessage(res);
         handleCancel();
         roleGroupActionForm.resetFields();
       } catch (error) {

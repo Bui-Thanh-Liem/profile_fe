@@ -6,7 +6,7 @@ import useFetch from "@/hooks/useFetch";
 import { IKeyWord, IKnowledge } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
-import { showToast } from "@/utils/show-toast.util";
+import { showMessage } from "@/utils/show-message.util";
 import { ExpandAltOutlined, ExpandOutlined } from "@ant-design/icons";
 import { javascript } from "@codemirror/lang-javascript";
 import CodeMirror from "@uiw/react-codemirror";
@@ -72,10 +72,10 @@ export function KnowledgeAction({
 
         //
         if (res.statusCode !== 200) {
-          showToast(res);
+          showMessage(res);
           return;
         }
-        showToast(res);
+        showMessage(res);
         handleCancel();
       } catch (error) {
         console.log("Error::", error);

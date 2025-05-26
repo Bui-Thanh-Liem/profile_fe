@@ -2,7 +2,7 @@ import { block, revoke } from "@/apis/user.api";
 import { IBaseMyTable } from "@/interfaces/common.interface";
 import { IPropTableAction } from "@/interfaces/propsComponent.interface";
 import useAuthStore from "@/stores/useAuthStore";
-import { showToast } from "@/utils/show-toast.util";
+import { showMessage } from "@/utils/show-message.util";
 import {
   DeleteOutlined,
   EditOutlined,
@@ -42,7 +42,7 @@ export default function MyTableAction<T extends IBaseMyTable>({
   async function onConfirmRevoke() {
     if (record?.id) {
       const res = await revoke({ userIds: [record?.id] });
-      showToast(res);
+      showMessage(res);
       if (res.statusCode !== 200) return;
     }
   }
@@ -51,7 +51,7 @@ export default function MyTableAction<T extends IBaseMyTable>({
   async function onConfirmToggleBlock() {
     if (record?.id) {
       const res = await block(record.id);
-      showToast(res);
+      showMessage(res);
       if (res.statusCode !== 200) return;
     }
   }

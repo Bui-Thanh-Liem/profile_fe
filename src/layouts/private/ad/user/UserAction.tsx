@@ -5,7 +5,7 @@ import useFetch from "@/hooks/useFetch";
 import { IRole, IRoleGroup, IUser } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
-import { showToast } from "@/utils/show-toast.util";
+import { showMessage } from "@/utils/show-message.util";
 import { Button, Col, Form, Input, Modal, Row, Select } from "antd";
 import { Enums, InterfaceCommon } from "liemdev-profile-lib";
 import { useEffect, useTransition } from "react";
@@ -79,10 +79,10 @@ export default function UserAction({
 
         //
         if (res.statusCode !== 200) {
-          showToast(res);
+          showMessage(res);
           return;
         }
-        showToast(res);
+        showMessage(res);
         userActionForm.resetFields();
         handleCancel();
       } catch (error) {

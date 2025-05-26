@@ -4,7 +4,7 @@ import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import Logo from "@/components/Logo";
 import useLocalStorage from "@/hooks/useLocalStorage";
 import { FieldTypeForgotPasswordUser } from "@/types";
-import { showToast } from "@/utils/show-toast.util";
+import { showMessage } from "@/utils/show-message.util";
 import { Button, Form, Input } from "antd";
 import Image from "next/image";
 import Link from "next/link";
@@ -27,7 +27,7 @@ export function ForgotPassword() {
         email: dataForm.email,
       });
 
-      showToast(res);
+      showMessage(res);
       if (res.statusCode !== 200) return;
 
       setStorage(dataForm.email);

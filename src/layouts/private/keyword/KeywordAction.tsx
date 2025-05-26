@@ -1,6 +1,6 @@
 "use client";
 import { create, update } from "@/apis/keyword";
-import { showToast } from "@/utils/show-toast.util";
+import { showMessage } from "@/utils/show-message.util";
 import { IKeyWord } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
@@ -42,10 +42,10 @@ export function KeywordAction({
 
         //
         if (res.statusCode !== 200) {
-          showToast(res);
+          showMessage(res);
           return;
         }
-        showToast(res);
+        showMessage(res);
         handleCancel();
         keywordActionForm.resetFields();
       } catch (error) {

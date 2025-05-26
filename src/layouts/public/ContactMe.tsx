@@ -2,7 +2,7 @@
 import { sendMailAdmin } from "@/apis/send-mail";
 import { MyTooltip } from "@/components/MyTooltip";
 import { generatorResourceMail } from "@/utils/generatorResourceMail";
-import { showToast } from "@/utils/show-toast.util";
+import { showMessage } from "@/utils/show-message.util";
 import { Button, Form, Input, Modal, notification } from "antd";
 import { Enums } from "liemdev-profile-lib";
 import Image from "next/image";
@@ -39,7 +39,7 @@ export function ContactMe() {
         });
         setOpenModal(false);
       } else {
-        showToast(res);
+        showMessage(res);
       }
     } catch (error) {
       console.error("Validation failed:", error);

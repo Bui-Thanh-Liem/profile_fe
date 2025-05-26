@@ -5,7 +5,7 @@ import { IRole } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
 import { customerMessageErrorAntd } from "@/utils/customerMessageErrorAntd";
-import { showToast } from "@/utils/show-toast.util";
+import { showMessage } from "@/utils/show-message.util";
 import { Button, Form, Input, Modal } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { Enums } from "liemdev-profile-lib";
@@ -74,10 +74,10 @@ export default function RoleAction({
 
         //
         if (res.statusCode !== 200) {
-          showToast(res);
+          showMessage(res);
           return;
         }
-        showToast(res);
+        showMessage(res);
         handleCancel();
         roleActionForm.resetFields();
       } catch (error) {
@@ -88,7 +88,7 @@ export default function RoleAction({
         console.log("messages:::", messages);
 
         for (const mess of messages) {
-          showToast({
+          showMessage({
             statusCode: 422,
             message: mess,
             // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -5,7 +5,7 @@ import { MyEmpty } from "@/components/MyEmpty";
 import MyTableToolbar from "@/components/table/MyTableToolbar";
 import { ISkill } from "@/interfaces/model.interface";
 import { IPropLayout } from "@/interfaces/propsLayout.interface";
-import { showToast } from "@/utils/show-toast.util";
+import { showMessage } from "@/utils/show-message.util";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Checkbox, CheckboxChangeEvent, Col, Modal, Row } from "antd";
 import { useState } from "react";
@@ -56,10 +56,10 @@ export function SkillAdminLayout({ items, totalItems }: IPropLayout<ISkill>) {
         try {
           const res = await deleteMulti(ids);
           if (res.statusCode !== 200) {
-            showToast(res);
+            showMessage(res);
             return;
           }
-          showToast(res);
+          showMessage(res);
           setActiveIds([]);
         } catch (error) {
           console.error("Deletion error:", error);

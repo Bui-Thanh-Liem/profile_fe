@@ -4,7 +4,7 @@
 import { verifyLoginGoogle } from "@/apis/customer.api";
 import { clearCookieBrowser } from "@/app/actions/clear-cookie";
 import useCustomerStore from "@/stores/useCustomerStore";
-import { showToast } from "@/utils/show-toast.util";
+import { showMessage } from "@/utils/show-message.util";
 import { Alert, Button, Tabs, Typography } from "antd";
 import { Constants } from "liemdev-profile-lib";
 import dynamic from "next/dynamic";
@@ -134,7 +134,7 @@ export function StorageUserGuide() {
     } else {
       await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_CUSTOMER);
       await clearCookieBrowser(Constants.CONSTANT_TOKEN.TOKEN_NAME_CUSTOMER_RF);
-      showToast(res);
+      showMessage(res);
     }
   }
 

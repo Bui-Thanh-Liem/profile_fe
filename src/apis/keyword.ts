@@ -51,7 +51,7 @@ export async function findAll(queries: InterfaceCommon.IQueries<IKeyWord>) {
     }${Utils.UtilConvert.convertObjectToString(queries)}`,
     options: {
       method: "GET",
-      cache: "no-cache",
+      cache: "force-cache",
       next: { tags: [CONSTANT_TAG_CACHE.keywords] },
     },
   });

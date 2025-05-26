@@ -7,36 +7,35 @@ import { revalidateTag } from "next/cache";
 
 export async function create(payload: Partial<INote>) {
   const response = await callApiServerCookie<INote>({
-    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.KEYWORD}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.NOTE}`,
     options: {
       method: "POST",
       body: JSON.stringify(payload),
     },
   });
-  revalidateTag(CONSTANT_TAG_CACHE.keywords);
+  revalidateTag(CONSTANT_TAG_CACHE.notes);
   return response;
 }
 
 export async function update(id: string, payload: Partial<INote>) {
   const response = await callApiServerCookie<INote>({
-    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.KEYWORD}/${id}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.NOTE}/$id}`,
     options: {
       method: "PATCH",
       body: JSON.stringify(payload),
     },
   });
-  revalidateTag(CONSTANT_TAG_CACHE.keywords);
-  revalidateTag(CONSTANT_TAG_CACHE.knowledge_s);
+  revalidateTag(CONSTANT_TAG_CACHE.notes);
   return response;
 }
 
 export async function findOneById(id: string) {
   const response = await callApiServerCookie<INote>({
-    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.KEYWORD}/${id}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.NOTE}/${id}`,
     options: {
       method: "GET",
       cache: "force-cache",
-      next: { tags: [CONSTANT_TAG_CACHE.keyword] },
+      next: { tags: [CONSTANT_TAG_CACHE.note] },
     },
   });
   return response;
@@ -45,12 +44,12 @@ export async function findOneById(id: string) {
 export async function findAll(queries: InterfaceCommon.IQueries<INote>) {
   const response = await callApiServerCookie<InterfaceCommon.IGetMulti<INote>>({
     url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${
-      CONSTANT_ROUTE.KEYWORD
+      CONSTANT_ROUTE.NOTE
     }${Utils.UtilConvert.convertObjectToString(queries)}`,
     options: {
       method: "GET",
-      cache: "no-cache",
-      next: { tags: [CONSTANT_TAG_CACHE.keywords] },
+      cache: "force-cache",
+      next: { tags: [CONSTANT_TAG_CACHE.notes] },
     },
   });
   return response;
@@ -58,13 +57,12 @@ export async function findAll(queries: InterfaceCommon.IQueries<INote>) {
 
 export async function deleteMulti(payload: string[]) {
   const response = await callApiServerCookie<InterfaceCommon.IGetMulti<INote>>({
-    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.KEYWORD}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.NOTE}`,
     options: {
       method: "DELETE",
       body: JSON.stringify(payload),
     },
   });
-  revalidateTag(CONSTANT_TAG_CACHE.keywords);
-  revalidateTag(CONSTANT_TAG_CACHE.knowledge_s);
+  revalidateTag(CONSTANT_TAG_CACHE.notes);
   return response;
 }

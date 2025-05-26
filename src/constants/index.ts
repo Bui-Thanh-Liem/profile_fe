@@ -23,4 +23,6 @@ export const CONSTANT_TAG_CACHE = {
   knowledge_s: "knowledge_s",
   customer: "customer",
   customers: "customers",
+  note: "note",
+  notes: "notes",
 };

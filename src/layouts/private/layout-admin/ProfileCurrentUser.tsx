@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import useCustomerStore from "@/stores/useCustomerStore";
 import { convertToMDY } from "@/utils/convertMDY";

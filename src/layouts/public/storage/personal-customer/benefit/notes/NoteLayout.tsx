@@ -82,6 +82,9 @@ export default function NoteLayout({
   return (
     <>
       <h1 className="text-center text-5xl">My Notes</h1>
+      <p>
+        You have {items?.length || 0}/{totalItems} events this month
+      </p>
       <Calendar
         cellRender={cellRender}
         onSelect={handleSelect}
@@ -91,7 +94,7 @@ export default function NoteLayout({
 
       {/*  */}
       <NoteAction
-        dataEdit={{}}
+        // dataEdit={{}}
         isOpen={isOpenAction}
         onClose={() => setIsOpenAction(false)}
       />

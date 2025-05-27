@@ -1,6 +1,6 @@
 "use client";
 
-import { showToastByString } from "@/utils/show-message.util";
+import { showMessageByString } from "@/utils/show-message.util";
 import { CopyOutlined } from "@ant-design/icons";
 import { javascript } from "@codemirror/lang-javascript";
 import CodeMirror from "@uiw/react-codemirror";
@@ -21,7 +21,7 @@ export function ModalCodeView({
   //
   const handleCopy = () => {
     navigator.clipboard.writeText(code).then(() => {
-      showToastByString("Copied !", "success");
+      showMessageByString("Copied !", "success");
     });
   };
 

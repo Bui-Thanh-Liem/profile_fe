@@ -1,14 +1,28 @@
 "use client";
-import { create, update } from "@/apis/role.api";
+import { create, update } from "@/apis/note";
 import { INote } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
-import { customerMessageErrorAntd } from "@/utils/customerMessageErrorAntd";
 import { showMessage } from "@/utils/show-message.util";
-import { Button, Form, Input, Modal } from "antd";
+import {
+  Button,
+  Card,
+  Col,
+  ColorPicker,
+  Form,
+  Input,
+  Modal,
+  Radio,
+  Row,
+  Select,
+  Space,
+  Switch,
+  Typography,
+} from "antd";
 import TextArea from "antd/es/input/TextArea";
-import { ValidateErrorEntity } from "rc-field-form/lib/interface";
+import { Enums } from "liemdev-profile-lib";
 import { useEffect, useTransition } from "react";
+const { Text } = Typography;
 
 export function NoteAction({
   dataEdit,
@@ -19,6 +33,7 @@ export function NoteAction({
   const idEdit = dataEdit?.id;
   const [roleActionForm] = Form.useForm<Partial<INote>>();
   const [isPending, startTransition] = useTransition();
+  const status = Object.values(Enums.EStatus);
 
   //
   useEffect(() => {
@@ -35,40 +50,24 @@ export function NoteAction({
   //
   function onSubmitForm() {
     startTransition(async () => {
-      try {
-        const formData = await roleActionForm.validateFields();
-        console.log("formData:::", formData);
+      const formData = await roleActionForm.validateFields();
+      console.log("formData:::", formData);
 
-        let res: TResponse<INote>;
-        if (idEdit) {
-          res = await update(idEdit, formData);
-        } else {
-          res = await create(formData);
-        }
-
-        //
-        if (res.statusCode !== 200) {
-          showMessage(res);
-          return;
-        }
-        showMessage(res);
-        handleCancel();
-        roleActionForm.resetFields();
-      } catch (error) {
-        const messages = customerMessageErrorAntd<INote>(
-          error as ValidateErrorEntity,
-          ["dataSources"]
-        );
-        console.log("messages:::", messages);
-
-        for (const mess of messages) {
-          showMessage({
-            statusCode: 422,
-            message: mess,
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          } as TResponse<any>);
-        }
+      let res: TResponse<INote>;
+      if (idEdit) {
+        res = await update(idEdit, formData);
+      } else {
+        res = await create(formData);
       }
+
+      //
+      if (res.statusCode !== 200) {
+        showMessage(res);
+        return;
+      }
+      showMessage(res);
+      handleCancel();
+      roleActionForm.resetFields();
     });
   }
 
@@ -118,13 +117,34 @@ export function NoteAction({
         layout="vertical"
         autoComplete="off"
       >
-        <Form.Item<INote>
-          label="Name"
-          name="name"
-          rules={[{ required: true, message: "Please input name!" }]}
-        >
-          <Input size="large" placeholder="Enter name" />
-        </Form.Item>
+        {/*  */}
+        <Row gutter={[12, 0]}>
+          <Col span={18}>
+            <Form.Item<INote>
+              label="Title"
+              name="title"
+              rules={[
+                { required: true, message: "Please input title!" },
+                { max: 60, message: "Maximum 60 character" },
+              ]}
+            >
+              <Input size="large" placeholder="Enter title" />
+            </Form.Item>
+          </Col>
+          <Col span={6}>
+            <Form.Item<INote>
+              label="Status"
+              name="status"
+              rules={[{ required: true, message: "Please select status!" }]}
+            >
+              <Select
+                size="large"
+                placeholder="Select status"
+                options={status?.map((sta) => ({ label: sta, value: sta }))}
+              />
+            </Form.Item>
+          </Col>
+        </Row>
 
         {/*  */}
         <Form.Item<INote>
@@ -134,6 +154,57 @@ export function NoteAction({
         >
           <TextArea rows={4} placeholder="Enter description" />
         </Form.Item>
+
+        {/*  */}
+        <Space direction="vertical" size="large" style={{ width: "100%" }}>
+          <Card size="small">
+            <Row justify="space-between" align="middle">
+              <Col>
+                <Text>Color</Text>
+              </Col>
+              <Col>
+                <Form.Item<INote>
+                  name="color"
+                  rules={[{ required: true, message: "Please select color!" }]}
+                >
+                  <ColorPicker size="large" />
+                </Form.Item>
+              </Col>
+            </Row>
+          </Card>
+
+          <Card size="small" title="Select shape">
+            <Row justify="space-between" align="middle">
+              <Col>
+                <Text>Shape</Text>
+              </Col>
+              <Col>
+                <Form.Item<INote>
+                  name="shape"
+                  rules={[{ required: true, message: "Please select shape!" }]}
+                >
+                  <Radio.Group defaultValue="dot" size="large">
+                    <Radio.Button value="dot">Dot</Radio.Button>
+                    <Radio.Button value="block">Block</Radio.Button>
+                  </Radio.Group>
+                </Form.Item>
+              </Col>
+            </Row>
+          </Card>
+
+          <Card size="small" title="Pin">
+            <Row justify="space-between" align="middle">
+              <Col>
+                <Text>Pin</Text>
+              </Col>
+              <Col>
+                <Form.Item<INote> name="pin">
+                  <Switch defaultChecked />
+                </Form.Item>
+              </Col>
+            </Row>
+          </Card>
+        </Space>
       </Form>
     </Modal>
   );

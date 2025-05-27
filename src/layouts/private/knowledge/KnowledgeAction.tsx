@@ -88,8 +88,10 @@ export function KnowledgeAction({
     if (setIsOpen) {
       setIsOpen(false);
       knowledgeActionForm.resetFields();
+      knowledgeActionForm.setFieldValue("code", undefined);
       if (onClose) {
         onClose();
+        setImageFile(null);
       }
     }
   }
@@ -120,7 +122,7 @@ export function KnowledgeAction({
             OK
           </Button>,
         ]}
-        width={600}
+        width={700}
       >
         <Form
           form={knowledgeActionForm}
@@ -139,9 +141,9 @@ export function KnowledgeAction({
                 rules={[
                   { required: true, message: "Please input name !" },
                   {
-                    max: 36,
+                    max: 46,
                     message:
-                      "Max length 36 character (an easy-to-understand word or phrase)",
+                      "Max length 46 character (an easy-to-understand word or phrase)",
                   },
                 ]}
               >
@@ -174,7 +176,7 @@ export function KnowledgeAction({
               size="large"
               mode="multiple"
               placeholder="Select key word"
-              maxCount={2}
+              maxCount={3}
               loading={loading}
             >
               {keywords?.items?.map((item) => (
@@ -186,7 +188,7 @@ export function KnowledgeAction({
           </Form.Item>
 
           <Form.Item<IKnowledge> label="Description" name="desc">
-            <TextArea rows={2} placeholder="Enter description" />
+            <TextArea rows={3} placeholder="Enter description" />
           </Form.Item>
 
           <div className="relative">

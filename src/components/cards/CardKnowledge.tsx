@@ -63,7 +63,7 @@ export function CardKnowledge({ item }: { item: IKnowledge }) {
   };
 
   return (
-    <Badge.Ribbon text={name || "Error"} placement="start" color="#4b5563">
+    <Badge.Ribbon text={name || "-"} placement="start" color="#4b5563">
       <Card
         hoverable
         cover={

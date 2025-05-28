@@ -1,8 +1,10 @@
 "use client";
 import { INote } from "@/interfaces/model.interface";
 import { IPropComponentLayout } from "@/interfaces/propsComponent.interface";
+import { convertToMDY } from "@/utils/convertMDY";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import type { CalendarProps } from "antd";
-import { Badge, Calendar, Tag } from "antd";
+import { Badge, Button, Calendar, Col, Modal, Row, Tag } from "antd";
 import type { Dayjs } from "dayjs";
 import { useEffect, useRef, useState } from "react";
 import { NoteAction } from "./NoteAction";
@@ -17,9 +19,12 @@ export default function NoteLayout({
   items,
   totalItems,
 }: IPropComponentLayout<INote>) {
+  const [isOpenView, setIsOpenView] = useState(false);
   const [isOpenAction, setIsOpenAction] = useState(false);
   const [selectDate, setSelectDate] = useState(new Date());
-  const [edit, setEdit] = useState<INote | undefined>(undefined);
+  const [itemSelected, setItemSelected] = useState<INote | undefined>(
+    undefined
+  );
   const isClickOnDateCell = useRef(false);
   console.log("totalItems:::", totalItems);
 
@@ -100,19 +105,21 @@ export default function NoteLayout({
 
   const handleSelect = (value: Dayjs) => {
     if (!isClickOnDateCell.current) {
+      setIsOpenAction(true);
       return; // Nếu không click vào cell ngày thì không mở
     }
 
-    setIsOpenAction(true);
     setSelectDate(new Date(value.toDate()));
   };
 
   const handleSelectNoteItem = (data: INote) => {
-    setEdit(data);
+    setIsOpenView(true);
+    setItemSelected(data);
+    setIsOpenView(true);
   };
 
   const handleClose = () => {
-    setEdit(undefined);
+    setItemSelected(undefined);
     setIsOpenAction(false);
   };
 
@@ -130,8 +137,55 @@ export default function NoteLayout({
       />
 
       {/*  */}
+      <Modal
+        open={Boolean(isOpenView && itemSelected)}
+        title={
+          <Row justify="space-between" align="middle">
+            <Col></Col>
+            <Col className="flex gap-6">
+              <Button
+                danger
+                shape="circle"
+                size="large"
+                icon={<DeleteOutlined />}
+              />
+              <Button
+                shape="circle"
+                size="large"
+                icon={<EditOutlined />}
+                onClick={() => setIsOpenAction(true)}
+              />
+            </Col>
+          </Row>
+        }
+        closeIcon={null}
+        footer={null}
+        maskClosable
+        onCancel={() => setIsOpenView(false)}
+      >
+        <Row>
+          <Col span={2}>
+            <div
+              className={`w-4 h-4`}
+              style={{ backgroundColor: itemSelected?.color }}
+            />
+          </Col>
+          <Col span={22}>
+            <h1 className="line-clamp-2">{itemSelected?.title}</h1>
+            <p className="text-gray-400 line-clamp-4">{itemSelected?.desc}</p>
+          </Col>
+        </Row>
+        <Row justify="space-between">
+          <Col></Col>
+          <Col>
+            <p>{convertToMDY(itemSelected?.createdAt as unknown as string)}</p>
+          </Col>
+        </Row>
+      </Modal>
+
+      {/*  */}
       <NoteAction
-        dataEdit={edit}
+        dataEdit={itemSelected}
         date={selectDate}
         isOpen={isOpenAction}
         onClose={handleClose}

@@ -27,7 +27,7 @@ import {
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { Enums } from "liemdev-profile-lib";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useTransition } from "react";
 const { Text } = Typography;
 
 export function NoteAction({
@@ -37,14 +37,14 @@ export function NoteAction({
   onClose,
   date,
 }: IPropBaseAction<INote> & { date: Date }) {
+  const idEdit = dataEdit?.id;
   const [noteActionForm] = Form.useForm<Partial<INote>>();
   const [isPending, startTransition] = useTransition();
   const [isPendingDelete, startTransitionDelete] = useTransition();
-  const [idEdit, setIdEdit] = useState<string | null>(null);
 
   //
   useEffect(() => {
-    if (dataEdit?.id) {
+    if (idEdit) {
       noteActionForm.setFieldsValue({
         title: dataEdit?.title,
         desc: dataEdit?.desc,
@@ -54,7 +54,6 @@ export function NoteAction({
         color: dataEdit?.color,
         pin: dataEdit?.pin,
       });
-      setIdEdit(dataEdit?.id);
     }
   }, [dataEdit, idEdit, noteActionForm]);
 
@@ -109,9 +108,8 @@ export function NoteAction({
   //
   function handleCancel() {
     if (setIsOpen) {
-      setIdEdit(null);
-      setIsOpen(false);
       noteActionForm.resetFields();
+      setIsOpen(false);
       if (onClose) {
         onClose();
       }

@@ -112,6 +112,7 @@ export default function NoteLayout({
   };
 
   const handleClose = () => {
+    setEdit(undefined);
     setIsOpenAction(false);
   };
 

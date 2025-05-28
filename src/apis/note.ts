@@ -19,7 +19,7 @@ export async function create(payload: Partial<INote>) {
 
 export async function update(id: string, payload: Partial<INote>) {
   const response = await callApiServerCookie<INote>({
-    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.NOTE}/$id}`,
+    url: `${process.env.NEXT_PUBLIC_SERVER_HOST}/api/v1/${CONSTANT_ROUTE.NOTE}/${id}`,
     options: {
       method: "PATCH",
       body: JSON.stringify(payload),

@@ -1,9 +1,14 @@
 "use client";
-import { create, update } from "@/apis/note";
+import { create, deleteMulti, update } from "@/apis/note";
 import { INote } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
 import { showMessage } from "@/utils/show-message.util";
+import {
+  CheckOutlined,
+  CloseOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
 import {
   Button,
   Card,
@@ -17,6 +22,7 @@ import {
   Select,
   Space,
   Switch,
+  Tag,
   Typography,
 } from "antd";
 import TextArea from "antd/es/input/TextArea";
@@ -29,45 +35,74 @@ export function NoteAction({
   isOpen = false,
   setIsOpen,
   onClose,
-}: IPropBaseAction<INote>) {
+  date,
+}: IPropBaseAction<INote> & { date: Date }) {
   const idEdit = dataEdit?.id;
-  const [roleActionForm] = Form.useForm<Partial<INote>>();
+  const [noteActionForm] = Form.useForm<Partial<INote>>();
   const [isPending, startTransition] = useTransition();
-  const status = Object.values(Enums.EStatus);
+  const [isPendingDelete, startTransitionDelete] = useTransition();
 
   //
   useEffect(() => {
     if (idEdit) {
-      roleActionForm.setFieldsValue({
+      noteActionForm.setFieldsValue({
         title: dataEdit?.title,
-        desc: dataEdit.desc,
-        date: dataEdit.date,
-        status: dataEdit.status,
+        desc: dataEdit?.desc,
+        date: dataEdit?.date,
+        shape: dataEdit?.shape,
+        status: dataEdit?.status,
+        color: dataEdit?.color,
+        pin: dataEdit?.pin,
       });
     }
-  }, [dataEdit, idEdit, roleActionForm]);
+  }, [dataEdit, idEdit, noteActionForm]);
 
   //
   function onSubmitForm() {
     startTransition(async () => {
-      const formData = await roleActionForm.validateFields();
-      console.log("formData:::", formData);
+      try {
+        const formData = await noteActionForm.validateFields();
+        formData.date = date;
+        console.log("formData:::", formData);
 
-      let res: TResponse<INote>;
-      if (idEdit) {
-        res = await update(idEdit, formData);
-      } else {
-        res = await create(formData);
-      }
+        let res: TResponse<INote>;
+        if (idEdit) {
+          res = await update(idEdit, formData);
+        } else {
+          res = await create(formData);
+        }
 
-      //
-      if (res.statusCode !== 200) {
+        //
         showMessage(res);
-        return;
+        if (res.statusCode !== 200) {
+          return;
+        }
+        handleCancel();
+        noteActionForm.resetFields();
+      } catch (error) {
+        console.log(error);
       }
-      showMessage(res);
-      handleCancel();
-      roleActionForm.resetFields();
+    });
+  }
+
+  //
+  function handleDelete() {
+    startTransitionDelete(async () => {
+      try {
+        if (idEdit) {
+          const res = await deleteMulti([idEdit]);
+
+          //
+          showMessage(res);
+          if (res.statusCode !== 200) {
+            return;
+          }
+
+          handleCancel();
+        }
+      } catch (error) {
+        console.log(error);
+      }
     });
   }
 
@@ -75,7 +110,7 @@ export function NoteAction({
   function handleCancel() {
     if (setIsOpen) {
       setIsOpen(false);
-      roleActionForm.resetFields();
+      noteActionForm.resetFields();
       if (onClose) {
         onClose();
       }
@@ -85,16 +120,26 @@ export function NoteAction({
   return (
     <Modal
       open={isOpen}
-      title={
-        <div className="text-center">
-          <p className="my-4">{`${idEdit ? "Edit" : "Create"} role`}</p>
-        </div>
-      }
       onOk={onSubmitForm}
       onCancel={handleCancel}
       centered
       footer={[
-        <Button key="cancel" danger onClick={handleCancel}>
+        <Button
+          key="delete"
+          danger
+          onClick={handleDelete}
+          icon={<DeleteOutlined />}
+          loading={isPendingDelete}
+          type="text"
+        >
+          Delete
+        </Button>,
+        <Button
+          key="cancel"
+          danger
+          onClick={handleCancel}
+          icon={<CloseOutlined />}
+        >
           Cancel
         </Button>,
         <Button
@@ -102,6 +147,7 @@ export function NoteAction({
           type="primary"
           onClick={onSubmitForm}
           loading={isPending}
+          icon={<CheckOutlined />}
         >
           OK
         </Button>,
@@ -109,9 +155,16 @@ export function NoteAction({
       width={700}
     >
       <Form
-        form={roleActionForm}
+        form={noteActionForm}
         name="user-action"
-        initialValues={{ remember: true }}
+        initialValues={{
+          name: "",
+          desc: "",
+          color: "#04befe",
+          shape: Enums.EShapeNote.DOT,
+          status: Enums.EStatus.PROCESSING,
+          pin: false,
+        }}
         onFinish={onSubmitForm}
         onFinishFailed={() => {}}
         layout="vertical"
@@ -125,22 +178,27 @@ export function NoteAction({
               name="title"
               rules={[
                 { required: true, message: "Please input title!" },
-                { max: 60, message: "Maximum 60 character" },
+                { max: 80, message: "Maximum 80 character" },
               ]}
             >
               <Input size="large" placeholder="Enter title" />
             </Form.Item>
           </Col>
           <Col span={6}>
-            <Form.Item<INote>
-              label="Status"
-              name="status"
-              rules={[{ required: true, message: "Please select status!" }]}
-            >
+            <Form.Item<INote> label="Status" name="status">
               <Select
                 size="large"
                 placeholder="Select status"
-                options={status?.map((sta) => ({ label: sta, value: sta }))}
+                filterOption={(input, option) =>
+                  (option?.label ?? "")
+                    .toString()
+                    .toLowerCase()
+                    .includes(input.toLowerCase())
+                }
+                options={Object.values(Enums.EStatus)?.map((sta) => ({
+                  label: <Tag color={sta.toLocaleLowerCase()}>{sta}</Tag>,
+                  value: sta,
+                }))}
               />
             </Form.Item>
           </Col>
@@ -157,17 +215,24 @@ export function NoteAction({
 
         {/*  */}
         <Space direction="vertical" size="large" style={{ width: "100%" }}>
-          <Card size="small">
+          <Card size="small" title="Select color">
             <Row justify="space-between" align="middle">
               <Col>
-                <Text>Color</Text>
+                <Text>Select color for your note</Text>
               </Col>
               <Col>
-                <Form.Item<INote>
-                  name="color"
-                  rules={[{ required: true, message: "Please select color!" }]}
-                >
-                  <ColorPicker size="large" />
+                <Form.Item<INote> name="color">
+                  <ColorPicker
+                    size="large"
+                    showText
+                    allowClear
+                    onChange={(color) => {
+                      noteActionForm.setFieldValue(
+                        "color",
+                        color.toHexString()
+                      );
+                    }}
+                  />
                 </Form.Item>
               </Col>
             </Row>
@@ -176,30 +241,34 @@ export function NoteAction({
           <Card size="small" title="Select shape">
             <Row justify="space-between" align="middle">
               <Col>
-                <Text>Shape</Text>
+                <Text>Make your notes stand out</Text>
               </Col>
               <Col>
-                <Form.Item<INote>
-                  name="shape"
-                  rules={[{ required: true, message: "Please select shape!" }]}
-                >
-                  <Radio.Group defaultValue="dot" size="large">
-                    <Radio.Button value="dot">Dot</Radio.Button>
-                    <Radio.Button value="block">Block</Radio.Button>
+                <Form.Item<INote> name="shape">
+                  <Radio.Group size="large" buttonStyle="solid">
+                    <Radio.Button value={Enums.EShapeNote.DOT}>
+                      {Enums.EShapeNote.DOT}
+                    </Radio.Button>
+                    <Radio.Button value={Enums.EShapeNote.BLOCK}>
+                      {Enums.EShapeNote.BLOCK}
+                    </Radio.Button>
                   </Radio.Group>
                 </Form.Item>
               </Col>
             </Row>
           </Card>
 
-          <Card size="small" title="Pin">
+          <Card size="small" title="Pin" className="mb-12">
             <Row justify="space-between" align="middle">
               <Col>
-                <Text>Pin</Text>
+                <Text>
+                  Pin your notes and get email notifications.{" "}
+                  <Tag color="success">recommended</Tag>
+                </Text>
               </Col>
               <Col>
-                <Form.Item<INote> name="pin">
-                  <Switch defaultChecked />
+                <Form.Item<INote> name="pin" valuePropName="checked">
+                  <Switch />
                 </Form.Item>
               </Col>
             </Row>

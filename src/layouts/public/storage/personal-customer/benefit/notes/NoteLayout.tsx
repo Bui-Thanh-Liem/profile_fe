@@ -1,11 +1,10 @@
 "use client";
 import { INote } from "@/interfaces/model.interface";
 import { IPropComponentLayout } from "@/interfaces/propsComponent.interface";
-import type { BadgeProps, CalendarProps } from "antd";
-import { Badge, Calendar } from "antd";
+import type { CalendarProps } from "antd";
+import { Badge, Calendar, Tag } from "antd";
 import type { Dayjs } from "dayjs";
-import { useState } from "react";
-import "./CalendarLayout.css"; // Đảm bảo đường dẫn đúng
+import { useEffect, useRef, useState } from "react";
 import { NoteAction } from "./NoteAction";
 
 const getMonthData = (value: Dayjs) => {
@@ -19,6 +18,24 @@ export default function NoteLayout({
   totalItems,
 }: IPropComponentLayout<INote>) {
   const [isOpenAction, setIsOpenAction] = useState(false);
+  const [selectDate, setSelectDate] = useState(new Date());
+  const [edit, setEdit] = useState<INote | undefined>(undefined);
+  const isClickOnDateCell = useRef(false);
+  console.log("totalItems:::", totalItems);
+
+  useEffect(() => {
+    const handleDocumentClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      // Xác định nếu phần tử được click là 1 cell ngày
+      isClickOnDateCell.current =
+        target.closest(".ant-picker-cell-inner") !== null;
+    };
+
+    document.addEventListener("mousedown", handleDocumentClick);
+    return () => {
+      document.removeEventListener("mousedown", handleDocumentClick);
+    };
+  }, []);
 
   const monthCellRender = (value: Dayjs) => {
     const num = getMonthData(value);
@@ -52,11 +69,18 @@ export default function NoteLayout({
             return null;
           }
           return (
-            <li key={item.id}>
-              <Badge
-                status={item.status.toLocaleLowerCase() as BadgeProps["status"]}
-                text={item.title}
-              />
+            <li
+              key={item.id}
+              className={`note-item mb-1 ${item.shape}`}
+              onClick={() => handleSelectNoteItem(item)}
+            >
+              <Tag color={item.status?.toLocaleLowerCase()}>
+                <Badge
+                  color={item.color}
+                  text={item.title}
+                  className="max-w-[116px] overflow-x-hidden"
+                />
+              </Tag>
             </li>
           );
         })}
@@ -75,16 +99,28 @@ export default function NoteLayout({
   };
 
   const handleSelect = (value: Dayjs) => {
+    if (!isClickOnDateCell.current) {
+      return; // Nếu không click vào cell ngày thì không mở
+    }
+
     setIsOpenAction(true);
-    console.log("Ngày được chọn:", value.format("MM-DD-YYYY"));
+    setSelectDate(new Date(value.toDate()));
+  };
+
+  const handleSelectNoteItem = (data: INote) => {
+    setEdit(data);
+  };
+
+  const handleClose = () => {
+    setIsOpenAction(false);
   };
 
   return (
     <>
       <h1 className="text-center text-5xl">My Notes</h1>
-      <p>
+      {/* <p className="mt-10">
         You have {items?.length || 0}/{totalItems} events this month
-      </p>
+      </p> */}
       <Calendar
         cellRender={cellRender}
         onSelect={handleSelect}
@@ -94,9 +130,11 @@ export default function NoteLayout({
 
       {/*  */}
       <NoteAction
-        // dataEdit={{}}
+        dataEdit={edit}
+        date={selectDate}
         isOpen={isOpenAction}
-        onClose={() => setIsOpenAction(false)}
+        onClose={handleClose}
+        setIsOpen={(val) => setIsOpenAction(val)}
       />
     </>
   );

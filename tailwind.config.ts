@@ -52,6 +52,9 @@ const config: Config = {
           },
         },
       },
+      fontFamily: {
+        mono: ["var(--font-roboto-mono)", "monospace"],
+      },
     },
   },
   plugins: [],

@@ -1,16 +1,13 @@
 import { findAll } from "@/apis/skill";
-import { ISkill } from "@/interfaces/model.interface";
-import { IPropPage } from "@/interfaces/propsPage.interface";
 import { SkillAdminLayout } from "@/layouts/private/ad/skill/Skill";
-import { handleSetDefaultQueries } from "@/utils/handleSetDefaultQueries";
 
-export default async function SkillPage({ searchParams }: IPropPage<ISkill>) {
-  const resSkills = await findAll(handleSetDefaultQueries(searchParams));
+export default async function SkillPage() {
+  const resSkill = await findAll({ page: "1", limit: "1e9" });
 
   return (
     <SkillAdminLayout
-      items={resSkills?.data?.items || []}
-      totalItems={resSkills?.data?.totalItems || 0}
+      items={resSkill?.data?.items || []}
+      totalItems={resSkill?.data?.totalItems || 0}
     />
   );
 }

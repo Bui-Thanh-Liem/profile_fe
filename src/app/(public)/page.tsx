@@ -21,7 +21,7 @@ export default function HomePage() {
           <h1 className="text-5xl font-bold text-foreground">
             My name&apos;s <HighlighText text="Bui Thanh Liem" />
           </h1>
-          <h1 className="text-2xl font-bold text-foreground">
+          <h1 className="text-2xl font-bold text-foreground mb-4">
             I&apos;m a{" "}
             <EnterTextAnimated
               texts={[

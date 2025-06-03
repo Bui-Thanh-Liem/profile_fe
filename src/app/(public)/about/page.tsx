@@ -1,9 +1,13 @@
 import { find } from "@/apis/about.api";
 import ButtonPrimary from "@/components/elements/ButtonPrimary";
-import HighlighText from "@/components/elements/HighlighText";
 import { ContactMe } from "@/layouts/public/ContactMe";
 import { setPrefixFile } from "@/utils/setPrefixFile";
-import { FileJpgOutlined } from "@ant-design/icons";
+import {
+  EnvironmentOutlined,
+  FileJpgOutlined,
+  MailOutlined,
+  PhoneOutlined,
+} from "@ant-design/icons";
 import { Col, Row } from "antd";
 import Image from "next/image";
 import { v4 } from "uuid";
@@ -26,17 +30,17 @@ async function AboutPage() {
           </>
           <a
             href="mailto:buithanhliem5073@gmail.com"
-            className="mt-6 mb-2 text-lg"
+            className="mt-6 mb-3 text-lg"
           >
-            <HighlighText text="Email: " />
+            <MailOutlined className="mr-2" />
             {email}
           </a>
-          <a href={`tel:${phone}`} className="mb-2 text-lg">
-            <HighlighText text="Phone: " />
+          <a href={`tel:${phone}`} className="mb-3 text-lg">
+            <PhoneOutlined className="mr-2" />
             {phone}
           </a>
-          <p className="mb-2 text-lg">
-            <HighlighText text="Place: " />
+          <p className="mb-3 text-lg">
+            <EnvironmentOutlined className="mr-2" />
             {address}
           </p>
           <a href="/CV_BuiThanhLiem.pdf" target="_blank" download={true}>
@@ -49,13 +53,13 @@ async function AboutPage() {
             </ButtonPrimary>
           </a>
         </Col>
-        <Col className="border-2 rounded-tl-[80px] rounded-br-[80px] border-solid border-primary shadow-xl shadow-primary overflow-hidden hover:shadow-none transition-all duration-500">
+        <Col className="border-2 rounded-tl-[80px] rounded-br-[80px] border-solid border-primary overflow-hidden">
           <Image
             width={343}
             height={487}
             src={setPrefixFile(image)}
             alt="LiemDev"
-            className="w-full h-auto"
+            className="w-full"
             unoptimized
           />
         </Col>

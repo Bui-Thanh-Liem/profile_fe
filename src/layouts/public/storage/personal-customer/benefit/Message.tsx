@@ -20,7 +20,7 @@ export function Message() {
         handleElement={<button ref={iconMessageRef} className="hidden" />}
         title="Message"
         header={<CommentOutlined style={{ fontSize: 32 }} />}
-        content={<div>Message content</div>}
+        content={<div>Coming soon...</div>}
       />
     </>
   );

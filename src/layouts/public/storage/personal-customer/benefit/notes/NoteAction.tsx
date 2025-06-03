@@ -1,14 +1,11 @@
 "use client";
-import { create, deleteMulti, update } from "@/apis/note";
+import { create, update } from "@/apis/note";
 import { INote } from "@/interfaces/model.interface";
 import { IPropBaseAction } from "@/interfaces/propsLayoutAction";
 import { TResponse } from "@/interfaces/response.interface";
+import { convertToMDY } from "@/utils/convertMDY";
 import { showMessage } from "@/utils/show-message.util";
-import {
-  CheckOutlined,
-  CloseOutlined,
-  DeleteOutlined,
-} from "@ant-design/icons";
+import { CheckOutlined, CloseOutlined } from "@ant-design/icons";
 import {
   Button,
   Card,
@@ -17,7 +14,6 @@ import {
   Form,
   Input,
   Modal,
-  Radio,
   Row,
   Select,
   Space,
@@ -40,7 +36,6 @@ export function NoteAction({
   const idEdit = dataEdit?.id;
   const [noteActionForm] = Form.useForm<Partial<INote>>();
   const [isPending, startTransition] = useTransition();
-  const [isPendingDelete, startTransitionDelete] = useTransition();
 
   //
   useEffect(() => {
@@ -49,11 +44,15 @@ export function NoteAction({
         title: dataEdit?.title,
         desc: dataEdit?.desc,
         date: dataEdit?.date,
-        shape: dataEdit?.shape,
+        isOutStand: dataEdit?.isOutStand,
         status: dataEdit?.status,
         color: dataEdit?.color,
         pin: dataEdit?.pin,
       });
+    }
+
+    if (!Boolean(idEdit)) {
+      noteActionForm.resetFields();
     }
   }, [dataEdit, idEdit, noteActionForm]);
 
@@ -85,27 +84,6 @@ export function NoteAction({
   }
 
   //
-  function handleDelete() {
-    startTransitionDelete(async () => {
-      try {
-        if (idEdit) {
-          const res = await deleteMulti([idEdit]);
-
-          //
-          showMessage(res);
-          if (res.statusCode !== 200) {
-            return;
-          }
-
-          handleCancel();
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    });
-  }
-
-  //
   function handleCancel() {
     if (setIsOpen) {
       noteActionForm.resetFields();
@@ -116,23 +94,17 @@ export function NoteAction({
     }
   }
 
+  const dateSelected = convertToMDY(
+    (idEdit ? dataEdit?.date : date) as unknown as string
+  );
   return (
     <Modal
+      title={<p className="text-center text-xl">{dateSelected}</p>}
       open={isOpen}
       onOk={onSubmitForm}
       onCancel={handleCancel}
       centered
       footer={[
-        <Button
-          key="delete"
-          danger
-          onClick={handleDelete}
-          icon={<DeleteOutlined />}
-          loading={isPendingDelete}
-          type="text"
-        >
-          Delete
-        </Button>,
         <Button
           key="cancel"
           danger
@@ -151,7 +123,8 @@ export function NoteAction({
           OK
         </Button>,
       ]}
-      width={700}
+      width={600}
+      zIndex={9999}
     >
       <Form
         form={noteActionForm}
@@ -160,7 +133,7 @@ export function NoteAction({
           name: "",
           desc: "",
           color: "#04befe",
-          shape: Enums.EShapeNote.DOT,
+          isOutStand: false,
           status: Enums.EStatus.PROCESSING,
           pin: false,
         }}
@@ -237,27 +210,20 @@ export function NoteAction({
             </Row>
           </Card>
 
-          <Card size="small" title="Select shape">
+          <Card size="small" title="Stand out">
             <Row justify="space-between" align="middle">
               <Col>
                 <Text>Make your notes stand out</Text>
               </Col>
               <Col>
-                <Form.Item<INote> name="shape">
-                  <Radio.Group size="large" buttonStyle="solid">
-                    <Radio.Button value={Enums.EShapeNote.DOT}>
-                      {Enums.EShapeNote.DOT}
-                    </Radio.Button>
-                    <Radio.Button value={Enums.EShapeNote.BLOCK}>
-                      {Enums.EShapeNote.BLOCK}
-                    </Radio.Button>
-                  </Radio.Group>
+                <Form.Item<INote> name="isOutStand" valuePropName="checked">
+                  <Switch />
                 </Form.Item>
               </Col>
             </Row>
           </Card>
 
-          <Card size="small" title="Pin" className="mb-12">
+          <Card size="small" title="Notifications" className="mb-12">
             <Row justify="space-between" align="middle">
               <Col>
                 <Text>

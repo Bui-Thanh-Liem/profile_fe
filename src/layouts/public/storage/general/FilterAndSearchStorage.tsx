@@ -76,7 +76,7 @@ export default function FilterAndSearchStorage() {
   }
 
   return (
-    <div className="h-16 w-[1200px] rounded-tl-[32px] rounded-br-[32px] border shadow-md bg-gray-second-app">
+    <div className="h-16 w-[1200px] rounded-tl-[32px] rounded-br-[32px] shadow-lg bg-gray-second-app">
       <div className="flex justify-between items-center h-full px-8">
         <Breadcrumb items={items} />
         <div className="flex items-center gap-4">

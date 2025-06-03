@@ -1,13 +1,14 @@
 "use client";
 import { INote } from "@/interfaces/model.interface";
 import { IPropComponentLayout } from "@/interfaces/propsComponent.interface";
-import { convertToMDY } from "@/utils/convertMDY";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+
+import { countNotesByStatus } from "@/utils/countNotesByStatus";
 import type { CalendarProps } from "antd";
-import { Badge, Button, Calendar, Col, Modal, Row, Tag } from "antd";
+import { Badge, Calendar, Tag } from "antd";
 import type { Dayjs } from "dayjs";
-import { useEffect, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { NoteAction } from "./NoteAction";
+import NoteView from "./NoteView";
 
 const getMonthData = (value: Dayjs) => {
   if (value.month() === 8) {
@@ -19,28 +20,16 @@ export default function NoteLayout({
   items,
   totalItems,
 }: IPropComponentLayout<INote>) {
-  const [isOpenView, setIsOpenView] = useState(false);
   const [isOpenAction, setIsOpenAction] = useState(false);
   const [selectDate, setSelectDate] = useState(new Date());
   const [itemSelected, setItemSelected] = useState<INote | undefined>(
     undefined
   );
-  const isClickOnDateCell = useRef(false);
+  const { errCount, processingCount, successCount, warningCount } = useMemo(
+    () => countNotesByStatus(items),
+    items
+  );
   console.log("totalItems:::", totalItems);
-
-  useEffect(() => {
-    const handleDocumentClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      // Xác định nếu phần tử được click là 1 cell ngày
-      isClickOnDateCell.current =
-        target.closest(".ant-picker-cell-inner") !== null;
-    };
-
-    document.addEventListener("mousedown", handleDocumentClick);
-    return () => {
-      document.removeEventListener("mousedown", handleDocumentClick);
-    };
-  }, []);
 
   const monthCellRender = (value: Dayjs) => {
     const num = getMonthData(value);
@@ -76,10 +65,17 @@ export default function NoteLayout({
           return (
             <li
               key={item.id}
-              className={`note-item mb-1 ${item.shape}`}
-              onClick={() => handleSelectNoteItem(item)}
+              className="mb-1"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleSelectNoteItem(value, item);
+              }}
             >
-              <Tag color={item.status?.toLocaleLowerCase()}>
+              <Tag
+                color={item.status?.toLocaleLowerCase()}
+                className={`${item.isOutStand && "animate-bounce"}`}
+              >
                 <Badge
                   color={item.color}
                   text={item.title}
@@ -100,88 +96,51 @@ export default function NoteLayout({
   };
 
   const onPanelChange = (newValue: Dayjs) => {
-    console.log("newValue:::", newValue);
+    console.log("newValue :::", newValue);
   };
 
-  const handleSelect = (value: Dayjs) => {
-    if (!isClickOnDateCell.current) {
-      setIsOpenAction(true);
-      return; // Nếu không click vào cell ngày thì không mở
-    }
-
+  const handleSelectDate = (value: Dayjs) => {
+    setIsOpenAction(true);
     setSelectDate(new Date(value.toDate()));
   };
 
-  const handleSelectNoteItem = (data: INote) => {
-    setIsOpenView(true);
+  const handleSelectNoteItem = (date: Dayjs, data: INote) => {
     setItemSelected(data);
-    setIsOpenView(true);
+    setSelectDate(new Date(date.toDate()));
   };
 
-  const handleClose = () => {
+  function handleClose() {
     setItemSelected(undefined);
     setIsOpenAction(false);
-  };
+  }
 
   return (
     <>
-      <h1 className="text-center text-5xl">My Notes</h1>
-      {/* <p className="mt-10">
-        You have {items?.length || 0}/{totalItems} events this month
-      </p> */}
+      <div className="mb-3">
+        <Tag color="error">Error {errCount}</Tag>
+        <Tag color="processing">Processing {processingCount}</Tag>
+        <Tag color="warning">Warning {warningCount}</Tag>
+        <Tag color="success">Success {successCount}</Tag>
+      </div>
+
+      {/*  */}
       <Calendar
         cellRender={cellRender}
-        onSelect={handleSelect}
-        className="mt-12 rounded-xl px-3 border border-primary shadow-md shadow-primary"
+        onSelect={handleSelectDate}
+        className="rounded-xl px-3 border border-primary shadow-md shadow-primary"
         onPanelChange={onPanelChange}
       />
 
       {/*  */}
-      <Modal
-        open={Boolean(isOpenView && itemSelected)}
-        title={
-          <Row justify="space-between" align="middle">
-            <Col></Col>
-            <Col className="flex gap-6">
-              <Button
-                danger
-                shape="circle"
-                size="large"
-                icon={<DeleteOutlined />}
-              />
-              <Button
-                shape="circle"
-                size="large"
-                icon={<EditOutlined />}
-                onClick={() => setIsOpenAction(true)}
-              />
-            </Col>
-          </Row>
-        }
-        closeIcon={null}
-        footer={null}
-        maskClosable
-        onCancel={() => setIsOpenView(false)}
-      >
-        <Row>
-          <Col span={2}>
-            <div
-              className={`w-4 h-4`}
-              style={{ backgroundColor: itemSelected?.color }}
-            />
-          </Col>
-          <Col span={22}>
-            <h1 className="line-clamp-2">{itemSelected?.title}</h1>
-            <p className="text-gray-400 line-clamp-4">{itemSelected?.desc}</p>
-          </Col>
-        </Row>
-        <Row justify="space-between">
-          <Col></Col>
-          <Col>
-            <p>{convertToMDY(itemSelected?.createdAt as unknown as string)}</p>
-          </Col>
-        </Row>
-      </Modal>
+      {itemSelected && (
+        <NoteView
+          note={itemSelected}
+          onclickEdit={() => {
+            setIsOpenAction(true);
+          }}
+          onCloseModal={handleClose}
+        />
+      )}
 
       {/*  */}
       <NoteAction

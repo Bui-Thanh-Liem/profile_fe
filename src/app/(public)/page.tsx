@@ -8,11 +8,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function HomePage() {
-  //
-  const classesImage =
-    "relative col-span-3 w-[400px] h-[400px] p-6 rounded-tl-[80px] rounded-br-[80px] border-2 border-solid border-primary shadow-md shadow-primary";
-
-  //
   return (
     <section className="flex h-screen">
       <Row className="m-auto w-[1200px] justify-between">
@@ -38,12 +33,12 @@ export default function HomePage() {
             </ButtonPrimary>
           </Link>
         </Col>
-        <Col className={classesImage}>
+        <Col className="relative col-span-3 w-[420px] h-[420px]">
           <Image
             src="/meWebp.webp"
             alt="LiemDev"
             fill
-            className={`${classesImage} absolute`}
+            className="absolute rounded-tl-[80px] rounded-br-[80px]"
           />
         </Col>
       </Row>

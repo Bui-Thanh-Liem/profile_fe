@@ -43,7 +43,7 @@ async function AboutPage() {
             <EnvironmentOutlined className="mr-2" />
             {address}
           </p>
-          <a href="/CV_BuiThanhLiem.pdf" target="_blank" download={true}>
+          <a href="/bui_thanh_liem.pdf" target="_blank" download={true}>
             <ButtonPrimary
               size="large"
               icon={<FileJpgOutlined />}
@@ -53,13 +53,13 @@ async function AboutPage() {
             </ButtonPrimary>
           </a>
         </Col>
-        <Col className="border-2 rounded-tl-[80px] rounded-br-[80px] border-solid border-primary overflow-hidden">
+        <Col>
           <Image
             width={343}
             height={487}
             src={setPrefixFile(image)}
             alt="LiemDev"
-            className="w-full"
+            className="border-2 rounded-tl-[80px] rounded-br-[80px] border-primary"
             unoptimized
           />
         </Col>

@@ -65,7 +65,7 @@ export function Notification() {
         handleElement={<button ref={iconNotificationRef} className="hidden" />}
         title="Notification"
         header={<NotificationOutlined style={{ fontSize: 32 }} />}
-        content={<div>Notification content</div>}
+        content={<div>Coming soon...</div>}
       />
     </>
   );

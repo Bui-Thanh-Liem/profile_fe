@@ -24,9 +24,7 @@ const config: Config = {
       },
       animation: {},
       keyframes: {},
-      fontFamily: {
-        mono: ["var(--font-roboto-mono)", "monospace"],
-      },
+      fontFamily: {},
     },
   },
   plugins: [],

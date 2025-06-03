@@ -27,7 +27,7 @@ export default function NoteLayout({
   );
   const { errCount, processingCount, successCount, warningCount } = useMemo(
     () => countNotesByStatus(items),
-    items
+    [items]
   );
   console.log("totalItems:::", totalItems);
 

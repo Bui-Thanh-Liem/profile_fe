@@ -8,12 +8,12 @@ import Captcha from "@/components/Captcha";
 import ButtonPrimary from "@/components/elements/ButtonPrimary";
 import Logo from "@/components/Logo";
 import { useBreakpoints } from "@/hooks/useBreakpoints";
-import { NotCompatibleLayout } from "@/layouts/public/storage/NotCompatible";
+import { NotCompatibleLayout } from "@/layouts/NotCompatible";
 import { FieldTypeLoginUser } from "@/types";
 import { showMessage } from "@/utils/show-message.util";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import useAuthStore from "../../../stores/useAuthStore";
 
 export default function Login() {
@@ -24,6 +24,19 @@ export default function Login() {
   const [isPending, startTransition] = useTransition();
   const { isMobileSmall, isMobileLarge, isDesktopSmall, isTablet } =
     useBreakpoints();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null;
+  }
+
+  //
+  if (isMobileSmall || isMobileLarge || isTablet || isDesktopSmall)
+    return <NotCompatibleLayout />;
 
   //
   async function handleLogin() {
@@ -46,10 +59,6 @@ export default function Login() {
       router.replace("/admin", { scroll: true });
     });
   }
-
-  //
-  if (isMobileSmall || isMobileLarge || isTablet || isDesktopSmall)
-    return <NotCompatibleLayout />;
 
   return (
     <div className="h-screen flex">

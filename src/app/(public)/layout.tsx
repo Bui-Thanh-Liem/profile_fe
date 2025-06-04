@@ -1,8 +1,9 @@
 "use client";
 import { useBreakpoints } from "@/hooks/useBreakpoints";
+import { NotCompatibleLayout } from "@/layouts/NotCompatible";
 import Footer from "@/layouts/public/footer/Footer";
 import NavBar from "@/layouts/public/navbar/NavBar";
-import { NotCompatibleLayout } from "@/layouts/public/storage/NotCompatible";
+import { useEffect, useState } from "react";
 import "./layout.css";
 
 export default function PublicLayout({
@@ -12,6 +13,15 @@ export default function PublicLayout({
 }>) {
   const { isMobileSmall, isMobileLarge, isDesktopSmall, isTablet } =
     useBreakpoints();
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  if (!isClient) {
+    return null;
+  }
 
   if (isMobileSmall || isMobileLarge || isTablet || isDesktopSmall)
     return <NotCompatibleLayout />;

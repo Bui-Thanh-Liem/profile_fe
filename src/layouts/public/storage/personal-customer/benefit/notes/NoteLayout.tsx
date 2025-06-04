@@ -1,20 +1,19 @@
 "use client";
 import { INote } from "@/interfaces/model.interface";
 import { IPropComponentLayout } from "@/interfaces/propsComponent.interface";
-
 import { countNotesByStatus } from "@/utils/countNotesByStatus";
 import type { CalendarProps } from "antd";
 import { Badge, Calendar, Tag } from "antd";
 import type { Dayjs } from "dayjs";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { NoteAction } from "./NoteAction";
 import NoteView from "./NoteView";
 
-const getMonthData = (value: Dayjs) => {
-  if (value.month() === 8) {
-    return 1394;
-  }
-};
+// const getMonthData = (value: Dayjs) => {
+//   if (value.month() === 8) {
+//     return 1394;
+//   }
+// };
 
 export default function NoteLayout({
   items,
@@ -29,17 +28,17 @@ export default function NoteLayout({
     () => countNotesByStatus(items),
     [items]
   );
-  console.log("totalItems:::", totalItems);
+  const isPanelChangeRef = useRef(false);
 
-  const monthCellRender = (value: Dayjs) => {
-    const num = getMonthData(value);
-    return num ? (
-      <div className="notes-month">
-        <section>{num}</section>
-        <span>Backlog number</span>
-      </div>
-    ) : null;
-  };
+  // const monthCellRender = (value: Dayjs) => {
+  //   const num = getMonthData(value);
+  //   return num ? (
+  //     <div className="notes-month">
+  //       <section>{num}</section>
+  //       <span>Backlog number</span>
+  //     </div>
+  //   ) : null;
+  // };
 
   const dateCellRender = (value: Dayjs) => {
     const DInCalendar = value.date();
@@ -91,15 +90,20 @@ export default function NoteLayout({
 
   const cellRender: CalendarProps<Dayjs>["cellRender"] = (current, info) => {
     if (info.type === "date") return dateCellRender(current);
-    if (info.type === "month") return monthCellRender(current);
+    // if (info.type === "month") return monthCellRender(current);
     return info.originNode;
   };
 
   const onPanelChange = (newValue: Dayjs) => {
+    isPanelChangeRef.current = true;
     console.log("newValue :::", newValue);
   };
 
   const handleSelectDate = (value: Dayjs) => {
+    if (isPanelChangeRef.current) {
+      isPanelChangeRef.current = false;
+      return;
+    }
     setIsOpenAction(true);
     setSelectDate(new Date(value.toDate()));
   };
@@ -121,6 +125,8 @@ export default function NoteLayout({
         <Tag color="processing">Processing {processingCount}</Tag>
         <Tag color="warning">Warning {warningCount}</Tag>
         <Tag color="success">Success {successCount}</Tag>
+        <span>/ </span>
+        <Tag>Total {totalItems}</Tag>
       </div>
 
       {/*  */}

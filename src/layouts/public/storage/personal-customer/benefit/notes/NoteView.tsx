@@ -61,6 +61,8 @@ function NoteView({ note, onCloseModal, onclickEdit }: IPropNoteView) {
               loading={isPendingDelete}
             />
             <Button
+              color="primary"
+              variant="outlined"
               shape="circle"
               icon={<EditOutlined />}
               onClick={onclickEdit}
@@ -84,7 +86,7 @@ function NoteView({ note, onCloseModal, onclickEdit }: IPropNoteView) {
           />
         </Col>
         <Col span={22}>
-          <h1 className="line-clamp-2">{note?.title}</h1>
+          <h1 className="line-clamp-2 text-xl">{note?.title}</h1>
           <p className="text-gray-400 line-clamp-4">{note?.desc}</p>
         </Col>
       </Row>
